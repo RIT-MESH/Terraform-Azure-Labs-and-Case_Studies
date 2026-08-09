@@ -1,0 +1,21 @@
+﻿variable "firewall_private_ip" { type = string }
+
+resource "azurerm_resource_group" "this" {
+  name     = "rg-fw-routing"
+  location = "eastus"
+}
+
+resource "azurerm_route_table" "this" {
+  name                = "rt-fw"
+  location            = azurerm_resource_group.this.location
+  resource_group_name = azurerm_resource_group.this.name
+
+  route {
+    name           = "to-firewall"
+    address_prefix = "0.0.0.0/0"
+    next_hop_type  = "VirtualAppliance"
+    next_hop_in_ip_address = var.firewall_private_ip
+  }
+}
+
+output "route_table_id" { value = azurerm_route_table.this.id }

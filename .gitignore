@@ -1,0 +1,32 @@
+﻿# Local Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfplan
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Sensitive variable files
+*.auto.tfvars
+*.auto.tfvars.json
+*tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform directories
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate.backup
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Azure credentials
+*.publishsettings
+*credentials*.json

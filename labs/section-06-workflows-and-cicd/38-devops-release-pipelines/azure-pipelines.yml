@@ -1,0 +1,58 @@
+﻿trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  terraformVersion: '1.5.7'
+  workingDirectory: 'labs/section-01-foundations/02-storage-account'
+
+stages:
+  - stage: Plan
+    jobs:
+      - job: Plan
+        steps:
+          - task: TerraformInstaller@1
+            inputs:
+              terraformVersion: '$(terraformVersion)'
+
+          - script: |
+              terraform init
+              terraform validate
+              terraform plan -input=false -out=tfplan
+            displayName: 'terraform init / validate / plan'
+            env:
+              ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+              ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+              ARM_TENANT_ID: $(ARM_TENANT_ID)
+            workingDirectory: $(workingDirectory)
+
+          - publish: $(workingDirectory)/tfplan
+            artifact: tfplan
+
+  - stage: Apply
+    dependsOn: Plan
+    jobs:
+      - job: Apply
+        steps:
+          - task: TerraformInstaller@1
+            inputs:
+              terraformVersion: '$(terraformVersion)'
+
+          - download: current
+            artifact: tfplan
+
+          - script: |
+              terraform init
+              terraform apply -auto-approve tfplan
+            displayName: 'terraform apply'
+            env:
+              ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+              ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+              ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+              ARM_TENANT_ID: $(ARM_TENANT_ID)
+            workingDirectory: $(workingDirectory)
