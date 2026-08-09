@@ -100,7 +100,7 @@ every lab listed — [`docs/lab-index.md`](docs/lab-index.md)
 ## 🗂 Repository layout
 
 ```
-terraform-azure-essentials/
+Terraform-Azure-Labs-and-Case_Studies/
 ├── docs/                      # Concept guides + the learning path + full lab index
 │   ├── prerequisites.md
 │   ├── learning-path.md
