@@ -23,6 +23,10 @@ from your first resource group all the way to landing zones and CI/CD.
 > **In a sentence:** clone this repo, run `terraform apply` in any lab folder, and watch
 > Azure resources appear. Then `terraform destroy` and move on to the next lab.
 
+> 🆕 **Never used Terraform before?** Read the step-by-step beginner guide first:
+> **[docs/how-to-run-a-lab.md](docs/how-to-run-a-lab.md)** — install the tools, run your
+> first lab successfully, understand what happened, and clean up so you don't get billed.
+
 ## ✨ What makes this repo different
 
 - 🎯 **Progressive** — six sections that build on each other, no giant leaps.
