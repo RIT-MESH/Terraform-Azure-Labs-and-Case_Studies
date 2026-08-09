@@ -1,15 +1,13 @@
 ﻿terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
 locals {
-  rg     = "rg-moved-block"
-  vnet   = "172.16.0.0/20"
-  snet   = "172.16.0.0/26"
+  rg   = "rg-moved-block"
+  vnet = "172.16.0.0/20"   # /20 = 4096 addresses (not the usual /16)
+  snet = "172.16.0.0/26"   # /26 = 64 addresses (not the usual /24)
 }
 
 resource "azurerm_resource_group" "this" {
@@ -31,7 +29,7 @@ resource "azurerm_subnet" "web" {
   address_prefixes     = [local.snet]
 }
 
-# The resource at its NEW address.
+# The storage account at its NEW address (this).
 resource "azurerm_storage_account" "this" {
   name                     = lower("stmoved${substr(md5(timestamp()), 0, 6)}")
   resource_group_name      = azurerm_resource_group.this.name
@@ -40,7 +38,9 @@ resource "azurerm_storage_account" "this" {
   account_replication_type = "LRS"
 }
 
-# Tell Terraform: anything previously managed as .legacy is now .this (no recreate).
+# `moved {}` tells Terraform: anything previously managed as .legacy is now .this.
+# Terraform updates the STATE address IN PLACE — no destroy/create of the real
+# resource. Remove this block after everyone has applied the rename.
 moved {
   from = azurerm_storage_account.legacy
   to   = azurerm_storage_account.this

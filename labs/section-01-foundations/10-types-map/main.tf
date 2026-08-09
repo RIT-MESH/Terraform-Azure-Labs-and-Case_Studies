@@ -2,7 +2,8 @@
   region = "eastus"
   rg     = "rg-map-foundation"
 
-  # A map keyed by role, each value is an object describing the subnet.
+  # A MAP: keys are meaningful ("web", "app", "data"); values are OBJECTS.
+  # Maps are ideal when you address things by role rather than by position.
   subnets = {
     web  = { prefix = "10.60.1.0/24", nsg = true }
     app  = { prefix = "10.60.2.0/24", nsg = true }
@@ -22,15 +23,17 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.60.0.0/16"]
 }
 
+# `for_each` over a map creates one resource per KEY. Inside the block, each.key
+# is the map key ("web"), each.value is the object ({prefix, nsg}).
 resource "azurerm_subnet" "this" {
-  for_each = local.subnets
-
-  name                 = "snet-${each.key}"
+  for_each             = local.subnets
+  name                 = "snet-${each.key}"            # e.g. snet-web
   resource_group_name  = azurerm_resource_group.this.name
   virtual_network_name = azurerm_virtual_network.this.name
   address_prefixes     = [each.value.prefix]
 }
 
+# A `for` over a map: k=key, s=value. Builds a map of name -> id.
 output "subnet_ids" {
   value = { for k, s in azurerm_subnet.this : k => s.id }
 }

@@ -1,15 +1,13 @@
 ﻿terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
 locals {
-  rg_name  = "rg-vnet-foundation"
-  region   = "eastus"
-  vnet     = "vnet-foundation"
+  rg_name = "rg-vnet-foundation"
+  region  = "eastus"
+  vnet    = "vnet-foundation"
 }
 
 resource "azurerm_resource_group" "this" {
@@ -17,15 +15,19 @@ resource "azurerm_resource_group" "this" {
   location = local.region
 }
 
+# A Virtual Network (VNet) is your private IP space inside Azure. address_space is a
+# LIST of CIDR blocks. Here we use one /16 (65k addresses).
 resource "azurerm_virtual_network" "this" {
   name                = local.vnet
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   address_space       = ["10.20.0.0/16"]
 
+  # Subnets defined INSIDE the VNet block. This is the quick way, but it's less
+  # flexible than defining each subnet as its own resource (see lab 12).
   subnet {
     name           = "snet-web"
-    address_prefix = "10.20.1.0/24"
+    address_prefix = "10.20.1.0/24"   # a subnet takes a slice of the VNet's space
   }
 
   subnet {

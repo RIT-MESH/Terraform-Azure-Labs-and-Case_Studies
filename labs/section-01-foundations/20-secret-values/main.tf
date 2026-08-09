@@ -1,12 +1,11 @@
-﻿variable "admin_password" {
+﻿# A sensitive variable is masked in plan/apply output. Pass it via tfvars
+# (gitignored), -var, or the TF_VAR_admin_password environment variable.
+variable "admin_password" {
   type      = string
   sensitive = true
 }
 
-variable "admin_username" {
-  type    = string
-  default = "azureadmin"
-}
+variable "admin_username" { type = string, default = "azureadmin" }
 
 locals {
   rg = "rg-secret-foundation"
@@ -42,6 +41,8 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# The password flows from the sensitive variable into the VM. It is never
+# printed in plain text in the terminal because the variable is sensitive.
 resource "azurerm_windows_virtual_machine" "web" {
   name                  = "vm-secret-01"
   location              = azurerm_resource_group.this.location

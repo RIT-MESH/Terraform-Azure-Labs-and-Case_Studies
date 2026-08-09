@@ -1,16 +1,17 @@
 ﻿terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
+# locals are great for: building names, and for tags you repeat on every resource.
 locals {
   region  = "eastus"
   project = "foundation"
-  rg_name = "rg-${local.project}-${local.region}"
+  rg_name = "rg-${local.project}-${local.region}"   # string interpolation builds the name
 
+  # A common tag map shared by all resources. merge() combines maps; later labs
+  # merge this with per-resource tags.
   common_tags = {
     project   = local.project
     managedby = "terraform"
@@ -21,7 +22,7 @@ locals {
 resource "azurerm_resource_group" "this" {
   name     = local.rg_name
   location = local.region
-  tags     = local.common_tags
+  tags     = local.common_tags   # apply the shared tags
 }
 
 resource "azurerm_virtual_network" "this" {
@@ -29,6 +30,7 @@ resource "azurerm_virtual_network" "this" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   address_space       = ["10.30.0.0/16"]
+  # merge() combines the common tags with one extra tag specific to this resource.
   tags                = merge(local.common_tags, { tier = "network" })
 }
 

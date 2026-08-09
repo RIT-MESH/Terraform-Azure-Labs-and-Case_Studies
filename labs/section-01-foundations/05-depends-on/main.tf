@@ -1,8 +1,6 @@
 ﻿terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
@@ -24,12 +22,13 @@ resource "azurerm_storage_account" "this" {
   account_replication_type = "LRS"
 }
 
-# The container only references the storage account *name* as a string, not the resource
-# block. depends_on makes the order explicit.
+# The container below only references the storage account's NAME as a plain string,
+# so Terraform does NOT automatically know the account must exist first.
+# `depends_on` makes the order explicit (use sparingly — prefer a real reference).
 resource "azurerm_storage_container" "data" {
-  name                   = "data"
-  storage_account_name   = local.st_name
-  container_access_type  = "private"
+  name                  = "data"
+  storage_account_name  = local.st_name
+  container_access_type = "private"
 
   depends_on = [azurerm_storage_account.this]
 }

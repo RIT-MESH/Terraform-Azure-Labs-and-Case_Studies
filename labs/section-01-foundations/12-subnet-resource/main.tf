@@ -8,6 +8,7 @@ resource "azurerm_resource_group" "this" {
   location = local.region
 }
 
+# The VNet holds the address space but defines NO subnets here.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-separes"
   location            = azurerm_resource_group.this.location
@@ -15,6 +16,8 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.80.0.0/16"]
 }
 
+# Each subnet is its OWN resource. This is more flexible than inline subnets:
+# you can add NSGs, delegations, service endpoints, and peer per subnet.
 resource "azurerm_subnet" "web" {
   name                 = "snet-web"
   resource_group_name  = azurerm_resource_group.this.name

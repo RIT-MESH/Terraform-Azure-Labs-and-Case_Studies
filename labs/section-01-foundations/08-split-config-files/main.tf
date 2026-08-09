@@ -1,4 +1,5 @@
-﻿resource "azurerm_resource_group" "this" {
+﻿# main.tf — the actual resources (references locals from locals.tf).
+resource "azurerm_resource_group" "this" {
   name     = local.rg_name
   location = local.region
   tags     = local.common_tags

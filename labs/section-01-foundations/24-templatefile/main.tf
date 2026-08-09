@@ -1,8 +1,6 @@
 ﻿terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
@@ -12,7 +10,10 @@ locals {
   rg   = "rg-templatefile"
   vnet = "172.17.0.0/20"
   snet = "172.17.0.0/26"
-  # Render the template, injecting variables.
+
+  # templatefile(PATH, VARS) renders a file as a Terraform template, substituting
+  # the vars map. The template can use %{ for %} and ${ } just like interpolation.
+  # Keep big scripts OUT of .tf this way — cleaner and reusable.
   rendered = templatefile("${path.module}/cloud-init.tpl", {
     hostname = "web-templatefile"
     packages = ["nginx", "curl"]
@@ -49,6 +50,8 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# custom_data runs cloud-init on first boot. It MUST be base64-encoded; the
+# VM decodes it. Here we feed the rendered template.
 resource "azurerm_linux_virtual_machine" "web" {
   name                  = "vm-templatefile"
   location              = azurerm_resource_group.this.location
@@ -73,6 +76,4 @@ resource "azurerm_linux_virtual_machine" "web" {
   }
 }
 
-output "rendered_preview" {
-  value = substr(local.rendered, 0, 120)
-}
+output "rendered_preview" { value = substr(local.rendered, 0, 120) }

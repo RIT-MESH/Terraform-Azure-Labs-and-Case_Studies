@@ -1,4 +1,6 @@
-﻿#cloud-config
+﻿# This is a cloud-init config (not Terraform). Terraform's templatefile() reads
+# it and substitutes ${hostname} and the %{ for p in packages %} loop.
+#cloud-config
 hostname: ${hostname}
 package_update: true
 packages:

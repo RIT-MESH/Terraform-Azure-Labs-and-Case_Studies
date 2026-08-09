@@ -1,4 +1,5 @@
-﻿variable "location"    { type = string }
+﻿# Declare inputs (no defaults → they MUST be supplied via tfvars or -var).
+variable "location"    { type = string }
 variable "name_prefix" { type = string }
 variable "tier"        { type = string }
 

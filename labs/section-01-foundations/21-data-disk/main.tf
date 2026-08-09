@@ -1,7 +1,4 @@
-﻿variable "admin_password" {
-  type      = string
-  sensitive = true
-}
+﻿variable "admin_password" { type = string, sensitive = true }
 
 locals {
   rg = "rg-disk-foundation"
@@ -37,6 +34,8 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# The OS disk holds Windows itself. A DATA disk is separate storage for your
+# app data — it can be detached and re-attached to another VM later.
 resource "azurerm_windows_virtual_machine" "web" {
   name                  = "vm-disk-01"
   location              = azurerm_resource_group.this.location
@@ -57,6 +56,7 @@ resource "azurerm_windows_virtual_machine" "web" {
   }
 }
 
+# A managed disk: create_option = "Empty" makes a blank data disk.
 resource "azurerm_managed_disk" "data" {
   name                 = "disk-data-01"
   location             = azurerm_resource_group.this.location
@@ -66,6 +66,8 @@ resource "azurerm_managed_disk" "data" {
   disk_size_gb         = 32
 }
 
+# Attach the disk to the VM. `lun` is the Logical Unit Number (0-63) that
+# identifies the disk to the guest OS. Caching policy affects perf.
 resource "azurerm_virtual_machine_data_disk_attachment" "data" {
   managed_disk_id    = azurerm_managed_disk.data.id
   virtual_machine_id = azurerm_windows_virtual_machine.web.id
