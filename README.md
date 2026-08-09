@@ -2,7 +2,7 @@
 
 # 🌐 Terraform on Azure — Essentials
 
-**Learn infrastructure-as-code by doing — 110 hands-on labs, one concept at a time.**
+**Learn infrastructure-as-code by doing — 126 hands-on labs, one concept at a time.**
 
 A progressive, original journey through Terraform on Microsoft Azure:
 from your first resource group all the way to landing zones and CI/CD.
