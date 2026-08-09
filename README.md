@@ -58,42 +58,45 @@ Plus **5 reusable local modules** in [`modules/`](modules/) — `rg-only`, `vnet
 
 ## 🚀 Quickstart
 
-**1. Install the tools** (one-time)
+> First time with Terraform/Azure? Follow the full walkthrough:
+> **[docs/how-to-run-a-lab.md](docs/how-to-run-a-lab.md)**. The short version is below.
 
-- [Terraform](https://developer.hashicorp.com/terraform/downloads) ≥ 1.5
-- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) (`az`)
-- [Git](https://git-scm.com/)
+Run any lab in 4 steps — all commands run **inside the lab folder**.
 
-**2. Authenticate to Azure**
+**1. Install the tools (one time)**
+[Terraform](https://developer.hashicorp.com/terraform/downloads) ≥ 1.5 ·
+[Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) (`az`) ·
+[Git](https://git-scm.com/)
 
+**2. Sign in to Azure**
 ```bash
 az login
 az account set --subscription "<your-subscription-id>"
 ```
 
-**3. Pick any lab and run it**
-
+**3. Pick a lab and run it** (example: the simplest one)
 ```bash
 cd labs/section-01-foundations/02-storage-account
-terraform init      # download providers
-terraform plan       # preview the changes
-terraform apply      # create the resources (type 'yes')
+terraform init      # download providers (one time per lab)
+terraform plan      # preview the changes (creates nothing)
+terraform apply     # create the resources (type 'yes')
+terraform output    # see the returned values
 ```
 
-**4. Clean up when you're done** 💰
-
+**4. Clean up so you don't get billed** 💰
 ```bash
-terraform destroy
+terraform destroy   # type 'yes'
 ```
 
-> ⚠️ Labs create **real** Azure resources that can incur cost. Always destroy what you
-> create. The labs default to the cheapest SKUs (`Standard_B1s`, `Basic`, `B1`).
+> ⚠️ Labs create **real** Azure resources. Always `destroy` when finished. Labs default to
+> the cheapest SKUs (`Standard_B1s`, `Basic`, `B1`).
 
-Want the deeper setup (service principal for automation, VS Code extensions, region
-choice)? See [`docs/prerequisites.md`](docs/prerequisites.md).
+**The practice loop:** change a value in `main.tf` → `terraform plan` → read the diff →
+`terraform apply` → `terraform destroy`. That loop is the whole skill.
 
----
-
+📖 Deeper guides: full beginner walkthrough — [`docs/how-to-run-a-lab.md`](docs/how-to-run-a-lab.md) ·
+service principal & tooling — [`docs/prerequisites.md`](docs/prerequisites.md) ·
+every lab listed — [`docs/lab-index.md`](docs/lab-index.md)
 ## 🗂 Repository layout
 
 ```
@@ -101,6 +104,7 @@ terraform-azure-essentials/
 ├── docs/                      # Concept guides + the learning path + full lab index
 │   ├── prerequisites.md
 │   ├── learning-path.md
+│   ├── how-to-run-a-lab.md
 │   ├── lab-index.md
 │   └── concepts/              # providers, variables, state, modules
 ├── labs/
