@@ -1,66 +1,162 @@
-﻿# Terraform on Azure — Essentials
+﻿<div align="center">
 
-A hands-on, original learning repository that walks through **infrastructure-as-code with Terraform on Microsoft Azure**, from first principles to production-style landing zones and CI/CD.
+# 🌐 Terraform on Azure — Essentials
 
-> All code in this repository is **original work** written for educational purposes. It is **not** derived from any specific vendor course. Concepts covered overlap with popular Terraform-on-Azure curricula (resources, meta-arguments, modules, networking, databases, operations, CI/CD) but every file was authored fresh.
+**Learn infrastructure-as-code by doing — 110 hands-on labs, one concept at a time.**
 
-## Why this repository?
+A progressive, original journey through Terraform on Microsoft Azure:
+from your first resource group all the way to landing zones and CI/CD.
 
-- **Progressive** — six sections, each building on the previous one.
-- **Self-contained** — every lab folder is independently runnable (after `terraform init`).
-- **Best-practice oriented** — pinning, variable validation, outputs, sensible naming, remote state guidance.
-- **Original** — no copy-paste from third-party materials.
+</div>
 
-## Repository layout
+---
 
-```
-terraform-azure-essentials/
-├── docs/                 # Concept guides and the learning path
-├── labs/
-│   ├── section-01-foundations/          # Storage, VNet, NIC, IP, NSG, VM, vars, secrets
-│   ├── section-02-meta-arguments/        # count, for_each, availability, Key Vault, Bastion
-│   ├── section-03-web-apps-and-databases/# App Service, slots, SQL DB, MySQL
-│   ├── section-04-modules-and-networking/# Modules, LB, VMSS, Traffic Manager, peering, FW
-│   ├── section-05-operations-landing-zones/ # Monitor, Log Analytics, RBAC, locks, landing zone
-│   └── section-06-workflows-and-cicd/    # Workspaces, remote state, ACI, AKS, DevOps
-└── modules/              # Reusable local modules used by several labs
-```
+> **In a sentence:** clone this repo, run `terraform apply` in any lab folder, and watch
+> Azure resources appear. Then `terraform destroy` and move on to the next lab.
 
-## Prerequisites
+## ✨ What makes this repo different
 
-- [Terraform](https://developer.hashicorp.com/terraform/downloads) >= 1.5
+- 🎯 **Progressive** — six sections that build on each other, no giant leaps.
+- 🧩 **Self-contained** — every lab folder runs on its own after `terraform init`.
+- 🛡️ **Best-practice oriented** — provider pinning, variable validation, outputs,
+  sensible naming, remote state, and secrets handled the right way.
+- 🆕 **Original** — every file written from scratch. Not copied from any vendor course.
+  Same *concepts* you'll find in popular curricula, but our own code.
+
+---
+
+## 📦 What's inside
+
+| | Section | Labs | You'll learn |
+|---|---|:---:|---|
+| 1️⃣ | [**Foundations**](labs/section-01-foundations/) | 21 | Storage, blobs, references, VNet, subnets, NIC, public IP, NSG, VM, variables, outputs, secrets, data disks |
+| 2️⃣ | [**Meta-arguments & repetition**](labs/section-02-meta-arguments/) | 21 | `count`, `for_each`, availability sets/zones, Key Vault, data sources, dynamic blocks, provisioners, Bastion |
+| 3️⃣ | [**Web apps & databases**](labs/section-03-web-apps-and-databases/) | 16 | App Service & slots, lifecycle, tags, Azure SQL, MySQL, connecting apps to databases, VNet integration |
+| 4️⃣ | [**Modules & networking**](labs/section-04-modules-and-networking/) | 22 | Local modules, Load Balancer, VMSS w/ autoscale, Traffic Manager, VNet peering, App Gateway, Azure Firewall |
+| 5️⃣ | [**Operations & landing zones**](labs/section-05-operations-and-landing-zones/) | 12 | Azure Monitor, metric alerts, Log Analytics, RBAC, resource locks, a full Application Landing Zone |
+| 6️⃣ | [**Workflows & CI/CD**](labs/section-06-workflows-and-cicd/) | 9 | Multiple environments, workspaces, Git, remote state in Azure Storage, ACI, AKS, Azure DevOps pipelines |
+
+Plus **5 reusable local modules** in [`modules/`](modules/) — `rg-only`, `vnet`, `ip-nic`,
+`nsg`, and a full `vm-stack`.
+
+> Full table of every single lab: see [`docs/lab-index.md`](docs/lab-index.md).
+
+---
+
+## 🚀 Quickstart
+
+**1. Install the tools** (one-time)
+
+- [Terraform](https://developer.hashicorp.com/terraform/downloads) ≥ 1.5
 - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) (`az`)
-- An Azure subscription. Authenticate with:
+- [Git](https://git-scm.com/)
 
-  ```bash
-  az login
-  az account set --subscription "<your-subscription-id>"
-  ```
-
-See [docs/prerequisites.md](docs/prerequisites.md) for details, including the recommended **service principal** approach used in the first lab.
-
-## How to run a lab
-
-Each lab is self-contained. From a lab folder:
+**2. Authenticate to Azure**
 
 ```bash
-terraform init
-terraform plan
-terraform apply
+az login
+az account set --subscription "<your-subscription-id>"
 ```
 
-Clean up when done:
+**3. Pick any lab and run it**
+
+```bash
+cd labs/section-01-foundations/02-storage-account
+terraform init      # download providers
+terraform plan       # preview the changes
+terraform apply      # create the resources (type 'yes')
+```
+
+**4. Clean up when you're done** 💰
 
 ```bash
 terraform destroy
 ```
 
-> ⚠️ Running labs creates real Azure resources that may incur cost. Always `terraform destroy` when finished.
+> ⚠️ Labs create **real** Azure resources that can incur cost. Always destroy what you
+> create. The labs default to the cheapest SKUs (`Standard_B1s`, `Basic`, `B1`).
 
-## Learning path
+Want the deeper setup (service principal for automation, VS Code extensions, region
+choice)? See [`docs/prerequisites.md`](docs/prerequisites.md).
 
-Follow the sections in order, or jump to a topic using the table in [docs/learning-path.md](docs/learning-path.md).
+---
 
-## License
+## 🗂 Repository layout
 
-MIT — see [LICENSE](LICENSE).
+```
+terraform-azure-essentials/
+├── docs/                      # Concept guides + the learning path + full lab index
+│   ├── prerequisites.md
+│   ├── learning-path.md
+│   ├── lab-index.md
+│   └── concepts/              # providers, variables, state, modules
+├── labs/
+│   ├── section-01-foundations/
+│   ├── section-02-meta-arguments/
+│   ├── section-03-web-apps-and-databases/
+│   ├── section-04-modules-and-networking/
+│   ├── section-05-operations-and-landing-zones/
+│   └── section-06-workflows-and-cicd/
+└── modules/                   # Reusable local modules
+```
+
+Each lab folder contains its own `README.md` explaining the concept and exactly how to
+run it.
+
+---
+
+## 🧭 How to use this repo
+
+1. **Start at Section 1**, lab 1, and work forward. Each lab assumes the concepts from
+   the ones before it.
+2. **Read the lab's `README.md` first** — it tells you *what* you're building and *why*.
+3. **Run it**, then **modify it**. Change a value, `terraform plan`, and read the diff.
+   That feedback loop is where the real learning happens.
+4. **Destroy before you leave** a lab so the next one starts clean and your bill stays
+   near zero.
+
+Stuck or want the big picture? The concept guides in [`docs/concepts/`](docs/concepts/)
+explain the building blocks (providers, variables, state, modules).
+
+---
+
+## 👤 Who this is for
+
+- People learning Terraform who want to *apply* it, not just read about it.
+- Azure engineers wanting a hands-on reference for real resource patterns.
+- Anyone preparing for Terraform-on-Azure certifications who wants runnable examples.
+- Teams onboarding new members to IaC — each lab is a small, reviewable unit.
+
+You should be comfortable in a terminal and know roughly what a cloud resource is. No
+prior Terraform knowledge is assumed.
+
+---
+
+## 🔐 A note on secrets & state
+
+This repo is safe to clone and push — by design:
+
+- No real credentials are stored. Secrets live behind `sensitive = true` variables and
+  are supplied via `.tfvars` (gitignored) or environment variables.
+- State files (`*.tfstate`) are gitignored — they can contain secrets in plaintext.
+- The `.gitignore` blocks keys (`.pem`, `id_rsa`), env files, plan files, and Azure
+  auth JSON so they never accidentally get committed.
+
+> **Never commit your real `terraform.tfvars` or any private key.** If a secret ever does
+> get committed, treat it as compromised: rotate it, then remove it from git history.
+
+---
+
+## 📜 License
+
+[MIT](LICENSE) — use it, fork it, learn from it.
+
+---
+
+<div align="center">
+
+**110 labs · 6 sections · 5 modules · 0 secrets committed.**
+
+Made for learning. Built to be run.
+
+</div>
