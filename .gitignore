@@ -14,7 +14,7 @@ crash.*.log
 override.tf
 override.tf.json
 *_override.tf
-*_override.tf.json
+*_override.json
 
 # Terraform directories
 .terraform/
@@ -30,3 +30,19 @@ Thumbs.db
 # Azure credentials
 *.publishsettings
 *credentials*.json
+*.azureauth
+
+# Private keys / certificates
+*.pem
+*.ppk
+*.key
+id_rsa
+id_rsa.pub
+*_rsa
+
+# Env files
+.env
+.env.*
+
+# Azure CLI service principal JSON (often named *sp*.json)
+*sp*.json
