@@ -1,4 +1,5 @@
-﻿resource "azurerm_resource_group" "this" {
+﻿# RG + VNet + subnet + NSG (SSH allowed) + public IP + NIC.
+resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = "eastus"
 }
@@ -17,6 +18,7 @@ resource "azurerm_subnet" "web" {
   address_prefixes     = ["10.250.1.0/24"]
 }
 
+# NSG allows SSH (22). Tighten source_address_prefix to your IP in prod.
 resource "azurerm_network_security_group" "web" {
   name                = "nsg-deploy"
   location            = azurerm_resource_group.this.location
@@ -34,6 +36,7 @@ resource "azurerm_network_security_group" "web" {
   }
 }
 
+# A public IP so you can SSH in from the internet.
 resource "azurerm_public_ip" "web" {
   name                = "pip-deploy"
   location            = azurerm_resource_group.this.location
@@ -42,6 +45,7 @@ resource "azurerm_public_ip" "web" {
   sku                = "Standard"
 }
 
+# NIC bound to the subnet AND the public IP.
 resource "azurerm_network_interface" "web" {
   name                = "nic-deploy"
   location            = azurerm_resource_group.this.location

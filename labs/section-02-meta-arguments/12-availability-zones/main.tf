@@ -1,12 +1,21 @@
-﻿variable "admin_ssh_key" { type = string, sensitive = true }
+﻿# Lab 12 — Availability Zones.
+# Zones are physically separate datacenters with independent power. Pinning a VM
+# to a zone gives a 99.99% SLA. Here 3 VMs, one per zone (1, 2, 3).
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+}
+provider "azurerm" { features {} }
+
+variable "admin_ssh_key" { type = string, sensitive = true }
 
 locals {
-  zones = [1, 2, 3]
+  zones = [1, 2, 3]   # one VM per zone
 }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-availzones"
-  location = "eastus" # zones require a region that supports them
+  location = "eastus"   # zones need a region that supports them
 }
 
 resource "azurerm_virtual_network" "this" {
@@ -35,6 +44,7 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# zone = tostring(1/2/3) pins the VM to that zone. VM names reflect the zone.
 resource "azurerm_linux_virtual_machine" "web" {
   count               = length(local.zones)
   name                = "vm-az-${local.zones[count.index]}"

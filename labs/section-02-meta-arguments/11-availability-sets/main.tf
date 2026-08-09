@@ -1,14 +1,25 @@
-﻿variable "admin_ssh_key" { type = string, sensitive = true }
+﻿# Lab 11 — Availability Sets.
+# An Availability Set spreads VMs across fault domains (separate hardware) and
+# update domains (separate patch waves) within ONE datacenter → 99.95% SLA.
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+}
+provider "azurerm" { features {} }
+
+variable "admin_ssh_key" { type = string, sensitive = true }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-availset"
   location = "eastus"
 }
 
+# platform_fault_domain_count = how many fault domains (usually 2 or 3).
+# platform_update_domain_count = how many update domains (up to 20).
 resource "azurerm_availability_set" "web" {
-  name                = "as-web"
-  location            = azurerm_resource_group.this.location
-  resource_group_name = azurerm_resource_group.this.name
+  name                         = "as-web"
+  location                     = azurerm_resource_group.this.location
+  resource_group_name          = azurerm_resource_group.this.name
   platform_fault_domain_count  = 2
   platform_update_domain_count = 5
 }
@@ -39,6 +50,7 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# Both VMs share the SAME availability_set_id → they land in different fault/update domains.
 resource "azurerm_linux_virtual_machine" "web" {
   count               = 2
   name                = "vm-as-${count.index}"

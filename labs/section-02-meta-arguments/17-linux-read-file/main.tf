@@ -1,4 +1,15 @@
-﻿locals {
+﻿# Lab 17 — reading a local file with file() / fileexists().
+# file() and filebase64() read a file from the lab folder at plan/apply time.
+# Here we read a public SSH key from id_rsa.pub and feed it to the VM.
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+}
+provider "azurerm" { features {} }
+
+locals {
+  # fileexists() guards against the file being absent (avoids a hard error).
+  # If id_rsa.pub exists, read it; otherwise fall back to a placeholder.
   ssh_pubkey = fileexists("id_rsa.pub") ? file("id_rsa.pub") : "ssh-rsa REPLACE_ME"
 }
 
@@ -32,6 +43,7 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# admin_ssh_key uses the file contents read above.
 resource "azurerm_linux_virtual_machine" "web" {
   name                  = "vm-readfile"
   location              = azurerm_resource_group.this.location

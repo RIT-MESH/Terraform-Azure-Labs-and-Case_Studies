@@ -1,4 +1,5 @@
-﻿resource "azurerm_linux_virtual_machine" "web" {
+﻿# vm.tf — the VM, using the NIC from network.tf and the key from locals.tf.
+resource "azurerm_linux_virtual_machine" "web" {
   name                  = var.vm_name
   location              = azurerm_resource_group.this.location
   resource_group_name   = azurerm_resource_group.this.name

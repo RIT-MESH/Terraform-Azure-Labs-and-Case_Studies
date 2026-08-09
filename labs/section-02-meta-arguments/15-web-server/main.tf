@@ -1,6 +1,16 @@
-﻿variable "admin_ssh_key" { type = string, sensitive = true }
+﻿# Lab 15 — a web server built via cloud-init (custom_data).
+# Instead of a provisioner, install nginx at first boot with cloud-init —
+# idempotent and the Terraform-native way.
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+}
+provider "azurerm" { features {} }
+
+variable "admin_ssh_key" { type = string, sensitive = true }
 
 locals {
+  # <<-EOT ... EOT is a heredoc. The indent is stripped. This is cloud-init YAML.
   cloud_init = <<-EOT
     #cloud-config
     package_update: true
@@ -31,6 +41,7 @@ resource "azurerm_subnet" "web" {
   address_prefixes     = ["10.220.1.0/24"]
 }
 
+# NSG allowing HTTP (80) so the site is reachable.
 resource "azurerm_network_security_group" "web" {
   name                = "nsg-webserver"
   location            = azurerm_resource_group.this.location
@@ -68,6 +79,7 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# custom_data runs once at first boot. It MUST be base64-encoded.
 resource "azurerm_linux_virtual_machine" "web" {
   name                  = "vm-webserver"
   location              = azurerm_resource_group.this.location

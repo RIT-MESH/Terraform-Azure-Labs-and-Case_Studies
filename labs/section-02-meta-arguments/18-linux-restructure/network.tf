@@ -1,4 +1,5 @@
-﻿resource "azurerm_resource_group" "this" {
+﻿# network.tf — RG + VNet + subnet + NIC (grouped by concern).
+resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = "eastus"
 }

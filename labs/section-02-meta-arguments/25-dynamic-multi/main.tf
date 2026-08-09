@@ -1,10 +1,37 @@
-﻿terraform {
+﻿# Lab 25 — dynamic blocks at TWO levels in one resource.
+# An NSG with dynamic security_rule (from a list) AND a NIC with dynamic
+# ip_configuration (from a list) — all from variables, no code changes to extend.
+terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
+
+# Each entry → one security_rule block on the NSG.
+variable "rules" {
+  type = list(object({
+    name     = string
+    priority = number
+    port     = number
+  }))
+  default = [
+    { name = "Allow-SSH",   priority = 200, port = 22 },
+    { name = "Allow-HTTPS", priority = 210, port = 443 },
+  ]
+}
+
+# Each entry → one ip_configuration block on the NIC (multiple IPs).
+variable "ip_configs" {
+  type = list(object({
+    name      = string
+    primary   = bool
+    static_ip = string
+  }))
+  default = [
+    { name = "ipconfig-1", primary = true,  static_ip = "172.22.0.10" },
+    { name = "ipconfig-2", primary = false, static_ip = "172.22.0.11" },
+  ]
+}
 
 locals {
   rg   = "rg-dynamic-multi"
@@ -31,6 +58,7 @@ resource "azurerm_subnet" "web" {
   address_prefixes     = [local.snet]
 }
 
+# FIRST dynamic: security_rule blocks generated from var.rules.
 resource "azurerm_network_security_group" "web" {
   name                = "nsg-dynamic-multi"
   location            = azurerm_resource_group.this.location
@@ -52,6 +80,7 @@ resource "azurerm_network_security_group" "web" {
   }
 }
 
+# SECOND dynamic: ip_configuration blocks generated from var.ip_configs.
 resource "azurerm_network_interface" "web" {
   name                = "nic-dynamic-multi"
   location            = azurerm_resource_group.this.location
@@ -70,4 +99,5 @@ resource "azurerm_network_interface" "web" {
 }
 
 output "rule_names" { value = [for r in var.rules : r.name] }
+# A NIC with multiple IPs exposes them as a list: private_ip_addresses.
 output "nic_ips"    { value = azurerm_network_interface.web.private_ip_addresses }

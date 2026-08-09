@@ -1,8 +1,9 @@
-﻿terraform {
+﻿# Lab 24 — for_each over a data block (discovery pattern).
+# List existing resource groups, then iterate them. Governance: discover → act.
+# CAUTION: this reads existing RGs in your subscription. Run in a sandbox.
+terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
@@ -10,14 +11,14 @@ provider "azurerm" { features {} }
 data "azurerm_resource_groups" "existing" {}
 
 locals {
-  # Build a map of resource group name -> id for iteration.
+  # Build a map name -> id from the discovered list, for for_each.
   by_name = {
     for rg in data.azurerm_resource_groups.existing.resource_groups :
     rg.name => rg.id
   }
 }
 
-# Re-declare each existing RG (read-only here) so we can surface it as output.
+# Re-declare each existing RG as a data source so we can surface its attributes.
 data "azurerm_resource_group" "each" {
   for_each = local.by_name
   name     = each.key

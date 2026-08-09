@@ -1,18 +1,16 @@
-﻿variable "vm_count" {
-  type    = number
-  default = 2
+﻿# Lab 10 — multiple VMs with count, each with a matching NIC by index.
+# count.index threads through dependent resources so NIC[i] matches VM[i].
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
+provider "azurerm" { features {} }
 
+variable "vm_count"      { type = number, default = 2 }
 variable "admin_username" { type = string, default = "azureadmin" }
+variable "admin_ssh_key"  { type = string, sensitive = true }
 
-variable "admin_ssh_key" {
-  type      = string
-  sensitive = true
-}
-
-locals {
-  rg = "rg-multi-vms"
-}
+locals { rg = "rg-multi-vms" }
 
 resource "azurerm_resource_group" "this" {
   name     = local.rg
@@ -33,6 +31,7 @@ resource "azurerm_subnet" "web" {
   address_prefixes     = ["10.190.1.0/24"]
 }
 
+# count NICs match the VM count. nic-vm-0, nic-vm-1, ...
 resource "azurerm_network_interface" "web" {
   count               = var.vm_count
   name                = "nic-vm-${count.index}"
@@ -45,6 +44,7 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# VM[i] uses NIC[i]: azurerm_network_interface.web[count.index].
 resource "azurerm_linux_virtual_machine" "web" {
   count               = var.vm_count
   name                = "vm-web-${count.index}"
@@ -54,6 +54,7 @@ resource "azurerm_linux_virtual_machine" "web" {
   admin_username      = var.admin_username
   network_interface_ids = [azurerm_network_interface.web[count.index].id]
 
+  # admin_ssh_key injects your public key so you can SSH in (no password).
   admin_ssh_key {
     username   = var.admin_username
     public_key = var.admin_ssh_key

@@ -1,4 +1,13 @@
-﻿variable "admin_password" { type = string, sensitive = true }
+﻿# Lab 21 — Azure Bastion.
+# Bastion gives RDP/SSH over TLS (port 443) WITHOUT a public IP on the VM.
+# It needs a dedicated subnet literally named "AzureBastionSubnet", /26 or larger.
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+}
+provider "azurerm" { features {} }
+
+variable "admin_password" { type = string, sensitive = true }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-bastion"
@@ -12,6 +21,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.252.0.0/16"]
 }
 
+# The workload VM sits here — NO public IP.
 resource "azurerm_subnet" "vm" {
   name                 = "snet-vm"
   resource_group_name  = azurerm_resource_group.this.name
@@ -19,7 +29,7 @@ resource "azurerm_subnet" "vm" {
   address_prefixes     = ["10.252.1.0/24"]
 }
 
-# Bastion requires a subnet literally named AzureBastionSubnet, /26+.
+# Bastion REQUIRES this exact name and a /26+ prefix.
 resource "azurerm_subnet" "bastion" {
   name                 = "AzureBastionSubnet"
   resource_group_name  = azurerm_resource_group.this.name
@@ -27,6 +37,7 @@ resource "azurerm_subnet" "bastion" {
   address_prefixes     = ["10.252.2.0/26"]
 }
 
+# Bastion needs a public IP (for the 443 listener). The VM does NOT.
 resource "azurerm_public_ip" "bastion" {
   name                = "pip-bastion"
   location            = azurerm_resource_group.this.location
@@ -39,7 +50,6 @@ resource "azurerm_bastion_host" "this" {
   name                = "bas-secure-access"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
-
   ip_configuration {
     name                 = "ipconfig-bastion"
     subnet_id            = azurerm_subnet.bastion.id
@@ -47,6 +57,7 @@ resource "azurerm_bastion_host" "this" {
   }
 }
 
+# A private Windows VM (no public IP). Reach it via the Bastion from the portal.
 resource "azurerm_network_interface" "vm" {
   name                = "nic-bastion-vm"
   location            = azurerm_resource_group.this.location

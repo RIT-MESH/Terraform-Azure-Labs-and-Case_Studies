@@ -1,4 +1,14 @@
-﻿variable "admin_ssh_key" { type = string, sensitive = true }
+﻿# Lab 20 — Provisioners (LAST RESORT).
+# Provisioners run scripts at create/destroy time. They're not idempotent, not in
+# `plan`, and fail the run if they error. Prefer custom_data/cloud-init. This lab
+# shows a remote-exec over SSH just to demonstrate the mechanics.
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+}
+provider "azurerm" { features {} }
+
+variable "admin_ssh_key" { type = string, sensitive = true }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-provisioner"
@@ -78,7 +88,8 @@ resource "azurerm_linux_virtual_machine" "web" {
     version   = "latest"
   }
 
-  # Provisioner runs once, at create time, over SSH.
+  # The provisioner runs ONCE at create time, over SSH. `self` refers to the VM
+  # resource, so self.public_ip_address is this VM's public IP.
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update -y",

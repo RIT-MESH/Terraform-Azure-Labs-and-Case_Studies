@@ -1,4 +1,12 @@
-﻿locals {
+﻿# Lab 06 (assignment) — one NIC per tier, using for_each.
+# Shows deriving a map from a set with a `for` expression to compute CIDRs.
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+}
+provider "azurerm" { features {} }
+
+locals {
   tiers = toset(["web", "app", "data"])
 }
 
@@ -14,6 +22,8 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.160.0.0/16"]
 }
 
+# A `for` over a set produces a map: tier → "10.160.<i+1>.0/24".
+# i is the index, t the value. We build the CIDR per tier.
 resource "azurerm_subnet" "this" {
   for_each             = { for i, t in local.tiers : t => "10.160.${i + 1}.0/24" }
   name                 = "snet-${each.key}"
@@ -22,6 +32,8 @@ resource "azurerm_subnet" "this" {
   address_prefixes     = [each.value]
 }
 
+# for_each over the subnets map → one NIC per tier, each in its matching subnet.
+# each.value here is a subnet resource object (because we iterate the resource map).
 resource "azurerm_network_interface" "this" {
   for_each            = azurerm_subnet.this
   name                = "nic-${each.key}"
@@ -29,7 +41,7 @@ resource "azurerm_network_interface" "this" {
   resource_group_name = azurerm_resource_group.this.name
   ip_configuration {
     name                          = "ipconfig"
-    subnet_id                     = each.value.id
+    subnet_id                     = each.value.id   # the subnet's id
     private_ip_address_allocation = "Dynamic"
   }
 }
