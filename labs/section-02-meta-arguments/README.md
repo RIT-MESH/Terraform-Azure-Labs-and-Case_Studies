@@ -28,3 +28,10 @@ and secure access (Azure Bastion).
 19. [Linux machine — deployment](19-linux-deployment/)
 20. [Provisioners](20-provisioners/)
 21. [Azure Bastion](21-azure-bastion/)
+
+## Advanced labs
+
+22. [Conditional resources (feature flags)](22-conditional-resources/)
+23. [`flatten()` — nested structures into a list](23-flatten-matrix/)
+24. [`for_each` over a data source](24-for-data-sources/)
+25. [Dynamic blocks at multiple levels](25-dynamic-multi/)

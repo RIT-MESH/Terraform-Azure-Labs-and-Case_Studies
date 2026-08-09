@@ -34,3 +34,10 @@ outputs and tfvars.
 - A shared `terraform.tf` pins Terraform and the `azurerm` provider.
 - `locals.tf` holds derived names and tags.
 - Resources live in `main.tf` (small labs) or split files (larger labs).
+
+## Advanced labs
+
+22. [Importing existing resources (`terraform import`)](22-terraform-import/)
+23. [`moved` block — refactor without recreate](23-moved-block/)
+24. [`templatefile()` — render scripts](24-templatefile/)
+25. [`cidrsubnet` / `cidrhost` & `for`](25-cidrsubnet-for/)

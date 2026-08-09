@@ -24,3 +24,10 @@ firewall rules) and a MySQL server, and finally wire a web app to its database.
 16. [Mini project — configure MySQL](16-mysql-configure/)
 18. [Mini project — deploy the web app](18-web-app-deploy/)
 19. [Mini project — VNet integration](19-web-app-vnet-integration/)
+
+## Advanced labs
+
+20. [App Service auto-scale](20-app-service-autoscale/)
+21. [App Service source control (Git deploy)](21-app-service-source-control/)
+22. [Azure SQL with Entra ID admin](22-sql-entra-admin/)
+23. [MySQL — configuration & high availability](23-mysql-parameters/)

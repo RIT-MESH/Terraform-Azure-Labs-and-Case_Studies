@@ -27,3 +27,10 @@ Gateway and Azure Firewall.
 19. [Azure Firewall — NAT rule](19-firewall-nat-rule/)
 20. [Azure Firewall — application rule](20-firewall-app-rule/)
 21. [Using a registry module](21-registry-module/)
+
+## Advanced labs
+
+22. [Internal Load Balancer](22-internal-load-balancer/)
+23. [Application Gateway — path-based routing](23-app-gateway-path-routing/)
+24. [Application Gateway — SSL via Key Vault](24-app-gateway-ssl/)
+25. [Azure Firewall — policy-based](25-firewall-policy/)

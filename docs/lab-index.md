@@ -27,6 +27,10 @@ A complete, runnable index of every lab in the repository.
 | 19 | variable-definition-file | `terraform.tfvars` |
 | 20 | secret-values | `sensitive`, `TF_VAR_*`, tfvars secrets |
 | 21 | data-disk | managed disk + VM attachment |
+| 22 | terraform-import | `import` block & CLI import of existing resources |
+| 23 | moved-block | `moved` block — refactor address without recreate |
+| 24 | templatefile | `templatefile()` rendering a cloud-init template |
+| 25 | cidrsubnet-for | `cidrsubnet`/`cidrhost` to derive subnets & hosts |
 
 ## Section 2 — Meta-arguments (`labs/section-02-meta-arguments/`)
 
@@ -53,6 +57,10 @@ A complete, runnable index of every lab in the repository.
 | 19 | linux-deployment | deployable VM with public IP + NSG |
 | 20 | provisioners | `remote-exec` over SSH (last resort) |
 | 21 | azure-bastion | Bastion + private VM, `AzureBastionSubnet` |
+| 22 | conditional-resources | `count = var.enabled ? 1 : 0` feature flags |
+| 23 | flatten-matrix | `flatten()` — region×tier matrix into a subnet list |
+| 24 | for-data-sources | `for_each` over a `data` block (discovery) |
+| 25 | dynamic-multi | dynamic blocks at two levels (rules + ip configs) |
 
 ## Section 3 — Web apps and databases (`labs/section-03-web-apps-and-databases/`)
 
@@ -76,6 +84,10 @@ A complete, runnable index of every lab in the repository.
 | 16 | mysql-configure | MySQL database + client firewall |
 | 18 | web-app-deploy | app + MySQL + connection string |
 | 19 | web-app-vnet-integration | delegated subnet, regional VNet integration |
+| 20 | app-service-autoscale | App Service plan autoscale (CPU rules) |
+| 21 | app-service-source-control | deploy from a Git repo (source control) |
+| 22 | sql-entra-admin | SQL server with Microsoft Entra ID admin |
+| 23 | mysql-parameters | MySQL server config + zone-redundant HA |
 
 ## Section 4 — Modules and networking (`labs/section-04-modules-and-networking/`)
 
@@ -102,6 +114,10 @@ A complete, runnable index of every lab in the repository.
 | 19 | firewall-nat-rule | DNAT to a workload VM |
 | 20 | firewall-app-rule | L7 FQDN allow rules |
 | 21 | registry-module | consuming a public registry module |
+| 22 | internal-load-balancer | private-frontend internal LB |
+| 23 | app-gateway-path-routing | App Gateway path-based routing |
+| 24 | app-gateway-ssl | App Gateway SSL termination via Key Vault |
+| 25 | firewall-policy | Azure Firewall with a firewall policy |
 
 ## Section 5 — Operations and landing zones (`labs/section-05-operations-and-landing-zones/`)
 
@@ -119,6 +135,10 @@ A complete, runnable index of every lab in the repository.
 | 10 | landing-zone-database | SQL server + diagnostic setting |
 | 11 | landing-zone-keyvault | Key Vault with purge protection |
 | 12 | landing-zone-policy | built-in policy assignment |
+| 13 | custom-policy-definition | custom `azurerm_policy_definition` + assignment |
+| 14 | diagnostic-settings | stream logs to Log Analytics + storage archive |
+| 15 | activity-log-alert | activity log alert + webhook action group |
+| 16 | managed-identity-rbac | VM MI + least-privilege role assignment |
 
 ## Section 6 — Workflows and CI/CD (`labs/section-06-workflows-and-cicd/`)
 
@@ -133,6 +153,10 @@ A complete, runnable index of every lab in the repository.
 | 07 | container-instance | Azure Container Instance |
 | 08 | aks | AKS cluster with system pool |
 | 09 | devops-release-pipelines | Azure Pipelines YAML (plan → apply) |
+| 10 | remote-state-consume | `terraform_remote_state` data source |
+| 11 | github-actions | GitHub Actions CI (fmt/plan/apply) |
+| 12 | terraform-test | built-in `terraform test` framework |
+| 13 | moved-removed | `moved` + `removed` blocks for safe refactors |
 
 ## Reusable modules (`modules/`)
 

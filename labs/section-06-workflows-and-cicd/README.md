@@ -14,3 +14,10 @@ containers (Azure Container Instances, AKS) through Azure DevOps pipelines.
 7. [Azure Container Instance](07-container-instance/)
 8. [Azure Kubernetes Service](08-aks/)
 9. [Azure DevOps release pipelines](09-devops-release-pipelines/)
+
+## Advanced labs
+
+10. [`terraform_remote_state` — consume another stack](10-remote-state-consume/)
+11. [GitHub Actions CI](11-github-actions/)
+12. [`terraform test` framework](12-terraform-test/)
+13. [`moved` and `removed` blocks](13-moved-removed/)

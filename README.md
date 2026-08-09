@@ -11,7 +11,7 @@ from your first resource group all the way to landing zones and CI/CD.
 
 [![Terraform](https://img.shields.io/badge/Terraform-%E2%89%A5_1.5-7B42BC?logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform/)
 [![Azure](https://img.shields.io/badge/Microsoft_Azure-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/)
-[![Labs](https://img.shields.io/badge/labs-110-0078D4?style=flat)](docs/lab-index.md)
+[![Labs](https://img.shields.io/badge/labs-126-0078D4?style=flat)](docs/lab-index.md)
 [![Sections](https://img.shields.io/badge/sections-6-0078D4?style=flat)](#-whats-inside)
 [![Modules](https://img.shields.io/badge/reusable%20modules-5-6CC04A?style=flat)](modules/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
@@ -38,12 +38,12 @@ from your first resource group all the way to landing zones and CI/CD.
 
 | | Section | Labs | You'll learn |
 |---|---|:---:|---|
-| 1️⃣ | [**Foundations**](labs/section-01-foundations/) | 21 | Storage, blobs, references, VNet, subnets, NIC, public IP, NSG, VM, variables, outputs, secrets, data disks |
+| 1️⃣ | [**Foundations**](labs/section-01-foundations/) | 25 | Storage, blobs, references, VNet, subnets, NIC, public IP, NSG, VM, variables, outputs, secrets, data disks + advanced (import, moved, templatefile, cidrsubnet) |
 | 2️⃣ | [**Meta-arguments & repetition**](labs/section-02-meta-arguments/) | 21 | `count`, `for_each`, availability sets/zones, Key Vault, data sources, dynamic blocks, provisioners, Bastion |
-| 3️⃣ | [**Web apps & databases**](labs/section-03-web-apps-and-databases/) | 16 | App Service & slots, lifecycle, tags, Azure SQL, MySQL, connecting apps to databases, VNet integration |
-| 4️⃣ | [**Modules & networking**](labs/section-04-modules-and-networking/) | 22 | Local modules, Load Balancer, VMSS w/ autoscale, Traffic Manager, VNet peering, App Gateway, Azure Firewall |
-| 5️⃣ | [**Operations & landing zones**](labs/section-05-operations-and-landing-zones/) | 12 | Azure Monitor, metric alerts, Log Analytics, RBAC, resource locks, a full Application Landing Zone |
-| 6️⃣ | [**Workflows & CI/CD**](labs/section-06-workflows-and-cicd/) | 9 | Multiple environments, workspaces, Git, remote state in Azure Storage, ACI, AKS, Azure DevOps pipelines |
+| 3️⃣ | [**Web apps & databases**](labs/section-03-web-apps-and-databases/) | 22 | App Service & slots, lifecycle, tags, Azure SQL, MySQL, connecting apps to databases, VNet integration + advanced (autoscale, source control, Entra ID, MySQL HA) |
+| 4️⃣ | [**Modules & networking**](labs/section-04-modules-and-networking/) | 25 | Local modules, Load Balancer, VMSS w/ autoscale, Traffic Manager, VNet peering, App Gateway, Azure Firewall + advanced (internal LB, path routing, SSL, firewall policy) |
+| 5️⃣ | [**Operations & landing zones**](labs/section-05-operations-and-landing-zones/) | 16 | Azure Monitor, metric alerts, Log Analytics, RBAC, resource locks, a full Application Landing Zone + advanced (custom policy, diagnostics, activity alerts, managed identity) |
+| 6️⃣ | [**Workflows & CI/CD**](labs/section-06-workflows-and-cicd/) | 13 | Multiple environments, workspaces, Git, remote state in Azure Storage, ACI, AKS, Azure DevOps pipelines + advanced (remote_state, GitHub Actions, terraform test) |
 
 Plus **5 reusable local modules** in [`modules/`](modules/) — `rg-only`, `vnet`, `ip-nic`,
 `nsg`, and a full `vm-stack`.
@@ -164,7 +164,7 @@ This repo is safe to clone and push — by design:
 
 <div align="center">
 
-**110 labs · 6 sections · 5 modules · 0 secrets committed.**
+**126 labs · 6 sections · 5 modules · 0 secrets committed.**
 
 Made for learning. Built to be run.
 

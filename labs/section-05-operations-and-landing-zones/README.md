@@ -18,3 +18,10 @@ Zone** mini-project that ties them together.
 10. [Landing Zone — database](10-landing-zone-database/)
 11. [Landing Zone — Key Vault](11-landing-zone-keyvault/)
 12. [Landing Zone — Azure Policy](12-landing-zone-policy/)
+
+## Advanced labs
+
+13. [Custom policy definition + assignment](13-custom-policy-definition/)
+14. [Diagnostic settings](14-diagnostic-settings/)
+15. [Activity log alert + webhook](15-activity-log-alert/)
+16. [Managed identity + least-privilege RBAC](16-managed-identity-rbac/)
