@@ -1,12 +1,18 @@
-﻿terraform {
+﻿# Lab 21 — App Service source control (deploy from Git).
+# Wire the web app to a Git repo so Azure builds & deploys on every push.
+# For a PUBLIC repo a placeholder token is accepted; a private repo needs a PAT.
+terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
-# A token Azure uses to read the repo. For public repos a placeholder is accepted.
+variable "repo_url" {
+  type    = string
+  default = "https://github.com/Azure-Samples/nodejs-docs-hello-world"
+}
+variable "branch" { type = string, default = "main" }
+variable "deploy_token" { type = string, sensitive = true, default = "placeholder-for-public-repo" }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-appsourcecontrol"
@@ -31,6 +37,7 @@ resource "azurerm_linux_web_app" "this" {
   }
 }
 
+# source_control: Azure pulls from the repo on push (CI = false → Azure builds it).
 resource "azurerm_linux_web_app_source_control" "this" {
   app_id                 = azurerm_linux_web_app.this.id
   repo_url               = var.repo_url

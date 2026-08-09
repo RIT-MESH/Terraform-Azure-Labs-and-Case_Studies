@@ -1,4 +1,16 @@
-﻿locals {
+﻿# Lab 04 — Resource tags.
+# Tags drive cost reporting, billing, and automation. Standardize them in locals
+# and spread them with merge(). Changing var.environment retags everything.
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+}
+provider "azurerm" { features {} }
+
+variable "environment" { type = string, default = "dev" }
+
+locals {
+  # Common tags reused on every resource.
   common_tags = {
     environment = var.environment
     managedby   = "terraform"
@@ -18,6 +30,7 @@ resource "azurerm_storage_account" "this" {
   location                 = azurerm_resource_group.this.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+  # merge() combines common tags with one resource-specific tag.
   tags                     = merge(local.common_tags, { tier = "storage" })
 }
 

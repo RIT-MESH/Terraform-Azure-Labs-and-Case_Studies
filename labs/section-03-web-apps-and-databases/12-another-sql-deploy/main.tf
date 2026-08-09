@@ -1,4 +1,11 @@
-﻿variable "sql_admin_password" { type = string, sensitive = true }
+﻿# Lab 12 — two databases on one logical server, with a connection-string output.
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+}
+provider "azurerm" { features {} }
+
+variable "sql_admin_password" { type = string, sensitive = true }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-sql-two"
@@ -14,7 +21,7 @@ resource "azurerm_mssql_server" "this" {
   administrator_login_password = var.sql_admin_password
 }
 
-# Two databases share one server.
+# Two databases SHARING the same server (and admin).
 resource "azurerm_mssql_database" "app" {
   name      = "sqldb-app"
   server_id = azurerm_mssql_server.this.id
@@ -27,7 +34,8 @@ resource "azurerm_mssql_database" "reports" {
   sku_name  = "Basic"
 }
 
-output "server_fqdn"     { value = azurerm_mssql_server.this.fully_qualified_domain_name }
+output "server_fqdn" { value = azurerm_mssql_server.this.fully_qualified_domain_name }
+# A full ADO connection string you'd hand to an app. Sensitive so it's masked.
 output "app_conn_string" {
   value     = "Server=tcp:${azurerm_mssql_server.this.fully_qualified_domain_name},1433;Database=sqldb-app;User Id=sqladmin;Password=${var.sql_admin_password};"
   sensitive = true

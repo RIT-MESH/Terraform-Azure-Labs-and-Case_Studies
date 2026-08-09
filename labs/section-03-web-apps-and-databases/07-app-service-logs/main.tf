@@ -1,12 +1,20 @@
-﻿locals {
-  st = lower("stapplogs${substr(md5(timestamp()), 0, 5)}")
+﻿# Lab 07 — App Service logs.
+# Turn on App Service logging to a storage account + the filesystem. The `logs`
+# block streams http logs to blob storage and app logs to the file system.
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
+provider "azurerm" { features {} }
+
+locals { st = lower("stapplogs${substr(md5(timestamp()), 0, 5)}") }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-applogs"
   location = "eastus"
 }
 
+# Storage account to hold HTTP logs.
 resource "azurerm_storage_account" "logs" {
   name                     = local.st
   resource_group_name      = azurerm_resource_group.this.name
@@ -28,15 +36,15 @@ resource "azurerm_linux_web_app" "this" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   service_plan_id     = azurerm_service_plan.this.id
-
   site_config {
     application_stack { node_version = "18-lts" }
   }
 
+  # Logging config. http_logs → blob storage; application logs → filesystem.
   logs {
     http_logs {
       azure_blob_storage {
-        sas_url         = azurerm_storage_account.logs.primary_blob_connection_string
+        sas_url           = azurerm_storage_account.logs.primary_blob_connection_string
         retention_in_days = 7
       }
       file_system { retention_in_days = 1 }
