@@ -1,4 +1,8 @@
-﻿resource "azurerm_resource_group" "sec" {
+﻿# Lab 08 — Landing Zone: central logging.
+#  - A Log Analytics workspace (for querying) in the security RG.
+#  - A storage account + container (for long-term log archive).
+# Resources send logs to both via diagnostic settings (lab 14 shows the wiring).
+resource "azurerm_resource_group" "sec" {
   name     = "rg-lz-sec"
   location = "eastus"
 }

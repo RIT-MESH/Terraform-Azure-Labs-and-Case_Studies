@@ -1,4 +1,11 @@
-﻿variable "ssh_public_key" { type = string, sensitive = true }
+﻿# Lab 08 — Azure Kubernetes Service (AKS).
+# A managed Kubernetes cluster with a system node pool (1 node). Key bits:
+#  - identity { type = "SystemAssigned" }: AKS manages its own resources via MI.
+#  - default_node_pool: the initial node group (VM size, count, disk).
+#  - linux_profile + ssh_key: admin access to nodes.
+#  - network_profile: Azure CNI, a service CIDR, a DNS service IP.
+# After apply: az aks get-credentials -g rg-aks -n aks-cluster, then kubectl get nodes.
+variable "ssh_public_key" { type = string, sensitive = true }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-aks"

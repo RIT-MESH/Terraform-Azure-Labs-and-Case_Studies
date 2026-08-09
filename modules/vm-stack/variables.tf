@@ -1,4 +1,6 @@
-﻿variable "name_prefix" {
+﻿# variables.tf — the module's INPUT contract. Every input here is a knob a caller can set.
+# Validation (like the name_prefix regex) rejects bad inputs BEFORE plan.
+variable "name_prefix" {
   type        = string
   description = "Lowercase alphanumeric prefix, 3-10 chars."
 

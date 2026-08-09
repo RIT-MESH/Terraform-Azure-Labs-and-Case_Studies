@@ -1,4 +1,7 @@
-﻿variable "landing_zone_name" {
+﻿# Lab 06 — Landing Zone: resource groups.
+# The Azure landing-zone pattern separates concerns by RG: network, data, security.
+# We create three RGs sharing common tags, driven by a landing_zone_name variable.
+variable "landing_zone_name" {
   type    = string
   default = "app1"
 }

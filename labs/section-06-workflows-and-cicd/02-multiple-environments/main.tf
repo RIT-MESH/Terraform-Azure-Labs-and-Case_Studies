@@ -1,4 +1,9 @@
-﻿variable "environment" { type = string }
+﻿# Lab 02 — multiple environments via tfvars only (same code).
+# dev.tfvars and prod.tfvars set environment/location/replication differently.
+#  - terraform apply -var-file=dev.tfvars
+#  - terraform apply -var-file=prod.tfvars
+# replication_type uses a ternary: GRS for prod, LRS otherwise.
+variable "environment" { type = string }
 variable "location"    { type = string }
 variable "tags"        { type = map(string), default = {} }
 

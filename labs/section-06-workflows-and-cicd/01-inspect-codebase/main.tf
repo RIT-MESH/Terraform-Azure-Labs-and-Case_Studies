@@ -1,4 +1,8 @@
-﻿terraform {
+﻿# Lab 01 — inspect a code base before refactoring.
+# A tiny storage account you'll study. Try: terraform plan (see the diff preview),
+# terraform graph | dot -Tsvg > graph.svg (visualize the dependency graph).
+# `terraform graph` outputs DOT; pipe it to Graphviz to render.
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }

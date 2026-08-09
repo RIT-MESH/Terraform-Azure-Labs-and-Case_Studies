@@ -1,4 +1,9 @@
-﻿data "azurerm_client_config" "current" {}
+﻿# Lab 11 — Landing Zone: Key Vault.
+#  - A vault in the security RG; purge protection enabled (certs/secrets can't be
+#    hard-deleted for 7 days).
+#  - An access policy granting the current user Get/Set/Delete/Purge on secrets.
+#  - One stored secret (sql-admin-password) the app can pull at runtime.
+data "azurerm_client_config" "current" {}
 
 resource "azurerm_resource_group" "sec" {
   name     = "rg-lz-kv"

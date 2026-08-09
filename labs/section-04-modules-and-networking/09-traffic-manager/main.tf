@@ -1,4 +1,11 @@
-﻿locals {
+﻿# Lab 09 — Traffic Manager (DNS-based global load balancer).
+# Traffic Manager doesn't proxy traffic — it picks the best endpoint via DNS.
+#  - Two web apps in DIFFERENT regions (eastus, westeurope) on Basic plans.
+#  - A Traffic Manager profile with traffic_routing_method = "Performance"
+#    (sends each user to the lowest-latency endpoint).
+#  - One endpoint per web app (type = azureEndpoints, target_resource_id = the app).
+# Users hit the TM DNS name; TM returns the nearest region's app hostname.
+locals {
   regions = ["eastus", "westeurope"]
 }
 

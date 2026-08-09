@@ -1,4 +1,9 @@
-﻿variable "admin_ssh_key" { type = string, sensitive = true }
+﻿# Lab 16 — hub + workload VM for the Azure Firewall labs (17-20).
+#  - rg-fw with vnet-hub-fw (10.28.0.0/16).
+#  - AzureFirewallSubnet (10.28.0.0/26) — where the firewall will live.
+#  - a workload subnet + a Linux VM (the thing the firewall will protect/NAT to).
+# Outputs the workload/firewall subnet ids and vnet id for labs 17-20.
+variable "admin_ssh_key" { type = string, sensitive = true }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-fw"

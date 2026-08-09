@@ -1,4 +1,9 @@
-﻿variable "vm_resource_id" { type = string }
+﻿# Lab 02 — a metric alert + action group.
+#  - azurerm_monitor_action_group: WHO to notify (email receiver here).
+#  - azurerm_monitor_metric_alert: a rule on a metric (VM Percentage CPU > 80% for 5m).
+#    scopes = the VM resource id. When the rule fires, it triggers the action group.
+# Point var.vm_resource_id at a VM (e.g. the one from lab 01).
+variable "vm_resource_id" { type = string }
 variable "admin_email" { type = string }
 
 resource "azurerm_resource_group" "this" {

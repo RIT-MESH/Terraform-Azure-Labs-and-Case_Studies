@@ -1,4 +1,5 @@
-﻿resource "azurerm_resource_group" "this" {
+﻿# vnet module — RG + VNet + N subnets. subnets use count over parallel lists (subnet_prefixes/subnet_names) so the caller controls the layout.
+resource "azurerm_resource_group" "this" {
   name     = "rg-${var.name}"
   location = var.location
   tags     = var.tags

@@ -1,4 +1,7 @@
-﻿terraform {
+﻿# Lab 10 consumer — reads base/ state with data.terraform_remote_state (backend = local),
+# then creates a container in the storage account base created. No resource ids copied.
+
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }

@@ -1,4 +1,8 @@
-﻿resource "azurerm_resource_group" "net" {
+﻿# Lab 07 — Landing Zone: hub + two spoke VNets and hub→spoke peering.
+#  - vnet-lz-hub, vnet-lz-data, vnet-lz-sec.
+#  - peering from hub to each spoke (allow_forwarded_traffic so the hub can route).
+# (Full bidirectional peering would add spoke→hub rules too; this lab keeps it simple.)
+resource "azurerm_resource_group" "net" {
   name     = "rg-lz-net"
   location = "eastus"
 }

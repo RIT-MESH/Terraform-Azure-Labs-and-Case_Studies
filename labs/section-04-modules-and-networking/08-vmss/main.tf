@@ -1,4 +1,11 @@
-﻿variable "admin_ssh_key" { type = string, sensitive = true }
+﻿# Lab 08 — Virtual Machine Scale Set (VMSS) behind a public Load Balancer, with autoscale.
+# A VMSS deploys IDENTICAL VMs that scale automatically. Pieces here:
+#  - VNet + subnet for the VMSS.
+#  - public Standard LB (frontend IP, backend pool, probe, rule) — same as lab 07.
+#  - azurerm_linux_virtual_machine_scale_set: instances run nginx via cloud-init.
+#  - azurerm_monitor_autoscale_setting: scale OUT > 75% CPU, scale IN < 25%, 1→5 instances.
+# The scale set's NIC joins the LB backend pool via load_balancer_backend_address_pool_ids.
+variable "admin_ssh_key" { type = string, sensitive = true }
 
 locals {
   cloud_init = <<-EOT

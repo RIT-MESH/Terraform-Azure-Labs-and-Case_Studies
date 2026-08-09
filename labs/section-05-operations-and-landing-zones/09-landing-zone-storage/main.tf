@@ -1,4 +1,7 @@
-﻿resource "azurerm_resource_group" "data" {
+﻿# Lab 09 — Landing Zone: app storage.
+# A general-purpose v2 storage account with two private containers and TLS 1.2
+# enforced. Lives in the data RG; public blob access is OFF.
+resource "azurerm_resource_group" "data" {
   name     = "rg-lz-data"
   location = "eastus"
 }

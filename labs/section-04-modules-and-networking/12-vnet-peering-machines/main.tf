@@ -1,4 +1,8 @@
-﻿variable "admin_ssh_key" { type = string, sensitive = true }
+﻿# Lab 12 — one VM per VNet (so we can test connectivity after peering in lab 13).
+#  - hub: rg/VNet/subnet/NIC/VM in eastus (10.22.0.0/16).
+#  - spoke: rg/VNet/subnet/NIC/VM in westus2 (10.23.0.0/16).
+# After peering, the hub VM can ping the spoke VM's private IP.
+variable "admin_ssh_key" { type = string, sensitive = true }
 
 resource "azurerm_resource_group" "hub" {
   name     = "rg-peer-hub"

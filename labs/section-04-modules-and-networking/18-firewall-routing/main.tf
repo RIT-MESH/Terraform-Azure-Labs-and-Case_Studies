@@ -1,4 +1,9 @@
-﻿variable "firewall_private_ip" { type = string }
+﻿# Lab 18 — route workload traffic THROUGH the Azure Firewall.
+#  - azurerm_route_table with a route: 0.0.0.0/0 → next_hop_type = VirtualAppliance,
+#    next_hop_in_ip_address = the firewall's private IP (from lab 17).
+# Associate this table with the workload subnet → all its outbound traffic goes via
+# the firewall (which then applies its NAT/network/application rules).
+variable "firewall_private_ip" { type = string }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-fw-routing"

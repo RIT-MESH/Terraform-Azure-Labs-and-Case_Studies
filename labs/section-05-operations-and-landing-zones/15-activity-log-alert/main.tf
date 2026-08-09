@@ -1,4 +1,8 @@
-﻿terraform {
+﻿# Lab 15 — an ACTIVITY LOG alert + webhook action group.
+# Unlike a METRIC alert (numbers over time), activity-log alerts fire on control-plane
+# EVENTS. Here: when a resource group is deleted in the subscription. The action group
+# has a webhook receiver (point var.webhook_url at Slack/Teams or a requestbin).
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }

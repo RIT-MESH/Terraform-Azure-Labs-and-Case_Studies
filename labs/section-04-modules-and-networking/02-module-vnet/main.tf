@@ -1,20 +1,19 @@
-﻿terraform {
+﻿# Lab 02 — a module that creates RG + VNet + subnets. The caller passes the
+# address space and parallel subnet name/prefix lists.
+terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
 module "network" {
   source = "../../../modules/vnet"
-
-  name                = "vnet-modvnet"
-  location            = "eastus"
-  address_space       = ["10.11.0.0/16"]
-  subnet_prefixes     = ["10.11.1.0/24", "10.11.2.0/24"]
-  subnet_names        = ["web", "app"]
+  name            = "vnet-modvnet"
+  location        = "eastus"
+  address_space   = ["10.11.0.0/16"]
+  subnet_prefixes = ["10.11.1.0/24", "10.11.2.0/24"]   # one CIDR per subnet
+  subnet_names    = ["web", "app"]                     # paired with prefixes by index
 }
 
-output "vnet_id"      { value = module.network.vnet_id }
-output "subnet_ids"   { value = module.network.subnet_ids }
+output "vnet_id"    { value = module.network.vnet_id }
+output "subnet_ids" { value = module.network.subnet_ids }

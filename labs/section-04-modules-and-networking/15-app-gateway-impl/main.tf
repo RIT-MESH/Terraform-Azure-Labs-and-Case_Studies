@@ -1,4 +1,13 @@
-﻿variable "backend_ips" {
+﻿# Lab 15 — Application Gateway v2 (Layer 7) self-contained.
+# App Gateway is an L7 load balancer (path/cookie/WAF). Pieces:
+#  - VNet + appgw subnet (App Gateway lives in its own subnet).
+#  - public IP for the frontend.
+#  - sku Standard_v2 (the v2 line).
+#  - frontend_port (80), frontend_ip_configuration (uses the public IP).
+#  - backend_address_pool (IPs of the backend VMs, passed via var).
+#  - backend_http_settings (port 80, http).
+#  - http_listener (port 80) + request_routing_rule (listener → pool).
+variable "backend_ips" {
   type    = list(string)
   description = "Private IPs of the backend VMs from lab 25."
 }

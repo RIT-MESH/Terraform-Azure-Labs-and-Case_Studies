@@ -1,4 +1,8 @@
-﻿terraform {
+﻿# Lab 06 Part A — bootstrap the remote-state backend (run once).
+# Creates the RG, storage account, and tfstate container that the app config (Part B)
+# will point at. Outputs the names you pass to 	erraform init -backend-config=....
+
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }

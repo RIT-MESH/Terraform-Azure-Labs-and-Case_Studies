@@ -1,4 +1,9 @@
-﻿terraform {
+﻿# Lab 23 — App Gateway path-based routing.
+# One listener, three backend pools: /images/* → pool1, /video/* → pool2, default →
+# pool3. The url_path_map + path_rule blocks implement the routing. This is the
+# building block for hosting several services behind ONE domain/hostname.
+# VNet 172.24.0.0/20; appgw subnet 172.24.0.0/26; backends subnet 172.24.0.64/26.
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }

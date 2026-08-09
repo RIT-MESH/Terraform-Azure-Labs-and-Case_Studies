@@ -1,4 +1,11 @@
-﻿terraform {
+﻿# Lab 22 — an INTERNAL Load Balancer (private frontend IP).
+# Same shape as lab 07, but the LB frontend is a PRIVATE IP in a subnet, so the
+# load-balanced service is only reachable from inside the VNet (classic internal-API
+# pattern behind a public gateway/firewall).
+#  - VNet 172.23.0.0/20 with a backend subnet (172.23.0.0/26) and a frontend subnet
+#    (172.23.0.64/26) where the LB's private frontend IP (172.23.0.68) lives.
+#  - 2 backend VMs run nginx; the LB rule maps 80→80 with an HTTP probe.
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }

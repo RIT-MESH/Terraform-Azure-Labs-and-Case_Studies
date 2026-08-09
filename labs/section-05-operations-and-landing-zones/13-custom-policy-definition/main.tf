@@ -1,4 +1,8 @@
-﻿terraform {
+﻿# Lab 13 — author a CUSTOM Azure Policy definition + assign it.
+#  - azurerm_policy_definition: policyRule JSON — deny resource groups missing a
+#    "costcenter" tag. Stored at the subscription scope.
+#  - azurerm_resource_group_policy_assignment assigns the custom definition to an RG.
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }

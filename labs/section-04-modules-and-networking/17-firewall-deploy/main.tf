@@ -1,4 +1,10 @@
-﻿resource "azurerm_resource_group" "this" {
+﻿# Lab 17 — deploy an Azure Firewall.
+#  - rg-fw-deploy, vnet-hub-fw-deploy (10.29.0.0/16), AzureFirewallSubnet (10.29.0.0/26).
+#  - a public IP for the firewall's frontend.
+#  - azurerm_firewall with sku AZFW_VNet/Standard. The firewall's private IP comes
+#    from the AzureFirewallSubnet; lab 18 routes workload traffic to it.
+# Output: the firewall's private IP (used by the route table in lab 18).
+resource "azurerm_resource_group" "this" {
   name     = "rg-fw-deploy"
   location = "eastus"
 }

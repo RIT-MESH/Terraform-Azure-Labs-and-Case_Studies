@@ -1,4 +1,13 @@
-﻿terraform {
+﻿# Lab 25 — Azure Firewall with a Firewall Policy (the modern pattern).
+# Instead of rules attached to the firewall, rules live in a POLICY:
+#  - azurerm_firewall_policy (sku Standard).
+#  - azurerm_firewall_policy_rule_collection_group holding:
+#      * a nat_rule_collection (DNAT SSH to the workload),
+#      * a network_rule_collection (allow outbound NTP/UDP),
+#      * an application_rule_collection (allow FQDNs for the workload subnet).
+#  - the firewall references the policy with firewall_policy_id. Policies are
+#    versioned and reusable across many firewalls.
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }

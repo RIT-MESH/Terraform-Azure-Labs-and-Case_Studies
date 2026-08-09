@@ -1,4 +1,9 @@
-﻿variable "sql_admin_password" { type = string, sensitive = true }
+﻿# Lab 10 — Landing Zone: database.
+#  - A SQL logical server + database in the data RG.
+#  - A firewall rule (0.0.0.0) so Azure-internal apps can connect.
+#  - azurerm_monitor_diagnostic_setting streams SQL logs/metrics to the Log Analytics
+#    workspace from lab 08 (pass its id via var.log_workspace_id).
+variable "sql_admin_password" { type = string, sensitive = true }
 variable "log_workspace_id" { type = string }
 
 resource "azurerm_resource_group" "data" {

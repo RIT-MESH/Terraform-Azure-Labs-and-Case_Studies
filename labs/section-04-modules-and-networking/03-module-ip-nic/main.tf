@@ -1,24 +1,24 @@
-﻿terraform {
+﻿# Lab 03 — a module creating a public IP + NIC. It consumes a subnet id produced
+# by ANOTHER module (modules/vnet) → modules chain together.
+terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
+# First build the network (returns subnet ids).
 module "network" {
   source = "../../../modules/vnet"
-
   name            = "vnet-modip"
   location        = "eastus"
   address_space   = ["10.12.0.0/16"]
-  subnet_prefixes  = ["10.12.1.0/24"]
+  subnet_prefixes = ["10.12.1.0/24"]
   subnet_names    = ["web"]
 }
 
+# Then create a NIC in the first subnet, passing the RG name and subnet id.
 module "nic" {
   source = "../../../modules/ip-nic"
-
   name                = "nic-modip"
   location            = "eastus"
   resource_group_name = "rg-vnet-modip"

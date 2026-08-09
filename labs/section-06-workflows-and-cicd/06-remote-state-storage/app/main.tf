@@ -1,4 +1,9 @@
-﻿terraform {
+﻿# Lab 06 Part B — a config that USES the remote backend.
+# The backend block (azurerm) is declared inline; fill its values via
+# 	erraform init -backend-config=resource_group_name=... -backend-config=storage_account_name=... ...`r
+# Now state lives in Azure Storage (shared + locked), not on a laptop.
+
+terraform {
   required_version = ">= 1.5.0"
 
   required_providers {

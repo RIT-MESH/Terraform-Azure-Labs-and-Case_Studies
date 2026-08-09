@@ -1,4 +1,7 @@
-﻿variable "admin_ssh_key" { type = string, sensitive = true }
+﻿# Lab 01 — infrastructure to be MONITORED.
+# A small Linux VM that later labs attach alerts to. Nothing monitoring-specific here;
+# it's the workload under observation (CPU metric → alert in lab 02).
+variable "admin_ssh_key" { type = string, sensitive = true }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-monitor"

@@ -1,4 +1,5 @@
-﻿resource "azurerm_public_ip" "this" {
+﻿# ip-nic module — public IP + NIC bound to a provided subnet_id. Shows a module consuming an id produced by another module.
+resource "azurerm_public_ip" "this" {
   name                = "pip-${var.name}"
   location            = var.location
   resource_group_name = var.resource_group_name

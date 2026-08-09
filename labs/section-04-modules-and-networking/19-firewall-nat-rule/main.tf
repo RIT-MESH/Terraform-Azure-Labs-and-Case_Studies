@@ -1,4 +1,9 @@
-﻿variable "workload_private_ip" { type = string }
+﻿# Lab 19 — Azure Firewall DNAT (Destination NAT).
+#  - Build a firewall in AzureFirewallSubnet with a public IP.
+#  - nat_rule_collection with action = Dnat: inbound port 22 on the firewall's public
+#    IP → translated to the workload VM's port 22 (translated_address).
+# So you SSH to the FIREWALL's public IP and land on the (private) workload VM.
+variable "workload_private_ip" { type = string }
 
 resource "azurerm_resource_group" "this" {
   name     = "rg-fw-nat"

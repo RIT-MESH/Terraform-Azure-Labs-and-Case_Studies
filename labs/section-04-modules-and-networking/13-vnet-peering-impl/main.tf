@@ -1,4 +1,10 @@
-﻿resource "azurerm_resource_group" "this" {
+﻿# Lab 13 — bidirectional VNet peering.
+# Peering is NOT one resource — you need BOTH directions:
+#  - hub → spoke (allow_forwarded_traffic lets the hub route for the spoke).
+#  - spoke → hub.
+# After both exist, the VNets talk to each other by private IP. Both VNets are
+# in the SAME resource group here for simplicity (peering works cross-RG too).
+resource "azurerm_resource_group" "this" {
   name     = "rg-peer-impl"
   location = "eastus"
 }

@@ -1,4 +1,7 @@
-﻿run "plan_has_one_storage_account" {
+﻿# terraform test file. Each un block executes and the ssert blocks check values.
+# command = plan runs a plan (no real resources created) and inspects planned_values.
+
+run "plan_has_one_storage_account" {
   command = plan
 
   assert {

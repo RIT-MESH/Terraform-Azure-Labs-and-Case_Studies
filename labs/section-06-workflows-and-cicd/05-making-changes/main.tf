@@ -1,4 +1,8 @@
-﻿locals {
+﻿# Lab 05 — the change → plan → apply loop.
+# A storage account + container + a blob with source_content. Change the blob's
+# source_content, then `terraform plan` shows the in-place update — that diff is
+# how professionals review changes.
+locals {
   st = lower("stchange${substr(md5(timestamp()), 0, 6)}")
 }
 

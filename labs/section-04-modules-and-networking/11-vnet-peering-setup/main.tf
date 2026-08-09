@@ -1,4 +1,8 @@
-﻿resource "azurerm_resource_group" "hub" {
+﻿# Lab 11 — VNet peering setup (two VNets, one per region, no peering yet).
+#  - rg-hub (eastus) with vnet-hub (10.20.0.0/16) + snet-hub.
+#  - rg-spoke (westus2) with vnet-spoke (10.21.0.0/16) + snet-spoke.
+# Lab 13 will peer them (peering must reference both VNets).
+resource "azurerm_resource_group" "hub" {
   name     = "rg-hub"
   location = "eastus"
 }

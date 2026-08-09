@@ -1,8 +1,8 @@
-﻿terraform {
+﻿# Lab 05 — the full vm-stack module: RG → VNet → subnet → NSG → public IP → NIC → VM.
+# One `module` block stands up the whole stack.
+terraform {
   required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
-  }
+  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
 }
 provider "azurerm" { features {} }
 
@@ -10,8 +10,7 @@ variable "admin_ssh_key" { type = string, sensitive = true }
 
 module "stack" {
   source = "../../../modules/vm-stack"
-
-  name_prefix        = "modvm"
+  name_prefix        = "modvm"               # drives all resource names
   location           = "eastus"
   admin_ssh_key      = var.admin_ssh_key
   vnet_address_space = ["10.14.0.0/16"]

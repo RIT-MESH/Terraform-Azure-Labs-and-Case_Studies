@@ -1,4 +1,7 @@
-﻿resource "azurerm_resource_group" "this" {
+﻿# Lab 03 — a Log Analytics workspace.
+# A workspace collects logs/metrics from resources. Other resources send data here
+# via a diagnostic setting (see lab 14). sku PerGB2018 = pay per GB ingested.
+resource "azurerm_resource_group" "this" {
   name     = "rg-loganalytics"
   location = "eastus"
 }

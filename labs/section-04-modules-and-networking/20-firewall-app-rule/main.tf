@@ -1,4 +1,9 @@
-﻿resource "azurerm_resource_group" "this" {
+﻿# Lab 20 — Azure Firewall application (L7/FQDN) rules.
+#  - Build a firewall + AzureFirewallSubnet + public IP.
+#  - application_rule_collection (action = Allow): the workload subnet (10.32.1.0/26)
+#    may reach *.ubuntu.com and github.com over HTTP/HTTPS only. Other internet is
+#    denied → controlled egress by FQDN.
+resource "azurerm_resource_group" "this" {
   name     = "rg-fw-app"
   location = "eastus"
 }

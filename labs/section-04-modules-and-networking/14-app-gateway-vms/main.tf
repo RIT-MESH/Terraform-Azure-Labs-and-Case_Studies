@@ -1,4 +1,8 @@
-﻿variable "admin_ssh_key" { type = string, sensitive = true }
+﻿# Lab 14 — backend VMs for an Application Gateway (the pool lab 15 will use).
+#  - VNet (10.26.0.0/16) with an appgw subnet and a backends subnet.
+#  - 2 backend VMs running nginx (cloud-init) in the backends subnet.
+# Outputs the backend private IPs and the appgw subnet id, consumed by lab 15.
+variable "admin_ssh_key" { type = string, sensitive = true }
 
 locals {
   cloud_init = <<-EOT

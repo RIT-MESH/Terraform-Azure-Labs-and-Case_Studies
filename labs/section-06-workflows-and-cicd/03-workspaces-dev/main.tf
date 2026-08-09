@@ -1,4 +1,9 @@
-﻿terraform {
+﻿# Lab 03 — Terraform workspaces (one config, several state files).
+# terraform.workspace is the current workspace name (dev/prod/etc.).
+#  - terraform workspace new dev / select dev
+#  - names and SKU tiers derive from terraform.workspace.
+# Best for SAME-SHAPE environments. For different shapes, use separate directories.
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }

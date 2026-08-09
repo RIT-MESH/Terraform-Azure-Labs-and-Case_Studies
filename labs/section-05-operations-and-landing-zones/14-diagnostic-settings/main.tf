@@ -1,4 +1,8 @@
-﻿terraform {
+﻿# Lab 14 — diagnostic settings on a storage account.
+# azurerm_monitor_diagnostic_setting sends a resource's logs/metrics to a destination:
+# here a Log Analytics workspace. We also enable storage blob service logging.
+# This is the wiring that makes the central logging in lab 08 actually receive data.
+terraform {
   required_version = ">= 1.5.0"
   required_providers {
     azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
