@@ -7,6 +7,15 @@
 A progressive, original journey through Terraform on Microsoft Azure:
 from your first resource group all the way to landing zones and CI/CD.
 
+<br>
+
+[![Terraform](https://img.shields.io/badge/Terraform-%E2%89%A5_1.5-7B42BC?logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform/)
+[![Azure](https://img.shields.io/badge/Microsoft_Azure-0078D4?logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/)
+[![Labs](https://img.shields.io/badge/labs-110-0078D4?style=flat)](docs/lab-index.md)
+[![Sections](https://img.shields.io/badge/sections-6-0078D4?style=flat)](#-whats-inside)
+[![Modules](https://img.shields.io/badge/reusable%20modules-5-6CC04A?style=flat)](modules/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE)
+[![Status](https://img.shields.io/badge/status-learning%20ready-2EA44F?style=flat)](#-how-to-use-this-repo)
 </div>
 
 ---
