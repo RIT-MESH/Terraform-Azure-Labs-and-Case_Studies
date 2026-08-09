@@ -109,7 +109,7 @@ resource "azurerm_public_ip" "lb" {
 }
 
 resource "azurerm_lb" "this" {
-  name                = "lb-public"
+  name                = "lb-web-public"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   sku                 = "Standard"

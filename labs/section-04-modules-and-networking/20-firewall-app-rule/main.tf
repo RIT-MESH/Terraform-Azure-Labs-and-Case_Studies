@@ -26,7 +26,7 @@ resource "azurerm_public_ip" "fw" {
 }
 
 resource "azurerm_firewall" "this" {
-  name                = "azfw-app"
+  name                = "fw-app1-app"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   sku_name            = "AZFW_VNet"
