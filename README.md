@@ -114,7 +114,8 @@ terraform-azure-essentials/
 │   ├── section-04-modules-and-networking/
 │   ├── section-05-operations-and-landing-zones/
 │   └── section-06-workflows-and-cicd/
-└── modules/                   # Reusable local modules
+├── modules/                   # Reusable local modules
+└── case-studies/             # 15 enterprise case studies (mapped to the labs)
 ```
 
 Each lab folder contains its own `README.md` explaining the concept and exactly how to
@@ -146,6 +147,20 @@ explain the building blocks (providers, variables, state, modules).
 
 You should be comfortable in a terminal and know roughly what a cloud resource is. No
 prior Terraform knowledge is assumed.
+
+---
+
+## 📚 Enterprise case studies
+
+Fifteen real-world, enterprise-scale stories (ASOS, Mercedes-Benz, Carlsberg, Tetra Pak,
+Repsol, Co-op, 3M, Nationwide, L'Oréal, Carnival, Mars, Manulife, Fujitsu, Sainsbury's,
+PepsiCo) — each maps an enterprise challenge to the Terraform-on-Azure patterns and the
+**specific labs** in this repo. See [`case-studies/`](case-studies/README.md).
+
+> These write-ups were grounded via live web search of public sources (Microsoft Customer
+> Stories, HashiCorp customers) using the system CLI; they're educational summaries in our
+> own words, with the primary source linked at the bottom of each one. Verify specifics at
+> the linked vendor pages.
 
 ---
 
