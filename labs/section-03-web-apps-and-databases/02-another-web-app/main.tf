@@ -1,14 +1,4 @@
-﻿variable "existing_plan_name" {
-  type    = string
-  default = "asp-webapp"
-}
-
-variable "existing_rg_name" {
-  type    = string
-  default = "rg-webapp"
-}
-
-data "azurerm_service_plan" "this" {
+﻿data "azurerm_service_plan" "this" {
   name                = var.existing_plan_name
   resource_group_name = var.existing_rg_name
 }

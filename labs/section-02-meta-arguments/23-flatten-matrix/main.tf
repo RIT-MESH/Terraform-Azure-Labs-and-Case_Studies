@@ -6,16 +6,6 @@
 }
 provider "azurerm" { features {} }
 
-variable "regions" {
-  type    = list(string)
-  default = ["regionA", "regionB"]
-}
-
-variable "tiers" {
-  type    = list(string)
-  default = ["web", "app"]
-}
-
 locals {
   rg = "rg-flatten"
   region_cidr = {

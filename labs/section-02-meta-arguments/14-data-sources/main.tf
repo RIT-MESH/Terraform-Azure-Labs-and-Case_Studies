@@ -1,9 +1,4 @@
-﻿variable "existing_rg_name" {
-  type    = string
-  default = "rg-already-here"
-}
-
-# Read an existing resource group we do NOT manage here.
+﻿# Read an existing resource group we do NOT manage here.
 data "azurerm_resource_group" "existing" {
   name = var.existing_rg_name
 }

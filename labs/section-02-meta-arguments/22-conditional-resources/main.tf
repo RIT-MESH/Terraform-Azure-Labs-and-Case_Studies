@@ -6,11 +6,6 @@
 }
 provider "azurerm" { features {} }
 
-variable "deploy_nsg" {
-  type    = bool
-  default = true
-}
-
 locals {
   rg   = "rg-conditional"
   vnet = "172.19.0.0/20"

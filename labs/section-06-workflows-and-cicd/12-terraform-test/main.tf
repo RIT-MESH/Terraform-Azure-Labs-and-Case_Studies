@@ -6,11 +6,6 @@
 }
 provider "azurerm" { features {} }
 
-variable "tier" {
-  type    = string
-  default = "Standard"
-}
-
 resource "azurerm_resource_group" "this" {
   name     = "rg-tftest"
   location = "eastus"

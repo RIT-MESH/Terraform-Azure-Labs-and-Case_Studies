@@ -8,15 +8,6 @@ provider "azurerm" { features {} }
 
 data "azurerm_client_config" "current" {}
 
-variable "existing_sa_name" {
-  type        = string
-  description = "Storage account that already exists in Azure (created outside Terraform)."
-}
-
-variable "existing_rg_name" {
-  type = string
-}
-
 locals {
   # Build the Azure resource id of the pre-existing storage account.
   sa_id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${var.existing_rg_name}/providers/Microsoft.Storage/storageAccounts/${var.existing_sa_name}"

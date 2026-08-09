@@ -6,8 +6,6 @@
 }
 provider "azurerm" { features {} }
 
-variable "workload_private_ip" { type = string, default = "172.26.0.70" }
-
 resource "azurerm_resource_group" "this" {
   name     = "rg-fw-policy"
   location = "eastus"

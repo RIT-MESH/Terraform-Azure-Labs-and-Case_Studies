@@ -1,9 +1,4 @@
-﻿variable "environment" {
-  type    = string
-  default = "dev"
-}
-
-locals {
+﻿locals {
   common_tags = {
     environment = var.environment
     managedby   = "terraform"

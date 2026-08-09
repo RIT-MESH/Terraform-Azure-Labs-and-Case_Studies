@@ -10,11 +10,6 @@ locals {
   rg_name = "rg-refs-foundation"
 }
 
-variable "location" {
-  type    = string
-  default = "eastus"
-}
-
 resource "azurerm_resource_group" "core" {
   name     = local.rg_name        # local reference
   location = var.location        # variable reference
