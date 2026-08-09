@@ -81,65 +81,65 @@ A complete, runnable index of every lab in the repository.
 
 | # | Lab | Concepts |
 |---|---|---|
-| 05 | module-resource-group | first local module |
-| 06 | module-vnet | module with multiple subnets |
-| 07 | module-ip-nic | module consuming upstream resource id |
-| 08 | module-nsg | `dynamic` rules in a module |
-| 09 | module-vm | full `vm-stack` module |
-| 10 | module-copy-files | `custom_data` cloud-init |
-| 11 | load-balancer | public Standard LB, backend pool, probe, rule |
-| 13 | vmss | VMSS behind LB with autoscale rules |
-| 17 | traffic-manager | performance routing across regions |
-| 18 | traffic-manager-impl | priority routing, failover |
-| 19 | vnet-peering-setup | two VNets in different regions |
-| 20 | vnet-peering-machines | VMs in each VNet |
-| 21 | vnet-peering-impl | bidirectional peering |
-| 25 | app-gateway-vms | backend VMs for App Gateway |
-| 26 | app-gateway-impl | App Gateway v2, listener, routing rule |
-| 28 | firewall-vms | hub + workload VM |
-| 29 | firewall-deploy | Azure Firewall + public IP |
-| 30 | firewall-routing | route table → VirtualAppliance |
-| 31 | firewall-nat-rule | DNAT to a workload VM |
-| 32 | firewall-app-rule | L7 FQDN allow rules |
-| 33 | registry-module | consuming a public registry module |
+| 01 | module-resource-group | first local module |
+| 02 | module-vnet | module with multiple subnets |
+| 03 | module-ip-nic | module consuming upstream resource id |
+| 04 | module-nsg | `dynamic` rules in a module |
+| 05 | module-vm | full `vm-stack` module |
+| 06 | module-copy-files | `custom_data` cloud-init |
+| 07 | load-balancer | public Standard LB, backend pool, probe, rule |
+| 08 | vmss | VMSS behind LB with autoscale rules |
+| 09 | traffic-manager | performance routing across regions |
+| 10 | traffic-manager-impl | priority routing, failover |
+| 11 | vnet-peering-setup | two VNets in different regions |
+| 12 | vnet-peering-machines | VMs in each VNet |
+| 13 | vnet-peering-impl | bidirectional peering |
+| 14 | app-gateway-vms | backend VMs for App Gateway |
+| 15 | app-gateway-impl | App Gateway v2, listener, routing rule |
+| 16 | firewall-vms | hub + workload VM |
+| 17 | firewall-deploy | Azure Firewall + public IP |
+| 18 | firewall-routing | route table → VirtualAppliance |
+| 19 | firewall-nat-rule | DNAT to a workload VM |
+| 20 | firewall-app-rule | L7 FQDN allow rules |
+| 21 | registry-module | consuming a public registry module |
 
 ## Section 5 — Operations and landing zones (`labs/section-05-operations-and-landing-zones/`)
 
 | # | Lab | Concepts |
 |---|---|---|
-| 03 | monitor-infra | VM to be monitored |
-| 04 | metric-alert | metric alert + action group |
-| 05 | log-analytics | workspace + diagnostic setting |
-| 07 | role-assignments | RBAC via `azurerm_role_assignment` |
-| 08 | resource-locks | `CanNotDelete` management lock |
-| 10 | landing-zone-rg | multiple resource groups |
-| 11 | landing-zone-vnet | hub + spoke VNets + peering |
-| 12 | landing-zone-logging | central Log Analytics + archive storage |
-| 13 | landing-zone-storage | app storage with TLS 1.2 |
-| 14 | landing-zone-database | SQL server + diagnostic setting |
-| 15 | landing-zone-keyvault | Key Vault with purge protection |
-| 16 | landing-zone-policy | built-in policy assignment |
+| 01 | monitor-infra | VM to be monitored |
+| 02 | metric-alert | metric alert + action group |
+| 03 | log-analytics | workspace + diagnostic setting |
+| 04 | role-assignments | RBAC via `azurerm_role_assignment` |
+| 05 | resource-locks | `CanNotDelete` management lock |
+| 06 | landing-zone-rg | multiple resource groups |
+| 07 | landing-zone-vnet | hub + spoke VNets + peering |
+| 08 | landing-zone-logging | central Log Analytics + archive storage |
+| 09 | landing-zone-storage | app storage with TLS 1.2 |
+| 10 | landing-zone-database | SQL server + diagnostic setting |
+| 11 | landing-zone-keyvault | Key Vault with purge protection |
+| 12 | landing-zone-policy | built-in policy assignment |
 
 ## Section 6 — Workflows and CI/CD (`labs/section-06-workflows-and-cicd/`)
 
 | # | Lab | Concepts |
 |---|---|---|
-| 02 | inspect-codebase | `terraform plan` / `terraform graph` |
-| 03 | multiple-environments | dev/prod tfvars |
-| 05 | workspaces-dev | `terraform.workspace`-driven config |
-| 09 | git-local | Git workflow for IaC |
-| 11 | making-changes | change → plan → apply loop |
-| 16 | remote-state-storage | Azure backend bootstrap + app config |
-| 30 | container-instance | Azure Container Instance |
-| 32 | aks | AKS cluster with system pool |
-| 38 | devops-release-pipelines | Azure Pipelines YAML (plan → apply) |
+| 01 | inspect-codebase | `terraform plan` / `terraform graph` |
+| 02 | multiple-environments | dev/prod tfvars |
+| 03 | workspaces-dev | `terraform.workspace`-driven config |
+| 04 | git-local | Git workflow for IaC |
+| 05 | making-changes | change → plan → apply loop |
+| 06 | remote-state-storage | Azure backend bootstrap + app config |
+| 07 | container-instance | Azure Container Instance |
+| 08 | aks | AKS cluster with system pool |
+| 09 | devops-release-pipelines | Azure Pipelines YAML (plan → apply) |
 
 ## Reusable modules (`modules/`)
 
 | Module | Used by | Description |
 |---|---|---|
-| `rg-only` | 04-05 | single resource group |
-| `vnet` | 04-06, 04-07, 04-08 | RG + VNet + subnets |
-| `ip-nic` | 04-07 | public IP + NIC bound to a subnet |
-| `nsg` | 04-08 | NSG with dynamic allow rules + association |
-| `vm-stack` | 04-09, 04-10 | full RG → VNet → NSG → IP → NIC → VM stack |
+| `rg-only` | 04-01 | single resource group |
+| `vnet` | 04-02, 04-03, 04-04 | RG + VNet + subnets |
+| `ip-nic` | 04-03 | public IP + NIC bound to a subnet |
+| `nsg` | 04-04 | NSG with dynamic allow rules + association |
+| `vm-stack` | 04-05, 04-06 | full RG → VNet → NSG → IP → NIC → VM stack |

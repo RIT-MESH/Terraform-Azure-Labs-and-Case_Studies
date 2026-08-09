@@ -15,7 +15,7 @@ For learning this is fine. The file lives in the lab folder.
 
 ## Remote state on Azure Storage
 
-See [section-06 / 16-remote-state-storage](../../labs/section-06-workflows-and-cicd/16-remote-state-storage/).
+See [section-06 / 06-remote-state-storage](../../labs/section-06-workflows-and-cicd/06-remote-state-storage/).
 
 ```hcl
 terraform {

@@ -52,9 +52,9 @@ DevOps release pipeline.
 | `for_each` | section-02 / 03 |
 | Dynamic blocks | section-02 / 16 |
 | Provisioners | section-02 / 20 |
-| Modules (local) | section-04 / 05 |
-| Remote state | section-06 / 16 |
-| Workspaces | section-06 / 05 |
+| Modules (local) | section-04 / 01 |
+| Remote state | section-06 / 06 |
+| Workspaces | section-06 / 03 |
 
 ---
 

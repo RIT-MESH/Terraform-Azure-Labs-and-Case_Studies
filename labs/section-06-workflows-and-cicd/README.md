@@ -5,12 +5,12 @@ containers (Azure Container Instances, AKS) through Azure DevOps pipelines.
 
 ## Labs
 
-2. [Inspecting the initial code base](02-inspect-codebase/)
-3. [Deploying to multiple environments](03-multiple-environments/)
-5. [Terraform workspaces — dev](05-workspaces-dev/)
-9. [Using Git locally](09-git-local/)
-11. [Making changes to code](11-making-changes/)
-16. [Remote state in Azure Storage](16-remote-state-storage/)
-30. [Azure Container Instance](30-container-instance/)
-32. [Azure Kubernetes Service](32-aks/)
-38. [Azure DevOps release pipelines](38-devops-release-pipelines/)
+1. [Inspecting the initial code base](01-inspect-codebase/)
+2. [Deploying to multiple environments](02-multiple-environments/)
+3. [Terraform workspaces — dev](03-workspaces-dev/)
+4. [Using Git locally](04-git-local/)
+5. [Making changes to code](05-making-changes/)
+6. [Azure Storage for the state file](06-remote-state-storage/)
+7. [Azure Container Instance](07-container-instance/)
+8. [Azure Kubernetes Service](08-aks/)
+9. [Azure DevOps release pipelines](09-devops-release-pipelines/)
