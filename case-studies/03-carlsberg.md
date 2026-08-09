@@ -6,13 +6,13 @@
 Modernize a fragmented IT estate into a governed Azure platform where business units can
 self-serve applications **without** violating compliance.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - Rolled out an enterprise **landing zone** with subscription vending for each business unit.
 - Centralized **logging and policy** so every subscription inherits the same guardrails.
 - Used Terraform **modules** so a new market is a tfvars change, not a new codebase.
 - RBAC and resource **locks** to protect critical data stores.
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Faster onboarding of new markets/applications.
 - Consistent compliance posture across the estate.
 - Reduced configuration drift.

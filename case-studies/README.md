@@ -6,12 +6,18 @@ Each one is written for learning: the **challenge**, the **Terraform-on-Azure ap
 **labs you should run** to practice the same patterns.
 
 > **Important — how to read these.** These write-ups are **educational summaries based on
-> publicly reported cloud-adoption stories**, authored in our own words (no text copied from
-> any vendor). Company-specific details are kept at the level that is publicly known; for
-> exact figures, SLAs, and quotes, please consult the original **Microsoft Customer
-> Stories** (<https://customers.microsoft.com>) and **HashiCorp case studies**
-> (<https://www.hashicorp.com/customers>) pages. Outcomes are described qualitatively on
-> purpose so we never misrepresent a company's internal numbers.
+> publicly reported Microsoft Azure adoptions**, authored in our own words (no text copied
+> from any vendor).
+>
+> We do **not** claim that every named organization uses Terraform specifically. The
+> **Terraform-on-Azure pattern** section describes the approach **this repository teaches**
+> for the company's publicly known challenge — it reflects documented Terraform usage where
+> that is public, and is otherwise the recommended IaC pattern for the same problem. The
+> **outcomes are illustrative** of what such a pattern typically delivers, **not** a
+> company's internal reported figures. For exact facts, SLAs, and quotes, consult the
+> original **Microsoft Customer Stories** (<https://www.microsoft.com/en-us/customerstories>)
+> and **HashiCorp customers** (<https://www.hashicorp.com/customers>) pages linked at the
+> bottom of each study.
 
 ## Index
 

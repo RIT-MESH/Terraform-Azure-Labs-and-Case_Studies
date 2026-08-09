@@ -7,7 +7,7 @@ A fast-growing online retailer that needed to move off an on-premises estate to 
 that could absorb flash-sale traffic spikes, while keeping a single, auditable way to
 provision hundreds of environments.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - Adopted Terraform as the **single source of truth** for infrastructure, replacing ad-hoc
   portal clicks and scripts.
 - Built a **modular** catalog (network, identity, data, app) so every team composed the same
@@ -17,7 +17,7 @@ provision hundreds of environments.
 - Used an enterprise **landing zone** (hub/spoke networking, centralized logging, RBAC) as
   the foundation every workload inherits.
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Faster, repeatable environment provisioning.
 - Improved auditability and governance (everything is in version control).
 - Ability to scale for peak shopping events.

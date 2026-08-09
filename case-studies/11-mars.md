@@ -6,13 +6,13 @@
 Multiple segments (petcare, confectionery, food) each needing their own environments while
 sharing a common, governed platform.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - **Workspaces** and per-segment tfvars to keep one codebase but separate state per segment.
 - A **shared services** hub (networking, identity) consumed by every segment.
 - **Tagging** enforced for cost attribution by segment and region.
 - Pipelines that apply per workspace with approvals.
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Segment isolation without code duplication.
 - Clear cost attribution.
 - Consistent platform services across segments.

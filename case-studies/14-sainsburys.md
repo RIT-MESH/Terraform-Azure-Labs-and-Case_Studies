@@ -6,13 +6,13 @@
 Dev teams need many short-lived environments for testing; manual provisioning was slow and
 left resources running, inflating cost.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - **Ephemeral environments** spun up and torn down via pipelines using tfvars per branch.
 - **Remote state** in Azure Storage with locking so teams share safely.
 - **Autoscale** for web tiers; **resource locks** only on permanent prod.
 - Automated `terraform destroy` at the end of each test run.
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Faster test-environment turnaround.
 - Lower spend from automatic teardown.
 - Safe concurrent team work via state locking.

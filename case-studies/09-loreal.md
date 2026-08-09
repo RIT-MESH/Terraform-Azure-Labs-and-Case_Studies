@@ -6,13 +6,13 @@
 Serve global consumer web properties with good performance and regional failover, while
 keeping a single deployment pipeline.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - **Traffic Manager** routing users to the closest healthy regional web-app stamp.
 - **App Service** with deployment slots for safe, swap-based releases.
 - Terraform parameterized per region; one codebase, many tfvars.
 - Central logging and tags for cost attribution by brand/region.
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Better global performance and failover.
 - Safe, slot-based deployments.
 - Clear per-brand cost visibility via tags.

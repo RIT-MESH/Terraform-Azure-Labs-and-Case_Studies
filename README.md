@@ -154,13 +154,15 @@ prior Terraform knowledge is assumed.
 
 Fifteen real-world, enterprise-scale stories (ASOS, Mercedes-Benz, Carlsberg, Tetra Pak,
 Repsol, Co-op, 3M, Nationwide, L'Oréal, Carnival, Mars, Manulife, Fujitsu, Sainsbury's,
-PepsiCo) — each maps an enterprise challenge to the Terraform-on-Azure patterns and the
-**specific labs** in this repo. See [`case-studies/`](case-studies/README.md).
+PepsiCo) — each maps a publicly known enterprise Azure challenge to the Terraform-on-Azure
+patterns **this repo teaches** — and the specific labs that practice them. See
+[`case-studies/`](case-studies/README.md).
 
-> These write-ups were grounded via live web search of public sources (Microsoft Customer
-> Stories, HashiCorp customers) using the system CLI; they're educational summaries in our
-> own words, with the primary source linked at the bottom of each one. Verify specifics at
-> the linked vendor pages.
+> We do **not** claim each company uses Terraform specifically — the write-ups describe the
+> Terraform-on-Azure **pattern this repo teaches** for each publicly known Azure challenge.
+> Grounded via live CLI web search of public sources (Microsoft Customer Stories,
+> HashiCorp customers); educational summaries in our own words; verify specifics at the
+> linked primary source at the bottom of each study.
 
 ---
 

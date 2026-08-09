@@ -6,13 +6,13 @@
 A connected-mobility platform that must be **highly available across regions**, with
 strict networking controls between vehicle-ingest, processing, and back-office tiers.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - Multi-region deployment with **Traffic Manager** fronting regional stamps.
 - **Hub-and-spoke networking** with Azure Firewall as the central egress/inspection point.
 - **AKS** clusters for containerized services, provisioned with Terraform.
 - Reusable **modules** so each region is a parameterized copy of the same code.
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Global routing with failover for the connected-vehicle platform.
 - Centralized, policy-controlled egress via Azure Firewall.
 - Repeatable multi-region rollout.

@@ -6,14 +6,14 @@
 Fujitsu runs its own internal cloud platform and delivers Azure solutions to customers —
 both need a reusable, opinionated set of building blocks.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - A **module catalog** (network, identity, landing zone) used internally and offered to
   customers.
 - Standardized **landing zones** delivered per engagement from the same code.
 - Remote state and CI for both internal and customer projects.
 - Documentation-as-code so each module ships with usage examples (much like this repo).
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Faster delivery across engagements via reusable modules.
 - Consistency between internal and customer environments.
 - Lower onboarding effort for new teams.

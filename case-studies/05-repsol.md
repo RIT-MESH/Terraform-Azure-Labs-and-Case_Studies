@@ -6,14 +6,14 @@
 Stand up a **data platform** that many teams can consume, with shared governance and the
 ability to scale storage/compute on demand.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - Terraform **modules** provision the data landing zone (resource groups, VNet, storage,
   data stores) consistently per team.
 - **Multiple environments** (dev/test/prod) driven by tfvars/workspaces.
 - **Remote state** in Azure Storage for team collaboration and locking.
 - Networking via hub/spoke with private endpoints for data services.
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Faster delivery of data environments to teams.
 - Shared governance with per-team isolation.
 - Reproducible environments.

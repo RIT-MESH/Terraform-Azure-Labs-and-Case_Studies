@@ -6,13 +6,13 @@
 A regulated financial institution needs a **secure, auditable** cloud platform where every
 change is reviewable and least-privilege access is enforced.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - A regulated **landing zone** with segregated networks and centralized logging.
 - Strict **RBAC** via role assignments, and **resource locks** on production data.
 - **Key Vault** for secrets — never in code or state-on-laptops.
 - All applies through approved pipelines; no direct production access.
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Audit-friendly change history (everything in version control).
 - Least-privilege access enforced as code.
 - Secrets managed centrally.

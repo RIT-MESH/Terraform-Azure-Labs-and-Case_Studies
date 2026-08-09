@@ -6,13 +6,13 @@
 A big-data and analytics platform serving many global teams, needing elastic compute and
 container orchestration alongside classic VM workloads.
 
-## The Terraform-on-Azure approach
+## The Terraform-on-Azure pattern (what this repo teaches)
 - **VMSS** for elastic batch processing with autoscale.
 - **AKS** for containerized analytics services.
 - Terraform **modules** for the data-landing zone; per-team instances via tfvars.
 - **Diagnostic settings** + Log Analytics for platform observability.
 
-## Reported outcomes (qualitative)
+## Outcomes this pattern typically delivers (illustrative)
 - Elastic compute scaling with demand.
 - Mixed VM + container workloads managed consistently.
 - Reproducible data environments.
