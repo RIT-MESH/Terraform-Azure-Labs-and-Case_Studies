@@ -1,12 +1,31 @@
-﻿terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
-}
-provider "azurerm" { features {} }
+# ---------------------------------------------------------------------------
+# Lab 25 — cidrsubnet / cidrhost with for-expressions (advanced addressing)
+# Builds: resource group "rg-cidrsubnet", VNet "vnet-cidrsubnet" (172.18.0.0/20)
+# and four subnets (snet-web/app/data/mgmt) derived by cidrsubnet().
+# Teaches: computing CIDRs programmatically instead of hard-coding them.
+# ---------------------------------------------------------------------------
 
+terraform {
+  required_version = ">= 1.5.0"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.70"
+    }
+
+  }
+}
+
+# The azurerm provider configures the Azure plugin. `features {}` is required
+# even when empty. Credentials come from `az login` or the ARM_* env vars.
+provider "azurerm" {
+  features {}
+}
+
+# `locals {}` holds the base CIDR and the tier names; everything below is computed.
 locals {
   rg   = "rg-cidrsubnet"
-  base = "172.18.0.0/20"          # /20 = 4096 addresses
+  base = "172.18.0.0/20" # /20 = 4096 addresses
   tier = ["web", "app", "data", "mgmt"]
 
   # cidrsubnet(PREFIX, NEWBITS, NETNUM) carves a smaller CIDR out of a larger one.
@@ -15,17 +34,19 @@ locals {
   subnets = [
     for i, t in local.tier : {
       name  = "snet-${t}"
-      cidr  = cidrsubnet(local.base, 6, i)      # e.g. 172.18.0.0/26, 172.18.0.64/26, ...
-      first = cidrhost(cidrsubnet(local.base, 6, i), 1)   # host .1
+      cidr  = cidrsubnet(local.base, 6, i)              # e.g. 172.18.0.0/26, 172.18.0.64/26, ...
+      first = cidrhost(cidrsubnet(local.base, 6, i), 1) # host .1
     }
   ]
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = "eastus"
 }
 
+# The VNet whose address space is the base the subnets are carved from.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-cidrsubnet"
   location            = azurerm_resource_group.this.location

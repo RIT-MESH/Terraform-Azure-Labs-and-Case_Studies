@@ -1,2 +1,1 @@
-﻿variable "sql_admin_password" { type = string, sensitive = true }
-variable "sku_name"            { type = string, default = "Basic" }
+# Variable declarations moved to main.tf (they were declared twice, which Terraform rejects).

@@ -1,12 +1,10 @@
-﻿# Lab 16 — Dynamic blocks.
+# Lab 16 — Dynamic blocks.
+# Teaches: `dynamic "security_rule" { for_each = ... content { ... } }` to stamp
+# out repeated nested blocks from a variable, security_rule.value addressing, and
+# a for expression in an output.
 # A `dynamic` block generates a repeated NESTED block from a list/map. Perfect for
 # NSG rules whose count/content you don't know at authoring time. Add a rule to
 # tfvars and `terraform apply` extends the NSG without code changes.
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
-}
-provider "azurerm" { features {} }
 
 # A list of rule objects. Each becomes one security_rule block.
 variable "rules" {
@@ -16,11 +14,12 @@ variable "rules" {
     port     = number
   }))
   default = [
-    { name = "Allow-HTTP",  priority = 200, port = 80 },
+    { name = "Allow-HTTP", priority = 200, port = 80 },
     { name = "Allow-HTTPS", priority = 210, port = 443 },
   ]
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = "rg-dynamic"
   location = "eastus"
@@ -50,6 +49,8 @@ resource "azurerm_network_security_group" "this" {
   }
 }
 
+# Output: a for expression collecting just the names from the rules variable —
+# one name per dynamic block that will be generated.
 output "rule_names" {
   value = [for r in var.rules : r.name]
 }

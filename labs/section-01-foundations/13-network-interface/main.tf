@@ -1,13 +1,23 @@
-﻿locals {
+# ---------------------------------------------------------------------------
+# Lab 13 — Network interface
+# Builds: resource group "rg-nic-foundation", VNet "vnet-nic", subnet "snet-web"
+# and NIC "nic-web-01" with one dynamic private IP.
+# Teaches: azurerm_network_interface + ip_configuration, and how a NIC binds a
+# future VM to a subnet.
+# ---------------------------------------------------------------------------
+
+locals {
   region = "eastus"
   rg     = "rg-nic-foundation"
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = local.region
 }
 
+# The VNet + subnet the NIC will live in.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-nic"
   location            = azurerm_resource_group.this.location
@@ -34,9 +44,12 @@ resource "azurerm_network_interface" "web" {
   ip_configuration {
     name                          = "ipconfig-web"
     subnet_id                     = azurerm_subnet.web.id
-    private_ip_address_allocation = "Dynamic"   # Azure picks a free private IP
+    private_ip_address_allocation = "Dynamic" # Azure picks a free private IP
   }
 }
 
-output "nic_id"          { value = azurerm_network_interface.web.id }
-output "nic_private_ip"  { value = azurerm_network_interface.web.private_ip_address }
+# The NIC's id is what a VM (lab 17) will reference; the private IP shows which
+# address Azure picked from the subnet's 10.90.1.0/24 range.
+output "nic_id" { value = azurerm_network_interface.web.id }
+# The private IP Azure assigned from the subnet's range (computed, not chosen).
+output "nic_private_ip" { value = azurerm_network_interface.web.private_ip_address }

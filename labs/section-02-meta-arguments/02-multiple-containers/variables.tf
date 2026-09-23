@@ -1,8 +1,3 @@
-﻿variable "container_count" {
-  type    = number
-  default = 3
-  validation {
-    condition     = var.container_count > 0 && var.container_count <= 10
-    error_message = "Keep between 1 and 10."
-  }
-}
+# Lab 02 keeps all of its Terraform config in main.tf: the variable declarations
+# used to appear in this file too, and Terraform rejects a duplicate variable
+# declaration. This file is kept as a placeholder for future variables.

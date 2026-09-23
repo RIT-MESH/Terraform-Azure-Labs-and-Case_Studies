@@ -1,7 +1,36 @@
-﻿# Section 6 — Workflows and CI/CD
+# Section 6 — Workflows and CI/CD
 
 Manage multiple environments, store state remotely, version with Git, and deploy
 containers (Azure Container Instances, AKS) through Azure DevOps pipelines.
+
+## How to use these labs
+
+Work through the labs in order — each builds on the habits of the previous one
+(plan → review → apply, branching, remote state, then pipeline automation).
+
+Prerequisites:
+
+- **Terraform >= 1.5** (lab 13's `removed` blocks need 1.7+) — check with
+  `terraform version`.
+- **Azure CLI** installed and **`az login`** run — the azurerm provider uses
+  your CLI session by default.
+- **Git** (labs 04, 11) and, for lab 08, **kubectl** for the AKS follow-up.
+
+The typical command flow for almost every lab:
+
+```bash
+cd <lab-folder>
+terraform init       # download providers / wire up the backend (once per folder)
+terraform plan       # review the diff — always
+terraform apply      # create the resources
+terraform output     # read declared outputs
+terraform destroy    # clean up when you're done
+```
+
+Labs 02–03 add `-var-file=...` and workspace commands; lab 12 runs `terraform test`
+instead of `apply`; labs 09 and 11 don't create Azure resources themselves — they
+are pipeline definitions you install in a repo. Labs 06 and 10 have subfolders
+(`bootstrap/` + `app/`, `base/` + `consumer/`) that run in the documented order.
 
 ## Labs
 

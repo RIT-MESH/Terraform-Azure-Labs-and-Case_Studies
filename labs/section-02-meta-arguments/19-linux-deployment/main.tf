@@ -1,9 +1,11 @@
-﻿# RG + VNet + subnet + NSG (SSH allowed) + public IP + NIC.
+# RG + VNet + subnet + NSG (SSH allowed) + public IP + NIC.
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = "eastus"
 }
 
+# Virtual network + subnet: the NIC's network.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-deploy"
   location            = azurerm_resource_group.this.location
@@ -11,6 +13,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.250.0.0/16"]
 }
 
+# Subnet: the /24 the NIC attaches to.
 resource "azurerm_subnet" "web" {
   name                 = "snet-web"
   resource_group_name  = azurerm_resource_group.this.name
@@ -42,7 +45,7 @@ resource "azurerm_public_ip" "web" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
-  sku                = "Standard"
+  sku                 = "Standard"
 }
 
 # NIC bound to the subnet AND the public IP.
@@ -58,6 +61,7 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# The VM: Ubuntu 22.04 on a cheap burstable size, SSH key from locals.
 resource "azurerm_linux_virtual_machine" "web" {
   name                  = "vm-deploy"
   location              = azurerm_resource_group.this.location

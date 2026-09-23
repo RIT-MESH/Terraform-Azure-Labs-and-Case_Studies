@@ -1,22 +1,39 @@
-﻿# Variables for the admin account. The password is sensitive — it is masked in
-# plan/apply output. Supply it via terraform.tfvars (gitignored) or -var.
-variable "admin_username" { type = string, default = "azureadmin" }
+# ---------------------------------------------------------------------------
+# Lab 17 — Azure Virtual Machine
+# Builds the full VM stack: resource group "rg-vm-foundation", VNet "vnet-vm",
+# subnet "snet-web", NSG "nsg-vm" (RDP), public IP "pip-vm-01", NIC "nic-vm-01",
+# Windows VM "vm-web-01".
+# Teaches: wiring every earlier lab's resource into one dependency chain, plus
+# sensitive input variables and source_image_reference.
+# ---------------------------------------------------------------------------
 
+# Variables for the admin account. The password is sensitive — it is masked in
+# plan/apply output. Supply it via terraform.tfvars (gitignored) or -var.
+variable "admin_username" {
+  type    = string
+  default = "azureadmin"
+}
+
+# `sensitive = true` hides the value from plan/apply logs (it still lives in
+# state). No default — Terraform will ask for it if tfvars doesn't supply one.
 variable "admin_password" {
   type      = string
   sensitive = true
 }
 
+# `locals {}` holds the names used below, so renaming means one edit.
 locals {
   rg     = "rg-vm-foundation"
   region = "eastus"
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = local.region
 }
 
+# The network stack the VM will attach to.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-vm"
   location            = azurerm_resource_group.this.location
@@ -24,6 +41,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.120.0.0/16"]
 }
 
+# The subnet the VM's NIC will live in.
 resource "azurerm_subnet" "web" {
   name                 = "snet-web"
   resource_group_name  = azurerm_resource_group.this.name
@@ -55,7 +73,7 @@ resource "azurerm_public_ip" "web" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
-  sku                = "Standard"
+  sku                 = "Standard"
 }
 
 # The NIC ties the VM to the subnet AND to the public IP (for inbound access).
@@ -67,7 +85,7 @@ resource "azurerm_network_interface" "web" {
     name                          = "ipconfig-vm"
     subnet_id                     = azurerm_subnet.web.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.web.id   # gives the NIC a public IP
+    public_ip_address_id          = azurerm_public_ip.web.id # gives the NIC a public IP
   }
 }
 
@@ -79,13 +97,13 @@ resource "azurerm_windows_virtual_machine" "web" {
   location              = azurerm_resource_group.this.location
   resource_group_name   = azurerm_resource_group.this.name
   network_interface_ids = [azurerm_network_interface.web.id]
-  size                  = "Standard_B1s"     # small, cheap VM size
+  size                  = "Standard_B1s" # small, cheap VM size
   admin_username        = var.admin_username
   admin_password        = var.admin_password
 
   os_disk {
     caching              = "ReadWrite"
-    storage_account_type = "StandardSSD_LRS"  # disk type for the OS disk
+    storage_account_type = "StandardSSD_LRS" # disk type for the OS disk
   }
 
   # The marketplace image to use. These four fields together identify it.
@@ -97,4 +115,5 @@ resource "azurerm_windows_virtual_machine" "web" {
   }
 }
 
+# The address to RDP to after apply — this is what the NSG rule allows traffic to.
 output "public_ip" { value = azurerm_public_ip.web.ip_address }

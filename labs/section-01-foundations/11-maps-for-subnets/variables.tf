@@ -1,12 +1,2 @@
-﻿variable "location" {
-  type    = string
-  default = "eastus"
-}
-
-variable "subnets" {
-  type = map(object({
-    prefix = string
-    nsg    = bool
-  }))
-  description = "Subnet definitions keyed by role."
-}
+# No variables declared here — `location` and `subnets` are declared in main.tf
+# so the map(object) type sits next to the for_each example that consumes it.

@@ -1,18 +1,34 @@
-﻿# Lab 23 — App Gateway path-based routing.
+# Lab 23 — App Gateway path-based routing.
 # One listener, three backend pools: /images/* → pool1, /video/* → pool2, default →
 # pool3. The url_path_map + path_rule blocks implement the routing. This is the
 # building block for hosting several services behind ONE domain/hostname.
 # VNet 172.24.0.0/20; appgw subnet 172.24.0.0/26; backends subnet 172.24.0.64/26.
+
+# Terraform block: which Terraform CLI and provider versions this lab requires.
 terraform {
   required_version = ">= 1.5.0"
   required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.70"
+    }
+
   }
 }
-provider "azurerm" { features {} }
 
-variable "admin_ssh_key" { type = string, sensitive = true }
+# Provider block: configures azurerm against the subscription from `az login`.
+# `features {}` is an empty settings block the azurerm provider requires.
+provider "azurerm" {
+  features {}
+}
 
+# Root variable for the backend VMs' admin SSH key (kept out of CLI output).
+variable "admin_ssh_key" {
+  type      = string
+  sensitive = true
+}
+
+# Locals: named expressions computed once per run (not stored in state).
 locals {
   cloud_init = <<-EOT
     #cloud-config
@@ -22,11 +38,13 @@ locals {
   EOT
 }
 
+# Resource group everything in this lab goes into.
 resource "azurerm_resource_group" "this" {
   name     = "rg-appgw-path"
   location = "eastus"
 }
 
+# The VNet holding the gateway subnet and the backend subnet.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-appgw-path"
   location            = azurerm_resource_group.this.location
@@ -34,6 +52,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["172.24.0.0/20"]
 }
 
+# Dedicated, empty subnet for the gateway (App Gateway needs its own subnet).
 resource "azurerm_subnet" "appgw" {
   name                 = "snet-appgw"
   resource_group_name  = azurerm_resource_group.this.name
@@ -41,6 +60,7 @@ resource "azurerm_subnet" "appgw" {
   address_prefixes     = ["172.24.0.0/26"]
 }
 
+# Subnet for the three backend VMs.
 resource "azurerm_subnet" "backend" {
   name                 = "snet-backend"
   resource_group_name  = azurerm_resource_group.this.name
@@ -48,6 +68,7 @@ resource "azurerm_subnet" "backend" {
   address_prefixes     = ["172.24.0.64/26"]
 }
 
+# 3 backend NICs — one VM per pool: [0]→images, [1]→video, [2]→default.
 resource "azurerm_network_interface" "backend" {
   count               = 3
   name                = "nic-appgw-path-be-${count.index}"
@@ -60,13 +81,14 @@ resource "azurerm_network_interface" "backend" {
   }
 }
 
+# 3 nginx VMs (all serve the same page — the gateway decides who gets which path).
 resource "azurerm_linux_virtual_machine" "backend" {
-  count               = 3
-  name                = "vm-appgw-path-be-${count.index}"
-  location            = azurerm_resource_group.this.location
-  resource_group_name = azurerm_resource_group.this.name
-  size                = "Standard_B1s"
-  admin_username      = "azureadmin"
+  count                 = 3
+  name                  = "vm-appgw-path-be-${count.index}"
+  location              = azurerm_resource_group.this.location
+  resource_group_name   = azurerm_resource_group.this.name
+  size                  = "Standard_B1s"
+  admin_username        = "azureadmin"
   network_interface_ids = [azurerm_network_interface.backend[count.index].id]
   custom_data           = base64encode(local.cloud_init)
   admin_ssh_key {
@@ -85,20 +107,26 @@ resource "azurerm_linux_virtual_machine" "backend" {
   }
 }
 
+# The public IP clients browse to.
 resource "azurerm_public_ip" "appgw" {
   name                = "pip-appgw-path"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
-  sku                = "Standard"
+  sku                 = "Standard"
 }
 
+# The Application Gateway with three pools and a url_path_map for path routing.
 resource "azurerm_application_gateway" "this" {
   name                = "appgw-path"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
 
-  sku { name = "Standard_v2", tier = "Standard_v2", capacity = 1 }
+  sku {
+    name     = "Standard_v2"
+    tier     = "Standard_v2"
+    capacity = 1
+  }
 
   gateway_ip_configuration {
     name      = "ipconfig"
@@ -115,19 +143,22 @@ resource "azurerm_application_gateway" "this" {
     public_ip_address_id = azurerm_public_ip.appgw.id
   }
 
+  # One pool per path. Each pool gets exactly one VM (pulled by index), so a
+  # request to /images/* always shows vm-...-0, /video/* → vm-...-1, else vm-...-2.
   backend_address_pool {
-    name = "be-images"
+    name         = "be-images"
     ip_addresses = [azurerm_network_interface.backend[0].private_ip_address]
   }
   backend_address_pool {
-    name = "be-video"
+    name         = "be-video"
     ip_addresses = [azurerm_network_interface.backend[1].private_ip_address]
   }
   backend_address_pool {
-    name = "be-default"
+    name         = "be-default"
     ip_addresses = [azurerm_network_interface.backend[2].private_ip_address]
   }
 
+  # How the gateway talks to the backends: plain HTTP on port 80 (shared by all pools).
   backend_http_settings {
     name                  = "http-settings"
     cookie_based_affinity = "Disabled"
@@ -136,6 +167,7 @@ resource "azurerm_application_gateway" "this" {
     request_timeout       = 60
   }
 
+  # Listener: waits for HTTP on the frontend IP + port (same as lab 15).
   http_listener {
     name                           = "listener"
     frontend_ip_configuration_name = "fe"
@@ -148,10 +180,11 @@ resource "azurerm_application_gateway" "this" {
     name               = "path-rule"
     rule_type          = "PathBasedRouting"
     http_listener_name = "listener"
-    url_path_map_name  = azurerm_application_gateway.this.url_path_map_name
+    url_path_map_name  = "urlpaths" # must match the url_path_map name below
     priority           = 1
   }
 
+  # The path map: which paths go to which pool, plus the default for anything else.
   url_path_map {
     name                               = "urlpaths"
     default_backend_address_pool_name  = "be-default"
@@ -159,17 +192,18 @@ resource "azurerm_application_gateway" "this" {
 
     path_rule {
       name                       = "images"
-      paths                       = ["/images/*"]
+      paths                      = ["/images/*"]
       backend_address_pool_name  = "be-images"
       backend_http_settings_name = "http-settings"
     }
     path_rule {
       name                       = "video"
-      paths                       = ["/video/*"]
+      paths                      = ["/video/*"]
       backend_address_pool_name  = "be-video"
       backend_http_settings_name = "http-settings"
     }
   }
 }
 
+# Browse http://<ip>/images/, /video/, and anything else to see the routing.
 output "appgw_public_ip" { value = azurerm_public_ip.appgw.ip_address }

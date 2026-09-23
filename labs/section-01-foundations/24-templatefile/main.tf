@@ -1,11 +1,35 @@
-﻿terraform {
+# ---------------------------------------------------------------------------
+# Lab 24 — templatefile() (advanced)
+# Builds: resource group "rg-templatefile", VNet "vnet-templatefile" (/20),
+# subnet "snet-web" (/26), NIC "nic-templatefile" and Linux VM "vm-templatefile"
+# bootstrapped with cloud-init.
+# Teaches: templatefile() to render cloud-init.tpl, base64encode + custom_data,
+# and SSH-key auth for a Linux VM.
+# ---------------------------------------------------------------------------
+
+terraform {
   required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.70"
+    }
+
+  }
 }
-provider "azurerm" { features {} }
 
-variable "admin_ssh_key" { type = string, sensitive = true }
+# The azurerm provider configures the Azure plugin. `features {}` is required
+# even when empty. Credentials come from `az login` or the ARM_* env vars.
+provider "azurerm" {
+  features {}
+}
 
+# Your SSH public key, passed in via tfvars — no password is used on this VM.
+variable "admin_ssh_key" {
+  type      = string
+  sensitive = true
+}
+# `locals {}` holds names/CIDRs plus the rendered template text (below).
 locals {
   rg   = "rg-templatefile"
   vnet = "172.17.0.0/20"
@@ -20,11 +44,13 @@ locals {
   })
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = "eastus"
 }
 
+# The network stack the Linux VM will attach to.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-templatefile"
   location            = azurerm_resource_group.this.location
@@ -32,6 +58,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = [local.vnet]
 }
 
+# The subnet the NIC (and VM) will live in.
 resource "azurerm_subnet" "web" {
   name                 = "snet-web"
   resource_group_name  = azurerm_resource_group.this.name
@@ -39,6 +66,7 @@ resource "azurerm_subnet" "web" {
   address_prefixes     = [local.snet]
 }
 
+# The NIC connects the VM to the subnet (private IP only).
 resource "azurerm_network_interface" "web" {
   name                = "nic-templatefile"
   location            = azurerm_resource_group.this.location
@@ -76,4 +104,6 @@ resource "azurerm_linux_virtual_machine" "web" {
   }
 }
 
+# Prints the first 120 chars of the rendered template so you can check the
+# substitution worked without printing the whole cloud-init file.
 output "rendered_preview" { value = substr(local.rendered, 0, 120) }

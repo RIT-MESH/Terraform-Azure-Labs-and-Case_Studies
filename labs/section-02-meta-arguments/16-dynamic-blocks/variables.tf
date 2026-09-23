@@ -1,11 +1,3 @@
-﻿variable "rules" {
-  type = list(object({
-    name     = string
-    priority = number
-    port     = number
-  }))
-  default = [
-    { name = "Allow-HTTP",  priority = 200, port = 80 },
-    { name = "Allow-HTTPS", priority = 210, port = 443 },
-  ]
-}
+# Lab 16 keeps its variable declarations in main.tf: this file used to declare the
+# same variable twice, and Terraform rejects a duplicate variable declaration.
+# Variable declarations moved to main.tf (they were declared twice, which Terraform rejects).

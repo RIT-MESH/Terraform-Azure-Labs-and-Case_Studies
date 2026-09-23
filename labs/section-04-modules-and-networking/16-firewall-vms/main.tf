@@ -1,15 +1,22 @@
-﻿# Lab 16 — hub + workload VM for the Azure Firewall labs (17-20).
+# Lab 16 — hub + workload VM for the Azure Firewall labs (17-20).
 #  - rg-fw with vnet-hub-fw (10.28.0.0/16).
 #  - AzureFirewallSubnet (10.28.0.0/26) — where the firewall will live.
 #  - a workload subnet + a Linux VM (the thing the firewall will protect/NAT to).
 # Outputs the workload/firewall subnet ids and vnet id for labs 17-20.
-variable "admin_ssh_key" { type = string, sensitive = true }
 
+# Root variable for the workload VM's admin SSH key (kept out of CLI output).
+variable "admin_ssh_key" {
+  type      = string
+  sensitive = true
+}
+
+# Resource group everything in this lab goes into.
 resource "azurerm_resource_group" "this" {
   name     = "rg-fw"
   location = "eastus"
 }
 
+# The hub VNet that will contain the firewall and the workload.
 resource "azurerm_virtual_network" "hub" {
   name                = "vnet-hub-fw"
   location            = azurerm_resource_group.this.location
@@ -17,6 +24,9 @@ resource "azurerm_virtual_network" "hub" {
   address_space       = ["10.28.0.0/16"]
 }
 
+# The firewall's subnet. The NAME matters, not just the CIDR: Azure Firewall
+# must deploy into a subnet literally named AzureFirewallSubnet (min /26),
+# and nothing else may live in it.
 resource "azurerm_subnet" "firewall" {
   name                 = "AzureFirewallSubnet"
   resource_group_name  = azurerm_resource_group.this.name
@@ -24,6 +34,7 @@ resource "azurerm_subnet" "firewall" {
   address_prefixes     = ["10.28.0.0/26"]
 }
 
+# A regular subnet for the workload VM the firewall will protect/NAT to.
 resource "azurerm_subnet" "workload" {
   name                 = "snet-workload"
   resource_group_name  = azurerm_resource_group.this.name
@@ -31,6 +42,7 @@ resource "azurerm_subnet" "workload" {
   address_prefixes     = ["10.28.1.0/24"]
 }
 
+# NIC in the workload subnet — private IP only (NAT is the firewall's job later).
 resource "azurerm_network_interface" "vm" {
   name                = "nic-fw-vm"
   location            = azurerm_resource_group.this.location
@@ -42,6 +54,7 @@ resource "azurerm_network_interface" "vm" {
   }
 }
 
+# The workload VM (labs 17-20 route its traffic / forward SSH to it).
 resource "azurerm_linux_virtual_machine" "vm" {
   name                  = "vm-fw-workload"
   location              = azurerm_resource_group.this.location
@@ -65,6 +78,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 }
 
+# Subnet/vnet ids labs 17-20 build on (UDR association, firewall deployment, ...).
 output "workload_subnet_id" { value = azurerm_subnet.workload.id }
 output "firewall_subnet_id" { value = azurerm_subnet.firewall.id }
-output "vnet_id"            { value = azurerm_virtual_network.hub.id }
+output "vnet_id" { value = azurerm_virtual_network.hub.id }

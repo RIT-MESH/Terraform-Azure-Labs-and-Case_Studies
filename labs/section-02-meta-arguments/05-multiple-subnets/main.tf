@@ -1,11 +1,9 @@
-﻿# Lab 05 — Multiple subnets with for_each over a map.
+# Lab 05 — Multiple subnets with for_each over a map.
+# Teaches: for_each with a map of key → value, the for expression that builds an
+# output map, and VNet → subnet dependencies.
 # The most-reused networking pattern: one VNet, several subnets from a map.
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
-}
-provider "azurerm" { features {} }
 
+# locals: the map that drives the subnet fan-out (each key becomes a subnet).
 locals {
   # Map of tier → CIDR. Each entry becomes one subnet.
   subnets = {
@@ -16,11 +14,14 @@ locals {
   }
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = "rg-multi-subnets"
   location = "eastus"
 }
 
+# Virtual network: one big /16 address space; the subnets below carve slices out
+# of it. Referencing the resource group keeps the creation order correct.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-multi-subnets"
   location            = azurerm_resource_group.this.location
@@ -37,6 +38,8 @@ resource "azurerm_subnet" "this" {
   address_prefixes     = [each.value]
 }
 
+# Output: a for expression that reshapes the for_each map into { "web": <id>, ... }.
+# Read it as: "for each key k and subnet s in the map, produce k => s.id".
 output "subnet_ids" {
   value = { for k, s in azurerm_subnet.this : k => s.id }
 }

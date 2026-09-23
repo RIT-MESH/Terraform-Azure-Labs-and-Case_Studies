@@ -1,4 +1,4 @@
-﻿# ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Lab 01 — Authentication with an App Registration (service principal)
 # This lab creates NO Azure resources. It only proves Terraform can sign in to
 # Azure using credentials supplied via ARM_* environment variables.
@@ -7,7 +7,7 @@
 # The `terraform {}` block configures Terraform itself: which version to use and
 # which providers (plugins) to download. `azurerm` is the official Azure provider.
 terraform {
-  required_version = ">= 1.5.0"   # fail early on Terraform versions older than 1.5
+  required_version = ">= 1.5.0" # fail early on Terraform versions older than 1.5
 
   required_providers {
     azurerm = {
@@ -37,6 +37,7 @@ output "subscription_id" {
   description = "The subscription Terraform authenticated against."
 }
 
+# Prints the subscription's friendly display name.
 output "display_name" {
   value = data.azurerm_subscription.current.display_name
 }

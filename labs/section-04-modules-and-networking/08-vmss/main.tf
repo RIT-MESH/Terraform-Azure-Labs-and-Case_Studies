@@ -1,12 +1,18 @@
-﻿# Lab 08 — Virtual Machine Scale Set (VMSS) behind a public Load Balancer, with autoscale.
+# Lab 08 — Virtual Machine Scale Set (VMSS) behind a public Load Balancer, with autoscale.
 # A VMSS deploys IDENTICAL VMs that scale automatically. Pieces here:
 #  - VNet + subnet for the VMSS.
 #  - public Standard LB (frontend IP, backend pool, probe, rule) — same as lab 07.
 #  - azurerm_linux_virtual_machine_scale_set: instances run nginx via cloud-init.
 #  - azurerm_monitor_autoscale_setting: scale OUT > 75% CPU, scale IN < 25%, 1→5 instances.
 # The scale set's NIC joins the LB backend pool via load_balancer_backend_address_pool_ids.
-variable "admin_ssh_key" { type = string, sensitive = true }
 
+# Root variable for the scale set VMs' admin SSH key (kept out of CLI output).
+variable "admin_ssh_key" {
+  type      = string
+  sensitive = true
+}
+
+# Locals: named expressions computed once per run (not stored in state).
 locals {
   cloud_init = <<-EOT
     #cloud-config
@@ -16,11 +22,13 @@ locals {
   EOT
 }
 
+# Resource group everything in this lab goes into.
 resource "azurerm_resource_group" "this" {
   name     = "rg-vmss"
   location = "eastus"
 }
 
+# The network the scale set lives in.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-vmss"
   location            = azurerm_resource_group.this.location
@@ -28,6 +36,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.17.0.0/16"]
 }
 
+# One subnet holds every scale-set instance (10.17.1.0/24).
 resource "azurerm_subnet" "web" {
   name                 = "snet-web"
   resource_group_name  = azurerm_resource_group.this.name
@@ -35,6 +44,7 @@ resource "azurerm_subnet" "web" {
   address_prefixes     = ["10.17.1.0/24"]
 }
 
+# NSG: allow HTTP (LB → instances).
 resource "azurerm_network_security_group" "web" {
   name                = "nsg-vmss"
   location            = azurerm_resource_group.this.location
@@ -52,19 +62,22 @@ resource "azurerm_network_security_group" "web" {
   }
 }
 
+# Attach the NSG to the subnet (Azure applies NSGs at the subnet or NIC level).
 resource "azurerm_subnet_network_security_group_association" "web" {
   subnet_id                 = azurerm_subnet.web.id
   network_security_group_id = azurerm_network_security_group.web.id
 }
 
+# The public IP clients will hit (owned by the LB, not the instances).
 resource "azurerm_public_ip" "lb" {
   name                = "pip-vmss"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
-  sku                = "Standard"
+  sku                 = "Standard"
 }
 
+# The Load Balancer in front of the scale set: frontend IP = the public IP.
 resource "azurerm_lb" "this" {
   name                = "lb-vmss"
   location            = azurerm_resource_group.this.location
@@ -76,11 +89,13 @@ resource "azurerm_lb" "this" {
   }
 }
 
+# The backend pool: which instances receive traffic (joined via the NIC block below).
 resource "azurerm_lb_backend_address_pool" "web" {
   name            = "be-vmss"
   loadbalancer_id = azurerm_lb.this.id
 }
 
+# Health probe: HTTP GET / (default 15s interval); only healthy instances get traffic.
 resource "azurerm_lb_probe" "http" {
   name            = "http"
   loadbalancer_id = azurerm_lb.this.id
@@ -89,6 +104,7 @@ resource "azurerm_lb_probe" "http" {
   request_path    = "/"
 }
 
+# The rule: frontend:80 → backend:80 using the probe.
 resource "azurerm_lb_rule" "http" {
   name                           = "http"
   loadbalancer_id                = azurerm_lb.this.id
@@ -96,18 +112,20 @@ resource "azurerm_lb_rule" "http" {
   frontend_port                  = 80
   backend_port                   = 80
   frontend_ip_configuration_name = "fe"
-  backend_address_pool_ids        = [azurerm_lb_backend_address_pool.web.id]
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.web.id]
   probe_id                       = azurerm_lb_probe.http.id
 }
 
+# The scale set itself: identical instances created/destroyed automatically.
 resource "azurerm_linux_virtual_machine_scale_set" "web" {
   name                = "vmss-web"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
-  sku_name            = "Standard_B1s"
-  admin_username      = "azureadmin"
-  instances           = 2
-  custom_data         = base64encode(local.cloud_init)
+  # The scale set's VM size is the plain `sku` attribute in this provider version.
+  sku            = "Standard_B1s"
+  admin_username = "azureadmin"
+  instances      = 2
+  custom_data    = base64encode(local.cloud_init)
 
   admin_ssh_key {
     username   = "azureadmin"
@@ -129,6 +147,8 @@ resource "azurerm_linux_virtual_machine_scale_set" "web" {
   network_interface {
     name    = "nic-vmss"
     primary = true
+    # Every instance's NIC joins the LB backend pool here — that is how the
+    # scale set (not individual NICs) is wired to the load balancer.
     ip_configuration {
       name                                   = "ipconfig"
       primary                                = true
@@ -138,12 +158,15 @@ resource "azurerm_linux_virtual_machine_scale_set" "web" {
   }
 }
 
+# Autoscale: watch CPU on the scale set and add/remove instances. ISO-8601
+# durations: PT1M = 1 minute, PT5M = 5 minutes.
 resource "azurerm_monitor_autoscale_setting" "web" {
   name                = "autoscale-vmss"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   target_resource_id  = azurerm_linux_virtual_machine_scale_set.web.id
 
+  # One profile = one scaling policy: instance count bounds + the rules below.
   profile {
     name = "default"
     capacity {
@@ -151,6 +174,7 @@ resource "azurerm_monitor_autoscale_setting" "web" {
       minimum = 2
       maximum = 5
     }
+    # Scale OUT when the average CPU over 5 minutes exceeds 75% (+1 instance).
     rule {
       metric_trigger {
         metric_name        = "Percentage CPU"
@@ -169,6 +193,7 @@ resource "azurerm_monitor_autoscale_setting" "web" {
         cooldown  = "PT1M"
       }
     }
+    # Scale IN when the average CPU over 5 minutes drops below 25% (−1 instance).
     rule {
       metric_trigger {
         metric_name        = "Percentage CPU"
@@ -190,4 +215,5 @@ resource "azurerm_monitor_autoscale_setting" "web" {
   }
 }
 
+# The address to load-test (e.g. with `ab` or a browser refresh loop) to trigger scaling.
 output "lb_public_ip" { value = azurerm_public_ip.lb.ip_address }

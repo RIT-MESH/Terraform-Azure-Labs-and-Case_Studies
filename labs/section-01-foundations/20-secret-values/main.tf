@@ -1,21 +1,36 @@
-﻿# A sensitive variable is masked in plan/apply output. Pass it via tfvars
+# ---------------------------------------------------------------------------
+# Lab 20 — Passing secret values
+# Builds: resource group "rg-secret-foundation", VNet "vnet-secret", subnet
+# "snet-web", NIC "nic-secret" and Windows VM "vm-secret-01".
+# Teaches: sensitive variables — three ways to pass a secret (tfvars,
+# TF_VAR_* env var, -var) — and what "masked in logs" does and doesn't cover.
+# ---------------------------------------------------------------------------
+
+# A sensitive variable is masked in plan/apply output. Pass it via tfvars
 # (gitignored), -var, or the TF_VAR_admin_password environment variable.
 variable "admin_password" {
   type      = string
   sensitive = true
 }
 
-variable "admin_username" { type = string, default = "azureadmin" }
+# Not secret — just a defaulted username.
+variable "admin_username" {
+  type    = string
+  default = "azureadmin"
+}
 
+# `locals {}` holds the resource group name used below.
 locals {
   rg = "rg-secret-foundation"
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = "eastus"
 }
 
+# Network stack for the VM (same shape as lab 17, minus the public IP/NSG).
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-secret"
   location            = azurerm_resource_group.this.location
@@ -23,6 +38,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.130.0.0/16"]
 }
 
+# The subnet the NIC (and VM) will live in.
 resource "azurerm_subnet" "web" {
   name                 = "snet-web"
   resource_group_name  = azurerm_resource_group.this.name
@@ -30,6 +46,7 @@ resource "azurerm_subnet" "web" {
   address_prefixes     = ["10.130.1.0/24"]
 }
 
+# The NIC connects the future VM to the subnet (private IP only).
 resource "azurerm_network_interface" "web" {
   name                = "nic-secret"
   location            = azurerm_resource_group.this.location

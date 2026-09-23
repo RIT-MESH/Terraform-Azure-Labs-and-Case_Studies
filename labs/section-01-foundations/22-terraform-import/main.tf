@@ -1,10 +1,26 @@
-﻿terraform {
-  required_version = ">= 1.5.0"   # the declarative `import {}` block needs >= 1.5
+# ---------------------------------------------------------------------------
+# Lab 22 — Importing an existing resource
+# Builds: nothing! It ADOPTS a pre-existing storage account into Terraform
+# state via the declarative `import {}` block.
+# Teaches: import (CLI and block forms) and the Azure resource id format.
+# ---------------------------------------------------------------------------
+
+terraform {
+  required_version = ">= 1.5.0" # the declarative `import {}` block needs >= 1.5
   required_providers {
-    azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.70"
+    }
+
   }
 }
-provider "azurerm" { features {} }
+
+# The azurerm provider configures the Azure plugin. `features {}` is required
+# even when empty. Credentials come from `az login` or the ARM_* env vars.
+provider "azurerm" {
+  features {}
+}
 
 # Read the current subscription so we can build the Azure resource id below.
 data "azurerm_client_config" "current" {}
@@ -18,6 +34,7 @@ variable "existing_sa_name" {
 
 variable "existing_rg_name" { type = string }
 
+# `locals {}` builds the id string the import block needs.
 locals {
   # Build the Azure resource id of the pre-existing storage account.
   # Format: /subscriptions/<sub>/resourceGroups/<rg>/providers/<provider>/<type>/<name>
@@ -42,4 +59,5 @@ resource "azurerm_storage_account" "adopted" {
   account_replication_type = "LRS"
 }
 
+# Prints the adopted account's id — matches local.sa_id after import.
 output "adopted_id" { value = azurerm_storage_account.adopted.id }

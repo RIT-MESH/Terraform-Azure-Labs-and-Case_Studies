@@ -4,6 +4,38 @@ Build a reusable **local module** end to end, then tackle the heavier network ap
 Load Balancer, Virtual Machine Scale Set, Traffic Manager, VNet peering, Application
 Gateway and Azure Firewall.
 
+## How to use these labs
+
+Prerequisites:
+
+- **Terraform >= 1.5** (`terraform -version` to check)
+- **Azure CLI** and a subscription you can create resource groups in — run `az login`
+  once per session; Terraform picks up that login's subscription.
+- An **SSH public key** (`~/.ssh/id_ed25519.pub` or similar) for the VM labs.
+
+Typical command flow, run from inside a lab folder:
+
+```bash
+cd labs/section-04-modules-and-networking/<lab-folder>
+az login                                  # once, before the first lab of the day
+cp terraform.tfvars.example terraform.tfvars   # only in labs that need it (fill in your SSH key or IP inputs)
+terraform init      # downloads providers + any modules
+terraform plan      # preview
+terraform apply     # type yes; load balancers/firewalls/app gateways take minutes
+terraform output    # grab IPs / DNS names to test in the portal
+terraform destroy   # clean up before moving on
+```
+
+Notes:
+
+- Labs 01-06 consume the shared local modules in `labs/modules/` — that is the point:
+  the root configs are thin callers. Lab 21 switches to a public registry module.
+- Some labs are split (setup + implementation, e.g. 14/15, 16-20): the later lab reads
+  the earlier lab's `terraform output` values into its `terraform.tfvars`, so run them
+  in order.
+- Each lab's README lists exactly what it creates, the portal pages to inspect, and the
+  concepts/gotchas — read the lab README before its code.
+
 ## Labs
 
 1. [Modules — resource group](01-module-resource-group/)

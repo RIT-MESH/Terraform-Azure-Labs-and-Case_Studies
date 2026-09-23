@@ -1,20 +1,22 @@
-﻿# Lab 20 — Provisioners (LAST RESORT).
+# Lab 20 — Provisioners (LAST RESORT).
 # Provisioners run scripts at create/destroy time. They're not idempotent, not in
 # `plan`, and fail the run if they error. Prefer custom_data/cloud-init. This lab
 # shows a remote-exec over SSH just to demonstrate the mechanics.
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+
+# Sensitive input: your SSH key material. Note it is used BOTH as the VM's
+# public_key (admin_ssh_key block) and as the connection block's private_key —
+# see the README gotchas about what that means for the provisioner.
+variable "admin_ssh_key" {
+  type      = string
+  sensitive = true
 }
-provider "azurerm" { features {} }
-
-variable "admin_ssh_key" { type = string, sensitive = true }
-
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = "rg-provisioner"
   location = "eastus"
 }
 
+# Virtual network + subnet: the NIC's network.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-provisioner"
   location            = azurerm_resource_group.this.location
@@ -22,6 +24,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.251.0.0/16"]
 }
 
+# Subnet: the /24 the NIC attaches to.
 resource "azurerm_subnet" "web" {
   name                 = "snet-web"
   resource_group_name  = azurerm_resource_group.this.name
@@ -29,6 +32,8 @@ resource "azurerm_subnet" "web" {
   address_prefixes     = ["10.251.1.0/24"]
 }
 
+# NSG with an SSH rule (needed so the provisioner's SSH connection can reach the
+# VM) — but note it is never associated with the subnet, see README gotchas.
 resource "azurerm_network_security_group" "web" {
   name                = "nsg-provisioner"
   location            = azurerm_resource_group.this.location
@@ -46,14 +51,16 @@ resource "azurerm_network_security_group" "web" {
   }
 }
 
+# Public IP: the provisioner's connection host is this VM's public IP.
 resource "azurerm_public_ip" "web" {
   name                = "pip-provisioner"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
-  sku                = "Standard"
+  sku                 = "Standard"
 }
 
+# NIC: binds the subnet and the public IP to the VM.
 resource "azurerm_network_interface" "web" {
   name                = "nic-provisioner"
   location            = azurerm_resource_group.this.location
@@ -66,6 +73,8 @@ resource "azurerm_network_interface" "web" {
   }
 }
 
+# The VM. Everything above is standard; the interesting part is the provisioner
+# at the bottom of this block.
 resource "azurerm_linux_virtual_machine" "web" {
   name                  = "vm-provisioner"
   location              = azurerm_resource_group.this.location
@@ -88,7 +97,11 @@ resource "azurerm_linux_virtual_machine" "web" {
     version   = "latest"
   }
 
-  # The provisioner runs ONCE at create time, over SSH. `self` refers to the VM
+  # The provisioner runs ONCE at create time, over SSH, from the machine running
+  # Terraform (not from inside Azure). A beginner would use a provisioner only for
+  # steps nothing else can do — e.g. copying a local file, bootstrapping a config
+  # manager, or cleanup on destroy — never for normal software installs.
+  # `self` refers to the VM
   # resource, so self.public_ip_address is this VM's public IP.
   provisioner "remote-exec" {
     inline = [
@@ -105,4 +118,5 @@ resource "azurerm_linux_virtual_machine" "web" {
   }
 }
 
+# Output: the SSH target — unknown during plan, assigned by Azure at apply.
 output "public_ip" { value = azurerm_public_ip.web.ip_address }

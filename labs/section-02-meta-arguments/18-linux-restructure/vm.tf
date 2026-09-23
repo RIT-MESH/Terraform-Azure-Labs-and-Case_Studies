@@ -1,4 +1,7 @@
-﻿# vm.tf — the VM, using the NIC from network.tf and the key from locals.tf.
+# vm.tf — the VM, using the NIC from network.tf and the key from locals.tf.
+# The compute block lives in its own file so it can be swapped/scaled without
+# touching networking. Note the cross-file references: var.vm_name,
+# azurerm_network_interface.web, local.ssh_pubkey.
 resource "azurerm_linux_virtual_machine" "web" {
   name                  = var.vm_name
   location              = azurerm_resource_group.this.location

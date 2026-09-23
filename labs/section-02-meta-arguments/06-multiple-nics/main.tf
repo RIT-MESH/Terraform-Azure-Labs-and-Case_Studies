@@ -1,20 +1,20 @@
-﻿# Lab 06 (assignment) — one NIC per tier, using for_each.
+# Lab 06 (assignment) — one NIC per tier, using for_each.
 # Shows deriving a map from a set with a `for` expression to compute CIDRs.
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
-}
-provider "azurerm" { features {} }
 
+# locals: the tiers list that the computed for_each map is built from.
 locals {
-  tiers = toset(["web", "app", "data"])
+  # A LIST (not a set): the two-value `for` over a list gives i as the numeric
+  # index, which we use to compute each tier's CIDR.
+  tiers = ["web", "app", "data"]
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = "rg-multi-nics"
   location = "eastus"
 }
 
+# Virtual network: one /16 address space that the computed /24 subnets fit into.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-multi-nics"
   location            = azurerm_resource_group.this.location
@@ -22,8 +22,8 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.160.0.0/16"]
 }
 
-# A `for` over a set produces a map: tier → "10.160.<i+1>.0/24".
-# i is the index, t the value. We build the CIDR per tier.
+# A `for` over the list produces a map: tier → "10.160.<i+1>.0/24".
+# i is the numeric index, t the value. We build the CIDR per tier.
 resource "azurerm_subnet" "this" {
   for_each             = { for i, t in local.tiers : t => "10.160.${i + 1}.0/24" }
   name                 = "snet-${each.key}"
@@ -41,9 +41,10 @@ resource "azurerm_network_interface" "this" {
   resource_group_name = azurerm_resource_group.this.name
   ip_configuration {
     name                          = "ipconfig"
-    subnet_id                     = each.value.id   # the subnet's id
+    subnet_id                     = each.value.id # the subnet's id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
+# Output: keys() lists the for_each keys — one NIC name per tier.
 output "nics" { value = keys(azurerm_network_interface.this) }

@@ -1,4 +1,4 @@
-﻿# Lab 11 — VNet peering setup (two VNets, one per region, no peering yet).
+# Lab 11 — VNet peering setup (two VNets, one per region, no peering yet).
 #  - rg-hub (eastus) with vnet-hub (10.20.0.0/16) + snet-hub.
 #  - rg-spoke (westus2) with vnet-spoke (10.21.0.0/16) + snet-spoke.
 # Lab 13 will peer them (peering must reference both VNets).
@@ -11,6 +11,7 @@ resource "azurerm_resource_group" "spoke" {
   location = "westus2"
 }
 
+# HUB side: resource group + VNet + subnet, all in eastus (10.20.0.0/16).
 resource "azurerm_virtual_network" "hub" {
   name                = "vnet-hub"
   location            = azurerm_resource_group.hub.location
@@ -25,6 +26,7 @@ resource "azurerm_subnet" "hub" {
   address_prefixes     = ["10.20.1.0/24"]
 }
 
+# SPOKE side: an independent VNet in westus2 (10.21.0.0/16) — no peering yet.
 resource "azurerm_virtual_network" "spoke" {
   name                = "vnet-spoke"
   location            = azurerm_resource_group.spoke.location
@@ -39,5 +41,6 @@ resource "azurerm_subnet" "spoke" {
   address_prefixes     = ["10.21.1.0/24"]
 }
 
-output "hub_id"   { value = azurerm_virtual_network.hub.id }
+# VNet ids — lab 13's peering resources (or a shared remote state read) use these.
+output "hub_id" { value = azurerm_virtual_network.hub.id }
 output "spoke_id" { value = azurerm_virtual_network.spoke.id }

@@ -1,4 +1,1 @@
-﻿variable "mysql_admin_password" { type = string, sensitive = true }
-variable "existing_server_name" { type = string }
-variable "existing_rg_name" { type = string }
-variable "client_ip" { type = string }
+# Variable declarations moved to main.tf (they were declared twice, which Terraform rejects).

@@ -1,23 +1,35 @@
-﻿# Lab 09 — SQL firewall rules.
+# Lab 09 — SQL firewall rules.
 # By default NOTHING can reach a SQL logical server. We add two rules:
 #   - one for your client IP (so you can connect from your machine)
 #   - one for "0.0.0.0" (the special range meaning "other Azure services")
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+
+# No default + sensitive: Terraform won't plan until you pass the password,
+# and it stays hidden in plan/apply output.
+variable "sql_admin_password" {
+  type      = string
+  sensitive = true
 }
-provider "azurerm" { features {} }
+# The public IP of the machine you'll connect from (find it: whatismyip).
+variable "client_ip" { type = string }
 
-variable "sql_admin_password" { type = string, sensitive = true }
-variable "client_ip"          { type = string }
+# A stateful random string. Unlike md5(timestamp()) this value is SAVED in
+# Terraform state, so it only changes when the resource is destroyed —
+# every plan/apply is stable and nothing gets unexpectedly replaced.
+resource "random_string" "suffix" {
+  length  = 6
+  upper   = false
+  special = false
+}
 
+# A resource group is Azure's folder: everything this lab creates lives here.
 resource "azurerm_resource_group" "this" {
   name     = "rg-sql-fw"
   location = "eastus"
 }
 
+# Same logical server as lab 08 (fresh copy here so this lab is self-contained).
 resource "azurerm_mssql_server" "this" {
-  name                         = "sqlserver-fw-${substr(md5(timestamp()), 0, 8)}"
+  name                         = "sqlserver-fw-${random_string.suffix.result}"
   resource_group_name          = azurerm_resource_group.this.name
   location                     = azurerm_resource_group.this.location
   version                      = "12.0"
@@ -43,4 +55,5 @@ resource "azurerm_mssql_firewall_rule" "azure" {
   end_ip_address   = "0.0.0.0"
 }
 
+# Outputs print values after apply — use this FQDN when connecting from SSMS.
 output "server_fqdn" { value = azurerm_mssql_server.this.fully_qualified_domain_name }

@@ -1,14 +1,17 @@
-﻿# Lab 15 — a web server built via cloud-init (custom_data).
+# Lab 15 — a web server built via cloud-init (custom_data).
+# Teaches: a heredoc (<<-EOT) holding cloud-init YAML, base64encode() for
+# custom_data, a public IP attached to a NIC's ip_configuration, and an NSG rule
+# opening HTTP.
 # Instead of a provisioner, install nginx at first boot with cloud-init —
 # idempotent and the Terraform-native way.
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+
+# Sensitive input: your SSH public key (no default → Terraform prompts, or pass
+# with -var / tfvars). sensitive = true hides it in plan/apply output.
+variable "admin_ssh_key" {
+  type      = string
+  sensitive = true
 }
-provider "azurerm" { features {} }
-
-variable "admin_ssh_key" { type = string, sensitive = true }
-
+# locals: the cloud-init document (heredoc) fed to the VM's custom_data.
 locals {
   # <<-EOT ... EOT is a heredoc. The indent is stripped. This is cloud-init YAML.
   cloud_init = <<-EOT
@@ -22,11 +25,13 @@ locals {
   EOT
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = "rg-webserver"
   location = "eastus"
 }
 
+# Virtual network + subnet: where the NIC (and its public IP) live.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-webserver"
   location            = azurerm_resource_group.this.location
@@ -34,6 +39,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.220.0.0/16"]
 }
 
+# Subnet: the /24 the NIC (and its public IP) attach to.
 resource "azurerm_subnet" "web" {
   name                 = "snet-web"
   resource_group_name  = azurerm_resource_group.this.name
@@ -59,14 +65,17 @@ resource "azurerm_network_security_group" "web" {
   }
 }
 
+# Public IP: allocated Static/Standard so the address survives VM restarts. It is
+# attached to the NIC's ip_configuration below (not to the VM directly).
 resource "azurerm_public_ip" "web" {
   name                = "pip-webserver"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
-  sku                = "Standard"
+  sku                 = "Standard"
 }
 
+# NIC: connects the VM to the subnet and (via ip_configuration) to the public IP.
 resource "azurerm_network_interface" "web" {
   name                = "nic-webserver"
   location            = azurerm_resource_group.this.location
@@ -104,4 +113,6 @@ resource "azurerm_linux_virtual_machine" "web" {
   }
 }
 
+# Output: the public IP Azure assigned (unknown until apply completes).
+# Open http://<this IP> to see the nginx page cloud-init wrote.
 output "public_ip" { value = azurerm_public_ip.web.ip_address }

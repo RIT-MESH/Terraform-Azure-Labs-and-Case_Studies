@@ -5,6 +5,31 @@ meta-arguments — `count` and `for_each` — then adds resilience (availability
 secrets (Key Vault), flexibility (dynamic blocks), post-creation actions (provisioners),
 and secure access (Azure Bastion).
 
+## How to use these labs
+
+**Prerequisites**
+
+- **Terraform >= 1.5** — `terraform -version` to check.
+- **Azure CLI** (`az`) installed and signed in: `az login` (each lab talks to your
+  subscription; labs 13 and 14 additionally use the signed-in identity).
+- A subscription where you can create/destroy resource groups. All resources in these
+  labs are cheap lab sizes (`Standard_B1s`) — run `terraform destroy` when done.
+
+**Typical command flow** (inside a lab folder):
+
+```bash
+cd 01-count-meta-argument          # pick a lab folder
+terraform init                     # download providers (once per lab)
+terraform plan                     # preview exactly what will be created
+terraform apply                    # create it (type "yes" to confirm)
+terraform output container_names   # read results
+terraform destroy                  # delete everything the lab created
+```
+
+Pass inputs with `-var=name=value` or a `terraform.tfvars` file when a lab needs them
+(SSH keys, passwords, existing resource-group names). Each lab's README lists its
+variables and what to click in the Azure portal.
+
 ## Labs
 
 1. [The `count` meta-argument](01-count-meta-argument/)

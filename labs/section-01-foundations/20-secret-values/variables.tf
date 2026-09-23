@@ -1,2 +1,1 @@
-﻿variable "admin_password" { type = string, sensitive = true }
-variable "admin_username" { type = string, default = "azureadmin" }
+# Variable declarations moved to main.tf (they were declared twice, which Terraform rejects).

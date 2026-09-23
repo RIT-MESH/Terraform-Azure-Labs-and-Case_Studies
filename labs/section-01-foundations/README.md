@@ -5,6 +5,36 @@ created a storage account, a virtual network with subnets, a network interface, 
 IP, a security group, and a virtual machine — all parameterised with variables, locals,
 outputs and tfvars.
 
+## How to use these labs
+
+Prerequisites:
+
+- **Terraform >= 1.5** (`terraform -version` to check; lab 22 and 23 need 1.5+)
+- **Azure CLI** (`az`) installed
+- An Azure subscription you are allowed to create resources in
+
+Typical command flow for every lab:
+
+```bash
+az login                              # sign in once per machine/session
+cd section-01-foundations/<lab-name>
+terraform init                        # download providers (once per lab)
+terraform plan                        # preview what will be created
+terraform apply                       # create it
+terraform output                      # read printed values
+terraform destroy                     # tear it down when done
+```
+
+Notes:
+
+- Labs 01, 22 and a few others deviate slightly — each lab's README lists its exact
+  commands and any extra prerequisites (e.g. an admin password or SSH key for VM labs).
+- After `az login`, Terraform authenticates with your user account. For pipeline-style
+  (unattended) auth, set up the service principal in lab 01 and export the four
+  `ARM_*` environment variables instead.
+- Each lab folder is independent: run `terraform init` inside each one and destroy
+  before moving on to avoid stray costs.
+
 ## Labs
 
 1. [Authentication with an App Registration](01-authentication-app-object/) — service principal

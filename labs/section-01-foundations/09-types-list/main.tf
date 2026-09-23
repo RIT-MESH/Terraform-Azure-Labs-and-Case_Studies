@@ -1,4 +1,12 @@
-﻿locals {
+# ---------------------------------------------------------------------------
+# Lab 09 — Types: list (and for-expressions)
+# Builds: resource group "rg-list-foundation" + VNet "vnet-list" with three
+# subnets (snet-tier1/2/3) generated from a list.
+# Teaches: list(string), indexing, and `for` expressions to turn data into
+# repeated blocks.
+# ---------------------------------------------------------------------------
+
+locals {
   region = "eastus"
   rg     = "rg-list-foundation"
   # A LIST (ordered, index-addressed). Here a list of CIDR prefixes.
@@ -12,11 +20,13 @@
   }]
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = local.region
 }
 
+# Virtual network whose subnets are generated from the list above.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-list"
   location            = azurerm_resource_group.this.location

@@ -1,25 +1,33 @@
-﻿# Lab 03 — The `for_each` meta-argument.
+# Lab 03 — The `for_each` meta-argument.
 # for_each creates one resource per element of a SET or MAP. Each copy is
 # addressed by its KEY: resource.name["key"]. Prefer for_each over count when
 # copies differ in config and are best addressed by a meaningful key.
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
-}
-provider "azurerm" { features {} }
 
+# locals: the for_each collection and the storage-account name, computed once.
 locals {
   # toset() converts a list to a set (unique, unordered). for_each over a set
   # creates one resource per string: "dev", "stg", "prod".
   stages = toset(["dev", "stg", "prod"])
-  st     = lower("stforeach${substr(md5(timestamp()), 0, 6)}")
+  st     = lower("stforeach${random_string.suffix.result}")
 }
 
+# A stateful random string. Unlike md5(timestamp()) this value is SAVED in
+# Terraform state, so it only changes when the resource is destroyed —
+# every plan/apply is stable and nothing gets unexpectedly replaced.
+resource "random_string" "suffix" {
+  length  = 6
+  upper   = false
+  special = false
+}
+
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = "rg-foreach-meta"
   location = "eastus"
 }
 
+# Storage account: referencing azurerm_resource_group.this.name creates an
+# implicit dependency, so Terraform always creates the group first.
 resource "azurerm_storage_account" "this" {
   name                     = local.st
   resource_group_name      = azurerm_resource_group.this.name
@@ -37,5 +45,7 @@ resource "azurerm_storage_container" "stage" {
   container_access_type = "private"
 }
 
-# When a resource uses for_each, you reference it as a MAP: keys(resource.name)
+# Output: a for_each resource is a MAP of instances, so keys() lists the keys
+# ("dev", "stg", "prod") and azurerm_storage_container.stage["dev"] would address
+# a single instance by key.
 output "containers" { value = keys(azurerm_storage_container.stage) }

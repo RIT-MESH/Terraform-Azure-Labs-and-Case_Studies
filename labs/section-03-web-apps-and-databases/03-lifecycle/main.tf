@@ -1,21 +1,30 @@
-﻿# Lab 03 — The lifecycle meta-argument.
+# Lab 03 — The lifecycle meta-argument.
 # lifecycle {} changes how Terraform treats a resource over time:
 #   - create_before_destroy: build the new version BEFORE removing the old.
 #   - prevent_destroy: refuse to destroy (safety for prod databases).
 #   - ignore_changes: let chosen attributes drift (e.g. tags set by another tool).
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
+
+# Storage account names are globally unique, 3-24 chars, lowercase letters and
+# digits only — hence lower() and the random suffix.
+locals { st = lower("stlife${random_string.suffix.result}") }
+
+# A stateful random string. Unlike md5(timestamp()) this value is SAVED in
+# Terraform state, so it only changes when the resource is destroyed —
+# every plan/apply is stable and nothing gets unexpectedly replaced.
+resource "random_string" "suffix" {
+  length  = 6
+  upper   = false
+  special = false
 }
-provider "azurerm" { features {} }
 
-locals { st = lower("stlife${substr(md5(timestamp()), 0, 6)}") }
-
+# A resource group is Azure's folder: everything this lab creates lives here.
 resource "azurerm_resource_group" "this" {
   name     = "rg-lifecycle"
   location = "eastus"
 }
 
+# A storage account = Azure's blob/file/queue service. Standard + LRS is the
+# cheapest replication (3 copies, one datacenter).
 resource "azurerm_storage_account" "this" {
   name                     = local.st
   resource_group_name      = azurerm_resource_group.this.name
@@ -30,6 +39,7 @@ resource "azurerm_storage_account" "this" {
   }
 }
 
+# A blob container inside the storage account — like a folder for blobs.
 resource "azurerm_storage_container" "this" {
   name                  = "lifecycle"
   storage_account_name  = azurerm_storage_account.this.name

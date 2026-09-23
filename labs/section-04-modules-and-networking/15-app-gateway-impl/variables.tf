@@ -1,4 +1,1 @@
-﻿variable "backend_ips" {
-  type    = list(string)
-  description = "Private IPs of the backend VMs from lab 25."
-}
+# Variable declarations moved to main.tf (they were declared twice, which Terraform rejects).

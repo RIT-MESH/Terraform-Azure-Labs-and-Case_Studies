@@ -1,12 +1,10 @@
-﻿# Lab 02 — count from a variable (assignment).
+# Lab 02 — count from a variable (assignment).
 # Same as lab 01 but the count is driven by a variable, so callers change the
 # number of containers via tfvars/CLI without editing code.
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
-}
-provider "azurerm" { features {} }
 
+# Input variable: lets the caller choose how many containers to create via
+# -var / terraform.tfvars, without editing code. The validation block fails the
+# plan early with a friendly message instead of a cryptic Azure error later.
 variable "container_count" {
   type    = number
   default = 3
@@ -16,15 +14,31 @@ variable "container_count" {
   }
 }
 
+# locals: named values computed once and reused in this file. lower() makes the
+# name lowercase (Azure storage accounts must be all lowercase) and the random
+# suffix makes it globally unique.
 locals {
-  st = lower("stcont${substr(md5(timestamp()), 0, 6)}")
+  st = lower("stcont${random_string.suffix.result}")
 }
 
+# A stateful random string. Unlike md5(timestamp()) this value is SAVED in
+# Terraform state, so it only changes when the resource is destroyed —
+# every plan/apply is stable and nothing gets unexpectedly replaced.
+resource "random_string" "suffix" {
+  length  = 6
+  upper   = false
+  special = false
+}
+
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = "rg-multi-containers"
   location = "eastus"
 }
 
+# Storage account: referencing the resource group with
+# azurerm_resource_group.this.name (instead of a plain string) creates an
+# implicit dependency, so Terraform always creates the group first.
 resource "azurerm_storage_account" "this" {
   name                     = local.st
   resource_group_name      = azurerm_resource_group.this.name
@@ -41,5 +55,8 @@ resource "azurerm_storage_container" "data" {
   container_access_type = "private"
 }
 
-output "count"           { value = length(azurerm_storage_container.data) }
+# Outputs: printed after apply (also with `terraform output`). A count resource
+# is a LIST of instances, so length() counts them and the [*] splat collects all
+# names into one list.
+output "count" { value = length(azurerm_storage_container.data) }
 output "container_names" { value = azurerm_storage_container.data[*].name }

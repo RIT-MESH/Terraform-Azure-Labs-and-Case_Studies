@@ -1,14 +1,14 @@
-﻿# Lab 07 — multiple public IPs with count + format().
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers { azurerm = { source = "hashicorp/azurerm", version = "~> 3.70" } }
-}
-provider "azurerm" { features {} }
+# Lab 07 — multiple public IPs with count + format().
+# Teaches: count with a local, count.index inside format() for zero-padded names,
+# and the [*] splat on a count resource.
 
+# locals: how many public IPs to create. Changing this number and re-applying
+# scales the fan-out up or down.
 locals {
   ip_count = 3
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = "rg-multi-pips"
   location = "eastus"
@@ -21,7 +21,10 @@ resource "azurerm_public_ip" "this" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
-  sku                = "Standard"
+  sku                 = "Standard"
 }
 
+# Output: the [*] splat collects .ip_address from every count instance into a
+# list, so you get 3 addresses. The .ip_address attribute is only known AFTER
+# apply — the plan shows <computed> (Terraform learns it from Azure).
 output "ips" { value = azurerm_public_ip.this[*].ip_address }

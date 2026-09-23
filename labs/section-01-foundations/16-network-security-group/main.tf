@@ -1,12 +1,21 @@
-﻿locals {
+# ---------------------------------------------------------------------------
+# Lab 16 — Network Security Group
+# Builds: resource group "rg-nsg-foundation", VNet "vnet-nsg", subnet "snet-web",
+# NSG "nsg-web" (RDP + HTTPS allow rules) attached to the subnet.
+# Teaches: NSG security rules, rule priority, and subnet↔NSG association.
+# ---------------------------------------------------------------------------
+
+locals {
   rg = "rg-nsg-foundation"
 }
 
+# Resource group: the container that groups all resources for this lab in Azure.
 resource "azurerm_resource_group" "this" {
   name     = local.rg
   location = "eastus"
 }
 
+# The VNet + subnet the NSG will protect.
 resource "azurerm_virtual_network" "this" {
   name                = "vnet-nsg"
   location            = azurerm_resource_group.this.location
@@ -14,6 +23,7 @@ resource "azurerm_virtual_network" "this" {
   address_space       = ["10.110.0.0/16"]
 }
 
+# The subnet the NSG will be attached to below.
 resource "azurerm_subnet" "web" {
   name                 = "snet-web"
   resource_group_name  = azurerm_resource_group.this.name
@@ -31,13 +41,13 @@ resource "azurerm_network_security_group" "web" {
 
   security_rule {
     name                       = "Allow-RDP"
-    priority                   = 200          # evaluated before higher numbers
+    priority                   = 200 # evaluated before higher numbers
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
-    source_port_range          = "*"          # any source port
-    destination_port_range     = "3389"       # RDP
-    source_address_prefix      = "*"          # any source IP (tighten in prod!)
+    source_port_range          = "*"    # any source port
+    destination_port_range     = "3389" # RDP
+    source_address_prefix      = "*"    # any source IP (tighten in prod!)
     destination_address_prefix = "*"
   }
 

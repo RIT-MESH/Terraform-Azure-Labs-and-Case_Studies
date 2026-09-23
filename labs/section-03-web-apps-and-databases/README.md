@@ -4,6 +4,32 @@ Move from VMs to managed platforms. Deploy Azure App Service and its deployment 
 apply lifecycle rules and resource tags, then provision an Azure SQL Database (with
 firewall rules) and a MySQL server, and finally wire a web app to its database.
 
+## How to use these labs
+
+Prerequisites (once, on your machine):
+
+- **Terraform >= 1.5** — check with `terraform -version`
+- **Azure CLI** — check with `az --version`
+- **Sign in to Azure** — run `az login` before the first `terraform apply` in a
+  session; Terraform uses that identity to create resources. If you have more
+  than one subscription, pick one with `az account set --subscription "<name>"`.
+
+Typical flow for every lab (run from inside the lab folder):
+
+```bash
+cd 01-web-app          # pick the lab
+terraform init         # first time only: download providers
+terraform plan         # preview what will be created/changed
+terraform apply        # create it (type "yes" to confirm)
+terraform output       # print values such as the site URL
+terraform destroy      # clean up and stop paying for the lab
+```
+
+Labs marked *(assignment)* are self-checks: try them before reading the solution
+in `main.tf`. Some labs need a `terraform.tfvars` (see the `terraform.tfvars.example`
+file in the lab folder — copy it and fill in a real password or your client IP),
+and lab 11 authors a `schema.sql` that lab 13 runs manually.
+
 ## Labs
 
 1. [Azure Web App](01-web-app/)
