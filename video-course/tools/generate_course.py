@@ -275,9 +275,10 @@ def main():
                         and not args.force:
                     raise SystemExit(f"{ep['path']}: voice already complete (status={cur}) "
                                      "— use --force to regenerate")
-                if cur not in ("VALIDATED", "APPROVED"):
+                if cur not in ("VALIDATED", "APPROVED") and not args.force:
                     raise SystemExit(f"{ep['path']}: narration allowed only for VALIDATED "
-                                     f"episodes (status={cur})")
+                                     f"episodes (status={cur}) — a CI dispatch or explicit "
+                                     "--force overrides this for regeneration")
                 stage_voice(ep, out_dir, args.provider)
                 set_status(PR, PROGRESS, ep,
                            max_of(get_status(PR, ep), "VOICE_COMPLETE"))
