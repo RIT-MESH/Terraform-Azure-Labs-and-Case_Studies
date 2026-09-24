@@ -1,0 +1,66 @@
+{
+  "episode": "06-virtual-network",
+  "source": "writing/scenes.json",
+  "scenes": [
+    {
+      "id": "S001",
+      "narration": "Everything we've built so far lives alone in its resource group. Today we start connecting things, with your first virtual network: private I P space in Azure, with subnets carved out for the workloads to come."
+    },
+    {
+      "id": "S002",
+      "narration": "Here's the plan. What a virtual network is, in plain terms. How to read a C I D R block, so an address like ten twenty dot zero dot zero slash sixteen stops looking like noise. Then inline subnet blocks: the quick way to carve up that space. And why networking comes before compute in every serious Azure project."
+    },
+    {
+      "id": "S003",
+      "narration": "This is lab six, and it's the first networking lab of the course. From here on, most resources will live inside a network. Virtual machines, databases, app environments, they all need subnets to sit in. The code itself is small, but it's the foundation everything later stands on."
+    },
+    {
+      "id": "S004",
+      "narration": "Sixty seconds on C I D R, because it's the only networking math this course needs. Ten twenty dot zero dot zero slash sixteen means: the first sixteen bits, the first two numbers, are the network. Everything after is yours. That's about sixty five thousand addresses. A slash twenty four subnet fixes one more number, so ten twenty dot one dot zero slash twenty four is a piece of that space, two hundred fifty six addresses big. The only rule to remember: subnets must fit inside the network, and they must not overlap."
+    },
+    {
+      "id": "S005",
+      "narration": "As always, the lab is in the course GitHub repository under Section 1, Foundations, link in the description. One file: main dot T F, with a resource group, a virtual network, and two subnets."
+    },
+    {
+      "id": "S006",
+      "narration": "Locals first: the resource group name, the region, and the network's name. Then the resource group itself, referencing those locals. This is the same opening pattern as every lab since four: names live in one place, resources reference them."
+    },
+    {
+      "id": "S007",
+      "narration": "Now the new resource: a virtual network. Its name comes from locals, and its location and resource group come from the group we just defined, the reference chain you already know. The new part is address space. It's a list, because a V N E T can hold several ranges, and here we give it one: ten twenty dot zero dot zero slash sixteen. That's this network's private territory inside Azure."
+    },
+    {
+      "id": "S008",
+      "narration": "Here's the space as a picture. The big box is the V N E T, sixty five thousand addresses wide. Inside it, two subnets: the web subnet at ten twenty dot one dot zero, and the app subnet at ten twenty dot two dot zero, each a slash twenty four slice. Resources in the web subnet can talk to the app subnet, because they share this private space. And nothing here is reachable from the public internet unless we deliberately expose it later."
+    },
+    {
+      "id": "S009",
+      "narration": "The subnets are defined inside the V N E T block itself, one small block per subnet: a name and an address prefix. This inline style is the quick way, and for a small network it's perfectly fine. The trade-off, as the comment notes, is flexibility. Each inline subnet is welded to this V N E T resource. When you need subnets with their own lifecycles, route tables, or network security groups, you define them as separate resources, which is a later lab's topic."
+    },
+    {
+      "id": "S010",
+      "narration": "Two outputs finish the file: the V N E T's I D and its name. The I D is the one to watch. Later labs and other resources reference a network by its I D, so printing it here is both a sanity check and a preview of the reference chains to come."
+    },
+    {
+      "id": "S011",
+      "narration": "Apply time. The resource group first, then the virtual network with both subnets inside it. Notice the plan shows the subnets as part of the V N E T, not as separate resources, because that's how we declared them: inline."
+    },
+    {
+      "id": "S012",
+      "narration": "The classic networking mistake: overlapping ranges. Declare two subnets with the same prefix, or a subnet outside the V N E T's space, and Azure rejects the whole thing at apply time. Less obvious but more painful: when you later peer two virtual networks, their spaces must not overlap either, and addresses are effectively forever, because renumbering a used network is a project of its own. So spend a minute planning ranges before writing them down."
+    },
+    {
+      "id": "S013",
+      "narration": "Quick recap. A virtual network is private I P space inside Azure, defined by its address space list. We read our first C I D R block: a slash sixteen network holding slash twenty four subnets. We carved two of them inline, the quick way, and noted the flexibility trade-off. And the V N E T's I D went into an output, because everything after this lab will reference it."
+    },
+    {
+      "id": "S014",
+      "narration": "Now that we understand how this Terraform configuration works, in the next part of this video, we'll move to a real-world demo and deploy it in Microsoft Azure."
+    },
+    {
+      "id": "S015",
+      "narration": "Thanks for watching. If this helped, the full lab, along with every lab in this course, is in the GitHub repository linked below. If you'd like more lessons like this one, give the video a like, share it with a friend who is learning Azure, and subscribe to the channel. It really helps the course grow. Thank you, and see you in the next lesson."
+    }
+  ]
+}
