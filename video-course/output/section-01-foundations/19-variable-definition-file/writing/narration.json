@@ -1,0 +1,62 @@
+{
+  "episode": "19-variable-definition-file",
+  "source": "writing/scenes.json",
+  "scenes": [
+    {
+      "id": "S001",
+      "narration": "Lab 18's variables all had defaults. But production configurations usually refuse to guess: variables declared with no default must be supplied — and the standard supplier is a file. This lesson is terraform dot t f vars, the definition file Terraform loads automatically."
+    },
+    {
+      "id": "S002",
+      "narration": "Here's the plan. Variables declared with no default — which makes them required. The definition file that's loaded automatically, by name. And the flag that swaps in a different file for a different environment. Same code, different values — chosen by file, not by edit."
+    },
+    {
+      "id": "S003",
+      "narration": "This is lab nineteen. Last lesson made the inputs strict — validation rejecting bad values. Today's question: where do good values come from? Terraform's answer is a file it loads by convention, plus a flag for everything else."
+    },
+    {
+      "id": "S004",
+      "narration": "The convention is the feature. Name the file terraform dot t f vars, and Terraform loads it on every plan and apply — no flags, no scripts. Any file ending in dot auto dot t f vars loads too. Need a different environment? Keep a prod t f vars and pass var dash file. And if a required variable has no value anywhere, Terraform stops and asks. The declaration stays in code; the values stay in data."
+    },
+    {
+      "id": "S005",
+      "narration": "As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Main dot t f declares three variables with no defaults — and terraform dot t f vars is where the values live."
+    },
+    {
+      "id": "S006",
+      "narration": "Three variables, and notice what's missing: no type keyword beyond the bare minimum, and no defaults anywhere. Location, name prefix, tier — declared and required. Terraform will not invent values for these. The configuration refuses to run until someone supplies them."
+    },
+    {
+      "id": "S007",
+      "narration": "The consumption is familiar from lab eighteen: the storage account's name assembles the prefix with a random suffix, and the tier flows straight from the variable. The only difference is upstream — nothing here has a fallback. Every value in this block came from outside."
+    },
+    {
+      "id": "S008",
+      "narration": "And here's the outside: terraform dot t f vars. Three assignments — one per variable, matching names exactly. No flags needed: Terraform loads this file by name, automatically, on every run. Rename it and it stops loading — the name is the contract."
+    },
+    {
+      "id": "S009",
+      "narration": "The data flow, drawn out: the definition file is picked up by name, its values land in the required variables, and the resources consume them — no defaults involved anywhere."
+    },
+    {
+      "id": "S010",
+      "narration": "Two runs, one configuration. The apply picked up terraform dot t f vars automatically — no flags at all. Then the same code with a different file: var dash file, prod t f vars, and the plan targets a different region, a different prefix, a different tier. Nothing edited. Environments are files, not copies of the code."
+    },
+    {
+      "id": "S011",
+      "narration": "The pitfall: expecting the example file to work. Terraform dot t f vars dot example is a template — the dot example suffix means Terraform ignores it completely. Copy it, rename it, fill it in. And know the precedence: command line var beats every file, and with several var dash files the last one wins. In C I, where there's no one to answer an interactive prompt, a missing required variable is a hard error — which is exactly why the file convention matters."
+    },
+    {
+      "id": "S012",
+      "narration": "Quick recap. Three variables with no defaults, and one file supplying them: terraform dot t f vars, loaded automatically by name. A different environment is a different file, passed with var dash file — and the precedence rules are simple and strict. Same code, any environment, chosen by file."
+    },
+    {
+      "id": "S013",
+      "narration": "Now that we understand how this Terraform configuration works, in the next part of this video, we'll move to a real-world demo and deploy it in Microsoft Azure."
+    },
+    {
+      "id": "S014",
+      "narration": "Thanks for watching. If this helped, the full lab, along with every lab in this course, is in the GitHub repository linked below. If you'd like more lessons like this one, give the video a like, share it with a friend who is learning Azure, and subscribe to the channel. It really helps the course grow. Thank you, and see you in the next lesson."
+    }
+  ]
+}
