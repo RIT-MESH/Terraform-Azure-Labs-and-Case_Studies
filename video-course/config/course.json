@@ -1,0 +1,8 @@
+{
+  "source_root": "E:\\labs",
+  "public_repository": "https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies",
+  "public_labs_root": "https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies/tree/master/labs",
+  "statuses": ["DRAFT", "VALIDATED", "APPROVED", "VOICE_COMPLETE", "RENDERED", "FINAL"],
+  "episodes_root": "video-course/output",
+  "notes": "E:\\labs is internal-only; viewers always see the public GitHub URLs. FINAL episodes are never auto-regenerated."
+}

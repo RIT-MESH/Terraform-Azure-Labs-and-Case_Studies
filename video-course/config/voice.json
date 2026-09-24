@@ -1,0 +1,17 @@
+{
+  "provider": "minimax",
+  "model": "speech-2.8-hd",
+  "voice_id": "TODO_SELECT_MALE_VOICE_ID",
+  "language": "English",
+  "speed": 1.0,
+  "vol": 1.0,
+  "pitch": 0,
+  "style": "technical-instructor",
+  "edge_voice": "en-US-AndrewNeural",
+  "edge_notes": "FREE fallback provider (no API key, uvx edge-tts) — this is the male narrator actually used by the proven terraform-azure-essentials production. The pipeline picks edge automatically whenever MINIMAX_API_KEY is unset.",
+  "persona": "Natural adult male technical instructor. Neutral American English. Calm, clear, confident, conversational. Medium-low pitch. Professional but friendly. An experienced Azure/Terraform engineer teaching a junior cloud engineer. NOT: commercial announcer, news presenter, movie trailer, overexcited YouTuber, AI-assistant voice, robotic TTS.",
+  "pace_wpm": { "normal": [135, 150], "code_explanations": [120, 140] },
+  "audio_format": "mp3",
+  "padding": { "lead_in_frames": 12, "lead_out_frames": 18 },
+  "notes": "VOICE SELECTION IS MANUAL AND ONE-TIME: listen to several MiniMax voices, pick the male voice best suited to 8-15 min calm technical narration, save its exact voice_id above, then never switch voices between episodes."
+}

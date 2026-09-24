@@ -1,0 +1,4 @@
+# Python packages needed by the GitHub Actions CI media job.
+# (uv is installed separately in the workflow; edge-tts runs via `uvx edge-tts`.)
+requests
+playwright
