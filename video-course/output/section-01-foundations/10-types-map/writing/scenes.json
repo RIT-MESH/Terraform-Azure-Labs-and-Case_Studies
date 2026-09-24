@@ -62,7 +62,12 @@
       "source_file": "main.tf",
       "start_line": 17,
       "end_line": 28,
-      "highlight_lines": [23, 24, 25, 26],
+      "highlight_lines": [
+        23,
+        24,
+        25,
+        26
+      ],
       "asset": "assets/code/lab10-01-map.png",
       "narration": "First the data, and it's a different shape this time. Subnets is a map: three keys, web, app, and data, and each value is an object with a prefix and an N S G flag. Compare this to last lab's list: there, position told you what a subnet was. Here, the key does. You'll see how much that buys us in a moment.",
       "audio": "audio/S006.mp3"
@@ -73,7 +78,11 @@
       "source_file": "main.tf",
       "start_line": 30,
       "end_line": 43,
-      "highlight_lines": [32, 38, 42],
+      "highlight_lines": [
+        32,
+        38,
+        42
+      ],
       "asset": "assets/code/lab10-02-rg-vnet.png",
       "narration": "The resource group and virtual network are the familiar opening pair, same reference chains as the last several labs. One network, ten sixty dot zero dot zero slash sixteen, ready to hold three subnets. Nothing new here, so let's get to the main event.",
       "audio": "audio/S007.mp3"
@@ -84,7 +93,12 @@
       "source_file": "main.tf",
       "start_line": 45,
       "end_line": 55,
-      "highlight_lines": [49, 50, 51, 54],
+      "highlight_lines": [
+        49,
+        50,
+        51,
+        54
+      ],
       "asset": "assets/code/lab10-03-for-each.png",
       "narration": "This is the lesson: one subnet resource, no list, no dynamic block. For each equals the map, and Terraform creates one instance per key. Inside the block, each dot key is the role name, web, app, or data, and it builds the subnet name: snet dash web. Each dot value is that key's object, and the address prefixes line pulls its prefix. Three map entries, three real resources, one resource block.",
       "audio": "audio/S008.mp3"
@@ -95,7 +109,64 @@
       "caption": "One resource block, three instances — one per key",
       "asset": "assets/diagrams/lab10-map-to-subnets.svg",
       "narration": "Here's what for each actually built. The map has three entries, so the single azurerm subnet resource becomes three instances: snet web, snet app, and snet data, each tracked in state under its key. Change the web entry's prefix, and only web is touched. Delete the data key, and only data is destroyed. Identity, not position.",
-      "audio": "audio/S009.mp3"
+      "audio": "audio/S009.mp3",
+      "steps": [
+        {
+          "narration": "Here's what for each actually built.",
+          "nodes": [],
+          "edges": []
+        },
+        {
+          "narration": "The map has three entries, so the single azurerm subnet resource becomes three instances: snet web, snet app, and snet data, each tracked in state under its key.",
+          "nodes": [
+            "map",
+            "fe",
+            "web",
+            "app",
+            "data"
+          ],
+          "edges": [
+            "map-fe",
+            "fe-web",
+            "fe-app",
+            "fe-data"
+          ]
+        },
+        {
+          "narration": "Change the web entry's prefix, and only web is touched.",
+          "nodes": [
+            "web"
+          ],
+          "edges": [
+            "fe-web"
+          ]
+        },
+        {
+          "narration": "Delete the data key, and only data is destroyed.",
+          "nodes": [
+            "data"
+          ],
+          "edges": [
+            "fe-data"
+          ]
+        },
+        {
+          "narration": "Identity, not position.",
+          "nodes": [
+            "map",
+            "fe",
+            "web",
+            "app",
+            "data"
+          ],
+          "edges": [
+            "map-fe",
+            "fe-web",
+            "fe-app",
+            "fe-data"
+          ]
+        }
+      ]
     },
     {
       "id": "S010",
@@ -103,7 +174,9 @@
       "source_file": "main.tf",
       "start_line": 57,
       "end_line": 60,
-      "highlight_lines": [59],
+      "highlight_lines": [
+        59
+      ],
       "asset": "assets/code/lab10-04-output.png",
       "narration": "The output closes with a for expression over the created resources. K is the key, S is each instance, and the result is a map from role to subnet I D. After apply you can hand any downstream module the data subnet's I D by asking for it by name.",
       "audio": "audio/S010.mp3"

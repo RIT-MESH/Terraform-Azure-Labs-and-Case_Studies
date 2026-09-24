@@ -63,7 +63,10 @@
       "source_file": "terraform.tf",
       "start_line": 3,
       "end_line": 17,
-      "highlight_lines": [3, 15],
+      "highlight_lines": [
+        3,
+        15
+      ],
       "asset": "assets/code/lab08-01-terraform-tf.png",
       "narration": "File one: terraform dot T F. The version pin and the provider block you've been reading since lab one, now in their own file. Nothing changed semantically. This block just lives here instead of the top of main dot T F.",
       "audio": "audio/S006.mp3"
@@ -74,7 +77,10 @@
       "source_file": "locals.tf",
       "start_line": 4,
       "end_line": 12,
-      "highlight_lines": [7, 8],
+      "highlight_lines": [
+        7,
+        8
+      ],
       "asset": "assets/code/lab08-02-locals-tf.png",
       "narration": "File two: locals dot T F. The same locals pattern from last lab, interpolated name and common tags, in a file of their own. And here's the key line for this whole lesson: main dot T F will reference these values with no special connection between the files. No import. They're in the same configuration, that's all that matters.",
       "audio": "audio/S007.mp3"
@@ -85,7 +91,12 @@
       "source_file": "main.tf",
       "start_line": 10,
       "end_line": 25,
-      "highlight_lines": [12, 14, 20, 24],
+      "highlight_lines": [
+        12,
+        14,
+        20,
+        24
+      ],
       "asset": "assets/code/lab08-03-main-tf.png",
       "narration": "File three: main dot T F, now just the resources. Look at the references: local dot rg name, local dot common tags, local dot project. None of those are defined in this file. They come from locals dot T F, and Terraform resolves them as if everything sat together, because effectively it does. The resources themselves are unchanged from lab seven.",
       "audio": "audio/S008.mp3"
@@ -96,7 +107,10 @@
       "source_file": "outputs.tf",
       "start_line": 3,
       "end_line": 4,
-      "highlight_lines": [3, 4],
+      "highlight_lines": [
+        3,
+        4
+      ],
       "asset": "assets/code/lab08-04-outputs-tf.png",
       "narration": "File four: outputs dot T F, with the two outputs you've seen before: the network's I D and its name. Same merge rule applies. An output doesn't need to know which file the virtual network lives in, only its address in the configuration.",
       "audio": "audio/S009.mp3"
@@ -107,7 +121,58 @@
       "caption": "Four files on disk, one config in memory",
       "asset": "assets/diagrams/lab08-file-merge.svg",
       "narration": "Here's the mental model. On disk, four files. In memory, one configuration. Terraform merges locals dot T F, main dot T F, outputs dot T F, and terraform dot T F into a single graph, then plans from the graph. That's why references cross file lines for free, and why the names of the files carry zero meaning to Terraform.",
-      "audio": "audio/S010.mp3"
+      "audio": "audio/S010.mp3",
+      "steps": [
+        {
+          "narration": "Here's the mental model. On disk, four files.",
+          "nodes": [
+            "tftf",
+            "loc",
+            "main",
+            "out"
+          ],
+          "edges": []
+        },
+        {
+          "narration": "In memory, one configuration.",
+          "nodes": [
+            "cfg"
+          ],
+          "edges": []
+        },
+        {
+          "narration": "Terraform merges locals dot T F, main dot T F, outputs dot T F, and terraform dot T F into a single graph, then plans from the graph.",
+          "nodes": [
+            "tftf",
+            "loc",
+            "main",
+            "out",
+            "cfg"
+          ],
+          "edges": [
+            "tftf-cfg",
+            "loc-cfg",
+            "main-cfg",
+            "out-cfg"
+          ]
+        },
+        {
+          "narration": "That's why references cross file lines for free, and why the names of the files carry zero meaning to Terraform.",
+          "nodes": [
+            "tftf",
+            "loc",
+            "main",
+            "out",
+            "cfg"
+          ],
+          "edges": [
+            "tftf-cfg",
+            "loc-cfg",
+            "main-cfg",
+            "out-cfg"
+          ]
+        }
+      ]
     },
     {
       "id": "S011",

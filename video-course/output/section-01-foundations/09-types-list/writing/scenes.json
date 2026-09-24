@@ -62,7 +62,9 @@
       "source_file": "main.tf",
       "start_line": 9,
       "end_line": 13,
-      "highlight_lines": [13],
+      "highlight_lines": [
+        13
+      ],
       "asset": "assets/code/lab09-01-list.png",
       "narration": "First, the data. Subnet prefixes is a list of three C I D R strings, in square brackets, comma separated. Ordered: index zero is ten fifty dot one, index one is ten fifty dot two. This list is the single source of truth. Everything else in this file derives from it.",
       "audio": "audio/S006.mp3"
@@ -73,7 +75,10 @@
       "source_file": "main.tf",
       "start_line": 15,
       "end_line": 21,
-      "highlight_lines": [17, 18],
+      "highlight_lines": [
+        17,
+        18
+      ],
       "asset": "assets/code/lab09-02-for-expression.png",
       "narration": "Now the for expression, the heart of the lab. Read it as: for each index I and each value P in the prefixes list, produce an object with a name and a prefix. The name is computed from the index: tier one, tier two, tier three. The output is a list of objects, richer than the list we started with. Same data in, structured data out. That's the whole trick.",
       "audio": "audio/S007.mp3"
@@ -84,7 +89,11 @@
       "source_file": "main.tf",
       "start_line": 23,
       "end_line": 34,
-      "highlight_lines": [24, 30, 34],
+      "highlight_lines": [
+        24,
+        30,
+        34
+      ],
       "asset": "assets/code/lab09-03-rg-vnet.png",
       "narration": "The resource group and virtual network are familiar shapes by now: locals feed the names, references order the plan. The network's address space is, fittingly, a list of C I D R blocks too. The new part is what's coming inside this block, so let's look at that next.",
       "audio": "audio/S008.mp3"
@@ -95,7 +104,12 @@
       "source_file": "main.tf",
       "start_line": 36,
       "end_line": 45,
-      "highlight_lines": [38, 39, 41, 42],
+      "highlight_lines": [
+        38,
+        39,
+        41,
+        42
+      ],
       "asset": "assets/code/lab09-04-dynamic-block.png",
       "narration": "Here's the dynamic block. It says: for each entry in this collection, emit a subnet block. The collection is our list of objects, converted to a map keyed by name, because for each needs a map or a set. Inside content, subnet dot value dot name and dot prefix pull the fields from each entry. Three list elements, three subnets. Add a fourth prefix to the list, and the next plan creates it. No new code.",
       "audio": "audio/S009.mp3"
@@ -106,7 +120,57 @@
       "caption": "From one list to three subnets",
       "asset": "assets/diagrams/lab09-list-to-subnets.svg",
       "narration": "Here's the pipeline in one picture. A list of three prefixes. The for expression enriches it into three objects with computed names. The dynamic block turns each object into a real subnet inside the V N E T. Data flows left to right, and at every stage the list is still the only thing you edit.",
-      "audio": "audio/S010.mp3"
+      "audio": "audio/S010.mp3",
+      "steps": [
+        {
+          "narration": "Here's the pipeline in one picture.",
+          "nodes": [],
+          "edges": []
+        },
+        {
+          "narration": "A list of three prefixes.",
+          "nodes": [
+            "list"
+          ],
+          "edges": []
+        },
+        {
+          "narration": "The for expression enriches it into three objects with computed names.",
+          "nodes": [
+            "list",
+            "for"
+          ],
+          "edges": [
+            "list-for"
+          ]
+        },
+        {
+          "narration": "The dynamic block turns each object into a real subnet inside the V N E T.",
+          "nodes": [
+            "for",
+            "dyn",
+            "vnet"
+          ],
+          "edges": [
+            "for-dyn",
+            "dyn-vnet"
+          ]
+        },
+        {
+          "narration": "Data flows left to right, and at every stage the list is still the only thing you edit.",
+          "nodes": [
+            "list",
+            "for",
+            "dyn",
+            "vnet"
+          ],
+          "edges": [
+            "list-for",
+            "for-dyn",
+            "dyn-vnet"
+          ]
+        }
+      ]
     },
     {
       "id": "S011",
@@ -114,7 +178,9 @@
       "source_file": "main.tf",
       "start_line": 47,
       "end_line": 50,
-      "highlight_lines": [49],
+      "highlight_lines": [
+        49
+      ],
       "asset": "assets/code/lab09-05-output.png",
       "narration": "One output proves the projection: a for expression over the subnets list, picking just the names. After apply you'll see tier one, tier two, tier three, all generated from data.",
       "audio": "audio/S011.mp3"

@@ -62,7 +62,10 @@
       "source_file": "main.tf",
       "start_line": 25,
       "end_line": 36,
-      "highlight_lines": [26, 33],
+      "highlight_lines": [
+        26,
+        33
+      ],
       "asset": "assets/code/lab06-01-locals-rg.png",
       "narration": "Locals first: the resource group name, the region, and the network's name. Then the resource group itself, referencing those locals. This is the same opening pattern as every lab since four: names live in one place, resources reference them.",
       "audio": "audio/S006.mp3"
@@ -73,7 +76,10 @@
       "source_file": "main.tf",
       "start_line": 38,
       "end_line": 44,
-      "highlight_lines": [40, 44],
+      "highlight_lines": [
+        40,
+        44
+      ],
       "asset": "assets/code/lab06-02-vnet.png",
       "narration": "Now the new resource: a virtual network. Its name comes from locals, and its location and resource group come from the group we just defined, the reference chain you already know. The new part is address space. It's a list, because a V N E T can hold several ranges, and here we give it one: ten twenty dot zero dot zero slash sixteen. That's this network's private territory inside Azure.",
       "audio": "audio/S007.mp3"
@@ -84,7 +90,60 @@
       "caption": "One VNet, two subnets — how the space is sliced",
       "asset": "assets/diagrams/lab06-vnet-subnets.svg",
       "narration": "Here's the space as a picture. The big box is the V N E T, sixty five thousand addresses wide. Inside it, two subnets: the web subnet at ten twenty dot one dot zero, and the app subnet at ten twenty dot two dot zero, each a slash twenty four slice. Resources in the web subnet can talk to the app subnet, because they share this private space. And nothing here is reachable from the public internet unless we deliberately expose it later.",
-      "audio": "audio/S008.mp3"
+      "audio": "audio/S008.mp3",
+      "steps": [
+        {
+          "narration": "Here's the space as a picture.",
+          "nodes": [],
+          "edges": []
+        },
+        {
+          "narration": "The big box is the V N E T, sixty five thousand addresses wide.",
+          "nodes": [
+            "vnet"
+          ],
+          "edges": [
+            "rg-vnet"
+          ]
+        },
+        {
+          "narration": "Inside it, two subnets: the web subnet at ten twenty dot one dot zero, and the app subnet at ten twenty dot two dot zero, each a slash twenty four slice.",
+          "nodes": [
+            "web",
+            "app"
+          ],
+          "edges": [
+            "vnet-web",
+            "vnet-app"
+          ]
+        },
+        {
+          "narration": "Resources in the web subnet can talk to the app subnet, because they share this private space.",
+          "nodes": [
+            "vnet",
+            "web",
+            "app"
+          ],
+          "edges": [
+            "vnet-web",
+            "vnet-app"
+          ]
+        },
+        {
+          "narration": "And nothing here is reachable from the public internet unless we deliberately expose it later.",
+          "nodes": [
+            "rg",
+            "vnet",
+            "web",
+            "app"
+          ],
+          "edges": [
+            "rg-vnet",
+            "vnet-web",
+            "vnet-app"
+          ]
+        }
+      ]
     },
     {
       "id": "S009",
@@ -92,7 +151,12 @@
       "source_file": "main.tf",
       "start_line": 46,
       "end_line": 56,
-      "highlight_lines": [48, 49, 53, 54],
+      "highlight_lines": [
+        48,
+        49,
+        53,
+        54
+      ],
       "asset": "assets/code/lab06-03-subnets.png",
       "narration": "The subnets are defined inside the V N E T block itself, one small block per subnet: a name and an address prefix. This inline style is the quick way, and for a small network it's perfectly fine. The trade-off, as the comment notes, is flexibility. Each inline subnet is welded to this V N E T resource. When you need subnets with their own lifecycles, route tables, or network security groups, you define them as separate resources, which is a later lab's topic.",
       "audio": "audio/S009.mp3"
@@ -103,7 +167,10 @@
       "source_file": "main.tf",
       "start_line": 59,
       "end_line": 62,
-      "highlight_lines": [60, 62],
+      "highlight_lines": [
+        60,
+        62
+      ],
       "asset": "assets/code/lab06-04-outputs.png",
       "narration": "Two outputs finish the file: the V N E T's I D and its name. The I D is the one to watch. Later labs and other resources reference a network by its I D, so printing it here is both a sanity check and a preview of the reference chains to come.",
       "audio": "audio/S010.mp3"

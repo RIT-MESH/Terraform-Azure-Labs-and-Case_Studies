@@ -94,7 +94,60 @@
       "caption": "Credentials flow from the environment",
       "asset": "assets/diagrams/lab01-credentials-flow.svg",
       "narration": "We export four environment variables: ARM subscription ID, ARM client ID, ARM client secret, and ARM tenant ID. The Azure R M provider picks these up automatically at run time. Think of it as the provider checking the environment before it talks to Azure. Credentials live in your shell or pipeline secrets, never in dot T F files, and never in version control.",
-      "audio": "audio/S008.mp3"
+      "audio": "audio/S008.mp3",
+      "steps": [
+        {
+          "narration": "We export four environment variables: ARM subscription ID, ARM client ID, ARM client secret, and ARM tenant ID.",
+          "nodes": [
+            "env"
+          ],
+          "edges": []
+        },
+        {
+          "narration": "The Azure R M provider picks these up automatically at run time.",
+          "nodes": [
+            "env",
+            "provider"
+          ],
+          "edges": [
+            "env-provider"
+          ]
+        },
+        {
+          "narration": "Think of it as the provider checking the environment before it talks to Azure: it authenticates to Azure A D with that identity.",
+          "nodes": [
+            "provider",
+            "aad"
+          ],
+          "edges": [
+            "provider-aad"
+          ]
+        },
+        {
+          "narration": "And Azure A D grants that identity access to your subscription.",
+          "nodes": [
+            "aad",
+            "sub"
+          ],
+          "edges": [
+            "aad-sub"
+          ]
+        },
+        {
+          "narration": "Credentials live in your shell or pipeline secrets, never in dot T F files, and never in version control.",
+          "nodes": [
+            "env",
+            "provider",
+            "aad",
+            "sub"
+          ],
+          "edges": [
+            "env-provider",
+            "provider-aad",
+            "aad-sub"
+          ]
+        }
+      ]
     },
     {
       "id": "S009",
@@ -129,7 +182,70 @@
       "caption": "The whole picture",
       "asset": "assets/diagrams/lab01-full-flow.svg",
       "narration": "Here's the whole picture. Your credentials flow from the environment into the Azure R M provider. The provider signs in to Azure Resource Manager as the service principal. The data block reads your subscription, and the outputs hand its ID and name back to you. Four small blocks, one clear proof of identity.",
-      "audio": "audio/S011.mp3"
+      "audio": "audio/S011.mp3",
+      "steps": [
+        {
+          "narration": "Here's the whole picture.",
+          "nodes": [],
+          "edges": []
+        },
+        {
+          "narration": "Your credentials flow from the Terraform configuration into the Azure R M provider.",
+          "nodes": [
+            "tf",
+            "prov"
+          ],
+          "edges": [
+            "tf-prov"
+          ]
+        },
+        {
+          "narration": "The provider signs in to Azure Resource Manager as the service principal.",
+          "nodes": [
+            "prov",
+            "arm"
+          ],
+          "edges": [
+            "prov-arm"
+          ]
+        },
+        {
+          "narration": "The data block reads your subscription.",
+          "nodes": [
+            "arm",
+            "sub"
+          ],
+          "edges": [
+            "arm-sub"
+          ]
+        },
+        {
+          "narration": "And the outputs hand its ID and name back to you.",
+          "nodes": [
+            "sub",
+            "out"
+          ],
+          "edges": [
+            "sub-out"
+          ]
+        },
+        {
+          "narration": "Four small blocks, one clear proof of identity.",
+          "nodes": [
+            "tf",
+            "prov",
+            "arm",
+            "sub",
+            "out"
+          ],
+          "edges": [
+            "tf-prov",
+            "prov-arm",
+            "arm-sub",
+            "sub-out"
+          ]
+        }
+      ]
     },
     {
       "id": "S012",

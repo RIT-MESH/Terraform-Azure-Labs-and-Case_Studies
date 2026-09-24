@@ -5,7 +5,7 @@
   "current_episode": 1,
   "episodes": {
     "section-01-foundations/01-authentication-app-object": {
-      "status": "FINAL",
+      "status": "VALIDATED",
       "public_lab_url": "https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies/tree/master/labs/section-01-foundations/01-authentication-app-object",
       "notes": " Two-part delivery format (course-wide, since Lab 01, 2026-09-24): every episode renders part1-main (lesson, ends before outro) + part2-thankyou (centered outro with repo link), each with its own SRT, filenames carrying lab number+name; user inserts real demo between parts before publishing."
     },

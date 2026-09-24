@@ -62,7 +62,10 @@
       "source_file": "main.tf",
       "start_line": 27,
       "end_line": 30,
-      "highlight_lines": [29, 30],
+      "highlight_lines": [
+        29,
+        30
+      ],
       "asset": "assets/code/lab07-01-locals-interpolation.png",
       "narration": "The locals block starts with two simple values: region and project. Then the interesting line: the resource group name is built by interpolation, project dash region. Read it right to left: change project in one place, and both the resource group and the network name below follow. That's one place naming, doing real work.",
       "audio": "audio/S006.mp3"
@@ -73,7 +76,12 @@
       "source_file": "main.tf",
       "start_line": 32,
       "end_line": 39,
-      "highlight_lines": [34, 35, 36, 37],
+      "highlight_lines": [
+        34,
+        35,
+        36,
+        37
+      ],
       "asset": "assets/code/lab07-02-common-tags.png",
       "narration": "Here's the star of the lab: common tags, a map defined once in locals. Three pairs: which project, who manages it, and which section of the course it belongs to. In a real company this map grows: environment, cost center, owner. The point isn't the keys, it's the once. Every resource that needs tags points here instead of typing its own copy.",
       "audio": "audio/S007.mp3"
@@ -84,7 +92,9 @@
       "source_file": "main.tf",
       "start_line": 41,
       "end_line": 46,
-      "highlight_lines": [45],
+      "highlight_lines": [
+        45
+      ],
       "asset": "assets/code/lab07-03-resource-group.png",
       "narration": "The resource group consumes both: name from interpolation, tags straight from the local map, one line. If you've ever met an untagged resource in a subscription with hundreds of them, this single line is the cure.",
       "audio": "audio/S008.mp3"
@@ -95,7 +105,10 @@
       "source_file": "main.tf",
       "start_line": 48,
       "end_line": 57,
-      "highlight_lines": [51, 56],
+      "highlight_lines": [
+        51,
+        56
+      ],
       "asset": "assets/code/lab07-04-vnet.png",
       "narration": "The virtual network shows both tricks together. Its name interpolates the project local again, so vnet dash foundation. And its tags line is the new function: merge takes the common tags map and a small extra map with one key, tier network, and combines them. The result is the shared tags plus one resource-specific label, and the common map itself is untouched.",
       "audio": "audio/S009.mp3"
@@ -106,7 +119,69 @@
       "caption": "One tags map, flowing into every resource",
       "asset": "assets/diagrams/lab07-tags-flow.svg",
       "narration": "Here's the flow. Common tags lives in locals. It flows directly onto the resource group. For the virtual network, it flows through merge, which adds the tier tag on the way. Change the map once, and both resources update on the next plan. That's the whole point of this lab: shared values live in exactly one place.",
-      "audio": "audio/S010.mp3"
+      "audio": "audio/S010.mp3",
+      "steps": [
+        {
+          "narration": "Here's the flow.",
+          "nodes": [],
+          "edges": []
+        },
+        {
+          "narration": "Common tags lives in locals.",
+          "nodes": [
+            "loc"
+          ],
+          "edges": []
+        },
+        {
+          "narration": "It flows directly onto the resource group.",
+          "nodes": [
+            "loc",
+            "rg"
+          ],
+          "edges": [
+            "loc-rg"
+          ]
+        },
+        {
+          "narration": "For the virtual network, it flows through merge, which adds the tier tag on the way.",
+          "nodes": [
+            "loc",
+            "merge",
+            "vnet"
+          ],
+          "edges": [
+            "loc-merge",
+            "merge-vnet"
+          ]
+        },
+        {
+          "narration": "Change the map once, and both resources update on the next plan.",
+          "nodes": [
+            "rg",
+            "vnet"
+          ],
+          "edges": [
+            "loc-rg",
+            "loc-merge",
+            "merge-vnet"
+          ]
+        },
+        {
+          "narration": "That's the whole point of this lab: shared values live in exactly one place.",
+          "nodes": [
+            "loc",
+            "rg",
+            "merge",
+            "vnet"
+          ],
+          "edges": [
+            "loc-rg",
+            "loc-merge",
+            "merge-vnet"
+          ]
+        }
+      ]
     },
     {
       "id": "S011",
@@ -114,7 +189,9 @@
       "source_file": "main.tf",
       "start_line": 59,
       "end_line": 60,
-      "highlight_lines": [60],
+      "highlight_lines": [
+        60
+      ],
       "asset": "assets/code/lab07-05-output.png",
       "narration": "One output at the end prints the virtual network's final tags, so after apply you can see the merged result with your own eyes: the three common keys, plus tier network.",
       "audio": "audio/S011.mp3"

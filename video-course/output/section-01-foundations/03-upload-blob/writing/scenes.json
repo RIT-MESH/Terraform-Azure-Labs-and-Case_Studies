@@ -62,7 +62,9 @@
       "source_file": "main.tf",
       "start_line": 9,
       "end_line": 16,
-      "highlight_lines": [15],
+      "highlight_lines": [
+        15
+      ],
       "asset": "assets/code/lab03-01-locals.png",
       "narration": "At the top, our locals block, just like lab two. Region and resource group name are plain strings. The interesting one is the storage account name. We build it from a prefix, plus a random suffix, and pass the whole thing through lower. Azure requires storage account names to be lowercase and globally unique, so this one line handles both rules.",
       "audio": "audio/S006.mp3"
@@ -73,7 +75,10 @@
       "source_file": "main.tf",
       "start_line": 18,
       "end_line": 25,
-      "highlight_lines": [21, 22],
+      "highlight_lines": [
+        21,
+        22
+      ],
       "asset": "assets/code/lab03-02-random-string.png",
       "narration": "Here's that random source. You met random string in lab two, so just one reminder: this is a stateful value. Terraform saves the generated result in its state, so it stays the same on every later plan and apply. The name never changes unless you destroy the resource. Six characters, no uppercase, no specials.",
       "audio": "audio/S007.mp3"
@@ -84,7 +89,10 @@
       "source_file": "main.tf",
       "start_line": 27,
       "end_line": 31,
-      "highlight_lines": [28, 29],
+      "highlight_lines": [
+        28,
+        29
+      ],
       "asset": "assets/code/lab03-03-resource-group.png",
       "narration": "The resource group comes next, and there's nothing new here. We take the name and region from locals and create the group that will hold everything else in this lab. You've written this block twice already, and by now it should feel routine.",
       "audio": "audio/S008.mp3"
@@ -95,7 +103,10 @@
       "source_file": "main.tf",
       "start_line": 33,
       "end_line": 42,
-      "highlight_lines": [37, 38],
+      "highlight_lines": [
+        37,
+        38
+      ],
       "asset": "assets/code/lab03-04-storage-account.png",
       "narration": "The storage account is also a repeat of lab two, but look closely at the two reference lines. The name and location come from the resource group we just defined. That's not just convenience. Those references are how Terraform knows the resource group must exist before the storage account. No ordering code needed. Keep that idea, because the container and blob depend on it next.",
       "audio": "audio/S009.mp3"
@@ -106,7 +117,62 @@
       "caption": "The storage hierarchy this lab builds",
       "asset": "assets/diagrams/lab03-storage-hierarchy.svg",
       "narration": "Here's the whole structure we're building, in order. The resource group at the top. Inside it, the storage account with its random-suffix name. Inside the account, the uploads container. And inside the container, our blob: hello dot text. Terraform reads the references in the code and creates these in exactly this order.",
-      "audio": "audio/S010.mp3"
+      "audio": "audio/S010.mp3",
+      "steps": [
+        {
+          "narration": "Here's the whole structure we're building, in order.",
+          "nodes": [],
+          "edges": []
+        },
+        {
+          "narration": "The resource group at the top.",
+          "nodes": [
+            "rg"
+          ],
+          "edges": []
+        },
+        {
+          "narration": "Inside it, the storage account with its random-suffix name.",
+          "nodes": [
+            "st"
+          ],
+          "edges": [
+            "rg-st"
+          ]
+        },
+        {
+          "narration": "Inside the account, the uploads container.",
+          "nodes": [
+            "cont"
+          ],
+          "edges": [
+            "st-cont"
+          ]
+        },
+        {
+          "narration": "And inside the container, our blob: hello dot text.",
+          "nodes": [
+            "blob"
+          ],
+          "edges": [
+            "cont-blob"
+          ]
+        },
+        {
+          "narration": "Terraform reads the references in the code and creates these in exactly this order.",
+          "nodes": [
+            "rg",
+            "st",
+            "cont",
+            "blob"
+          ],
+          "edges": [
+            "rg-st",
+            "st-cont",
+            "cont-blob"
+          ]
+        }
+      ]
     },
     {
       "id": "S011",
@@ -114,7 +180,11 @@
       "source_file": "main.tf",
       "start_line": 44,
       "end_line": 50,
-      "highlight_lines": [46, 47, 49],
+      "highlight_lines": [
+        46,
+        47,
+        49
+      ],
       "asset": "assets/code/lab03-05-container.png",
       "narration": "Now the first genuinely new resource: azurerm storage container. Every container belongs to a storage account, and we pass that account's name in as a string. That reference puts the container after the account in the plan. And the access type is private, meaning only authorized requests can read the blobs inside. For anything real, private is the right default.",
       "audio": "audio/S011.mp3"
@@ -125,7 +195,11 @@
       "source_file": "main.tf",
       "start_line": 64,
       "end_line": 71,
-      "highlight_lines": [65, 69, 70],
+      "highlight_lines": [
+        65,
+        69,
+        70
+      ],
       "asset": "assets/code/lab03-06-blob.png",
       "narration": "And here is the upload itself. The blob is called hello dot txt, and it lives in the uploads container we just made. Type block is the right choice for ordinary files. The interesting attribute is source content: we hand Terraform the text directly, and it creates the file in Azure for us. Content type text plain tells Azure how to serve it.",
       "audio": "audio/S012.mp3"
@@ -136,7 +210,9 @@
       "source_file": "main.tf",
       "start_line": 73,
       "end_line": 75,
-      "highlight_lines": [75],
+      "highlight_lines": [
+        75
+      ],
       "asset": "assets/code/lab03-07-output.png",
       "narration": "One output finishes the file. After apply, Terraform prints the blob's U R L, so you can confirm the upload landed. If you open that U R L in a browser on a private container, you'll get a four oh four, because anonymous reads are off. That's the private access type doing its job, not a failure.",
       "audio": "audio/S013.mp3"

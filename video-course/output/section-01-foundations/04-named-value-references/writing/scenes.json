@@ -62,7 +62,9 @@
       "source_file": "main.tf",
       "start_line": 30,
       "end_line": 32,
-      "highlight_lines": [31],
+      "highlight_lines": [
+        31
+      ],
       "asset": "assets/code/lab04-01-locals.png",
       "narration": "The locals block first, because it's the simplest family. One value: the resource group name. Once it's defined here, every place that needs it says local dot rg name. One definition, many uses. If we ever rename the group, we change exactly one line.",
       "audio": "audio/S006.mp3"
@@ -73,7 +75,11 @@
       "source_file": "main.tf",
       "start_line": 34,
       "end_line": 38,
-      "highlight_lines": [35, 36, 37],
+      "highlight_lines": [
+        35,
+        36,
+        37
+      ],
       "asset": "assets/code/lab04-02-variable.png",
       "narration": "Now the second family: an input variable. It has a type, string, and a default value, east us. Because of the default, running apply with no extra input just works. But anyone using this configuration can pass a different region with a var flag or a TF vars file, without touching the code. That's the difference from a local: a local belongs to the config, a variable belongs to the caller.",
       "audio": "audio/S007.mp3"
@@ -84,7 +90,10 @@
       "source_file": "main.tf",
       "start_line": 40,
       "end_line": 44,
-      "highlight_lines": [42, 43],
+      "highlight_lines": [
+        42,
+        43
+      ],
       "asset": "assets/code/lab04-03-resource-group.png",
       "narration": "The resource group uses both families side by side. The name comes from a local, the location from the variable. Two lines, two different decisions: the name is ours to compute, the region is someone's choice at deploy time. Reading a block like this, you always know where each value came from.",
       "audio": "audio/S008.mp3"
@@ -95,7 +104,11 @@
       "source_file": "main.tf",
       "start_line": 46,
       "end_line": 54,
-      "highlight_lines": [49, 50, 51],
+      "highlight_lines": [
+        49,
+        50,
+        51
+      ],
       "asset": "assets/code/lab04-04-storage-account.png",
       "narration": "The storage account shows the third family, plus a function chain. The name is built from a prefix, then a hash of the resource group's I D, trimmed to six characters and lowercased. Same globally-unique-name rule as before, but notice: no random resource needed this time. The hash of the group I D is already stable. And the name and location references, just like last lab, order the plan.",
       "audio": "audio/S009.mp3"
@@ -106,7 +119,73 @@
       "caption": "Every value in this lab, and where it comes from",
       "asset": "assets/diagrams/lab04-reference-families.svg",
       "narration": "Here's the full picture of value flow. The location variable feeds the resource group. The local name feeds it too. The group's I D feeds the hash that names the storage account. And the group's name and location flow into the account directly. Nothing is written twice, and every arrow starts at the value's true owner.",
-      "audio": "audio/S010.mp3"
+      "audio": "audio/S010.mp3",
+      "steps": [
+        {
+          "narration": "Here's the full picture of value flow.",
+          "nodes": [],
+          "edges": []
+        },
+        {
+          "narration": "The location variable feeds the resource group.",
+          "nodes": [
+            "var",
+            "core"
+          ],
+          "edges": [
+            "var-core"
+          ]
+        },
+        {
+          "narration": "The local name feeds it too.",
+          "nodes": [
+            "loc",
+            "core"
+          ],
+          "edges": [
+            "loc-core"
+          ]
+        },
+        {
+          "narration": "The group's I D feeds the hash that names the storage account.",
+          "nodes": [
+            "core",
+            "hash",
+            "st"
+          ],
+          "edges": [
+            "core-hash",
+            "hash-st"
+          ]
+        },
+        {
+          "narration": "And the group's name and location flow into the account directly.",
+          "nodes": [
+            "core",
+            "st"
+          ],
+          "edges": [
+            "core-st"
+          ]
+        },
+        {
+          "narration": "Nothing is written twice, and every arrow starts at the value's true owner.",
+          "nodes": [
+            "var",
+            "loc",
+            "core",
+            "hash",
+            "st"
+          ],
+          "edges": [
+            "var-core",
+            "loc-core",
+            "core-hash",
+            "hash-st",
+            "core-st"
+          ]
+        }
+      ]
     },
     {
       "id": "S011",
@@ -114,7 +193,10 @@
       "source_file": "main.tf",
       "start_line": 56,
       "end_line": 59,
-      "highlight_lines": [57, 59],
+      "highlight_lines": [
+        57,
+        59
+      ],
       "asset": "assets/code/lab04-05-outputs.png",
       "narration": "Two outputs close the file, and they're references too: the resource group's name, and the computed storage account name. Outputs were your first taste of references back in lab one. After apply, these two lines print the proof that the whole chain resolved.",
       "audio": "audio/S011.mp3"

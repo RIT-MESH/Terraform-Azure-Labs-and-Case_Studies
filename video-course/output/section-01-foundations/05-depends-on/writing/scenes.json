@@ -62,7 +62,9 @@
       "source_file": "main.tf",
       "start_line": 30,
       "end_line": 35,
-      "highlight_lines": [34],
+      "highlight_lines": [
+        34
+      ],
       "asset": "assets/code/lab05-01-locals.png",
       "narration": "The locals block holds the two names. The storage account name combines a prefix with the random suffix and goes through lower, exactly the pattern from labs two and three. Keep an eye on local dot st name. It's about to play two very different roles in this file.",
       "audio": "audio/S006.mp3"
@@ -73,7 +75,9 @@
       "source_file": "main.tf",
       "start_line": 37,
       "end_line": 44,
-      "highlight_lines": [40],
+      "highlight_lines": [
+        40
+      ],
       "asset": "assets/code/lab05-02-random-string.png",
       "narration": "The random string is familiar by now: six lowercase characters, saved in state, stable across runs. Nothing new. It feeds the local above it, which feeds the storage account below.",
       "audio": "audio/S007.mp3"
@@ -84,7 +88,10 @@
       "source_file": "main.tf",
       "start_line": 46,
       "end_line": 50,
-      "highlight_lines": [47, 48],
+      "highlight_lines": [
+        47,
+        48
+      ],
       "asset": "assets/code/lab05-03-resource-group.png",
       "narration": "The resource group takes its name from locals and a literal region. This is now the third time you've typed this block, which is exactly why later labs will show you how to stop repeating yourself. For now, routine.",
       "audio": "audio/S008.mp3"
@@ -95,7 +102,10 @@
       "source_file": "main.tf",
       "start_line": 52,
       "end_line": 60,
-      "highlight_lines": [56, 57],
+      "highlight_lines": [
+        56,
+        57
+      ],
       "asset": "assets/code/lab05-04-storage-account.png",
       "narration": "The storage account gets its name and location from the resource group's attributes. Those two references are the implicit dependency from lab three: Terraform reads them and schedules the group first, automatically. So far, everything in this file orders itself.",
       "audio": "audio/S009.mp3"
@@ -106,7 +116,10 @@
       "source_file": "main.tf",
       "start_line": 62,
       "end_line": 71,
-      "highlight_lines": [67, 70],
+      "highlight_lines": [
+        67,
+        70
+      ],
       "asset": "assets/code/lab05-05-container.png",
       "narration": "And here's the lesson. The container needs the storage account's name. But this time we pass the local, the plain string, instead of referencing the account's attribute. Terraform can't tell that this string happens to be an existing resource's name, so it sees no reason to wait, and might create both at once. Depends on closes the gap: it makes the container explicitly wait for the account. Same order as before, but now you had to ask for it.",
       "audio": "audio/S010.mp3"
@@ -117,7 +130,54 @@
       "caption": "What Terraform sees: with and without depends_on",
       "asset": "assets/diagrams/lab05-dependency-graph.svg",
       "narration": "Here's the dependency graph Terraform builds. The solid arrows are references it can see: the group feeds the account. The account also feeds the random suffix, through the local. But the container's link would be invisible, because a local carries no ordering. The dashed arrow is the depends on edge, the one promise you wrote by hand. Remove it, and the container could race the account.",
-      "audio": "audio/S011.mp3"
+      "audio": "audio/S011.mp3",
+      "steps": [
+        {
+          "narration": "Here's the dependency graph Terraform builds.",
+          "nodes": [],
+          "edges": []
+        },
+        {
+          "narration": "The solid arrows are references it can see: the group feeds the account.",
+          "nodes": [
+            "rg",
+            "st"
+          ],
+          "edges": [
+            "rg-st"
+          ]
+        },
+        {
+          "narration": "The account also feeds the random suffix, through the local.",
+          "nodes": [
+            "rand",
+            "st"
+          ],
+          "edges": [
+            "rand-st"
+          ]
+        },
+        {
+          "narration": "But the container's link would be invisible, because a local carries no ordering. The dashed arrow is the depends on edge, the one promise you wrote by hand.",
+          "nodes": [
+            "st",
+            "cont"
+          ],
+          "edges": [
+            "st-cont"
+          ]
+        },
+        {
+          "narration": "Remove it, and the container could race the account.",
+          "nodes": [
+            "st",
+            "cont"
+          ],
+          "edges": [
+            "st-cont"
+          ]
+        }
+      ]
     },
     {
       "id": "S012",
