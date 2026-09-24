@@ -235,6 +235,9 @@ def main():
                 run("calculate_scene_frames.py", out_dir)
                 run("generate_srt.py", out_dir)
             if args.mode in ("render", "all", "ci"):
+                # regenerate every scene asset from its spec (Shiki code PNGs,
+                # diagrams, terminal SVGs) — assets are not synced/committed
+                run("generate_assets.py", out_dir, ep["abs_path"])
                 out_mp4 = os.path.join(out_dir, "final", "episode.mp4")
                 timed_scene_path = os.path.join(out_dir, "timing", "timed-scenes.json")
                 timed_doc = json.load(open(timed_scene_path, encoding="utf-8"))

@@ -193,13 +193,32 @@ def main():
                 changed)
     print("[sync] writing/ synced")
 
+    # 5b. authored asset specs + terminal fixtures (inputs for the CI asset
+    #     stage; the rendered assets themselves stay un-synced/regenerated)
+    n_spec = 0
+    for sub in ("diagrams", "terminal"):
+        src_sub = os.path.join(VC, "output", section, os.path.basename(lab),
+                               "assets", sub)
+        if not os.path.isdir(src_sub):
+            continue
+        for fn in sorted(os.listdir(src_sub)):
+            if fn.endswith(".spec.json") or fn.endswith(".txt"):
+                if copy_file(os.path.join(src_sub, fn),
+                             os.path.join(clone, "video-course", "output",
+                                          section, os.path.basename(lab),
+                                          "assets", sub, fn), changed):
+                    n_spec += 1
+    print(f"[sync] asset specs/fixtures: {n_spec} changed")
+
     # 6. leakage scan (guide §1G: scoped to the lightweight episode writing
     #    files — the viewer-facing surface — plus the lab source files; tool
     #    source with E:\labs fallback defaults is internal runtime metadata)
     scan_paths = []
     for base in (dst_lab,
                  os.path.join(clone, "video-course", "output", section,
-                              os.path.basename(lab), "writing")):
+                              os.path.basename(lab), "writing"),
+                 os.path.join(clone, "video-course", "output", section,
+                              os.path.basename(lab), "assets")):
         for root, dirs, files in os.walk(base):
             scan_paths.extend(os.path.join(root, fn) for fn in files)
     bad = scan_leakage(scan_paths, clone)

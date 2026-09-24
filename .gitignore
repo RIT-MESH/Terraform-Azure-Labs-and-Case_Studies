@@ -63,12 +63,20 @@ video-course/remotion/public/episodes/
 video-course/output/**/source/
 video-course/output/**/audio/
 video-course/output/**/timing/
-video-course/output/**/assets/
 video-course/output/**/captions/
 video-course/output/**/preview/
 video-course/output/**/final/
 video-course/output/**/validation/
 video-course/output/**/render-props.json
+# assets/: rendered outputs ignored; authored specs + fixtures re-included
+video-course/output/**/assets/code/
+video-course/output/**/assets/portal/
+video-course/output/**/assets/screenshots/
+video-course/output/**/assets/diagrams/*
+!video-course/output/**/assets/diagrams/*.spec.json
+video-course/output/**/assets/terminal/*
+!video-course/output/**/assets/terminal/*.spec.json
+!video-course/output/**/assets/terminal/*.txt
 
 # Video files
 *.mp4

@@ -38,7 +38,12 @@ def main():
     size = theme["terminal"]["fontSize"]
     bg, accent = theme["background"], theme["azure"]["primary"]
 
-    output = open(spec["output_file"], encoding="utf-8").read().splitlines()
+    output_path = spec["output_file"]
+    if not os.path.isabs(output_path):
+        # relative output_file resolves against the spec's own directory
+        output_path = os.path.join(os.path.dirname(os.path.abspath(args.spec)),
+                                   output_path)
+    output = open(output_path, encoding="utf-8").read().splitlines()
     output = output[: args.max_lines]
     hl = spec.get("highlight", [])
     rows = [f"$ {spec['command']}"] + output
