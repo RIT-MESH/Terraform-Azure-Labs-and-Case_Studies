@@ -19,8 +19,10 @@ import re
 RE_MODULE = re.compile(r'(?ms)^\s*module\s+"([^"]+)"\s*\{(.*?)\}')
 RE_SOURCE = re.compile(r'source\s*=\s*"([^"]+)"')
 
-SOURCE_ROOT = r"E:\labs"
-COURSE_CFG = os.path.join(SOURCE_ROOT, "video-course", "config", "course.json")
+SOURCE_ROOT = os.environ.get("COURSE_SOURCE_ROOT", r"E:\labs")
+HERE = os.path.dirname(os.path.abspath(__file__))
+VIDEO_COURSE_ROOT = os.path.dirname(HERE)  # tools/ -> video-course/
+COURSE_CFG = os.path.join(VIDEO_COURSE_ROOT, "config", "course.json")
 
 
 def collect_tf_files(dirpath):
