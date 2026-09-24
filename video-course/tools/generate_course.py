@@ -17,7 +17,10 @@ Modes
   subtitles  SRT for VOICE_COMPLETE episodes: normalize -> measure -> frames ->
              multi-cue SRT -> coverage gate (>= 99.5%)
   render     Remotion render + quality_check for RENDERED-pending episodes
-             (--renderer local is the fallback path; production is cloud)
+             (--renderer local is the fallback path; production is cloud).
+             Produces the TWO-PART publishing deliverables: part1-main and
+             part2-thankyou MP4s (+ separate SRTs), lab-number+name filenames;
+             episode.mp4/episode.srt stay as the archive full cut.
   all        every deterministic stage for one lab, in order, stopping at gates
   ci         deterministic media pipeline for GitHub Actions: assumes approved
              writing/ + demo inputs already exist (synced from the authoring
@@ -199,6 +202,7 @@ def stage_render(ep, out_dir, force=False):
     run("quality_check.py", out_dir)
     run("generate_srt.py", out_dir)  # final SRT from actual audio (+coverage gate)
     run("qc_frames.py", out_dir)     # export preview/qc-frames for visual QC
+    run("render_parts.py", out_dir)  # TWO-PART publishing deliverables (part1-main + part2-thankyou, +SRTs)
     set_status(PR, PROGRESS, ep, "RENDERED")
 
 
@@ -293,8 +297,8 @@ def main():
             if args.mode in ("render", "all", "ci"):
                 stage_render(ep, out_dir, force=args.force)
             if args.export_parts:
-                # optional publishing export only — never part of ci/all
-                run("render_parts.py", out_dir)
+                # back-compat: parts are now produced by stage_render by default
+                pass
             report["done"] += 1
         except SystemExit as e:
             report["failed"].append({"lab": ep["path"], "error": str(e)})

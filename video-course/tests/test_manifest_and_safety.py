@@ -68,3 +68,24 @@ def test_terminal_normalize_strips_secrets_and_paths():
 
 def test_terminal_normalize_keeps_meaningful_text():
     assert nto.normalize("terraform plan: 1 to add\n\n\n") == "terraform plan: 1 to add\n"
+
+def test_render_parts_srt_split_roundtrip(tmp_path):
+    """render_parts SRT helpers: parse -> split -> shift-to-zero -> parse."""
+    import render_parts as rp
+    srt = tmp_path / "episode.srt"
+    srt.write_text(
+        "1\n00:00:01,000 --> 00:00:02,000\nhello\n\n"
+        "2\n00:00:05,000 --> 00:00:06,000\nworld\n\n", encoding="utf-8")
+    cues = rp.parse_srt(str(srt))
+    assert len(cues) == 2
+    # split at 4.0s: part1 keeps cue 1; part2 shifts cue 2 to zero
+    split_sec = 4.0
+    part1 = [c for c in cues if c[0] < split_sec and c[1] <= split_sec + 0.01]
+    part2 = [(a - split_sec, b - split_sec, t) for a, b, t in cues
+             if a >= split_sec - 0.01]
+    assert len(part1) == 1 and part1[0][2] == "hello"
+    assert len(part2) == 1 and part2[0][0] == 1.0
+    out = tmp_path / "part2.srt"
+    rp.write_srt(str(out), part2)
+    again = rp.parse_srt(str(out))
+    assert again[0][0] == 1.0 and again[0][2] == "world"

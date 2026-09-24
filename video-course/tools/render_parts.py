@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
-"""OPTIONAL publishing export (retired from the default pipeline).
+"""Two-part publishing deliverables (default pipeline output since 2026-09-24).
 
-The course default is now the SAME-VIDEO architecture (instruction §21/§22):
-the real-world demo is rendered INTO final/episode.mp4 as its own scenes, so
-no manual two-part insertion is ever needed. generate_course.py --mode ci
-NEVER calls this tool; --export-parts makes it available on request.
-
-Use only when a chaptered/split publishing export of an already-complete
-episode is explicitly wanted:
+Called automatically by generate_course.py --mode render|all|ci after the
+full-cut render; also usable standalone to re-split an existing episode:
 
   final/<lab-folder>-part1-main.mp4      (+ .srt)  everything before the outro
   final/<lab-folder>-part2-thankyou.mp4  (+ .srt)  centered outro, cues from 0
 
-final/episode.mp4 + final/episode.srt stay as the archive full cut.
-Split frame = the last scene's scene_start_frame in timed-scenes.json.
+The real Azure demo is inserted manually between the two parts before
+publishing. final/episode.mp4 + final/episode.srt stay as the archive full
+cut. Split frame = the last scene's scene_start_frame in timed-scenes.json.
+Filenames carry the lab number + folder name (e.g.
+02-storage-account-part1-main.mp4).
 
 Usage: render_parts.py <episode-dir>   (run AFTER the full episode.mp4 render)
 """
@@ -75,15 +73,21 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("episode_dir")
     args = ap.parse_args()
-    ep = args.episode_dir
+    # absolute everywhere: Remotion runs with cwd=remotion, so relative
+    # --props/--frames output paths would resolve from the wrong directory
+    ep = os.path.abspath(args.episode_dir)
 
     timed = json.load(open(os.path.join(ep, "timing", "timed-scenes.json"),
                            encoding="utf-8"))
-    total = timed["total_duration_frames"]
-    split = timed["scenes"][-1]["scene_start_frame"]  # outro scene starts here
     props_file = os.path.join(ep, "render-props.json")
     if not os.path.isfile(props_file):
         sys.exit("render-props.json not found — run the full render stage first")
+    # render-props.json is the authority: the composition derives
+    # durationInFrames from it, so its total may differ slightly from
+    # timed-scenes.json (lead-out tail). Frame bounds must match the render.
+    props = json.load(open(props_file, encoding="utf-8"))
+    total = props["totalDurationFrames"]
+    split = props["timedScenes"][-1]["scene_start_frame"]  # outro scene starts
 
     lab_folder = os.path.basename(os.path.normpath(ep))
     final_dir = os.path.join(ep, "final")

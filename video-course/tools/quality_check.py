@@ -173,18 +173,19 @@ def main():
                 missing_assets.append(f"{s['id']}:{s[key]}")
     check("all scene assets exist", not missing_assets, ", ".join(missing_assets))
 
-    # same-video demo gate: NEXT transition promised -> demo scenes must follow.
-    # NON-BLOCKING for RENDERED (a no-demo episode may still be rendered and
-    # QC-passed); the gate becomes hard at FINAL (validate_episode demo_gate +
-    # the FINAL transition guard enforce it there).
+    # demo gate: NEXT transition present -> demo material is expected. With the
+    # two-part delivery format the real Azure demo is inserted MANUALLY between
+    # part1-main and part2-thankyou before publishing, so this check is
+    # RECORD-ONLY (never blocking at any status) — it documents whether demo
+    # scenes exist inside the episode for traceability.
     types = [str(s.get("type", "")).upper() for s in scenes]
     if "NEXT" in types:
         after = scenes[types.index("NEXT") + 1:]
         has_demo = any(s.get("demo") for s in after)
         check("same-video demo present when promised", has_demo,
               "" if has_demo else
-              "NEXT transition exists but no demo scenes follow it — episode "
-              "cannot reach FINAL (demo capture is a real Azure run)",
+              "NEXT transition exists but no demo scenes follow it — the demo "
+              "is inserted manually between the two publishing parts",
               blocking=False)
 
     # all four validation gates passed

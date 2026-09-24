@@ -127,6 +127,10 @@ jobs:
           path: |
             video-course/output/**/final/episode.mp4
             video-course/output/**/final/episode.srt
+            video-course/output/**/final/*-part1-main.mp4
+            video-course/output/**/final/*-part1-main.srt
+            video-course/output/**/final/*-part2-thankyou.mp4
+            video-course/output/**/final/*-part2-thankyou.srt
             video-course/output/**/validation/
             video-course/output/**/timing/
             video-course/output/**/preview/qc-frames/
