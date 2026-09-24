@@ -1,17 +1,28 @@
 {
-  "provider": "minimax",
-  "model": "speech-2.8-hd",
-  "voice_id": "TODO_SELECT_MALE_VOICE_ID",
+  "provider": "edge",
+  "edge_voice": "en-US-AndrewNeural",
   "language": "English",
-  "speed": 1.0,
+  "style": "technical-instructor",
+  "persona": "Natural adult male technical instructor. Neutral American English. Calm, clear, confident, conversational. Medium-low pitch. Professional but friendly. An experienced Azure/Terraform engineer teaching a junior cloud engineer. NOT: commercial announcer, news presenter, movie trailer, overexcited YouTuber, AI-assistant voice, robotic TTS.",
+  "speed": 0.88,
   "vol": 1.0,
   "pitch": 0,
-  "style": "technical-instructor",
-  "edge_voice": "en-US-AndrewNeural",
-  "edge_notes": "FREE fallback provider (no API key, uvx edge-tts) — this is the male narrator actually used by the proven terraform-azure-essentials production. The pipeline picks edge automatically whenever MINIMAX_API_KEY is unset.",
-  "persona": "Natural adult male technical instructor. Neutral American English. Calm, clear, confident, conversational. Medium-low pitch. Professional but friendly. An experienced Azure/Terraform engineer teaching a junior cloud engineer. NOT: commercial announcer, news presenter, movie trailer, overexcited YouTuber, AI-assistant voice, robotic TTS.",
-  "pace_wpm": { "normal": [135, 150], "code_explanations": [120, 140] },
-  "audio_format": "mp3",
+  "pace_wpm": {
+    "hook": [145, 155],
+    "normal": [135, 150],
+    "code_explanations": [125, 140],
+    "gotcha": [120, 135],
+    "outro": [150, 175]
+  },
   "padding": { "lead_in_frames": 12, "lead_out_frames": 18 },
-  "notes": "VOICE SELECTION IS MANUAL AND ONE-TIME: listen to several MiniMax voices, pick the male voice best suited to 8-15 min calm technical narration, save its exact voice_id above, then never switch voices between episodes."
+  "optional_providers": {
+    "minimax": {
+      "enabled": false,
+      "model": "speech-2.8-hd",
+      "voice_id": "TODO_SELECT_MALE_VOICE_ID",
+      "audio_format": "mp3",
+      "notes": "OPTIONAL PAID PROVIDER — never required by the normal pipeline. Select voice_id once manually; voice consistency matters more than the provider. Needs MINIMAX_API_KEY; select explicitly with --provider minimax."
+    }
+  },
+  "notes": "Edge TTS (en-US-AndrewNeural) is the canonical course voice — same male narrator used by the proven terraform-azure-essentials production. FREE, no API key. Never switch voices between episodes. speed 0.88 (-12%) was chosen from measured legacy renders (~165 wpm at 1.0) to land inside the course pace bands (120-150 wpm; code explanations slower)."
 }

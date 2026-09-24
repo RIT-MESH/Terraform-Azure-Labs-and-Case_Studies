@@ -28,10 +28,8 @@ export type DiagramStep = {
 
 export type StepFrames = {key: string; start: number; end: number}[];
 
-const DIM_OPACITY = 0.3;
+const DIM_OPACITY = 0.5; // instruction §16: unrelated elements stay readable
 const RAMP = 8; // frames to fade a highlight change
-
-const endpointsOf = (edgeId: string): string[] => edgeId.split('-');
 
 export const DiagramScene: React.FC<{
   asset?: string;
@@ -87,11 +85,24 @@ export const DiagramScene: React.FC<{
   const {steps, step_frames: sf} = props;
   const canAnimate = !!steps && steps.length > 0 && !!sf && sf.length === steps.length;
 
-  // per-element opacity timeline, memoized once (breakpoints are static)
+  // per-element opacity timeline, memoized once (breakpoints are static).
+  // Edge endpoint nodes are resolved from the SVG's data-from/data-to attributes
+  // (never by splitting ids — node ids may contain hyphens), which is why the
+  // memo depends on svgHtml.
   const timelines = useMemo(() => {
-    if (!canAnimate) {
+    if (!canAnimate || svgHtml === null) {
       return null;
     }
+    // authoritative edge identity, read from the SVG itself
+    const doc = new DOMParser().parseFromString(svgHtml, 'image/svg+xml');
+    const edgeEndpoints: {id: string; from: string; to: string}[] = [];
+    doc.querySelectorAll('g[data-from][data-to]').forEach((g) => {
+      edgeEndpoints.push({
+        id: `${g.getAttribute('data-from')}-${g.getAttribute('data-to')}`,
+        from: g.getAttribute('data-from')!,
+        to: g.getAttribute('data-to')!,
+      });
+    });
     const sceneEnd = sf[sf.length - 1].end + 120;
     const build = (isActive: (i: number) => boolean) => {
       const pts: [number, number][] = [[0, 1]];
@@ -113,15 +124,21 @@ export const DiagramScene: React.FC<{
     };
     const nodeActive: Record<string, boolean[]> = {};
     const edgeActive: Record<string, boolean[]> = {};
+    const mark = (m: Record<string, boolean[]>, k: string, i: number) => {
+      (m[k] ??= [])[i] = true;
+    };
     steps!.forEach((st, i) => {
       for (const n of st.nodes ?? []) {
-        (nodeActive[n] ??= [])[i] = true;
+        mark(nodeActive, n, i);
       }
       for (const e of st.edges ?? []) {
-        (edgeActive[e] ??= [])[i] = true;
-        // relationship highlighting: source + destination nodes light up too
-        for (const n of endpointsOf(e)) {
-          (nodeActive[n] ??= [])[i] = true;
+        mark(edgeActive, e, i);
+        // relationship highlighting: source + destination nodes light up too,
+        // resolved via the SVG's data-from/data-to (fallback: id split)
+        const ep = edgeEndpoints.find((x) => x.id === e);
+        const ends = ep ? [ep.from, ep.to] : e.split('-');
+        for (const n of ends) {
+          mark(nodeActive, n, i);
         }
       }
     });
@@ -133,14 +150,14 @@ export const DiagramScene: React.FC<{
         Object.entries(edgeActive).map(([e, a]) => [e, build((i) => !!a[i])]),
       ),
     };
-  }, [canAnimate, steps, sf]);
+  }, [canAnimate, steps, sf, svgHtml]);
 
   // apply highlight styles synchronously before paint (no flicker).
   // Enumerate the SVG's actual node/edge groups so elements never named in any
   // step (e.g. an edge that is only context) still get the dim treatment.
   useLayoutEffect(() => {
     const host = hostRef.current;
-    if (!host || !canAnimate) {
+    if (!host || !canAnimate || !timelines) {
       return;
     }
     const defaultPts: [number, number][] = [
@@ -161,17 +178,34 @@ export const DiagramScene: React.FC<{
         glow > 0.02
           ? `drop-shadow(0 0 ${(10 * glow).toFixed(1)}px rgba(80,230,255,${(0.85 * glow).toFixed(2)}))`
           : 'none';
-      g.style.transform = `scale(${(1 + 0.045 * glow).toFixed(4)})`;
+      // gentle presence cue only (§16): 3% scale max, never a jump
+      g.style.transform = `scale(${(1 + 0.02 * glow).toFixed(4)})`;
       g.style.transformBox = 'fill-box';
       g.style.transformOrigin = 'center';
     };
-    const groups = host.querySelectorAll<SVGGElement>(
-      'g[id^="node-"], g[id^="edge-"]',
-    );
-    groups.forEach((g) => {
-      const eid = g.id.replace(/^(node|edge)-/, '');
-      const map = g.id.startsWith('node-') ? timelines!.nodes : timelines!.edges;
-      apply(g, map[eid] ?? defaultPts);
+    // nodes: data-id is authoritative (current build_diagram); legacy SVGs
+    // only carry id="node-<id>" — the id prefix stays a supported fallback
+    const nodeGroups: {g: SVGGElement; nid: string}[] = [];
+    host.querySelectorAll<SVGGElement>('g[data-id], g[id^="node-"]').forEach((g) => {
+      const nid = g.getAttribute('data-id') ?? g.id.replace(/^node-/, '');
+      if (!nodeGroups.some((x) => x.g === g)) {
+        nodeGroups.push({g, nid});
+      }
+    });
+    nodeGroups.forEach(({g, nid}) => {
+      apply(g, timelines.nodes[nid] ?? defaultPts);
+    });
+    const allEdges = host.querySelectorAll<SVGGElement>('g[data-from][data-to], g[id^="edge-"]');
+    const seen = new Set<SVGGElement>();
+    allEdges.forEach((g) => {
+      if (seen.has(g)) {
+        return;
+      }
+      seen.add(g);
+      const from = g.getAttribute('data-from');
+      const to = g.getAttribute('data-to');
+      const eid = from && to ? `${from}-${to}` : g.id.replace(/^edge-/, '');
+      apply(g, timelines.edges[eid] ?? defaultPts);
     });
   }, [frame, svgHtml, timelines, canAnimate]);
 

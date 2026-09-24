@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
-"""Two-part delivery format (course-wide since Lab 01): render the publishing
-clips from the same Remotion composition via frame ranges, and split the SRT.
+"""OPTIONAL publishing export (retired from the default pipeline).
 
-  final/<lab-folder>-part1-main.mp4      (+ .srt)  lesson, ends before the outro
+The course default is now the SAME-VIDEO architecture (instruction §21/§22):
+the real-world demo is rendered INTO final/episode.mp4 as its own scenes, so
+no manual two-part insertion is ever needed. generate_course.py --mode ci
+NEVER calls this tool; --export-parts makes it available on request.
+
+Use only when a chaptered/split publishing export of an already-complete
+episode is explicitly wanted:
+
+  final/<lab-folder>-part1-main.mp4      (+ .srt)  everything before the outro
   final/<lab-folder>-part2-thankyou.mp4  (+ .srt)  centered outro, cues from 0
 
-final/episode.mp4 + final/episode.srt stay as the archive/working full cut.
-Split frame = the outro (last) scene's scene_start_frame in timed-scenes.json.
+final/episode.mp4 + final/episode.srt stay as the archive full cut.
+Split frame = the last scene's scene_start_frame in timed-scenes.json.
 
 Usage: render_parts.py <episode-dir>   (run AFTER the full episode.mp4 render)
 """

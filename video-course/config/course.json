@@ -2,7 +2,7 @@
   "source_root": "E:\\labs",
   "public_repository": "https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies",
   "public_labs_root": "https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies/tree/master/labs",
-  "statuses": ["DRAFT", "VALIDATED", "APPROVED", "VOICE_COMPLETE", "RENDERED", "FINAL"],
+  "statuses": ["DRAFT", "VALIDATED", "APPROVED", "VOICE_COMPLETE", "MEDIA_READY", "RENDERED", "FINAL"],
   "episodes_root": "video-course/output",
-  "notes": "E:\\labs is internal-only; viewers always see the public GitHub URLs. FINAL episodes are never auto-regenerated."
+  "notes": "E:\\labs is internal-only; viewers always see the public GitHub URLs. FINAL episodes are never auto-regenerated. FINAL requires all four validation gates INCLUDING the same-video real-world demo (a NEXT transition with no demo scenes behind it can never reach FINAL). Legacy episodes carry legacy_pipeline:true + needs_revalidation:true."
 }

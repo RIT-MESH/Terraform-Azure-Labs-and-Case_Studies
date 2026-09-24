@@ -4,17 +4,20 @@
 Policy (render.json): the SRT is standalone — never burned into the MP4, never
 embedded as a subtitle stream, never rendered by Remotion.
 
-Timing sources, in preference order:
-  1. timing/timestamps.json with whisperx word alignment -> accurate cue breaks
-  2. scene-level timing from timing/timed-scenes.json -> narration distributed
-     evenly across the scene duration (fallback)
+Timing sources, in preference order (never estimated-when-exact-exists):
+  1. timing/word-timing.json  — edge-tts WordBoundary events (exact)
+  2. timing/timestamps.json   — whisperx word alignment
+  3. scene-level proportional distribution (fallback)
 
-Cue style (render.json srt_style): 1-2 lines, ~35-45 chars/line, 1.5-6s per cue,
-no overlaps; technical identifiers (paths, resource refs) are kept on one line.
-Editor instructions are never put in the SRT (they never enter narration either).
+Text preservation (instruction §4.3): cue text is NEVER truncated to satisfy
+line-count rules. Long text wraps to max_lines; if it still does not fit, it
+becomes MULTIPLE SEQUENTIAL cues — every spoken word survives. Scenes with
+`steps` speak their step narrations (instruction §4.4).
+
+After writing, the episode's SRT coverage is validated (>= 99.5%, see
+validate_srt_coverage.py) and this tool exits 1 below the threshold.
 
 Output: captions/episode.srt and final/episode.srt
-
 Usage: generate_srt.py <episode-dir>
 """
 import argparse
@@ -24,23 +27,38 @@ import re
 import shutil
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from validate_srt_coverage import normalize as norm_words, spoken_text, validate as validate_coverage  # noqa: E402
+
 VIDEO_COURSE_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RENDER_CFG = os.path.join(VIDEO_COURSE_ROOT, "config", "render.json")
+THEME_CFG = os.path.join(VIDEO_COURSE_ROOT, "config", "theme.json")
+
+TAG_RE = re.compile(r"<#\d+(?:\.\d+)?#>")
 
 
 def fmt_ts(sec):
     ms = round(sec * 1000)
-    h, ms = divmod(ms, 3600000); m, ms = divmod(ms, 60000); s, ms = divmod(ms, 1000)
+    h, ms = divmod(ms, 3600000)
+    m, ms = divmod(ms, 60000)
+    s, ms = divmod(ms, 1000)
     return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
 
 
+def clean(text):
+    """Strip TTS control tags + collapse whitespace (tags control delivery
+    only — never subtitle text)."""
+    return re.sub(r"\s+", " ", TAG_RE.sub(" ", text)).strip()
+
+
 def split_cues(text, maxlen):
-    """Greedy word-wrap cue text; keep identifiers (no-space tokens) intact."""
+    """Greedy word-wrap; keep identifiers (no-space tokens) intact."""
     words = text.split()
     lines, cur = [], ""
     for w in words:
         if cur and len(cur) + 1 + len(w) > maxlen:
-            lines.append(cur); cur = w
+            lines.append(cur)
+            cur = w
         else:
             cur = f"{cur} {w}".strip()
     if cur:
@@ -48,53 +66,97 @@ def split_cues(text, maxlen):
     return lines or [""]
 
 
-def scene_cues(narration, start, dur, style):
-    """Distribute narration into 1.5-6s cues proportionally to word count."""
+def scene_word_events(scene_id, ep):
+    """Exact word timing for a scene: edge-tts boundaries first, then whisperx."""
+    wt = os.path.join(ep, "timing", "word-timing.json")
+    if os.path.isfile(wt):
+        doc = json.load(open(wt, encoding="utf-8"))
+        for sc in doc.get("scenes", []):
+            if sc["id"] == scene_id and sc.get("words"):
+                if doc.get("mode") == "edge-word-boundaries":
+                    # word offsets are relative to the scene audio start (ms)
+                    return [w for w in sc["words"]]
+    ts = os.path.join(ep, "timing", "timestamps.json")
+    if os.path.isfile(ts):
+        doc = json.load(open(ts, encoding="utf-8"))
+        if doc.get("mode") == "whisperx-word-alignment":
+            for sc in doc.get("scenes", []):
+                if sc["id"] == scene_id and sc.get("words"):
+                    return [{"text": w["word"],
+                             "offset_ms": w["start"] * 1000,
+                             "duration_ms": (w["end"] - w["start"]) * 1000}
+                            for w in sc["words"] if "start" in w]
+    return None
+
+
+def cues_from_words(words, style):
+    """Word-timing cues: split at max duration / line capacity / sentence ends.
+    Never drops a word — a cue that cannot fit becomes several cues."""
+    max_line = style["chars_per_line"][1]
+    max_chars = style["max_lines"] * max_line
     min_t, max_t = style["segment_sec"]
-    maxchars = style["chars_per_line"][1]
-    sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+(?![\"'])", narration) if s.strip()]
-    if not sentences:
-        return [(start, start + dur, narration)]
-    words = [len(s.split()) for s in sentences]
-    total = sum(words) or 1
-    cues, t = [], start
-    i = 0
-    while i < len(sentences):
-        seg, seg_words = [sentences[i]], words[i]
-        seg_t = max(min_t, dur * words[i] / total)
-        while (i + 1 < len(sentences) and seg_t < max_t
-               and len(" ".join(seg + [sentences[i + 1]])) <= 2 * maxchars):
-            i += 1
-            seg.append(sentences[i])
-            seg_words += words[i]
-            seg_t = max(min_t, dur * seg_words / total)
-        end = min(t + max(min(seg_t, max_t), min_t), start + dur)
-        cues.append((t, end, " ".join(seg)))
-        t = end
-        i += 1
-    # stretch final cue to scene end
-    if cues:
-        s0, _, txt = cues[-1]
-        cues[-1] = (s0, start + dur, txt)
+    cues, buf, t0, end = [], [], None, None
+
+    def flush():
+        nonlocal buf, t0, end
+        if buf:
+            cues.append((t0 / 1000.0, end / 1000.0, " ".join(buf)))
+            buf, t0, end = [], None, None
+
+    for w in words:
+        txt = clean(w["text"])
+        if not txt:
+            continue
+        cand = " ".join(buf + [txt])
+        w_start = w["offset_ms"] / 1000.0
+        w_end = (w["offset_ms"] + w["duration_ms"]) / 1000.0
+        if t0 is None:
+            t0, end = w_start, w_end
+            buf = [txt]
+            continue
+        over = (len(cand) > max_chars) or (w_end - t0 >= max_t)
+        sentence_end = re.search(r"[.!?]['\"]?$", txt) and (w_end - t0) >= min_t
+        if over or sentence_end:
+            flush_end = max(end, w_start)  # cue ends where the next word begins
+            cues.append((t0, flush_end, " ".join(buf)))
+            buf, t0, end = [txt], w_start, w_end
+        else:
+            buf.append(txt)
+            end = w_end
+    if buf:
+        cues.append((t0, max(end, t0 + 0.5), " ".join(buf)))
     return cues
 
 
-def word_aligned_cues(scene, style):
-    words = scene.get("words") or []
+def scene_cues(text, start, dur, style):
+    """Fallback: distribute narration across the scene window in word-proportional
+    multi-cues bounded by max_lines x chars_per_line (nothing truncated)."""
+    max_line = style["chars_per_line"][1]
+    max_chars = style["max_lines"] * max_line
+    words = text.split()
     if not words:
-        return None
-    maxchars = style["chars_per_line"][1] * 2
-    min_t, max_t = style["segment_sec"]
-    cues, buf, t0 = [], [], None
+        return []
+    # group words into cue-sized chunks (<= max_chars, prefer sentence breaks)
+    chunks, cur = [], []
+    def flush():
+        if cur:
+            chunks.append(" ".join(cur))
+            cur.clear()
     for w in words:
-        if t0 is None:
-            t0 = w["start"]
-        buf.append(w["word"])
-        txt = " ".join(buf)
-        if (w["end"] - t0) >= max_t or len(txt) > maxchars or re.search(r"[.!?]$", w["word"]):
-            cues.append((t0, w["end"], txt)); buf, t0 = [], None
-    if buf:
-        cues.append((t0, words[-1]["end"], " ".join(buf)))
+        cand = " ".join(cur + [w])
+        if cur and len(cand) > max_chars:
+            flush()
+        cur.append(w)
+    flush()
+    # weight each chunk by its word count for timing
+    total = sum(len(c.split()) for c in chunks) or 1
+    cues, t = [], start
+    for c in chunks:
+        share = dur * len(c.split()) / total
+        cues.append((t, min(t + share, start + dur), c))
+        t += share
+    if cues:
+        cues[-1] = (cues[-1][0], start + dur, cues[-1][2])
     return cues
 
 
@@ -106,41 +168,38 @@ def main():
 
     cfg = json.load(open(RENDER_CFG, encoding="utf-8"))
     style = cfg["srt_style"]
-    fps = json.load(open(os.path.join(VIDEO_COURSE_ROOT, "config", "theme.json"),
-                         encoding="utf-8"))["fps"]
+    fps = json.load(open(THEME_CFG, encoding="utf-8"))["fps"]
 
-    scenes_def = {s["id"]: s for s in json.load(
-        open(os.path.join(ep, "writing", "scenes.json"), encoding="utf-8"))["scenes"]}
+    scenes_doc = json.load(open(os.path.join(ep, "writing", "scenes.json"),
+                                encoding="utf-8"))
+    scenes_def = {s["id"]: s for s in scenes_doc["scenes"]}
     timed = json.load(open(os.path.join(ep, "timing", "timed-scenes.json"),
                            encoding="utf-8"))
-    ts_path = os.path.join(ep, "timing", "timestamps.json")
-    aligned = {}
-    if os.path.isfile(ts_path):
-        ts = json.load(open(ts_path, encoding="utf-8"))
-        if ts.get("mode") == "whisperx-word-alignment":
-            aligned = {s["id"]: s for s in ts["scenes"]}
 
     cues = []
     for sc in timed["scenes"]:
         sid = sc["id"]
         start = sc["starts_at_frame"] / fps
         dur = sc["audio_frames"] / fps
-        text = scenes_def[sid].get("narration", "").strip()
-        # MiniMax pause tags (<#0.8#>) control TTS delivery only — never subtitle text
-        text = re.sub(r"<#\d+(?:\.\d+)?#>", " ", text)
-        text = re.sub(r"\s+", " ", text).strip()
+        sdef = scenes_def.get(sid, {})
+        steps = sdef.get("steps") or []
+        # steps are the spoken text for step scenes (§4.4)
+        text = clean(spoken_text([sdef])) if (steps or sdef.get("narration")) else ""
         if not text:
             continue
-        wc = word_aligned_cues(aligned.get(sid, {}), style)
-        if wc:
-            cues.extend((start + a, start + b, t) for a, b, t in wc)
+        we = scene_word_events(sid, ep)
+        if we:
+            # align word events to the scene window; clamp into [start, start+dur]
+            raw = cues_from_words(we, style)
+            cues.extend((start + a, min(start + b, start + dur), t)
+                        for a, b, t in raw if t)
         else:
             cues.extend(scene_cues(text, start, dur, style))
 
-    # enforce: no overlaps, ordered
+    # enforce: ordered, no overlaps, >= 0.3s
     cues.sort(key=lambda c: c[0])
     fixed = []
-    for i, (a, b, t) in enumerate(cues):
+    for a, b, t in cues:
         if fixed and a < fixed[-1][1]:
             a = fixed[-1][1]
         if b - a < 0.3:
@@ -160,6 +219,17 @@ def main():
     open(cap, "w", encoding="utf-8").write(srt)
     shutil.copyfile(cap, fin)
     print(f"-> {cap}\n-> {fin} ({len(fixed)} cues)")
+
+    # gate: coverage must hold BEFORE anything downstream trusts this SRT
+    report, fails = validate_coverage(ep)
+    os.makedirs(os.path.join(ep, "validation"), exist_ok=True)
+    json.dump(report, open(os.path.join(ep, "validation", "srt-coverage.json"),
+                           "w", encoding="utf-8"), indent=2)
+    if fails:
+        for f in fails:
+            print(f"SRT COVERAGE FAIL: {f}")
+        sys.exit(1)
+    print(f"SRT coverage: {report['coverage_pct']}% (>= {report['min_coverage']}%)")
 
 
 if __name__ == "__main__":
