@@ -46,3 +46,30 @@ id_rsa.pub
 
 # Azure CLI service principal JSON (often named *sp*.json)
 *sp*.json
+
+# ---- Video-course production (CI) ---------------------------------------
+# Secrets
+video-course/.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Node / Remotion
+video-course/remotion/node_modules/
+video-course/remotion/public/episodes/
+
+# Per-episode generated heavy outputs (CI regenerates them; writing/ is synced)
+video-course/output/**/source/
+video-course/output/**/audio/
+video-course/output/**/timing/
+video-course/output/**/assets/
+video-course/output/**/captions/
+video-course/output/**/preview/
+video-course/output/**/final/
+video-course/output/**/validation/
+video-course/output/**/render-props.json
+
+# Video files
+*.mp4
+*.mp3
