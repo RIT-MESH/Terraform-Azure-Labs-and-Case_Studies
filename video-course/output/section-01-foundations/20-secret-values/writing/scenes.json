@@ -52,7 +52,7 @@
    "id": "S005",
    "type": "CONCEPT",
    "heading": "Where to find this lab",
-   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          ├── README.md\n          ├── main.tf\n          ├── terraform.tf\n          ├── variables.tf\n          └── terraform.tfvars.example\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies",
+   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          └── 20-secret-values\n              ├── README.md\n              ├── main.tf\n              ├── terraform.tf\n              ├── variables.tf\n              └── terraform.tfvars.example\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies\n/tree/master/labs/section-01-foundations/20-secret-values",
    "narration": "As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Note the file list: a terraform dot t f vars dot example, not a real one — the real t f vars is gitignored, by design.",
    "audio": "audio/S005.mp3"
   },

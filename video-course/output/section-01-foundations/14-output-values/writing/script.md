@@ -43,12 +43,14 @@ Think of outputs as the configuration's public interface. Everything inside — 
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          ├── outputs.tf
-          └── terraform.tf
+          └── 14-output-values
+              ├── README.md
+              ├── main.tf
+              ├── outputs.tf
+              └── terraform.tf
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/14-output-values
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. The interesting file this time is outputs dot t f — main dot t f just builds a storage account to expose.

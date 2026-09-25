@@ -43,13 +43,15 @@ The convention is the feature. Name the file terraform dot t f vars, and Terrafo
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          ├── terraform.tf
-          ├── variables.tf
-          └── terraform.tfvars
+          └── 19-variable-definition-file
+              ├── README.md
+              ├── main.tf
+              ├── terraform.tf
+              ├── variables.tf
+              └── terraform.tfvars
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/19-variable-definition-file
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Main dot t f declares three variables with no defaults — and terraform dot t f vars is where the values live.

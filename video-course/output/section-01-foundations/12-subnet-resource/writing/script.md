@@ -43,11 +43,13 @@ Why does the standalone form matter? Because a subnet that is its own resource h
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          └── terraform.tf
+          └── 12-subnet-resource
+              ├── README.md
+              ├── main.tf
+              └── terraform.tf
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/12-subnet-resource
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. This one is deliberately small — readme, main dot t f, terraform dot t f — because the lesson is about form, not volume.

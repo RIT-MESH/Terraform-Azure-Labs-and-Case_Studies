@@ -52,7 +52,7 @@
    "id": "S005",
    "type": "CONCEPT",
    "heading": "Where to find this lab",
-   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          ├── README.md\n          └── main.tf\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies",
+   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          └── 23-moved-block\n              ├── README.md\n              └── main.tf\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies\n/tree/master/labs/section-01-foundations/23-moved-block",
    "narration": "The lab is in the course GitHub repository under Section 1, Foundations, link in the description. Just a readme and main dot t f — the moved story is small and self-contained.",
    "audio": "audio/S005.mp3"
   },

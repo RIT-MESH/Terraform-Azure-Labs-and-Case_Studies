@@ -43,11 +43,13 @@ The mental model: a stateful firewall with a strict ordering rule. By default, i
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          └── terraform.tf
+          └── 16-network-security-group
+              ├── README.md
+              ├── main.tf
+              └── terraform.tf
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/16-network-security-group
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Readme, main dot t f, terraform dot t f — and most of main dot t f is rules.

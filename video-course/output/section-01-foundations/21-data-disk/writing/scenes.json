@@ -52,7 +52,7 @@
    "id": "S005",
    "type": "CONCEPT",
    "heading": "Where to find this lab",
-   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          ├── README.md\n          ├── main.tf\n          ├── variables.tf\n          ├── terraform.tf\n          └── terraform.tfvars.example\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies",
+   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          └── 21-data-disk\n              ├── README.md\n              ├── main.tf\n              ├── variables.tf\n              ├── terraform.tf\n              └── terraform.tfvars.example\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies\n/tree/master/labs/section-01-foundations/21-data-disk",
    "narration": "As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Readme, main dot t f, variables, terraform dot t f, and the tf vars example for the password.",
    "audio": "audio/S005.mp3"
   },

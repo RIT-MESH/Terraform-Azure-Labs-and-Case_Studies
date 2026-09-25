@@ -43,13 +43,15 @@ Here's the payoff of five lessons of reference discipline. Terraform reads the a
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          ├── terraform.tf
-          ├── variables.tf
-          └── terraform.tfvars.example
+          └── 17-virtual-machine
+              ├── README.md
+              ├── main.tf
+              ├── terraform.tf
+              ├── variables.tf
+              └── terraform.tfvars.example
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/17-virtual-machine
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Readme, main dot t f, terraform dot t f, and a terraform dot t f vars example for the password.

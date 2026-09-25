@@ -43,12 +43,14 @@ The mental model: adoption, not creation. An import block names two things — a
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          ├── variables.tf
-          └── terraform.tfvars.example
+          └── 22-terraform-import
+              ├── README.md
+              ├── main.tf
+              ├── variables.tf
+              └── terraform.tfvars.example
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/22-terraform-import
 ```
 
 The lab is in the course GitHub repository under Section 1, Foundations, link in the description. The readme shows how to create the example storage account first — main dot t f then adopts it.

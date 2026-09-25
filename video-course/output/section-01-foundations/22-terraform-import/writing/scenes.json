@@ -52,7 +52,7 @@
    "id": "S005",
    "type": "CONCEPT",
    "heading": "Where to find this lab",
-   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          ├── README.md\n          ├── main.tf\n          ├── variables.tf\n          └── terraform.tfvars.example\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies",
+   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          └── 22-terraform-import\n              ├── README.md\n              ├── main.tf\n              ├── variables.tf\n              └── terraform.tfvars.example\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies\n/tree/master/labs/section-01-foundations/22-terraform-import",
    "narration": "The lab is in the course GitHub repository under Section 1, Foundations, link in the description. The readme shows how to create the example storage account first — main dot t f then adopts it.",
    "audio": "audio/S005.mp3"
   },

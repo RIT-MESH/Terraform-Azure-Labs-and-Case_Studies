@@ -43,13 +43,15 @@ Terraform gives you three doors for a secret, and each has a price. The t f vars
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          ├── terraform.tf
-          ├── variables.tf
-          └── terraform.tfvars.example
+          └── 20-secret-values
+              ├── README.md
+              ├── main.tf
+              ├── terraform.tf
+              ├── variables.tf
+              └── terraform.tfvars.example
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/20-secret-values
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Note the file list: a terraform dot t f vars dot example, not a real one — the real t f vars is gitignored, by design.

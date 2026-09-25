@@ -43,11 +43,13 @@ A quick mental model. An Azure virtual machine never holds an address in a subne
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          └── terraform.tf
+          └── 13-network-interface
+              ├── README.md
+              ├── main.tf
+              └── terraform.tf
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/13-network-interface
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Readme, main dot t f, and terraform dot t f — one file of resources, one of plumbing.

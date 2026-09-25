@@ -52,7 +52,7 @@
    "id": "S005",
    "type": "CONCEPT",
    "heading": "Where to find this lab",
-   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          ├── README.md\n          ├── main.tf\n          ├── outputs.tf\n          ├── terraform.tf\n          └── terraform.tfvars\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies",
+   "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-01-foundations\n          └── 11-maps-for-subnets\n              ├── README.md\n              ├── main.tf\n              ├── outputs.tf\n              ├── terraform.tf\n              └── terraform.tfvars\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies\n/tree/master/labs/section-01-foundations/11-maps-for-subnets",
    "narration": "As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Main dot t f, outputs dot t f, terraform dot t f, and — new since lab two — terraform dot t f vars, the data file this lesson is really about.",
    "audio": "audio/S005.mp3"
   },

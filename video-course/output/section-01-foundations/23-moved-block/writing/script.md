@@ -43,10 +43,12 @@ The mental model: Terraform's identity for a resource is its address — the typ
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          └── main.tf
+          └── 23-moved-block
+              ├── README.md
+              └── main.tf
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/23-moved-block
 ```
 
 The lab is in the course GitHub repository under Section 1, Foundations, link in the description. Just a readme and main dot t f — the moved story is small and self-contained.

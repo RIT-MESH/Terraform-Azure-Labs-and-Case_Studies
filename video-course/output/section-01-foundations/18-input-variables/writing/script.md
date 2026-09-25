@@ -43,12 +43,14 @@ Here's the idea that makes validation worth writing: it moves failure left. With
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          ├── terraform.tf
-          └── variables.tf
+          └── 18-input-variables
+              ├── README.md
+              ├── main.tf
+              ├── terraform.tf
+              └── variables.tf
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/18-input-variables
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Readme, main dot t f, terraform dot t f — and the variables live in main dot t f this time, next to the logic that consumes them.

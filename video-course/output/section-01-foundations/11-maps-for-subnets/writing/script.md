@@ -43,13 +43,15 @@ A map of object is more than a container: it's a contract. Every key maps to an 
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          ├── outputs.tf
-          ├── terraform.tf
-          └── terraform.tfvars
+          └── 11-maps-for-subnets
+              ├── README.md
+              ├── main.tf
+              ├── outputs.tf
+              ├── terraform.tf
+              └── terraform.tfvars
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/11-maps-for-subnets
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. Main dot t f, outputs dot t f, terraform dot t f, and — new since lab two — terraform dot t f vars, the data file this lesson is really about.

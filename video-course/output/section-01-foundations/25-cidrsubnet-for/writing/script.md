@@ -43,10 +43,12 @@ The mental model: addresses as arithmetic. Cidrsubnet takes a prefix, a number o
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          └── main.tf
+          └── 25-cidrsubnet-for
+              ├── README.md
+              └── main.tf
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/25-cidrsubnet-for
 ```
 
 The lab is in the course GitHub repository under Section 1, Foundations, link in the description. Readme and main dot t f — the entire lesson lives in the locals block.

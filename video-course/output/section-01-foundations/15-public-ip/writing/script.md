@@ -43,11 +43,13 @@ Two decisions define every public I P. Allocation: dynamic addresses are handed 
 RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
   └── labs
       └── section-01-foundations
-          ├── README.md
-          ├── main.tf
-          └── terraform.tf
+          └── 15-public-ip
+              ├── README.md
+              ├── main.tf
+              └── terraform.tf
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
+/tree/master/labs/section-01-foundations/15-public-ip
 ```
 
 As always, the lab is in the course GitHub repository under Section 1, Foundations, with the link in the description. One of the smallest labs in the section — one group, one address — because the lesson is in two settings.
