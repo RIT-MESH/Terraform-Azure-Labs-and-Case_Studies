@@ -95,3 +95,20 @@ Account tier is standard and replication is LRS.
     ep = make_ep(tmp_path, bad)
     report, fails = vc.validate(ep, scenes=SCENES)
     assert any("overlap" in f for f in fails)
+
+def test_cues_never_exceed_wrap_capacity():
+    """Regression: a duration-capped cue could carry ~90 chars that greedy-wrap
+    to 3 lines; the writer's [:max_lines] then silently dropped the last line's
+    words (SRT coverage 98.8-99.5% on CI). cues_from_words must flush on real
+    wrap fit, so every cue fits max_lines at write time."""
+    import generate_srt as gs
+    style = {"max_lines": 2, "chars_per_line": [35, 45], "segment_sec": [1.5, 6]}
+    # 9 words x 9 chars = 89 chars (<= 2*45) but wraps to 3 lines at 45/line;
+    # total duration 5.4s (< 6s cap) so only the wrap-fit check can flush
+    words = [{"text": "a" * 9, "offset_ms": i * 600, "duration_ms": 600}
+             for i in range(9)]
+    cues = gs.cues_from_words(words, style)
+    joined = " ".join(t for _, _, t in cues)
+    assert all(("a" * 9) == w for w in joined.split())  # every word survives
+    for _, _, t in cues:
+        assert len(gs.split_cues(t, 45)) <= 2  # writer never truncates

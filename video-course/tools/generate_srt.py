@@ -114,7 +114,11 @@ def cues_from_words(words, style):
             t0, end = w_start, w_end
             buf = [txt]
             continue
-        over = (len(cand) > max_chars) or (w_end - t0 >= max_t)
+        # fit check uses the REAL greedy wrap, not max_lines*max_line: a
+        # duration-capped cue can carry chars that wrap to max_lines+1 lines,
+        # and the writer would then silently truncate the overflow line
+        over = len(split_cues(cand, max_line)) > style["max_lines"] \
+            or (w_end - t0 >= max_t)
         sentence_end = re.search(r"[.!?]['\"]?$", txt) and (w_end - t0) >= min_t
         if over or sentence_end:
             flush_end = max(end, w_start)  # cue ends where the next word begins
