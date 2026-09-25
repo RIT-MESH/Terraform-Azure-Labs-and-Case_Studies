@@ -1,5 +1,7 @@
-﻿# This is a cloud-init config (not Terraform). Terraform's templatefile() reads
-# it and substitutes ${hostname} and the %{ for p in packages %} loop.
+# This is a cloud-init config (not Terraform). Terraform's templatefile() reads
+# it and substitutes the hostname var, then loops over the packages var.
+# NOTE: raw template markers in comments would be parsed as directives, so
+# this comment spells them out in words instead.
 #cloud-config
 hostname: ${hostname}
 package_update: true

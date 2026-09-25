@@ -35,7 +35,7 @@ from course_index import load_course_manifest, resolve_lab  # noqa: E402
 
 VC = os.path.dirname(HERE)
 
-LAB_FILE_EXTS = (".tf", ".tfvars.example", ".tftest.hcl", ".yml", ".yaml")
+LAB_FILE_EXTS = (".tf", ".tfvars.example", ".tftest.hcl", ".yml", ".yaml", ".tpl")
 LAB_FILE_NAMES = ("README.md",)
 MODULE_SOURCE_EXTS = (".tf", ".md")
 
