@@ -81,3 +81,5 @@ video-course/output/**/assets/terminal/*
 # Video files
 *.mp4
 *.mp3
+
+.claude/
