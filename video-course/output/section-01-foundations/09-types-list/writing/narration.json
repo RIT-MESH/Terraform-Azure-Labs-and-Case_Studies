@@ -1,70 +1,70 @@
 {
-  "episode": "09-types-list",
-  "source": "writing/scenes.json",
-  "scenes": [
-    {
-      "id": "S001",
-      "narration": "Writing three subnet blocks by hand works. Writing thirty doesn't. In this lesson we meet the list, Terraform's first collection type, and the for expression that turns a list of values into repeated configuration, automatically."
-    },
-    {
-      "id": "S002",
-      "narration": "Here's the plan. The list type: ordered values you address by index. Then for expressions, which transform collections into new collections. Then dynamic blocks, which turn data into repeated nested blocks. By the end, adding a fourth subnet is one string in a list, not a new block of code."
-    },
-    {
-      "id": "S003",
-      "narration": "This is lab nine of the Foundations section. Back in lab six we typed each subnet by hand, inside the V N E T. That's fine for two. This lab replaces the repetition with data: one list of prefixes, one for expression, three identical subnets. Next lab does the same for maps."
-    },
-    {
-      "id": "S004",
-      "narration": "Sixty seconds on lists. A list holds values in order, addressed by index, starting at zero. In Terraform every element has the same type: a list of strings here, a list of numbers there. And the big idea for this lab: whenever you find yourself writing the same block twice, the professional move is to put the differences into a collection, and let an expression generate the blocks."
-    },
-    {
-      "id": "S005",
-      "narration": "You'll find this lab in the course GitHub repository under Section 1, Foundations, link in the description. Two files: main dot T F, and terraform dot T F with the pins, following last lab's split layout."
-    },
-    {
-      "id": "S006",
-      "narration": "First, the data. Subnet prefixes is a list of three C I D R strings, in square brackets, comma separated. Ordered: index zero is ten fifty dot one, index one is ten fifty dot two. This list is the single source of truth. Everything else in this file derives from it."
-    },
-    {
-      "id": "S007",
-      "narration": "Now the for expression, the heart of the lab. Read it as: for each index I and each value P in the prefixes list, produce an object with a name and a prefix. The name is computed from the index: tier one, tier two, tier three. The output is a list of objects, richer than the list we started with. Same data in, structured data out. That's the whole trick."
-    },
-    {
-      "id": "S008",
-      "narration": "The resource group and virtual network are familiar shapes by now: locals feed the names, references order the plan. The network's address space is, fittingly, a list of C I D R blocks too. The new part is what's coming inside this block, so let's look at that next."
-    },
-    {
-      "id": "S009",
-      "narration": "Here's the dynamic block. It says: for each entry in this collection, emit a subnet block. The collection is our list of objects, converted to a map keyed by name, because for each needs a map or a set. Inside content, subnet dot value dot name and dot prefix pull the fields from each entry. Three list elements, three subnets. Add a fourth prefix to the list, and the next plan creates it. No new code."
-    },
-    {
-      "id": "S010",
-      "narration": "Here's the pipeline in one picture. A list of three prefixes. The for expression enriches it into three objects with computed names. The dynamic block turns each object into a real subnet inside the V N E T. Data flows left to right, and at every stage the list is still the only thing you edit."
-    },
-    {
-      "id": "S011",
-      "narration": "One output proves the projection: a for expression over the subnets list, picking just the names. After apply you'll see tier one, tier two, tier three, all generated from data."
-    },
-    {
-      "id": "S012",
-      "narration": "Apply time. The plan shows the group, the network, and all three subnets generated from the list. Then the output prints their names. Three resources' worth of subnets, one line of data."
-    },
-    {
-      "id": "S013",
-      "narration": "The pitfall is copy-paste repetition. Five hand-typed subnet blocks are five chances to mistype a prefix and five edits for every change. The list plus for expression pattern collapses that into data. One note for the next lab: lists are perfect when entries are interchangeable. When each entry needs its own identity, like a name you reference later, maps are the better fit, and that's exactly where we're headed."
-    },
-    {
-      "id": "S014",
-      "narration": "Quick recap. A list is ordered values, addressed by index. A for expression transformed that list into objects with computed names. A dynamic block emitted one subnet per entry, and the output projected the names back out. The habit to keep: repetition should live in data, not in repeated code."
-    },
-    {
-      "id": "S015",
-      "narration": "Now that we understand how this Terraform configuration works, in the next part of this video, we'll move to a real-world demo and deploy it in Microsoft Azure."
-    },
-    {
-      "id": "S016",
-      "narration": "Thanks for watching. If this helped, the full lab, along with every lab in this course, is in the GitHub repository linked below. If you'd like more lessons like this one, give the video a like, share it with a friend who is learning Azure, and subscribe to the channel. It really helps the course grow. Thank you, and see you in the next lesson."
-    }
-  ]
+ "episode": "09-types-list",
+ "source": "writing/scenes.json",
+ "scenes": [
+  {
+   "id": "S001",
+   "narration": "Writing three subnet blocks by hand works. Writing thirty doesn't. In this lesson we meet the list, Terraform's first collection type, and the for expression that turns a list of values into repeated configuration, automatically."
+  },
+  {
+   "id": "S002",
+   "narration": "Here's what you'll learn. One: the list type — ordered, index-addressed values. Two: for-expressions — transforming a list into new data. Three: dynamic blocks — generating nested blocks from a collection. Four: three subnets from one list — add a value, and you get a subnet."
+  },
+  {
+   "id": "S003",
+   "narration": "This is lab nine of the Foundations section. Back in lab six we typed each subnet by hand, inside the V N E T. That's fine for two. This lab replaces the repetition with data: one list of prefixes, one for expression, three identical subnets. Next lab does the same for maps."
+  },
+  {
+   "id": "S004",
+   "narration": "Sixty seconds on lists. A list holds values in order, addressed by index, starting at zero. In Terraform every element has the same type: a list of strings here, a list of numbers there. And the big idea for this lab: whenever you find yourself writing the same block twice, the professional move is to put the differences into a collection, and let an expression generate the blocks."
+  },
+  {
+   "id": "S005",
+   "narration": "You'll find this lab in the course GitHub repository under Section 1, Foundations, link in the description. Two files: main dot T F, and terraform dot T F with the pins, following last lab's split layout."
+  },
+  {
+   "id": "S006",
+   "narration": "First, the data. Subnet prefixes is a list of three C I D R strings, in square brackets, comma separated. Ordered: index zero is ten fifty dot one, index one is ten fifty dot two. This list is the single source of truth. Everything else in this file derives from it."
+  },
+  {
+   "id": "S007",
+   "narration": "Now the for expression, the heart of the lab. Read it as: for each index I and each value P in the prefixes list, produce an object with a name and a prefix. The name is computed from the index: tier one, tier two, tier three. The output is a list of objects, richer than the list we started with. Same data in, structured data out. That's the whole trick."
+  },
+  {
+   "id": "S008",
+   "narration": "The resource group and virtual network are familiar shapes by now: locals feed the names, references order the plan. The network's address space is, fittingly, a list of C I D R blocks too. The new part is what's coming inside this block, so let's look at that next."
+  },
+  {
+   "id": "S009",
+   "narration": "Here's the dynamic block. It says: for each entry in this collection, emit a subnet block. The collection is our list of objects, converted to a map keyed by name, because for each needs a map or a set. Inside content, subnet dot value dot name and dot prefix pull the fields from each entry. Three list elements, three subnets. Add a fourth prefix to the list, and the next plan creates it. No new code."
+  },
+  {
+   "id": "S010",
+   "narration": "Here's the pipeline in one picture. A list of three prefixes. The for expression enriches it into three objects with computed names. The dynamic block turns each object into a real subnet inside the V N E T. Data flows left to right, and at every stage the list is still the only thing you edit."
+  },
+  {
+   "id": "S011",
+   "narration": "One output proves the projection: a for expression over the subnets list, picking just the names. After apply you'll see tier one, tier two, tier three, all generated from data."
+  },
+  {
+   "id": "S012",
+   "narration": "Apply time. The plan shows the group, the network, and all three subnets generated from the list. Then the output prints their names. Three resources' worth of subnets, one line of data."
+  },
+  {
+   "id": "S013",
+   "narration": "The pitfall is copy-paste repetition. Five hand-typed subnet blocks are five chances to mistype a prefix and five edits for every change. The list plus for expression pattern collapses that into data. One note for the next lab: lists are perfect when entries are interchangeable. When each entry needs its own identity, like a name you reference later, maps are the better fit, and that's exactly where we're headed."
+  },
+  {
+   "id": "S014",
+   "narration": "Quick recap. A list is ordered values, addressed by index. A for expression transformed that list into objects with computed names. A dynamic block emitted one subnet per entry, and the output projected the names back out. The habit to keep: repetition should live in data, not in repeated code."
+  },
+  {
+   "id": "S015",
+   "narration": "Now that we understand how this Terraform configuration works, in the next part of this video, we'll move to a real-world demo and deploy it in Microsoft Azure."
+  },
+  {
+   "id": "S016",
+   "narration": "Thanks for watching. If this helped, the full lab, along with every lab in this course, is in the GitHub repository linked below. If you'd like more lessons like this one, give the video a like, share it with a friend who is learning Azure, and subscribe to the channel. It really helps the course grow. Thank you, and see you in the next lesson."
+  }
+ ]
 }

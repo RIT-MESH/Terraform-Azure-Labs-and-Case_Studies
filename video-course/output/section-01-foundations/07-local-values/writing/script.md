@@ -18,7 +18,7 @@ Locals have been quietly holding our names for six labs. Now we give them their 
 - merge(): common tags + one resource-specific tag
 - Why tags matter in real Azure environments
 
-Here's what's new. String interpolation inside locals, so names assemble themselves from smaller values. A common tags map, defined in exactly one place and applied to every resource. And the merge function, which takes those shared tags and adds resource-specific extras on top.
+Here's what you'll learn. One: string interpolation inside locals — building the resource group name from project and region. Two: a common tags map, defined once, used everywhere. Three: merge — common tags plus one resource-specific tag. Four: why tags matter in real Azure environments.
 
 ## S003 — CONCEPT: Where this lab fits
 

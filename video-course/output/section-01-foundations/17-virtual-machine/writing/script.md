@@ -18,7 +18,7 @@ Six lessons of parts, and today the machine: this lab wires everything from the 
 - A sensitive variable for the admin password — never hard-coded
 - os_disk and source_image_reference: choosing the machine's disk and image
 
-Here's the plan. The whole stack in one file — and the real lesson is how few explicit instructions it takes. References between resources build the dependency chain for us. The admin password arrives through a sensitive variable, and the machine itself is defined by its size, its O S disk, and a four-field image reference.
+Here's what you'll learn. One: the full V M stack — one configuration, seven resources. Two: how references build the dependency chain automatically. Three: a sensitive variable for the admin password — never hard-coded. Four: the O S disk and source image reference — choosing the machine's disk and image.
 
 ## S003 — CONCEPT: Where this lab fits
 

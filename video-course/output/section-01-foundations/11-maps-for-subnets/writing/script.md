@@ -18,7 +18,7 @@ Last lesson the subnet map lived inside locals, and one field, N S G, was sittin
 - for_each over the variable map, same loop as Lab 10
 - Outputs that report the layout: length() and keys()
 
-Here's the plan. A variable typed as map of object, where every value must match an exact shape. Then terraform dot t f vars, the data file that feeds it without touching any code. The for each loop you already know consumes the map, and two outputs report the layout back to you.
+Here's what you'll learn. One: map of object — a map whose values must match an exact shape. Two: t f vars supplies the data — no code edits needed. Three: for each over the variable map — the same loop as lab ten. Four: outputs that report the layout — length, and keys.
 
 ## S003 — CONCEPT: Where this lab fits
 

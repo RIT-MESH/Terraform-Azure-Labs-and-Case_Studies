@@ -18,7 +18,7 @@ The last two lessons built networks — but nothing lives in them yet. This less
 - Dynamic private IP: Azure picks a free address from the subnet
 - Outputs: the NIC's id, and the private IP Azure chose
 
-Here's the plan. The network interface resource — a virtual machine's network card. One I P configuration block that binds it to a subnet by I D. A dynamic private I P that Azure picks from the subnet's range, and two outputs so you can see exactly what was created and which address was chosen.
+Here's what you'll learn. One: azurerm network interface — a V M's network card in Azure. Two: the I P configuration block — binding the N I C to a subnet by I D. Three: dynamic private I P — Azure picks a free address from the subnet. Four: outputs — the N I C's I D, and the private I P Azure chose.
 
 ## S003 — CONCEPT: Where this lab fits
 

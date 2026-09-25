@@ -25,6 +25,7 @@ const keywords = (text: string): Set<string> =>
 export const ConceptScene: React.FC<{
   heading?: string;
   points?: string[];
+  numbered?: boolean;
   github_path?: string;
   publicLabUrl?: string;
   centered?: boolean;
@@ -88,7 +89,19 @@ export const ConceptScene: React.FC<{
           {props.github_path}
         </div>
       ) : null}
-      {(props.points ?? []).map((p, i) => (
+      {(props.points ?? []).map((p, i) => props.numbered ? (
+        // numbered layout (user-set 2026-09-25): visible 1/2/3 chips so each
+        // spoken point maps to exactly one on-screen line
+        <div key={i} style={{display: 'flex', alignItems: 'center', marginTop: 28,
+                             opacity: opacityFor(i)}}>
+          <div style={{width: 48, height: 48, borderRadius: 24, flexShrink: 0,
+                       border: '2px solid #50E6FF', color: '#50E6FF',
+                       display: 'flex', alignItems: 'center', justifyContent: 'center',
+                       fontSize: 26, fontWeight: 700, fontFamily: 'JetBrains Mono',
+                       marginRight: 24}}>{i + 1}</div>
+          <div style={{color: '#C9D3E8', fontSize: 40}}>{p}</div>
+        </div>
+      ) : (
         <div key={i} style={{color: '#C9D3E8', fontSize: 40, marginTop: 28, opacity: opacityFor(i)}}>
           {p}
         </div>

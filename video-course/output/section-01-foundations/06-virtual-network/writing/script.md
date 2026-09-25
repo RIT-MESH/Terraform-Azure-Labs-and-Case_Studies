@@ -18,7 +18,7 @@ Everything we've built so far lives alone in its resource group. Today we start 
 - Inline subnet blocks — the quick way to add subnets
 - Why subnets matter for everything that follows
 
-Here's the plan. What a virtual network is, in plain terms. How to read a C I D R block, so an address like ten twenty dot zero dot zero slash sixteen stops looking like noise. Then inline subnet blocks: the quick way to carve up that space. And why networking comes before compute in every serious Azure project.
+Here's what you'll learn. One: what a VNet is — your private I P space inside Azure. Two: reading a C I D R block — what ten twenty dot zero slash sixteen actually means. Three: inline subnet blocks — the quick way to add subnets. Four: why subnets matter for everything that follows.
 
 ## S003 — CONCEPT: Where this lab fits
 

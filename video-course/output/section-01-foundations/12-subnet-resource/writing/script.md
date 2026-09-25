@@ -18,7 +18,7 @@ Subnets have appeared in every network lab so far — inline inside the VNet in 
 - Why separate resources unlock NSGs, delegations and service endpoints
 - An output that hands the subnet id to later labs
 
-Here's the plan. The subnet as its own resource, written by hand. We'll contrast it with the inline form from lab six, see what the standalone shape unlocks — per-subnet security groups, delegations, service endpoints — and end with the output that later labs will plug their resources into.
+Here's what you'll learn. One: azurerm subnet as its own resource — one per tier. Two: standalone subnets versus the inline subnets block of lab six. Three: why separate resources unlock network security groups, delegations, and service endpoints. Four: an output that hands the subnet I D to later labs.
 
 ## S003 — CONCEPT: Where this lab fits
 

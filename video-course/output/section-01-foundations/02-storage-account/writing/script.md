@@ -21,10 +21,7 @@ the end, Terraform will have created real infrastructure in your subscription.
 - locals — compute names once, reuse them everywhere
 - The random provider — a suffix saved in state, stable across every run
 
-Here's what we'll cover. Resource blocks, the keyword that actually creates
-infrastructure, not just reads it. Locals, a place to compute names once and
-reuse them everywhere. And the random provider, whose suffix is saved in
-Terraform state, so every plan and apply stays stable.
+Here's what you'll learn in this lesson — three things. One: resource blocks — where Terraform creates and manages real infrastructure. Two: locals — compute names once, and reuse them everywhere. Three: the random provider — a suffix saved in state, stable across every run.
 
 ## S003 — CONCEPT: Where this lab fits
 

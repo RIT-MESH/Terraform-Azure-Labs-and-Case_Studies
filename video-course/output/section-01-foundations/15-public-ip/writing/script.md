@@ -18,7 +18,7 @@ Everything we've built so far is private — VNets, subnets, a network interface
 - sku: Basic is legacy — Standard is the modern default
 - The address is computed — read via output after apply
 
-Here's the plan. The public I P resource, and its two defining settings: allocation method — static or dynamic — and S K U, Basic or Standard. Then the part every computed value shares: the address exists only after apply, so an output is how you read it.
+Here's what you'll learn. One: azurerm public I P — a resource's doorway from the internet. Two: allocation method — static keeps the address, dynamic releases it. Three: S K U — Basic is legacy; Standard is the modern default. Four: the address is computed — read it via an output after apply.
 
 ## S003 — CONCEPT: Where this lab fits
 

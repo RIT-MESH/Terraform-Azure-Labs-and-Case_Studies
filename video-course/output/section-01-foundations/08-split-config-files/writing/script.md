@@ -18,7 +18,7 @@ Until now, every lab fit in one file. Real projects don't. In this lesson we tak
 - References work across files with no imports
 - File names are for humans — Terraform doesn't care
 
-Here's the plan. The merge rule that makes splitting possible. The conventional file layout most Terraform teams use. How references cross file boundaries without any import statements. And one warning: the names are for humans. Terraform genuinely doesn't care what you call the files.
+Here's what you'll learn. One: Terraform loads every dot t f file in a directory as one configuration. Two: the conventional split — terraform dot t f, locals dot t f, main dot t f, outputs dot t f. Three: references work across files with no imports. Four: file names are for humans — Terraform doesn't care.
 
 ## S003 — CONCEPT: Where this lab fits
 

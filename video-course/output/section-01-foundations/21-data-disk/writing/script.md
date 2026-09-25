@@ -18,7 +18,7 @@ Every virtual machine so far carried exactly one disk — the one Windows was in
 - OS disk vs data disk — Windows lives on one, your data on the other
 - LUN 0-63: how the guest OS identifies each attached disk
 
-Here's the plan. A managed disk created directly by Terraform — blank, thirty-two gigabytes. And a separate attachment resource that connects it to the virtual machine at a chosen L U N slot. Two resources, on purpose — and the separation is the lesson.
+Here's what you'll learn. One: azurerm managed disk — a standalone managed disk you create directly. Two: the data disk attachment — the L U N-level link between disk and machine. Three: O S disk versus data disk — Windows lives on one, your data on the other. Four: L U N zero through sixty-three — how the guest O S identifies each attached disk.
 
 ## S003 — CONCEPT: Where this lab fits
 

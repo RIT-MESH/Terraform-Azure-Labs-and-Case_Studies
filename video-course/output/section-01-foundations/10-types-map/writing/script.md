@@ -18,7 +18,7 @@ Last lesson repeated blocks from a list. But lists address by position, and infr
 - each.key and each.value inside the resource block
 - Why maps beat lists when entries have identity
 
-Here's the plan. The map type, where every entry has a meaningful key. Then for each, the meta argument that creates one whole resource per key, not just a nested block. We'll use each dot key and each dot value inside the block, and settle the lists versus maps question for good.
+Here's what you'll learn. One: the map type — meaningful keys, each holding a value or an object. Two: for each over a map — one resource per key. Three: each dot key and each dot value inside the resource block. Four: why maps beat lists when entries have identity.
 
 ## S003 — CONCEPT: Where this lab fits
 

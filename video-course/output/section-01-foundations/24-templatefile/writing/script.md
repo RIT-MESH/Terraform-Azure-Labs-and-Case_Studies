@@ -18,7 +18,7 @@ A Linux machine that installs nginx on first boot — configured not in Terrafor
 - custom_data on azurerm_linux_virtual_machine — must be base64-encoded
 - SSH key auth instead of passwords for the Linux VM
 
-Here's the plan. A cloud-init template with a hostname and a package list. Templatefile renders it with real values. Base64-encode the result, feed it to custom data — and the machine installs nginx by itself, on first boot, with no one logging in.
+Here's what you'll learn. One: templatefile — render a file with substituted values. Two: cloud-init — the first-boot bootstrap script for Linux V Ms. Three: custom data on azurerm linux virtual machine — which must be base sixty-four encoded. Four: S S H key authentication instead of passwords for the Linux V M.
 
 ## S003 — CONCEPT: Where this lab fits
 

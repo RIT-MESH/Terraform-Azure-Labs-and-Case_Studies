@@ -18,7 +18,7 @@ Lab 18's variables all had defaults. But production configurations usually refus
 - -var-file selects alternate files (prod.tfvars, staging.tfvars)
 - One declaration, many value files — environments without copies
 
-Here's the plan. Variables declared with no default — which makes them required. The definition file that's loaded automatically, by name. And the flag that swaps in a different file for a different environment. Same code, different values — chosen by file, not by edit.
+Here's what you'll learn. One: variables without defaults are required — Terraform prompts, or errors. Two: t f vars is auto-loaded by name on every plan and apply. Three: var dash file selects alternate files — prod, staging. Four: one declaration, many value files — environments without copies.
 
 ## S003 — CONCEPT: Where this lab fits
 

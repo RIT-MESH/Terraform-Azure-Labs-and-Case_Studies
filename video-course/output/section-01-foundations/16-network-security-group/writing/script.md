@@ -18,7 +18,7 @@ Last lesson built a door to the internet — a public I P. But a door with no ru
 - Lower priority number is evaluated first — 200 before 300
 - Subnet ↔ NSG via its own association resource
 
-Here's the plan. The security group as a stateful firewall, its rules evaluated by priority. Two allow rules — R D P on three three eight nine, H T T P S on four forty three — and the association resource that binds the group to a subnet.
+Here's what you'll learn. One: azurerm network security group — a stateful firewall for subnets and N I Cs. Two: security rule blocks — priority, direction, access, and ports. Three: a lower priority number is evaluated first — two hundred before three hundred. Four: connecting the group to a subnet through its own association resource.
 
 ## S003 — CONCEPT: Where this lab fits
 

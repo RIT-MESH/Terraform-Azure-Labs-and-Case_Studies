@@ -18,7 +18,7 @@ Lab 17 masked the admin password with one flag and moved on. This lesson gives s
 - What masking does — and the state-file caveat
 - tfvars.example as a template; the real file never committed
 
-Here's the plan. The sensitive flag on a variable, and what it masks. Then the three delivery paths for a secret — a t f vars file that's gitignored, an environment variable, and the command line — each with its trade-offs. And the caveat that keeps you honest: the state file.
+Here's what you'll learn. One: sensitive variables — masked in plan and apply logs, still usable in code. Two: three ways to supply a secret — a gitignored t f vars file, a T F underscore V A R environment variable, or var on the command line. Three: what masking does — and the state-file caveat. Four: t f vars dot example as a template — the real file never committed.
 
 ## S003 — CONCEPT: Where this lab fits
 

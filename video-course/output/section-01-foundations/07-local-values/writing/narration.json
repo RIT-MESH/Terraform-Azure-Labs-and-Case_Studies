@@ -1,70 +1,70 @@
 {
-  "episode": "07-local-values",
-  "source": "writing/scenes.json",
-  "scenes": [
-    {
-      "id": "S001",
-      "narration": "Locals have been quietly holding our names for six labs. Now we give them their full due: interpolation to build names, and a shared tags map that reaches every resource, with merge for the exceptions."
-    },
-    {
-      "id": "S002",
-      "narration": "Here's what's new. String interpolation inside locals, so names assemble themselves from smaller values. A common tags map, defined in exactly one place and applied to every resource. And the merge function, which takes those shared tags and adds resource-specific extras on top."
-    },
-    {
-      "id": "S003",
-      "narration": "This is lab seven of the Foundations section. You've used locals since lab two, mostly as simple named values. This lab shows their two biggest real-world jobs: composing names from parts, and holding shared tag maps. Plus one new function: merge."
-    },
-    {
-      "id": "S004",
-      "narration": "A quick word on why tags deserve a whole lab. In real environments, tags are how bills get attributed to teams, how resources get found, and how automation decides what to shut down at night. A resource without tags is a future mystery. So the professional habit is: define your common tags once, and stamp them on everything. Terraform plus locals makes that almost effortless."
-    },
-    {
-      "id": "S005",
-      "narration": "You'll find this lab in the course GitHub repository under Section 1, Foundations, link in the description. One file: main dot T F, a resource group and a virtual network, both wearing the same tags."
-    },
-    {
-      "id": "S006",
-      "narration": "The locals block starts with two simple values: region and project. Then the interesting line: the resource group name is built by interpolation, project dash region. Read it right to left: change project in one place, and both the resource group and the network name below follow. That's one place naming, doing real work."
-    },
-    {
-      "id": "S007",
-      "narration": "Here's the star of the lab: common tags, a map defined once in locals. Three pairs: which project, who manages it, and which section of the course it belongs to. In a real company this map grows: environment, cost center, owner. The point isn't the keys, it's the once. Every resource that needs tags points here instead of typing its own copy."
-    },
-    {
-      "id": "S008",
-      "narration": "The resource group consumes both: name from interpolation, tags straight from the local map, one line. If you've ever met an untagged resource in a subscription with hundreds of them, this single line is the cure."
-    },
-    {
-      "id": "S009",
-      "narration": "The virtual network shows both tricks together. Its name interpolates the project local again, so vnet dash foundation. And its tags line is the new function: merge takes the common tags map and a small extra map with one key, tier network, and combines them. The result is the shared tags plus one resource-specific label, and the common map itself is untouched."
-    },
-    {
-      "id": "S010",
-      "narration": "Here's the flow. Common tags lives in locals. It flows directly onto the resource group. For the virtual network, it flows through merge, which adds the tier tag on the way. Change the map once, and both resources update on the next plan. That's the whole point of this lab: shared values live in exactly one place."
-    },
-    {
-      "id": "S011",
-      "narration": "One output at the end prints the virtual network's final tags, so after apply you can see the merged result with your own eyes: the three common keys, plus tier network."
-    },
-    {
-      "id": "S012",
-      "narration": "Apply time. Group first, then the network. And the tags output prints the merged map: project, managed by terraform, section, and the network tier tag. One definition, correct on every resource."
-    },
-    {
-      "id": "S013",
-      "narration": "The pitfall is copy-paste tags. The moment each resource gets its own typed-out map, they start drifting: one says managed by terraform, another says I A C, and suddenly your cost report misses half the resources. The fix is exactly this lab: one map in locals, extras merged at the resource. Consistent tags are what make cost dashboards and cleanup scripts possible at all."
-    },
-    {
-      "id": "S014",
-      "narration": "Quick recap. Locals compose names by interpolation, so one change ripples everywhere. Our common tags map was defined once and attached to both resources, with merge layering a resource-specific key on top for the network. And the tags output let us verify the merged result after apply."
-    },
-    {
-      "id": "S015",
-      "narration": "Now that we understand how this Terraform configuration works, in the next part of this video, we'll move to a real-world demo and deploy it in Microsoft Azure."
-    },
-    {
-      "id": "S016",
-      "narration": "Thanks for watching. If this helped, the full lab, along with every lab in this course, is in the GitHub repository linked below. If you'd like more lessons like this one, give the video a like, share it with a friend who is learning Azure, and subscribe to the channel. It really helps the course grow. Thank you, and see you in the next lesson."
-    }
-  ]
+ "episode": "07-local-values",
+ "source": "writing/scenes.json",
+ "scenes": [
+  {
+   "id": "S001",
+   "narration": "Locals have been quietly holding our names for six labs. Now we give them their full due: interpolation to build names, and a shared tags map that reaches every resource, with merge for the exceptions."
+  },
+  {
+   "id": "S002",
+   "narration": "Here's what you'll learn. One: string interpolation inside locals — building the resource group name from project and region. Two: a common tags map, defined once, used everywhere. Three: merge — common tags plus one resource-specific tag. Four: why tags matter in real Azure environments."
+  },
+  {
+   "id": "S003",
+   "narration": "This is lab seven of the Foundations section. You've used locals since lab two, mostly as simple named values. This lab shows their two biggest real-world jobs: composing names from parts, and holding shared tag maps. Plus one new function: merge."
+  },
+  {
+   "id": "S004",
+   "narration": "A quick word on why tags deserve a whole lab. In real environments, tags are how bills get attributed to teams, how resources get found, and how automation decides what to shut down at night. A resource without tags is a future mystery. So the professional habit is: define your common tags once, and stamp them on everything. Terraform plus locals makes that almost effortless."
+  },
+  {
+   "id": "S005",
+   "narration": "You'll find this lab in the course GitHub repository under Section 1, Foundations, link in the description. One file: main dot T F, a resource group and a virtual network, both wearing the same tags."
+  },
+  {
+   "id": "S006",
+   "narration": "The locals block starts with two simple values: region and project. Then the interesting line: the resource group name is built by interpolation, project dash region. Read it right to left: change project in one place, and both the resource group and the network name below follow. That's one place naming, doing real work."
+  },
+  {
+   "id": "S007",
+   "narration": "Here's the star of the lab: common tags, a map defined once in locals. Three pairs: which project, who manages it, and which section of the course it belongs to. In a real company this map grows: environment, cost center, owner. The point isn't the keys, it's the once. Every resource that needs tags points here instead of typing its own copy."
+  },
+  {
+   "id": "S008",
+   "narration": "The resource group consumes both: name from interpolation, tags straight from the local map, one line. If you've ever met an untagged resource in a subscription with hundreds of them, this single line is the cure."
+  },
+  {
+   "id": "S009",
+   "narration": "The virtual network shows both tricks together. Its name interpolates the project local again, so vnet dash foundation. And its tags line is the new function: merge takes the common tags map and a small extra map with one key, tier network, and combines them. The result is the shared tags plus one resource-specific label, and the common map itself is untouched."
+  },
+  {
+   "id": "S010",
+   "narration": "Here's the flow. Common tags lives in locals. It flows directly onto the resource group. For the virtual network, it flows through merge, which adds the tier tag on the way. Change the map once, and both resources update on the next plan. That's the whole point of this lab: shared values live in exactly one place."
+  },
+  {
+   "id": "S011",
+   "narration": "One output at the end prints the virtual network's final tags, so after apply you can see the merged result with your own eyes: the three common keys, plus tier network."
+  },
+  {
+   "id": "S012",
+   "narration": "Apply time. Group first, then the network. And the tags output prints the merged map: project, managed by terraform, section, and the network tier tag. One definition, correct on every resource."
+  },
+  {
+   "id": "S013",
+   "narration": "The pitfall is copy-paste tags. The moment each resource gets its own typed-out map, they start drifting: one says managed by terraform, another says I A C, and suddenly your cost report misses half the resources. The fix is exactly this lab: one map in locals, extras merged at the resource. Consistent tags are what make cost dashboards and cleanup scripts possible at all."
+  },
+  {
+   "id": "S014",
+   "narration": "Quick recap. Locals compose names by interpolation, so one change ripples everywhere. Our common tags map was defined once and attached to both resources, with merge layering a resource-specific key on top for the network. And the tags output let us verify the merged result after apply."
+  },
+  {
+   "id": "S015",
+   "narration": "Now that we understand how this Terraform configuration works, in the next part of this video, we'll move to a real-world demo and deploy it in Microsoft Azure."
+  },
+  {
+   "id": "S016",
+   "narration": "Thanks for watching. If this helped, the full lab, along with every lab in this course, is in the GitHub repository linked below. If you'd like more lessons like this one, give the video a like, share it with a friend who is learning Azure, and subscribe to the channel. It really helps the course grow. Thank you, and see you in the next lesson."
+  }
+ ]
 }

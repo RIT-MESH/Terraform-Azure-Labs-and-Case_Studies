@@ -18,7 +18,7 @@ Writing three subnet blocks by hand works. Writing thirty doesn't. In this lesso
 - dynamic blocks: generating nested blocks from a collection
 - Three subnets from one list — add a value, get a subnet
 
-Here's the plan. The list type: ordered values you address by index. Then for expressions, which transform collections into new collections. Then dynamic blocks, which turn data into repeated nested blocks. By the end, adding a fourth subnet is one string in a list, not a new block of code.
+Here's what you'll learn. One: the list type — ordered, index-addressed values. Two: for-expressions — transforming a list into new data. Three: dynamic blocks — generating nested blocks from a collection. Four: three subnets from one list — add a value, and you get a subnet.
 
 ## S003 — CONCEPT: Where this lab fits
 

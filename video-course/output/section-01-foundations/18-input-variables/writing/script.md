@@ -18,7 +18,7 @@ Variables have appeared in five labs, always briefly. This lesson is their anato
 - can() + regex: shape rules for strings
 - contains(): the enum pattern — restrict to allowed values
 
-Here's the plan. The variable block, field by field: type, default, description. Then validation blocks — rules that run before plan, so bad input dies in seconds, not after Azure rejects it. Two patterns today: a regex shape rule, and the contains pattern for enum-style choices.
+Here's what you'll learn. One: variable anatomy — type, default, and description. Two: validation blocks run before plan — bad input never reaches Azure. Three: can plus regex — shape rules for strings. Four: contains — the enum pattern that restricts values to an allowed list.
 
 ## S003 — CONCEPT: Where this lab fits
 

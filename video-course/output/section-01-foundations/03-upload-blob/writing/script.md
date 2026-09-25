@@ -18,7 +18,7 @@ In the last lesson we created a storage account. This time we put something insi
 - Inline content with source_content vs a local file with source
 - How Terraform orders resources from references alone
 
-Here's the plan. First, the storage hierarchy: an account holds containers, and containers hold blobs. Then two new resources: the storage container and the storage blob. We'll upload text directly with source content, and I'll show you when to use a local file instead. And you'll watch Terraform order four resources correctly using references alone.
+Here's what you'll learn. One: the storage hierarchy — account, container, blob. Two: two new resources — azurerm storage container, and azurerm storage blob. Three: inline content with source content, versus a local file with source. Four: how Terraform orders resources from references alone.
 
 ## S003 — CONCEPT: Where this lab fits
 

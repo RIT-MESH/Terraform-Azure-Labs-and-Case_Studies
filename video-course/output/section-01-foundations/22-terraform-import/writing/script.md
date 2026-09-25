@@ -18,7 +18,7 @@ Every resource we've built so far was created by Terraform. But real projects in
 - The Azure resource id format: subscriptions, resource groups, providers
 - Adopt first, manage forever after — no recreate, no downtime
 
-Here's the plan. A storage account that already exists in Azure, created outside Terraform. The import block tells Terraform: read that resource, and bind it to an address in our configuration. Adoption, not creation.
+Here's what you'll learn. One: terraform import — bring an existing Azure resource under management. Two: the declarative import block — Terraform one point five and later. Three: the Azure resource I D format — subscriptions, resource groups, providers. Four: adopt first, manage forever after — no recreate, no downtime.
 
 ## S003 — CONCEPT: Where this lab fits
 

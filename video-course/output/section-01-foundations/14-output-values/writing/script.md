@@ -18,7 +18,7 @@ Every lab so far has ended the same way: values you only learn after apply — a
 - terraform output <name> reads a value back on demand
 - What sensitive masks — and what it doesn't
 
-Here's the plan. The output block in its three costumes: plain, described, and sensitive. Then the command that reads values back after apply. And the honest part — what sensitive actually masks, and what it doesn't.
+Here's what you'll learn. One: output blocks — plain, described, and sensitive. Two: outputs are the configuration's public API after apply. Three: terraform output, followed by a name, reads a value back on demand. Four: what sensitive masks — and what it doesn't.
 
 ## S003 — CONCEPT: Where this lab fits
 

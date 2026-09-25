@@ -18,7 +18,7 @@ You've been reading references like local dot name and var dot location for thre
 - Chaining functions: md5 + substr to build a name from a resource ID
 - Why references are better than repeating literals
 
-Here's what we'll cover. The three reference families: locals, variables, and resource references. An input variable with a default, and how you'd override it. Then a small function chain that builds a name from a resource's I D. And the big idea underneath it all: one source of truth for every value.
+Here's what you'll learn. One: the three reference families — local dot x, var dot x, and resource references. Two: input variables with defaults — and how to override them. Three: chaining functions — m d five plus substr, building a name from a resource I D. Four: why references are better than repeating literals.
 
 ## S003 — CONCEPT: Where this lab fits
 

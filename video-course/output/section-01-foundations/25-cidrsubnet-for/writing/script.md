@@ -18,7 +18,7 @@ Twenty labs in, every subnet's address range was typed by hand. This lesson stop
 - NETNUM picks which slice — 0, 1, 2, 3
 - A for-expression builds the whole subnet set from a name list
 
-Here's the plan. A base range — slash twenty. A list of four tier names: web, app, data, mgmt. A for-expression carves one slash twenty-six subnet per tier with cidrsubnet, and cidrhost works out the first usable address in each. The subnet resource iterates the result.
+Here's what you'll learn. One: cidrsubnet — carve a subnet from a base range, using a prefix, new bits, and an index. Two: new bits add to the prefix — slash twenty plus six new bits gives slash twenty-six. Three: the index picks which slice — zero, one, two, three. Four: a for-expression that builds the whole subnet set from a name list.
 
 ## S003 — CONCEPT: Where this lab fits
 

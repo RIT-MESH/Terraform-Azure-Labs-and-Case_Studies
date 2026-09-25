@@ -18,7 +18,7 @@ Names change. A resource block called legacy becomes this, and the code reads be
 - from the old address, to the new address
 - Remove the block after the rename has been applied everywhere
 
-Here's the plan. A storage account, a VNet and a subnet with two deliberately odd subnet masks, and the moved block — from the old address, to the new one. State is rewritten in place; the real Azure resource never blinks.
+Here's what you'll learn. One: the moved block — rename a resource address with no destroy and no create. Two: Terraform rewrites the state address in place. Three: from the old address, to the new address. Four: remove the block after the rename has been applied everywhere.
 
 ## S003 — CONCEPT: Where this lab fits
 

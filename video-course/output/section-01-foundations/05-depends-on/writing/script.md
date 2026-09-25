@@ -18,7 +18,7 @@ Terraform has ordered every resource for you so far, just by following reference
 - depends_on — forcing order explicitly
 - Why a real reference is almost always the better fix
 
-Here's the plan. First, implicit dependencies: the ordering you've been getting for free. Then the gap: what happens when a value is just a string instead of a reference. Then the fix, the depends on meta argument. And finally, why we'll call it a last resort rather than a habit.
+Here's what you'll learn. One: implicit dependency — Terraform infers order from references. Two: the gap — a plain-string value creates no ordering. Three: depends on — forcing order explicitly. Four: why a real reference is almost always the better fix.
 
 ## S003 — CONCEPT: Where this lab fits
 
