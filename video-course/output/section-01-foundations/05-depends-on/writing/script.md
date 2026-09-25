@@ -88,7 +88,7 @@ Running it: init pulls the providers, and apply creates the group, then the acco
 - It can also force waits Terraform would have parallelized
 - Rule: references first; depends_on only when no reference is possible
 
-The pitfall is reaching for depends on by default. Lab three had the same container, and solved it better: by referencing the storage account's name attribute directly, the order came for free and the code explained itself. Depends on hides the reason for the ordering, makes future readers guess, and can even slow your runs by forcing waits that references would have let Terraform parallelize. Use it when there's genuinely no attribute to reference, like timing against a resource your config doesn't own. Otherwise, prefer the reference.
+Here are the pitfalls in this lab. One: lab three solved this same problem with a real reference — the storage account's name. Two: depends on hides why the order exists — future readers have to guess. Three: it can also force waits that Terraform would have parallelized. Four: the rule — references first; depends on only when no reference is possible.
 
 ## S014 — RECAP
 
@@ -98,7 +98,7 @@ The pitfall is reaching for depends on by default. Lab three had the same contai
 - Prefer real references; keep depends_on for the cases that need it
 - Terraform parallelizes everything without a dependency edge
 
-Quick recap. Terraform orders resources from references, automatically. A plain literal gives it nothing to work with, which is where depends on comes in: one line that makes the wait explicit. It's a tool for the cases where no reference is possible, not a replacement for them. And anything without a dependency edge runs in parallel.
+Quick recap — five things. One: references create implicit dependencies — Terraform orders the plan from them. Two: a plain literal, like local st name, carries no ordering information. Three: depends on with a resource forces the wait explicitly. Four: prefer real references — keep depends on for the cases that need it. Five: everything without a dependency edge runs in parallel.
 
 ## S015 — NEXT
 

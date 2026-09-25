@@ -178,8 +178,9 @@
     "-var leaks into shell history; TF_VAR_ stays per-shell",
     "Rotate any secret that ever reached a log, a file, or a history"
    ],
-   "narration": "The pitfall: trusting the mask with the secret itself. Sensitive protects the log, nothing more. The password still sits in the state file in plain text, so protect that file like the secret it holds. And the file that carries the real value — the t f vars — is gitignored, with a dot example template committed in its place. If a secret ever did reach a log, a history, or a commit, the fix isn't masking. It's rotation.",
-   "audio": "audio/S011.mp3"
+   "narration": "Here are the pitfalls in this lab. One: sensitive masks logs — the value still sits in state, in plain text. Two: never commit a real t f vars file — ship the example, and gitignore the real one. Three: a var flag leaks into shell history; a t f underscore v a r environment variable stays per-shell. Four: rotate any secret that ever reached a log, a file, or a history.",
+   "audio": "audio/S011.mp3",
+   "numbered": true
   },
   {
    "id": "S012",
@@ -191,8 +192,9 @@
     "The state file still holds the value in plain text — protect it",
     "A secret that reached a log, file, or history is a rotated secret"
    ],
-   "narration": "Quick recap. One sensitive variable, three delivery paths — a gitignored file, an environment variable, a command line flag — and one honest caveat: the state file still holds the value in plain text. Mask what the logs show, guard the files that carry the real value, and rotate anything that ever escaped.",
-   "audio": "audio/S012.mp3"
+   "narration": "Quick recap — five things. One: sensitive means masked in plan and apply logs — not encryption. Two: three paths for a secret — a gitignored t f vars file, a t f underscore v a r environment variable, or a var flag. Three: the t f vars example documents the shape; the real file never gets committed. Four: the state file still holds the value in plain text — protect it. Five: a secret that reached a log, a file, or a history is a rotated secret.",
+   "audio": "audio/S012.mp3",
+   "numbered": true
   },
   {
    "id": "S013",

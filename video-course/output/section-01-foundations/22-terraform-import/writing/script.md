@@ -82,7 +82,7 @@ Apply time — and the verb is different. Not seven added: one imported, zero ad
 - The id must be the FULL Azure resource id — not just the name
 - Import binds; it never fixes a wrongly-typed resource block
 
-The pitfall: treating import as a fix-it button. Import only creates the state binding — the configuration still has to describe the resource correctly. If the block says Standard L R S but the real account is Standard G R S, the next plan shows the difference. And the id must be the complete Azure resource id — subscription, group, provider, type, name. That's why the lab builds it in a local.
+Here are the pitfalls in this lab. One: the c l i form imports into state — you still write the resource block yourself. Two: a config that doesn't match the real resource shows drift on the next plan. Three: the i d must be the full Azure resource i d — not just the name. Four: import binds — it never fixes a wrongly-typed resource block.
 
 ## S012 — RECAP: recap
 
@@ -92,7 +92,7 @@ The pitfall: treating import as a fix-it button. Import only creates the state b
 - The resource block must match reality — drift shows on the next plan
 - CLI form: terraform import ADDRESS ID — one-off alternative
 
-Quick recap. Import is adoption: an existing Azure resource, bound into Terraform state by its full resource id, with nothing created or destroyed. From that moment the configuration governs the resource — and any gap between code and reality shows up as drift in the next plan.
+Quick recap — five things. One: the import block — Terraform one point five and later — binds an existing i d to a config address. Two: nothing is created or destroyed — state gains the binding. Three: the Azure resource i d reads subscriptions, resource groups, providers — the full path. Four: the resource block must match reality — drift shows on the next plan. Five: the c l i form — terraform import, address, i d — is the one-off alternative.
 
 ## S013 — NEXT: next up
 

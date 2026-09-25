@@ -44,11 +44,11 @@
   },
   {
    "id": "S011",
-   "narration": "The pitfall: going back to inline subnets for anything beyond a quick demo. The inline block is compact, but it welds the subnet to the VNet — and the day you need a per-subnet firewall, there's no standalone resource to attach it to. So choose by shape: many identical tiers, for each with a map. A few distinct tiers that grow in different directions, write them out. When in doubt, standalone is the safer default."
+   "narration": "Here are the pitfalls in this lab. One: inline subnets are fine for throwaway demos — but they close the door. Two: a per-subnet n s g or delegation needs a standalone subnet to reference. Three: migrating inline to standalone later is surgery — start standalone. Four: for each for many identical tiers; explicit blocks for distinct, growing tiers."
   },
   {
    "id": "S012",
-   "narration": "Quick recap. Today we wrote subnets the standalone way: one resource per tier, the VNet carrying only the address space. Each subnet gained an identity — an I D other resources can reference — and we exported the web subnet's as the handle for what comes next: a network interface."
+   "narration": "Quick recap — five things. One: azurerm subnet as its own resource — one per tier. Two: the v net block defines no inline subnets. Three: standalone subnets are addressable by i d — the door to n s g s, delegations, and service endpoints. Four: the web subnet i d output is the handle for the next lab's n i c. Five: identical tiers use for each; distinct growing tiers get explicit resources."
   },
   {
    "id": "S013",

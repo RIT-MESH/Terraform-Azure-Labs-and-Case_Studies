@@ -81,7 +81,7 @@ Apply time — five resources, and the last line matters most: the association. 
 - source_address_prefix "*" = the entire internet — tighten in production
 - Subnet-level and NIC-level NSGs can both apply — don't double-manage
 
-The pitfall: writing rules as if order didn't matter. It's the whole design. A broad allow at priority two hundred makes the carefully scoped rule at three hundred unreachable — traffic never gets that far. And watch the asterisk on source address prefix: in this lab it means the entire internet. That's honest for a demo, dangerous in production. Rule of thumb: most specific allow first, everything else stays denied.
+Here are the pitfalls in this lab. One: the lowest priority number is evaluated first — a broad rule at two hundred can mask a rule at three hundred. Two: a wide allow at two hundred makes a narrower later rule unreachable. Three: a wildcard source prefix means the entire internet — tighten in production. Four: subnet-level and n i c-level n s g s can both apply — don't double-manage.
 
 ## S012 — RECAP: recap
 
@@ -91,7 +91,7 @@ The pitfall: writing rules as if order didn't matter. It's the whole design. A b
 - Open only what you need: 3389 (RDP) and 443 (HTTPS) here
 - Wildcard source prefixes are demo-grade — tighten for production
 
-Quick recap. The network security group is a stateful firewall: deny by default, opened port by port with prioritized rules, attached to a subnet through its own association resource. Two rules today — R D P and H T T P S — and one habit to carry forward: wildcard sources are for labs, never for production.
+Quick recap — five things. One: an n s g is a stateful firewall — default inbound deny. Two: security rule blocks carry priorities — the lowest number wins. Three: attach with the subnet network security group association resource. Four: open only what you need — three three eight nine for r d p, and four four three for h t t p s. Five: wildcard source prefixes are demo-grade — tighten for production.
 
 ## S013 — NEXT: next up
 

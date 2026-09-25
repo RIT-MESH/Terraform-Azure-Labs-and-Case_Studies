@@ -83,7 +83,7 @@ Apply time — seven resources, and watch the order: machine first, disk second,
 - Host caching: None for write-heavy disks, ReadWrite for read-heavy
 - Detached disks keep billing — delete what you don't need
 
-The pitfall: thinking of the data disk as a property of the machine. It isn't. It's its own resource, joined by a third resource — and that separation is what lets you detach a disk, attach it to a different machine, and keep every byte. It also means a detached disk keeps existing — and keeps billing — until you delete it explicitly.
+Here are the pitfalls in this lab. One: the attachment is a real resource — deleting the v m does not detach the disk. Two: changing the attachment's l u n is an in-place update; changing the disk i d is a replace. Three: host caching — none for write-heavy disks, read write for read-heavy. Four: detached disks keep billing — delete what you don't need.
 
 ## S012 — RECAP: recap
 
@@ -93,7 +93,7 @@ The pitfall: thinking of the data disk as a property of the machine. It isn't. I
 - Separate resources: resize or re-attach without touching the other
 - OS disk is automatic; the data disk is what YOU manage
 
-Quick recap. The managed disk is storage you own directly — blank, sized, attachable. The attachment resource joins it to a machine at a L U N slot. And the separation is the point: resize or re-attach either side without touching the other. Your machines can now keep state.
+Quick recap — five things. One: azurerm managed disk — a blank standalone disk, with create option empty. Two: attach with the virtual machine data disk attachment resource. Three: l u n zero through sixty three identifies the disk inside the guest o s. Four: separate resources mean you can resize or re-attach without touching the other. Five: the o s disk is automatic — the data disk is what you manage.
 
 ## S013 — NEXT: next up
 

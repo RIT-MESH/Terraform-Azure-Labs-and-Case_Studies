@@ -85,7 +85,7 @@ Apply time, and the plan tells the story: three separate subnet resources, each 
 - Remove "web" from a map → only web is destroyed
 - The unused nsg flag is deliberate — Lab 11 turns this map into a variable
 
-The pitfall to close the pair: using a list where identity matters. If your for each iterates a list and you remove the first entry, every following entry slides down an index, and Terraform thinks every subnet changed. Maps don't re-index. Keys are stable names, so state follows the role, not the position. And one lookahead: that N S G flag in the map is sitting unused on purpose. Lab eleven takes exactly this map shape and turns it into an input variable.
+Here are the pitfalls in this lab. One: a list-based for each re-indexes on removal — entries shift, and state churns. Two: remove web from a list, and every later subnet's address changes. Three: remove web from a map, and only web is destroyed. Four: the unused n s g flag is deliberate — lab eleven turns this map into a variable.
 
 ## S013 — RECAP
 
@@ -95,7 +95,7 @@ The pitfall to close the pair: using a list where identity matters. If your for 
 - Instance identity in state = the map key (surgical changes)
 - Prefer maps over lists whenever entries have identity
 
-Quick recap. A map holds values under meaningful keys. For each turned our three-entry map into three real, separately tracked subnet resources, with each dot key providing identity and each dot value the settings. That identity is why maps, not lists, are the default for repeated resources. And with that, you've seen both collection types Terraform offers.
+Quick recap — five things. One: maps are key-addressed — web, app, data — by role, not position. Two: for each over a map creates one resource instance per key. Three: each dot key names the instance; each dot value carries its object. Four: instance identity in state is the map key — changes stay surgical. Five: prefer maps over lists whenever entries have identity.
 
 ## S014 — NEXT
 

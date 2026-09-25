@@ -44,11 +44,11 @@
   },
   {
    "id": "S011",
-   "narration": "The pitfall: comments inside a template. In a Terraform file, hash means comment. In a template, hash is just text — and any dollar-brace or percent-brace inside it is still a live directive. That's why the lab's template spells its markers out in words instead of showing them. Keep template files free of stray interpolation, even in comments."
+   "narration": "Here are the pitfalls in this lab. One: percent brace and dollar brace inside a comment are still parsed as directives. Two: a stray dollar brace in the template breaks rendering at plan time. Three: custom data runs cloud-init on first boot only — changes need care. Four: use the percent brace tilde form to trim whitespace, so a loop doesn't leave blank lines."
   },
   {
    "id": "S012",
-   "narration": "Quick recap. Templatefile renders a file with your values; cloud-init executes the result on first boot. Base64 encode for custom data, authenticate with an S S H key, and preview the output to confirm the substitution. Scripts live in templates — infrastructure stays in Terraform."
+   "narration": "Quick recap — five things. One: templatefile takes a path and a vars map — substituting dollar brace values and percent brace loops. Two: the cloud-init t p l stays a separate file — configuration stays clean. Three: custom data must be base sixty four encoded — the v m decodes it on first boot. Four: s s h key auth via the admin s s h key resource — no passwords on linux v m s. Five: the rendered preview output shows the substitution worked."
   },
   {
    "id": "S013",

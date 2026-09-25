@@ -40,11 +40,11 @@
   },
   {
    "id": "S010",
-   "narration": "The pitfall: dynamic allocation on anything that matters. The address is held only while the resource runs — stop the machine, and Azure hands that I P to someone else. Every bookmark, D N S record, and firewall rule pointed at it now aims at a stranger. Static costs nothing extra while the resource runs, so make it your default — and pick the Standard S K U while you're at it."
+   "narration": "Here are the pitfalls in this lab. One: dynamic allocation releases the address on stop or deallocate — d n s and bookmarks break. Two: static costs the same for a running resource — reserve by default. Three: the basic s k u is legacy — new work should use standard. Four: a public i p alone isn't reachable — it needs a n i c or load balancer, and rules — lab sixteen adds the rules."
   },
   {
    "id": "S011",
-   "narration": "Quick recap. The public I P is the doorway: a real resource with two decisions — Static to keep the address, Standard to keep it modern. The address itself is Azure's choice, exported through an output the moment it exists. Doorway built — next lesson adds the doorman."
+   "narration": "Quick recap — five things. One: azurerm public i p — a standalone, referenceable, billed resource. Two: static reserves the address; dynamic releases it on stop. Three: the standard s k u is the modern default. Four: the i p address is computed — exported via an output. Five: reachability still needs a n i c or load balancer, and security rules."
   },
   {
    "id": "S012",

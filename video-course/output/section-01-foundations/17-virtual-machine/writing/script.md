@@ -87,7 +87,7 @@ Apply time — seven resources, and watch the order in the log: network first, m
 - Source image references must match the marketplace exactly — four fields
 - A VM without its NIC reference is unbuildable — references define the chain
 
-The pitfall: letting a credential slip into the code. In this lab the password lives only in a sensitive variable, supplied from outside, masked in every log. Hard-code it instead, and it's in your repository forever — git history doesn't forget. Same discipline for the image: the four image fields must match the marketplace exactly, or the plan fails before anything is built. Secrets from variables; images from exact references.
+Here are the pitfalls in this lab. One: the password exists only as a sensitive variable — never a hard-coded string. Two: sensitive masks the value in plan and apply logs — the state-file caveat comes in lab twenty. Three: source image references must match the marketplace exactly — four fields. Four: a v m without its n i c reference is unbuildable — references define the chain.
 
 ## S013 — RECAP: recap
 
@@ -97,7 +97,7 @@ The pitfall: letting a credential slip into the code. In this lab the password l
 - Windows VM: size, os_disk, and a four-field source_image_reference
 - The admin password is a sensitive input — never in the code
 
-Quick recap. Today everything clicked into one chain: group, network, subnet, security group, public I P, N I C, machine — seven resources, ordered by nothing but references. The credentials arrived through sensitive variables, and the output returned the address you'd log in to. That's the whole networking arc, assembled.
+Quick recap — five things. One: one configuration, seven resources — every piece from labs twelve to sixteen, wired together. Two: Terraform derives the whole build order from references — no depends on anywhere. Three: the n i c gives the subnet for private traffic, and the public i p for inbound. Four: the windows v m needs a size, an o s disk, and a four-field source image reference. Five: the admin password is a sensitive input — never in the code.
 
 ## S014 — NEXT: next up
 

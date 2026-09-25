@@ -199,8 +199,9 @@
     "error_message should say what to fix, not that something failed",
     "Validation is for input rules — not for resource behavior"
    ],
-   "narration": "The pitfall: assuming a default makes a variable safe. A default supplies a value; it can't tell a typo from a choice. Pass Premium underscore V two, and without validation it sails through plan and fails in Azure — or worse, deploys something you didn't intend. One validation block per variable with rules that matter, an error message that names the fix, and bad input dies in seconds on your machine instead of in the cloud.",
-   "audio": "audio/S012.mp3"
+   "narration": "Here are the pitfalls in this lab. One: defaults are silent — a misspelled region or tier passes straight through. Two: validation runs before plan — it's your input gate, so use it. Three: the error message should say what to fix, not just that something failed. Four: validation is for input rules — not for resource behavior.",
+   "audio": "audio/S012.mp3",
+   "numbered": true
   },
   {
    "id": "S013",
@@ -212,8 +213,9 @@
     "error_message is user-facing documentation — write it for the caller",
     "Fail locally in seconds, not in Azure after a plan"
    ],
-   "narration": "Quick recap. A variable can carry more than a value: a type, a default, a description, and validation. Today's two patterns — regex for shape, contains for choices — both run before plan, so bad input never leaves your machine. Next lesson: where the values actually live — the definition file.",
-   "audio": "audio/S013.mp3"
+   "narration": "Quick recap — five things. One: variable anatomy — type, default, description. Two: validation blocks reject bad input before plan. Three: can with regex gates the shape; contains gates the choices. Four: the error message is user-facing documentation — write it for the caller. Five: fail locally in seconds — not in Azure after a plan.",
+   "audio": "audio/S013.mp3",
+   "numbered": true
   },
   {
    "id": "S014",

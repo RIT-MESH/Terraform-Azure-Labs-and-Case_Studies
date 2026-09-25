@@ -96,7 +96,7 @@ Time to run it. Terraform init pulls both providers, Azure R M and random. Then 
 - In-place update, not a replace — harmless here, noisy everywhere
 - Rule: keep volatile values out of attributes that are diffed against state
 
-One gotcha hiding in this file. The blob's content embeds the current timestamp. At apply time Terraform freezes that text into its state. On the next plan the clock has moved on, the content no longer matches, and Terraform wants to update the blob. Every single run. It's an in-place update, so nothing breaks, but it's a useful lesson: keep volatile values like timestamps out of attributes that Terraform diffs against state, unless you actually want that churn.
+Here are the pitfalls in this lab. One: the source content holds a timestamp — it is captured into state at apply time. Two: on the next plan the clock has moved, so Terraform wants to update the blob — every single run. Three: that is an in-place update, not a replace — harmless here, but noisy everywhere. Four: the rule — keep volatile values out of attributes that are diffed against state.
 
 ## S016 — RECAP
 
@@ -106,7 +106,7 @@ One gotcha hiding in this file. The blob's content embeds the current timestamp.
 - References between resources order the plan — no depends_on needed yet
 - Volatile values in diffed attributes cause drift on every plan
 
-Quick recap. A storage account holds containers, and containers hold blobs. We created both levels with two new resources: storage container and storage blob. Source content uploads text straight from the code; source points at a local file instead. The references between our four resources gave Terraform the full creation order on their own. And we saw why volatile values in uploaded content cause a diff on every plan.
+Quick recap — five things. One: the storage hierarchy — account, container, blob. Two: azurerm storage container and azurerm storage blob create both levels. Three: source content uploads inline text, while source uploads a local file. Four: references between resources order the plan — no depends on needed yet. Five: volatile values in diffed attributes cause drift on every plan.
 
 ## S017 — NEXT
 

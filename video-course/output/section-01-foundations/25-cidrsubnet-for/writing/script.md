@@ -80,7 +80,7 @@ Apply time — six resources, and look at the subnet lines: one resource, four i
 - Azure reserves 5 addresses per subnet — a /26 really holds 59 usable
 - Changing newbits or the index rewrites existing subnet addresses
 
-The pitfall: trusting the arithmetic without checking the size. Six new bits on a slash twenty gives sixty-four addresses per slice — but Azure reserves five in every subnet, so fifty-nine are usable. And the index matters: slice numbers beyond the available range fail at plan time, while changing the base or the new bits rewrites every existing subnet — a destructive change on live networks.
+Here are the pitfalls in this lab. One: new bits plus the base prefix must stay at most thirty two — and leave room for Azure's reserves. Two: a netnum beyond the available slices is a plan-time error. Three: Azure reserves five addresses per subnet — a slash twenty six really holds fifty nine usable. Four: changing new bits or the index rewrites existing subnet addresses.
 
 ## S012 — RECAP: recap
 
@@ -90,7 +90,7 @@ The pitfall: trusting the arithmetic without checking the size. Six new bits on 
 - One subnet resource + for_each = N subnets from computed values
 - Derived addresses scale; hand-typed addresses don't
 
-Quick recap. Two functions, one loop. Cidrsubnet carves slices from a base range; cidrhost finds addresses inside a slice. A for-expression turns four tier names into a full subnet map, and for each builds every subnet from one resource block. The addresses are now arithmetic — and arithmetic scales.
+Quick recap — five things. One: cidrsubnet derives subnet addresses from a base, new bits, and an index. Two: slash twenty plus six new bits gives slash twenty six slices — the index selects the slice. Three: cidrhost finds the nth host inside a slice — dot one is the first usable. Four: one subnet resource plus for each gives n subnets from computed values. Five: derived addresses scale — hand-typed addresses don't.
 
 ## S013 — NEXT: next up
 

@@ -88,7 +88,7 @@ The proof is in the run. Four files on disk, but the plan reads like one file: g
 - The merge rule cuts both ways: split files share one namespace
 - Convention: each block type gets one obvious home
 
-The merge rule cuts both ways. Because all files share one namespace, declaring the same local in two files is a duplicate definition error, and two resources with the same address, even in different files, collide as well. Splitting files changes nothing about uniqueness. The habit that keeps you safe: each kind of block gets one obvious home, exactly like the conventional layout.
+Here are the pitfalls in this lab. One: defining the same local in two files is a duplicate definition error. Two: two resources with the same address in different files — error too. Three: the merge rule cuts both ways — split files share one namespace. Four: the convention — each block type gets one obvious home.
 
 ## S013 — RECAP
 
@@ -98,7 +98,7 @@ The merge rule cuts both ways. Because all files share one namespace, declaring 
 - File names are human organization, not Terraform structure
 - One namespace still means one definition per name
 
-Quick recap. Terraform merges every dot T F file in the folder into one configuration, so we split ours by concern: pins, locals, resources, outputs. References crossed file boundaries with no ceremony, and the merge rule also means names stay unique across the whole folder. From now on, this is the course's standard layout.
+Quick recap — five things. One: Terraform merges every dot t f file in the folder into one configuration. Two: the conventional split — terraform dot t f, locals dot t f, main dot t f, outputs dot t f. Three: references cross files freely — no imports exist in Terraform. Four: file names are human organization, not Terraform structure. Five: one namespace still means one definition per name.
 
 ## S014 — NEXT
 

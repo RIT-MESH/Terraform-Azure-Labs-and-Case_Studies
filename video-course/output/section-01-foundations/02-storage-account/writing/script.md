@@ -127,12 +127,10 @@ you see on screen is an illustrative view of what that looks like.
 - Timestamp-based suffixes change every run → Terraform replaces the resource
 - Changing name or account_tier forces destroy + recreate — Terraform asks first
 
-One common pitfall. If the unique suffix comes from something that changes,
-like a timestamp, every plan produces a new name, and Terraform will destroy
-and recreate the storage account. The fix is exactly what this lab does: a
-random string saved in state. The same caution applies to settings like the
-account tier. Some changes can only be applied by replacing the whole resource,
-so Terraform will ask before doing it.
+Two pitfalls to avoid in this lab. One: timestamp-based suffixes change every run —
+if the unique suffix comes from a timestamp, every plan produces a new name, and
+Terraform replaces the resource. Two: changing the name or the account tier forces a
+destroy and recreate — Terraform asks first, but the resource is still replaced.
 
 ## S015 — RECAP
 
@@ -142,13 +140,12 @@ so Terraform will ask before doing it.
 - Storage account names: globally unique, 3–24 chars, lowercase + numbers
 - References create dependencies: resource group before storage account
 
-Quick recap. Resource blocks are where Terraform actually creates
-infrastructure. Locals compute names once, in one place, so every resource
-stays consistent. The random string is stateful: the suffix is generated once
-and reused, so nothing is replaced between runs. Storage account names must be
-globally unique, three to twenty four characters, lowercase letters and numbers
-only. And references between resources tell Terraform the order to create them
-in.
+Quick recap — five things. One: resource blocks create and manage real
+infrastructure. Two: locals compute names once, in one place to change them. Three:
+the random string is stateful — the suffix never changes between runs. Four: storage
+account names are globally unique, three to twenty four characters, lowercase letters
+and numbers. Five: references create dependencies — the resource group comes before
+the storage account.
 
 ## S016 — NEXT (fixed transition, verbatim)
 

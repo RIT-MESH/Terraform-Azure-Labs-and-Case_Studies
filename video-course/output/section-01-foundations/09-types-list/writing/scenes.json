@@ -203,8 +203,9 @@
     "dynamic blocks shine when a nested block must repeat",
     "Next lab: maps when each entry needs its own identity"
    ],
-   "narration": "The pitfall is copy-paste repetition. Five hand-typed subnet blocks are five chances to mistype a prefix and five edits for every change. The list plus for expression pattern collapses that into data. One note for the next lab: lists are perfect when entries are interchangeable. When each entry needs its own identity, like a name you reference later, maps are the better fit, and that's exactly where we're headed.",
-   "audio": "audio/S013.mp3"
+   "narration": "Here are the pitfalls in this lab. One: five copy-pasted subnet blocks mean five places to mistype a prefix. Two: collections and for expressions make repetition data, not code. Three: dynamic blocks shine when a nested block must repeat. Four: coming next — maps, when each entry needs its own identity.",
+   "audio": "audio/S013.mp3",
+   "numbered": true
   },
   {
    "id": "S014",
@@ -216,8 +217,9 @@
     "for_each iterates a map/set — convert lists with a { for ... } expression",
     "Adding infrastructure = adding data, not repeating code"
    ],
-   "narration": "Quick recap. A list is ordered values, addressed by index. A for expression transformed that list into objects with computed names. A dynamic block emitted one subnet per entry, and the output projected the names back out. The habit to keep: repetition should live in data, not in repeated code.",
-   "audio": "audio/S014.mp3"
+   "narration": "Quick recap — five things. One: lists are ordered, index-addressed collections of one type. Two: for expressions transform a list into richer data, like a list of objects. Three: dynamic subnet emits a nested block per collection entry. Four: for each iterates a map or set — convert lists with a for expression. Five: adding infrastructure means adding data, not repeating code.",
+   "audio": "audio/S014.mp3",
+   "numbered": true
   },
   {
    "id": "S015",

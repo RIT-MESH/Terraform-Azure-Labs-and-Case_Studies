@@ -80,7 +80,7 @@ Plan time — and the line that matters: azurerm storage account legacy has move
 - Storage account renames are different: Azure names can't change in place
 - Remove moved{} once every environment has applied the rename
 
-The pitfall: assuming a rename is free. Without the moved block, Terraform sees a deleted resource and a brand-new one — destroy, create, and for a storage account, the data inside it gone with the old one. One more subtlety: moved rewrites addresses, not Azure names. The account name string itself is immutable in Azure — moving the address is safe precisely because nothing in Azure changes.
+Here are the pitfalls in this lab. One: renaming a block address means a destroy and create — unless it's declared. Two: the moved block only rewrites the state address — never the resource. Three: storage account renames are different — Azure names can't change in place. Four: remove the moved block once every environment has applied the rename.
 
 ## S012 — RECAP: recap
 
@@ -90,7 +90,7 @@ The pitfall: assuming a rename is free. Without the moved block, Terraform sees 
 - Works for renames, module moves, and count/for_each changes
 - Clean the block up once the rename has landed everywhere
 
-Quick recap. The moved block is the safe way to refactor: it tells Terraform the old address now lives at the new one, and state is rewritten in place — the plan shows zero to add, zero to destroy. Rename freely, move deliberately.
+Quick recap — five things. One: the moved block — from the old address, to the new one — renames a resource address safely. Two: the state address is rewritten in place — zero adds, zero changes, zero destroys. Three: without it, a rename means destroy and create of the real resource. Four: it works for renames, module moves, and count or for each changes. Five: clean the block up once the rename has landed everywhere.
 
 ## S013 — NEXT: next up
 

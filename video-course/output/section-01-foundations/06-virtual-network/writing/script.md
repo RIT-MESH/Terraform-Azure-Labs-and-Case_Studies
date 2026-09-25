@@ -84,7 +84,7 @@ Apply time. The resource group first, then the virtual network with both subnets
 - Plan your ranges before you write them: 10.20.1.x web, 10.20.2.x app
 - Peered VNets must not overlap either — ranges are forever-ish
 
-The classic networking mistake: overlapping ranges. Declare two subnets with the same prefix, or a subnet outside the V N E T's space, and Azure rejects the whole thing at apply time. Less obvious but more painful: when you later peer two virtual networks, their spaces must not overlap either, and addresses are effectively forever, because renumbering a used network is a project of its own. So spend a minute planning ranges before writing them down.
+Here are the pitfalls in this lab. One: two subnets claiming the same range — ten twenty dot one dot zero slash twenty four — and Azure rejects the v net. Two: a subnet must sit inside the v net's address space. Three: plan your ranges before you write them — ten twenty dot one for web, ten twenty dot two for app. Four: peered networks must not overlap either — address ranges are effectively forever.
 
 ## S013 — RECAP
 
@@ -94,7 +94,7 @@ The classic networking mistake: overlapping ranges. Declare two subnets with the
 - Inline subnet {} blocks are quick but welded to the VNet resource
 - Later labs reference the VNet by its id output
 
-Quick recap. A virtual network is private I P space inside Azure, defined by its address space list. We read our first C I D R block: a slash sixteen network holding slash twenty four subnets. We carved two of them inline, the quick way, and noted the flexibility trade-off. And the V N E T's I D went into an output, because everything after this lab will reference it.
+Quick recap — five things. One: a v net is your private i p space inside Azure. Two: address space is a list of c i d r blocks — here one slash sixteen. Three: a slash twenty four subnet is a two hundred fifty six address slice of that space. Four: inline subnet blocks are quick, but welded to the v net resource. Five: later labs reference the v net by its i d output.
 
 ## S014 — NEXT
 

@@ -89,7 +89,7 @@ Let's run it. With no variables passed, the default east us applies, and Terrafo
 - Rule: a literal may appear once; everything else is a reference
 - variables.tf is empty here on purpose — location stays beside the examples
 
-The pitfall this lab exists to kill is hardcoding. If the resource group name appears as a literal in two places, those two places can drift apart, and Terraform will happily create two groups. Same with region strings scattered across the file. The rule is simple: a literal may appear once, at its owner, and everywhere else is a reference. And about that empty variables dot T F: the variable lives in main dot T F here so it sits right next to the examples that teach it. In real projects, variables get their own file.
+Here are the pitfalls in this lab. One: writing the resource group name twice means two places to drift apart. Two: hard-coded location strings turn a region change into a find and replace hunt. Three: the rule — a literal may appear once; everything else is a reference. Four: variables dot t f is empty here on purpose — location stays beside the examples.
 
 ## S014 — RECAP
 
@@ -99,7 +99,7 @@ The pitfall this lab exists to kill is hardcoding. If the resource group name ap
 - md5 + substr built a stable unique suffix from a resource ID
 - One literal at the owner; every other use is a reference
 
-Quick recap. Locals are values this configuration owns. Variables are inputs from the caller, with defaults you can override. Resource references pass created values between resources, and quietly order the plan while doing it. We built a unique name from an M D five hash instead of a random resource. And the rule that ties it together: one literal at the owner, references everywhere else.
+Quick recap — five things. One: local dot name — values this configuration computes and owns. Two: var dot name — caller input with a default, overridable with a var flag or t f vars. Three: resource references feed values between resources and order the plan. Four: m d five plus substr built a stable unique suffix from a resource i d. Five: one literal at the owner — every other use is a reference.
 
 ## S015 — NEXT
 

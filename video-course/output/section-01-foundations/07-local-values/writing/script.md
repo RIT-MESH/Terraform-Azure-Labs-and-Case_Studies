@@ -88,7 +88,7 @@ Apply time. Group first, then the network. And the tags output prints the merged
 - merge() exists so shared maps stay shared — extras join at the resource
 - Consistent tags are what make cost reports and cleanup scripts possible
 
-The pitfall is copy-paste tags. The moment each resource gets its own typed-out map, they start drifting: one says managed by terraform, another says I A C, and suddenly your cost report misses half the resources. The fix is exactly this lab: one map in locals, extras merged at the resource. Consistent tags are what make cost dashboards and cleanup scripts possible at all.
+Here are the pitfalls in this lab. One: copy-pasted tag maps drift — one resource says terraform, another says i a c. Two: a rename means hunting through every resource block. Three: merge exists so shared maps stay shared — extras join at the resource. Four: consistent tags are what make cost reports and cleanup scripts possible.
 
 ## S014 — RECAP
 
@@ -98,7 +98,7 @@ The pitfall is copy-paste tags. The moment each resource gets its own typed-out 
 - merge(common_tags, extras) adds per-resource keys without mutating the base
 - Outputs print the merged result so you can verify
 
-Quick recap. Locals compose names by interpolation, so one change ripples everywhere. Our common tags map was defined once and attached to both resources, with merge layering a resource-specific key on top for the network. And the tags output let us verify the merged result after apply.
+Quick recap — five things. One: locals build names by interpolation — resource group, project, region. Two: a shared tags map lives once in locals. Three: every resource applies it — tags equals local common tags. Four: merge adds per-resource keys without mutating the base. Five: outputs print the merged result so you can verify.
 
 ## S015 — NEXT
 

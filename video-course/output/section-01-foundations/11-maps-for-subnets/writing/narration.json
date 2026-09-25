@@ -48,11 +48,11 @@
   },
   {
    "id": "S012",
-   "narration": "The pitfall: treating the type as loose guidance. It's a contract. If the t f vars file spells a field wrong, or passes a string where a boolean belongs, Terraform refuses the whole file before planning anything — which is exactly what you want. And that N S G flag is still riding along unused. That's deliberate: the variable shape is already production-ready, and the security labs coming soon will finally consume it. Add fields when you design, not when you deploy."
+   "narration": "Here are the pitfalls in this lab. One: t f vars must match the map of object type exactly — misspelled or missing fields are hard errors. Two: the rejection happens before any plan — fail fast, by design. Three: keeping an unused field in the shape is normal while a module grows. Four: adding a field later breaks every caller — design the shape up front."
   },
   {
    "id": "S013",
-   "narration": "Quick recap. A map of object variable declares a shape, not just a value. Terraform dot t f vars supplies the actual subnet map, for each built one subnet per key, and two outputs reported the layout back. That's the production split: logic in code, layout in data — one configuration, any environment."
+   "narration": "Quick recap — five things. One: map of object is a shape-checked container — a contract, not a hint. Two: terraform dot t f vars supplies the data; main dot t f holds the logic. Three: for each over var dot subnets — the same loop, with a data-driven source. Four: length and keys report the built layout. Five: same code, different shapes per environment."
   },
   {
    "id": "S014",

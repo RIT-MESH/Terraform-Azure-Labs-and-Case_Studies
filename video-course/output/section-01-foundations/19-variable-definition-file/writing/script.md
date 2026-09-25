@@ -83,7 +83,7 @@ Two runs, one configuration. The apply picked up terraform dot t f vars automati
 - -var-file can be passed multiple times — later files win
 - Values on the command line (-var) beat every file
 
-The pitfall: expecting the example file to work. Terraform dot t f vars dot example is a template — the dot example suffix means Terraform ignores it completely. Copy it, rename it, fill it in. And know the precedence: command line var beats every file, and with several var dash files the last one wins. In C I, where there's no one to answer an interactive prompt, a missing required variable is a hard error — which is exactly why the file convention matters.
+Here are the pitfalls in this lab. One: only terraform dot t f vars auto-loads — the example file does not. Two: no default and a missing value means an interactive prompt — or a hard error in c i. Three: a var file flag can be passed multiple times — later files win. Four: values on the command line beat every file.
 
 ## S012 — RECAP: recap
 
@@ -93,7 +93,7 @@ The pitfall: expecting the example file to work. Terraform dot t f vars dot exam
 - Precedence: -var beats -var-file beats auto-loaded files
 - Code declares; data supplies — environments are files, not copies
 
-Quick recap. Three variables with no defaults, and one file supplying them: terraform dot t f vars, loaded automatically by name. A different environment is a different file, passed with var dash file — and the precedence rules are simple and strict. Same code, any environment, chosen by file.
+Quick recap — five things. One: no default means a required variable — Terraform prompts, or errors. Two: terraform dot t f vars auto-loads by name on every plan and apply. Three: the var file flag swaps in environment files, like prod dot t f vars. Four: precedence — a var flag beats a var file, which beats auto-loaded files. Five: code declares, data supplies — environments are files, not copies.
 
 ## S013 — NEXT: next up
 

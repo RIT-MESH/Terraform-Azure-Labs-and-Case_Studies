@@ -183,8 +183,9 @@
     "terraform output <name> prints the real value on demand — by design",
     "State-file protection is a separate concern, not this flag's job"
    ],
-   "narration": "The pitfall: trusting sensitive too much. It masks plan and apply logs — that's all. The value itself still sits in the state file in plain text, and terraform output hands it over on demand, by design. So build the habit: expose only what someone downstream actually needs, mark real secrets as sensitive, and treat the state file as the sensitive artifact it is.",
-   "audio": "audio/S011.mp3"
+   "narration": "Here are the pitfalls in this lab. One: sensitive masks logs only — the value still sits in state, in plain text. Two: don't output secrets that no downstream consumer needs. Three: terraform output, followed by a name, prints the real value on demand — by design. Four: state-file protection is a separate concern — not this flag's job.",
+   "audio": "audio/S011.mp3",
+   "numbered": true
   },
   {
    "id": "S012",
@@ -196,8 +197,9 @@
     "Computed values (Azure's choices) are prime output candidates",
     "Masked is not encrypted — state is still plain text"
    ],
-   "narration": "Quick recap. Outputs turn private configuration values into a public interface: plain ones for convenience, a description for the next reader, sensitive for anything that must not print. The terraform output command reads them back after apply. And the honest line: masking is display protection, not encryption.",
-   "audio": "audio/S012.mp3"
+   "narration": "Quick recap — five things. One: output blocks expose values after apply — the configuration's public interface. Two: description documents; sensitive masks in logs. Three: terraform output, followed by a name, reads values back on demand. Four: computed values — Azure's choices — are prime output candidates. Five: masked is not encrypted — state is still plain text.",
+   "audio": "audio/S012.mp3",
+   "numbered": true
   },
   {
    "id": "S013",

@@ -81,7 +81,7 @@ Apply time — four resources. The output answers the question the code couldn't
 - A NIC without a VM is valid: it's a real, standalone resource
 - Each ip_configuration binds the NIC to one subnet
 
-The pitfall: expecting to choose the private I P yourself. With dynamic allocation, Azure hands out a free address from the subnet's range — today it picked the first available one. If you need a fixed address, that's a different allocation mode, and it belongs to a later lesson. For now: create the N I C, read the address from the output, and let the platform do the bookkeeping.
+Here are the pitfalls in this lab. One: dynamic allocation means the address is Azure's choice — read it, don't set it. Two: it exists only after creation — capture it in an output. Three: a n i c without a v m is valid — it's a real, standalone resource. Four: each i p configuration binds the n i c to one subnet.
 
 ## S012 — RECAP: recap
 
@@ -91,7 +91,7 @@ The pitfall: expecting to choose the private I P yourself. With dynamic allocati
 - nic.id is the handle the VM (Lab 17) will attach to
 - Same dependency wiring: references, never depends_on
 
-Quick recap. The network interface is the bridge between a network and a machine: bound to a subnet by reference, carrying an I P configuration, and answering with two outputs — its I D for the coming V M, and the private I P Azure chose. The network now has a doorway. Next lesson: outputs, the proper deep dive.
+Quick recap — five things. One: a n i c is a v m's network card — and it lives in a subnet. Two: the i p configuration's subnet i d references the subnet resource. Three: the dynamic private i p is computed by Azure and exported via an output. Four: the n i c's i d is the handle lab seventeen's v m will attach to. Five: same dependency wiring — references, never depends on.
 
 ## S013 — NEXT: next up
 
