@@ -8,7 +8,7 @@
 
 Modes
   scripts    PASS A only: resolve lab -> manifest -> inventory -> episode dirs +
-             progress skeleton. Script writing itself is agent work (Claude/GLM);
+             progress skeleton. Script writing itself is agent work;
              this stage prepares each episode and REPORTS what remains.
   validate   scene schema + terraform sandbox gate (fmt/init/validate, never
              deploys) + the four content gates on episodes with writing/

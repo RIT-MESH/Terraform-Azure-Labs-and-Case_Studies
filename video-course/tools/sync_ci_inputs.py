@@ -53,6 +53,13 @@ DEMO_DIRS = ["terminal", "verification", "screenshots"]
 DEMO_EXTS = (".txt", ".json", ".png", ".svg")
 
 LEAK_RE = re.compile(r"E:\\|C:\\|/home/runner/|\$GITHUB_WORKSPACE")
+# §40A public-attribution policy: the repo's public surface must never carry
+# assistant co-author trailers or assistant branding — commits, code comments,
+# workflow text, video metadata all use the repo owner's identity only. The
+# brand fragments are assembled at runtime so this scanner does not trip its
+# own pattern when it scans the synced production source.
+ATTRIBUTION_RE = re.compile("|".join((
+    "cla" + "ude", "anthro" + "pic", "co-authored" + "-by")), re.IGNORECASE)
 TEXT_SUFFIXES = (".md", ".json", ".py", ".ts", ".tsx", ".js", ".mjs", ".txt",
                  ".yml", ".yaml", ".tf")
 
@@ -107,7 +114,9 @@ def find_referenced_modules(lab_dir, source_root):
 
 
 def scan_leakage(paths, clone_root):
-    """Fail if any staged text file leaks internal/runner paths."""
+    """Fail if any staged text file leaks internal/runner paths or carries
+    assistant attribution (§40A: the public repo uses the owner's identity
+    only — never assistant co-author trailers or assistant branding)."""
     bad = []
     for p in paths:
         if not p.endswith(TEXT_SUFFIXES):
@@ -118,7 +127,9 @@ def scan_leakage(paths, clone_root):
             continue
         for i, line in enumerate(txt.splitlines(), 1):
             if LEAK_RE.search(line):
-                bad.append(f"{os.path.relpath(p, clone_root)}:{i}: {line.strip()[:120]}")
+                bad.append(f"{os.path.relpath(p, clone_root)}:{i}: path leak: {line.strip()[:120]}")
+            if ATTRIBUTION_RE.search(line):
+                bad.append(f"{os.path.relpath(p, clone_root)}:{i}: attribution: {line.strip()[:120]}")
     return bad
 
 
@@ -222,19 +233,22 @@ def sync_episode(ep, source_root, clone, changed=None):
     n_demo = sync_demo(ep_dir, clone_out, changed)
     print(f"[sync] demo inputs: {n_demo} changed")
 
-    # 7. leakage scan on the viewer-facing surface
+    # 7. leakage + attribution scan (§40A) on the whole sync surface:
+    #    viewer-facing lab/writing/assets/demo AND the synced production source
     scan_paths = []
-    for base in (dst_lab, os.path.join(clone_out, "writing"),
-                 os.path.join(clone_out, "assets"), os.path.join(clone_out, "demo")):
+    for base in (dst_lab, clone_out,
+                 os.path.join(clone, "video-course", VC_CONFIG_DIR),
+                 os.path.join(clone, "video-course", VC_TOOLS_DIR),
+                 os.path.join(clone, "video-course", "remotion", "src")):
         if os.path.isdir(base):
             for root, _dirs, files in os.walk(base):
                 scan_paths.extend(os.path.join(root, fn) for fn in files)
     bad = scan_leakage(scan_paths, clone)
     if bad:
-        print("INTERNAL PATH LEAKAGE in staged files:", file=sys.stderr)
+        print("PATH LEAKAGE / PUBLIC ATTRIBUTION in staged files:", file=sys.stderr)
         for b in bad:
             print("  " + b, file=sys.stderr)
-        sys.exit("fix leakage before committing")
+        sys.exit("fix path leakage / public attribution (§40A) before committing")
     print(f"[sync] done. {len(changed)} file(s) changed:")
     for c in changed:
         print("   " + os.path.relpath(c, clone))

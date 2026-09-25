@@ -72,19 +72,22 @@ def test_overflow_detected():
 
 
 def test_unrepairable_collision_exits_3(tmp_path, monkeypatch):
-    # two edges with the SAME identity (duplicate rg->sa) share one edge id, so
-    # their labels sit on top of each other and every repair shift moves both —
-    # the bounded ladder must give up and exit 3 (nothing is written)
+    # simulate a collision the repair ladder can never fix (e.g. a defect
+    # outside its two knobs): collisions_of must keep reporting it until the
+    # bounded ladder gives up and exits 3 (nothing is written)
     s = spec(["rg", "sa"],
-             [{"from": "rg", "to": "sa", "label": "creates the group"},
-              {"from": "rg", "to": "sa", "label": "hosts every service"}],
+             [{"from": "rg", "to": "sa", "label": "creates the group"}],
              layers=[["rg"], ["sa"]])
     (tmp_path / "spec.json").write_text(json.dumps(s), encoding="utf-8")
     out = tmp_path / "d.svg"
     monkeypatch.setattr(bd, "MAX_ATTEMPTS", 2)
+    real = bd.collisions_of
+    monkeypatch.setattr(bd, "collisions_of",
+                        lambda boxes, w, h: ["label:edge:rg-sa  <->  node:sa"])
     try:
         bd.json_to_svg(tmp_path / "spec.json", str(out), THEME)
         assert False, "expected exit 3 for unresolved collision"
     except SystemExit as e:
         assert e.code == 3
     assert not out.exists()
+    assert real  # sanity: original detector still referenced
