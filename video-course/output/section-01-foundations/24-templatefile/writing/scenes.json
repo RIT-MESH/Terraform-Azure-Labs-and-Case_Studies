@@ -177,7 +177,7 @@
     "custom_data only runs cloud-init on FIRST boot — changes need care",
     "Use %{ ~ to trim whitespace when a loop must not leave blank lines"
    ],
-   "narration": "Here are the pitfalls in this lab. One: percent brace and dollar brace inside a comment are still parsed as directives. Two: a stray dollar brace in the template breaks rendering at plan time. Three: custom data runs cloud-init on first boot only — changes need care. Four: use the percent brace tilde form to trim whitespace, so a loop doesn't leave blank lines.",
+   "narration": "Here are the pitfalls in this lab. One: percent brace and dollar brace inside a comment are still parsed as directives. In a Terraform file, hash means comment; in a template, hash is just text — and any directive inside it stays live. Two: a stray dollar brace in the template breaks rendering at plan time. Any accidental interpolation fails the whole template — that's why the lab's template spells its markers out in words. Three: custom data runs cloud-init on first boot only — changes need care. Editing the template later doesn't re-run the script on an existing machine. Four: use the percent brace tilde form to trim whitespace, so a loop doesn't leave blank lines. Keep template files free of stray interpolation, even in comments.",
    "audio": "audio/S011.mp3",
    "numbered": true
   },

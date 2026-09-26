@@ -178,7 +178,7 @@
     "-var leaks into shell history; TF_VAR_ stays per-shell",
     "Rotate any secret that ever reached a log, a file, or a history"
    ],
-   "narration": "Here are the pitfalls in this lab. One: sensitive masks logs — the value still sits in state, in plain text. Two: never commit a real t f vars file — ship the example, and gitignore the real one. Three: a var flag leaks into shell history; a t f underscore v a r environment variable stays per-shell. Four: rotate any secret that ever reached a log, a file, or a history.",
+   "narration": "Here are the pitfalls in this lab. One: sensitive masks logs — the value still sits in state, in plain text. The mask protects the log, nothing more; protect the state file like the secret it holds. Two: never commit a real t f vars file — ship the example, and gitignore the real one. The file that carries the real value stays local; the committed template documents its shape. Three: a var flag leaks into shell history; a t f underscore v a r environment variable stays per-shell. What you type on the command line is recorded; environment variables are not. Four: rotate any secret that ever reached a log, a file, or a history. If a secret leaked, the fix isn't masking — it's rotation.",
    "audio": "audio/S011.mp3",
    "numbered": true
   },

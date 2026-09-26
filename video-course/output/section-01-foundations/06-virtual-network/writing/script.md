@@ -84,7 +84,7 @@ Apply time. The resource group first, then the virtual network with both subnets
 - Plan your ranges before you write them: 10.20.1.x web, 10.20.2.x app
 - Peered VNets must not overlap either — ranges are forever-ish
 
-Here are the pitfalls in this lab. One: two subnets claiming the same range — ten twenty dot one dot zero slash twenty four — and Azure rejects the v net. Two: a subnet must sit inside the v net's address space. Three: plan your ranges before you write them — ten twenty dot one for web, ten twenty dot two for app. Four: peered networks must not overlap either — address ranges are effectively forever.
+Here are the pitfalls in this lab. One: two subnets claiming the same range — ten twenty dot one dot zero slash twenty four — and Azure rejects the v net. Overlapping prefixes are the classic networking mistake, and Azure catches them at apply time. Two: a subnet must sit inside the v net's address space. Anything outside it fails the whole apply. Three: plan your ranges before you write them — ten twenty dot one for web, ten twenty dot two for app. A minute of planning beats renumbering later. Four: peered networks must not overlap either — address ranges are effectively forever. Renumbering a used network is a project of its own, so spend that minute planning before you write ranges down.
 
 ## S013 — RECAP
 

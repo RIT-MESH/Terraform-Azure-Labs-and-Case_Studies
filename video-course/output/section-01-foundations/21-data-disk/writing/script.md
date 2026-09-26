@@ -83,7 +83,7 @@ Apply time — seven resources, and watch the order: machine first, disk second,
 - Host caching: None for write-heavy disks, ReadWrite for read-heavy
 - Detached disks keep billing — delete what you don't need
 
-Here are the pitfalls in this lab. One: the attachment is a real resource — deleting the v m does not detach the disk. Two: changing the attachment's l u n is an in-place update; changing the disk i d is a replace. Three: host caching — none for write-heavy disks, read write for read-heavy. Four: detached disks keep billing — delete what you don't need.
+Here are the pitfalls in this lab. One: the attachment is a real resource — deleting the v m does not detach the disk. The disk's independence cuts both ways: the attachment survives as its own resource. Two: changing the attachment's l u n is an in-place update; changing the disk i d is a replace. The slot number can move; a different disk means the old one is replaced. Three: host caching — none for write-heavy disks, read write for read-heavy. Match the caching mode to the workload's read and write pattern. Four: detached disks keep billing — delete what you don't need. A detached disk keeps existing, and keeps costing, until you delete it explicitly.
 
 ## S012 — RECAP: recap
 

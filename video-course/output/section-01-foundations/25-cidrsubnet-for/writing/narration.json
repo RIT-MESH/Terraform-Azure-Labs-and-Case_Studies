@@ -44,7 +44,7 @@
   },
   {
    "id": "S011",
-   "narration": "Here are the pitfalls in this lab. One: new bits plus the base prefix must stay at most thirty two — and leave room for Azure's reserves. Two: a netnum beyond the available slices is a plan-time error. Three: Azure reserves five addresses per subnet — a slash twenty six really holds fifty nine usable. Four: changing new bits or the index rewrites existing subnet addresses."
+   "narration": "Here are the pitfalls in this lab. One: new bits plus the base prefix must stay at most thirty two — and leave room for Azure's reserves. The math has to fit inside the address space, with slack for what Azure takes. Two: a netnum beyond the available slices is a plan-time error. The index can't point at a slice the base doesn't contain. Three: Azure reserves five addresses per subnet — a slash twenty six really holds fifty nine usable. Sixty-four addresses per slice, minus the five Azure keeps for itself. Four: changing new bits or the index rewrites existing subnet addresses. On live networks, that's a destructive change — check the size before you commit to it."
   },
   {
    "id": "S012",

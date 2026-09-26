@@ -77,7 +77,7 @@ Apply time — two resources, and the output answers the question the code could
 - Basic SKU is legacy; new work should use Standard
 - A public IP alone isn't reachable — it needs a NIC/LB and rules (Lab 16)
 
-Here are the pitfalls in this lab. One: dynamic allocation releases the address on stop or deallocate — d n s and bookmarks break. Two: static costs the same for a running resource — reserve by default. Three: the basic s k u is legacy — new work should use standard. Four: a public i p alone isn't reachable — it needs a n i c or load balancer, and rules — lab sixteen adds the rules.
+Here are the pitfalls in this lab. One: dynamic allocation releases the address on stop or deallocate — d n s and bookmarks break. The address is held only while the resource runs; stop the machine, and Azure hands that i p to someone else. Every bookmark, d n s record, and firewall rule pointed at it now aims at a stranger. Two: static costs the same for a running resource — reserve by default. Static costs nothing extra while the resource runs, so make it your default. Three: the basic s k u is legacy — new work should use standard. Pick the standard s k u while you're at it. Four: a public i p alone isn't reachable — it needs a n i c or load balancer, and rules. Lab sixteen adds the rules.
 
 ## S011 — RECAP: recap
 

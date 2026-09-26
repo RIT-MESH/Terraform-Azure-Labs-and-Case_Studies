@@ -85,7 +85,7 @@ Apply time, and the plan tells the story: three separate subnet resources, each 
 - Remove "web" from a map → only web is destroyed
 - The unused nsg flag is deliberate — Lab 11 turns this map into a variable
 
-Here are the pitfalls in this lab. One: a list-based for each re-indexes on removal — entries shift, and state churns. Two: remove web from a list, and every later subnet's address changes. Three: remove web from a map, and only web is destroyed. Four: the unused n s g flag is deliberate — lab eleven turns this map into a variable.
+Here are the pitfalls in this lab. One: a list-based for each re-indexes on removal — entries shift, and state churns. If you remove the first entry of a list, every following entry slides down an index. Two: remove web from a list, and every later subnet's address changes. Terraform thinks every subnet changed, even though nothing real did. Three: remove web from a map, and only web is destroyed. Map keys are stable names, so state follows the role, not the position. Four: the unused n s g flag is deliberate — lab eleven turns this map into a variable. The shape is already production-ready for it.
 
 ## S013 — RECAP
 

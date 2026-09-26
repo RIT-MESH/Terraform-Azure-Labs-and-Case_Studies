@@ -44,7 +44,7 @@
   },
   {
    "id": "S011",
-   "narration": "Here are the pitfalls in this lab. One: the lowest priority number is evaluated first — a broad rule at two hundred can mask a rule at three hundred. Two: a wide allow at two hundred makes a narrower later rule unreachable. Three: a wildcard source prefix means the entire internet — tighten in production. Four: subnet-level and n i c-level n s g s can both apply — don't double-manage."
+   "narration": "Here are the pitfalls in this lab. One: the lowest priority number is evaluated first — a broad rule at two hundred can mask a rule at three hundred. Rule order is the whole design of an n s g. Two: a wide allow at two hundred makes a narrower later rule unreachable. Traffic matching the broad rule never gets that far down the list. Three: a wildcard source prefix means the entire internet — tighten in production. That asterisk is honest for a demo and dangerous for anything real. Four: subnet-level and n i c-level n s g s can both apply — don't double-manage. Two layers of rules are easy to contradict; the rule of thumb is most specific allow first, and everything else stays denied."
   },
   {
    "id": "S012",

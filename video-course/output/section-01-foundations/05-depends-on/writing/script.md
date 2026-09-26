@@ -88,7 +88,7 @@ Running it: init pulls the providers, and apply creates the group, then the acco
 - It can also force waits Terraform would have parallelized
 - Rule: references first; depends_on only when no reference is possible
 
-Here are the pitfalls in this lab. One: lab three solved this same problem with a real reference — the storage account's name. Two: depends on hides why the order exists — future readers have to guess. Three: it can also force waits that Terraform would have parallelized. Four: the rule — references first; depends on only when no reference is possible.
+Here are the pitfalls in this lab. One: lab three solved this same problem with a real reference — the storage account's name. By referencing the attribute directly, the order came for free, and the code explained itself. Two: depends on hides why the order exists — future readers have to guess. The reason for the dependency is invisible; a reference, by contrast, is self-documenting. Three: it can also force waits that Terraform would have parallelized. Work that has no real dependency gets serialized, and your runs slow down. Four: the rule — references first; depends on only when no reference is possible. Use it when you need ordering against something your config doesn't own.
 
 ## S014 — RECAP
 

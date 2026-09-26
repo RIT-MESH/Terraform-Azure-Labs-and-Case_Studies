@@ -183,7 +183,7 @@
     "A NIC without a VM is valid: it's a real, standalone resource",
     "Each ip_configuration binds the NIC to one subnet"
    ],
-   "narration": "Here are the pitfalls in this lab. One: dynamic allocation means the address is Azure's choice — read it, don't set it. Two: it exists only after creation — capture it in an output. Three: a n i c without a v m is valid — it's a real, standalone resource. Four: each i p configuration binds the n i c to one subnet.",
+   "narration": "Here are the pitfalls in this lab. One: dynamic allocation means the address is Azure's choice — read it, don't set it. Azure hands out a free address from the subnet's range; today it picked the first available one. Two: it exists only after creation — capture it in an output. You can't know the address before apply, so the output is how you read it back. Three: a n i c without a v m is valid — it's a real, standalone resource. It can be created, addressed, and referenced on its own. Four: each i p configuration binds the n i c to one subnet. That reference is what places the n i c in your network — and the dependency comes for free. If you ever need a fixed address, that's a different allocation mode, and it belongs to a later lesson.",
    "audio": "audio/S011.mp3",
    "numbered": true
   },

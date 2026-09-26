@@ -48,7 +48,7 @@
   },
   {
    "id": "S012",
-   "narration": "Here are the pitfalls in this lab. One: the password exists only as a sensitive variable — never a hard-coded string. Two: sensitive masks the value in plan and apply logs — the state-file caveat comes in lab twenty. Three: source image references must match the marketplace exactly — four fields. Four: a v m without its n i c reference is unbuildable — references define the chain."
+   "narration": "Here are the pitfalls in this lab. One: the password exists only as a sensitive variable — never a hard-coded string. Hard-code it instead, and it's in your repository forever — git history doesn't forget. Two: sensitive masks the value in plan and apply logs — the state-file caveat comes in lab twenty. The mask keeps the password out of every log line. Three: source image references must match the marketplace exactly — four fields. Get one wrong and the plan fails before anything is built. Four: a v m without its n i c reference is unbuildable — references define the chain. Secrets come from variables; images from exact references; the build order from references."
   },
   {
    "id": "S013",

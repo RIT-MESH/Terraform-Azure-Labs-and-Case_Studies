@@ -89,7 +89,7 @@ Let's run it. With no variables passed, the default east us applies, and Terrafo
 - Rule: a literal may appear once; everything else is a reference
 - variables.tf is empty here on purpose — location stays beside the examples
 
-Here are the pitfalls in this lab. One: writing the resource group name twice means two places to drift apart. Two: hard-coded location strings turn a region change into a find and replace hunt. Three: the rule — a literal may appear once; everything else is a reference. Four: variables dot t f is empty here on purpose — location stays beside the examples.
+Here are the pitfalls in this lab. One: writing the resource group name twice means two places to drift apart. If a literal appears in two places, those two places can disagree, and Terraform will happily create two groups. Two: hard-coded location strings turn a region change into a find and replace hunt. The same drift risk applies to region strings scattered across the file. Three: the rule — a literal may appear once; everything else is a reference. Define each value at its owner, and reference it everywhere else. Four: variables dot t f is empty here on purpose — location stays beside the examples. The variable lives in main dot t f in this lab so it sits next to the teaching examples; in real projects, variables get their own file.
 
 ## S014 — RECAP
 

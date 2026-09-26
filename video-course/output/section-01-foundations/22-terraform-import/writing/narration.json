@@ -44,7 +44,7 @@
   },
   {
    "id": "S011",
-   "narration": "Here are the pitfalls in this lab. One: the c l i form imports into state — you still write the resource block yourself. Two: a config that doesn't match the real resource shows drift on the next plan. Three: the i d must be the full Azure resource i d — not just the name. Four: import binds — it never fixes a wrongly-typed resource block."
+   "narration": "Here are the pitfalls in this lab. One: the c l i form imports into state — you still write the resource block yourself. Import only creates the state binding; the configuration still has to describe the resource correctly. Two: a config that doesn't match the real resource shows drift on the next plan. If the block says standard l r s but the real account is standard g r s, the next plan shows the difference. Three: the i d must be the full Azure resource i d — not just the name. Subscription, resource group, provider, type, and name — that's why the lab builds it in a local. Four: import binds — it never fixes a wrongly-typed resource block. If the block is wrong, fix the block; import won't correct it."
   },
   {
    "id": "S012",

@@ -88,7 +88,7 @@ The proof is in the run. Four files on disk, but the plan reads like one file: g
 - The merge rule cuts both ways: split files share one namespace
 - Convention: each block type gets one obvious home
 
-Here are the pitfalls in this lab. One: defining the same local in two files is a duplicate definition error. Two: two resources with the same address in different files — error too. Three: the merge rule cuts both ways — split files share one namespace. Four: the convention — each block type gets one obvious home.
+Here are the pitfalls in this lab. One: defining the same local in two files is a duplicate definition error. Because all files share one namespace, splitting files changes nothing about uniqueness. Two: two resources with the same address in different files — error too. Even in different files, two resources with the same type and name collide. Three: the merge rule cuts both ways — split files share one namespace. Merging is about organization, not isolation. Four: the convention — each block type gets one obvious home. That's exactly what the conventional layout in this lab demonstrates.
 
 ## S013 — RECAP
 

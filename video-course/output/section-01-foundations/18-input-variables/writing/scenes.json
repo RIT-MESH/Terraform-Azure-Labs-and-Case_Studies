@@ -199,7 +199,7 @@
     "error_message should say what to fix, not that something failed",
     "Validation is for input rules — not for resource behavior"
    ],
-   "narration": "Here are the pitfalls in this lab. One: defaults are silent — a misspelled region or tier passes straight through. Two: validation runs before plan — it's your input gate, so use it. Three: the error message should say what to fix, not just that something failed. Four: validation is for input rules — not for resource behavior.",
+   "narration": "Here are the pitfalls in this lab. One: defaults are silent — a misspelled region or tier passes straight through. A default supplies a value; it can't tell a typo from a choice. Two: validation runs before plan — it's your input gate, so use it. Without it, a bad value sails through plan and fails in Azure — or worse, deploys something you didn't intend. Three: the error message should say what to fix, not just that something failed. A good message names the rule, so bad input dies in seconds on your machine. Four: validation is for input rules — not for resource behavior. It checks what comes in, not what Terraform does with it afterward.",
    "audio": "audio/S012.mp3",
    "numbered": true
   },

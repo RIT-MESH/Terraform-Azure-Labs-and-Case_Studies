@@ -203,7 +203,7 @@
     "dynamic blocks shine when a nested block must repeat",
     "Next lab: maps when each entry needs its own identity"
    ],
-   "narration": "Here are the pitfalls in this lab. One: five copy-pasted subnet blocks mean five places to mistype a prefix. Two: collections and for expressions make repetition data, not code. Three: dynamic blocks shine when a nested block must repeat. Four: coming next — maps, when each entry needs its own identity.",
+   "narration": "Here are the pitfalls in this lab. One: five copy-pasted subnet blocks mean five places to mistype a prefix. Five hand-typed blocks are also five edits for every change. Two: collections and for expressions make repetition data, not code. The list plus for expression pattern collapses the repetition into a single source of truth. Three: dynamic blocks shine when a nested block must repeat. A dynamic subnet block emits one nested block per collection entry. Four: coming next — maps, when each entry needs its own identity. Lists are perfect for interchangeable entries; when entries need names you reference later, maps fit better — and that's exactly where we're headed.",
    "audio": "audio/S013.mp3",
    "numbered": true
   },

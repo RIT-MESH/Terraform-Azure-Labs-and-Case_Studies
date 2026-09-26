@@ -52,7 +52,7 @@
   },
   {
    "id": "S013",
-   "narration": "Here are the pitfalls in this lab. One: copy-pasted tag maps drift — one resource says terraform, another says i a c. Two: a rename means hunting through every resource block. Three: merge exists so shared maps stay shared — extras join at the resource. Four: consistent tags are what make cost reports and cleanup scripts possible."
+   "narration": "Here are the pitfalls in this lab. One: copy-pasted tag maps drift — one resource says terraform, another says i a c. The moment each resource gets its own typed-out map, they start disagreeing. Two: a rename means hunting through every resource block. What should be one edit becomes a search across the whole configuration. Three: merge exists so shared maps stay shared — extras join at the resource. One map in locals, and per-resource extras merged at the point of use. Four: consistent tags are what make cost reports and cleanup scripts possible. If tags drift, your cost dashboard silently misses half the resources."
   },
   {
    "id": "S014",

@@ -96,7 +96,7 @@ Time to run it. Terraform init pulls both providers, Azure R M and random. Then 
 - In-place update, not a replace — harmless here, noisy everywhere
 - Rule: keep volatile values out of attributes that are diffed against state
 
-Here are the pitfalls in this lab. One: the source content holds a timestamp — it is captured into state at apply time. Two: on the next plan the clock has moved, so Terraform wants to update the blob — every single run. Three: that is an in-place update, not a replace — harmless here, but noisy everywhere. Four: the rule — keep volatile values out of attributes that are diffed against state.
+Here are the pitfalls in this lab. One: the source content holds a timestamp — it is captured into state at apply. At apply time, Terraform freezes that text into its state, and the clock stops mattering to Terraform. Two: on the next plan the clock has moved, so Terraform wants to update the blob — every single run. The content no longer matches what's in state, so Terraform proposes the same change again and again. Three: it's an in-place update, not a replace — harmless here, but noisy everywhere. Nothing breaks; you just get churn on every plan. Four: the rule — keep volatile values out of attributes that are diffed against state. Timestamps and other moving values don't belong in anything Terraform compares with state, unless you actually want that churn.
 
 ## S016 — RECAP
 

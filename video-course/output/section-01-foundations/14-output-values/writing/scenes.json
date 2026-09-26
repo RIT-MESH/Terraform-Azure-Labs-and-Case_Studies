@@ -183,7 +183,7 @@
     "terraform output <name> prints the real value on demand — by design",
     "State-file protection is a separate concern, not this flag's job"
    ],
-   "narration": "Here are the pitfalls in this lab. One: sensitive masks logs only — the value still sits in state, in plain text. Two: don't output secrets that no downstream consumer needs. Three: terraform output, followed by a name, prints the real value on demand — by design. Four: state-file protection is a separate concern — not this flag's job.",
+   "narration": "Here are the pitfalls in this lab. One: sensitive masks logs only — the value still sits in state, in plain text. The flag protects plan and apply output, nothing more. Two: don't output secrets that no downstream consumer needs. Expose only what someone downstream actually uses. Three: terraform output, followed by a name, prints the real value on demand — by design. So build the habit of treating the state file as the sensitive artifact it is. Four: state-file protection is a separate concern — not this flag's job. Marking something sensitive doesn't secure it; it just keeps it out of the log.",
    "audio": "audio/S011.mp3",
    "numbered": true
   },

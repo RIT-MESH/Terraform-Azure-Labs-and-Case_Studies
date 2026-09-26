@@ -184,7 +184,7 @@
     "Migrating inline → standalone later is surgery; start standalone",
     "for_each for many identical tiers; explicit blocks for distinct growing tiers"
    ],
-   "narration": "Here are the pitfalls in this lab. One: inline subnets are fine for throwaway demos — but they close the door. Two: a per-subnet n s g or delegation needs a standalone subnet to reference. Three: migrating inline to standalone later is surgery — start standalone. Four: for each for many identical tiers; explicit blocks for distinct, growing tiers.",
+   "narration": "Here are the pitfalls in this lab. One: inline subnets are fine for throwaway demos — but they close the door. The inline block welds the subnet to the v net, so there's nothing standalone to build on. Two: a per-subnet n s g or delegation needs a standalone subnet to reference. The day you need a firewall on one tier, the inline block gives you nothing to attach it to. Three: migrating inline to standalone later is surgery — start standalone. Converting after the fact means untangling state that was never separate. Four: for each for many identical tiers; explicit blocks for distinct, growing tiers. Choose by shape — and when in doubt, standalone is the safer default.",
    "audio": "audio/S011.mp3",
    "numbered": true
   },

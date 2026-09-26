@@ -128,9 +128,13 @@ you see on screen is an illustrative view of what that looks like.
 - Changing name or account_tier forces destroy + recreate — Terraform asks first
 
 Two pitfalls to avoid in this lab. One: timestamp-based suffixes change every run —
-if the unique suffix comes from a timestamp, every plan produces a new name, and
-Terraform replaces the resource. Two: changing the name or the account tier forces a
-destroy and recreate — Terraform asks first, but the resource is still replaced.
+Terraform replaces the resource. If the unique suffix comes from something that
+moves, like a timestamp, every plan produces a new name, and Terraform will destroy
+and recreate the storage account. The fix is exactly what this lab does: a random
+string saved in state. Two: changing the name or the account tier forces a destroy
+and recreate — Terraform asks first. The same caution applies to settings like the
+account tier: some changes can only be applied by replacing the whole resource, so
+Terraform will ask before doing it.
 
 ## S015 — RECAP
 

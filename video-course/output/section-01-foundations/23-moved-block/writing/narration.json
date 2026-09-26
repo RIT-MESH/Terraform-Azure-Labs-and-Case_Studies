@@ -44,7 +44,7 @@
   },
   {
    "id": "S011",
-   "narration": "Here are the pitfalls in this lab. One: renaming a block address means a destroy and create — unless it's declared. Two: the moved block only rewrites the state address — never the resource. Three: storage account renames are different — Azure names can't change in place. Four: remove the moved block once every environment has applied the rename."
+   "narration": "Here are the pitfalls in this lab. One: renaming a block address means a destroy and create — unless it's declared. Without the moved block, Terraform sees a deleted resource and a brand-new one — and for a storage account, the data inside it goes with the old one. Two: the moved block only rewrites the state address — never the resource. It's safe precisely because nothing in Azure changes. Three: storage account renames are different — Azure names can't change in place. Moving the address is safe; the name string itself is immutable in Azure. Four: remove the moved block once every environment has applied the rename. It's scaffolding — clean it up after it has done its job."
   },
   {
    "id": "S012",

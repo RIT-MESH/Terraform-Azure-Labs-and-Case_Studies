@@ -178,7 +178,7 @@
     "-var-file can be passed multiple times — later files win",
     "Values on the command line (-var) beat every file"
    ],
-   "narration": "Here are the pitfalls in this lab. One: only terraform dot t f vars auto-loads — the example file does not. Two: no default and a missing value means an interactive prompt — or a hard error in c i. Three: a var file flag can be passed multiple times — later files win. Four: values on the command line beat every file.",
+   "narration": "Here are the pitfalls in this lab. One: only terraform dot t f vars auto-loads — the example file does not. The dot example suffix means Terraform ignores it completely; copy it, rename it, and fill it in. Two: no default and a missing value means an interactive prompt — or a hard error in c i. In c i there's no one to answer the prompt, so the missing variable stops the run — which is exactly why the file convention matters. Three: a var file flag can be passed multiple times — later files win. That lets you layer a base file with an environment override. Four: values on the command line beat every file. The var flag has the highest precedence of all.",
    "audio": "audio/S011.mp3",
    "numbered": true
   },

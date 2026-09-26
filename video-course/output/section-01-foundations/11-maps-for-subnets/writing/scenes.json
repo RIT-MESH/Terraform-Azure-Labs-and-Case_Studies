@@ -213,7 +213,7 @@
     "Keeping an unused field (nsg) in the shape is normal while a module grows",
     "Adding a field later breaks every caller — design the shape up front"
    ],
-   "narration": "Here are the pitfalls in this lab. One: t f vars must match the map of object type exactly — misspelled or missing fields are hard errors. Two: the rejection happens before any plan — fail fast, by design. Three: keeping an unused field in the shape is normal while a module grows. Four: adding a field later breaks every caller — design the shape up front.",
+   "narration": "Here are the pitfalls in this lab. One: t f vars must match the map of object type exactly — misspelled or missing fields are hard errors. The type is a contract, not loose guidance; Terraform refuses the whole file before planning anything. Two: the rejection happens before any plan — fail fast, by design. A string where a boolean belongs dies in seconds on your machine instead of in the cloud. Three: keeping an unused field in the shape is normal while a module grows. The n s g flag is still riding along unused — that's deliberate. Four: adding a field later breaks every caller — design the shape up front. Add fields when you design, not when you deploy.",
    "audio": "audio/S012.mp3",
    "numbered": true
   },
