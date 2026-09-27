@@ -3,7 +3,7 @@
 
 Runs, in order: fmt -check -recursive; init -backend=false; validate.
 Terraform binary resolution: LABS_TERRAFORM env -> shutil.which("terraform")
--> the project-local toolchain (Windows only, E:\\labs\\.env).
+-> the project-local toolchain (Windows only, under the source root).
 
 Usage: validate_terraform.py <sandbox-dir> [--out result.json]
 Exit code 0 only when everything ran and passed. Code 2 = skipped/unavailable.
@@ -15,7 +15,7 @@ import shutil
 import subprocess
 import sys
 
-LOCAL_TF = os.path.join(os.environ.get("COURSE_SOURCE_ROOT", r"E:\labs"),
+LOCAL_TF = os.path.join(os.environ.get("COURSE_SOURCE_ROOT") or os.getcwd(),
                         ".env", "bin", "terraform.exe")
 
 
@@ -50,9 +50,9 @@ def main():
               file=sys.stderr)
         sys.exit(2)
     # Provider-cache config is a project-local convenience: use it only when it
-    # actually exists (on CI there is no E:\labs\.env\terraform.rc).
+    # actually exists (on CI there is no project-local terraform.rc).
     if shutil.which("terraform") is None:
-        rc = os.path.join(os.environ.get("COURSE_SOURCE_ROOT", r"E:\labs"),
+        rc = os.path.join(os.environ.get("COURSE_SOURCE_ROOT") or os.getcwd(),
                           ".env", "terraform.rc")
         if os.path.isfile(rc):
             os.environ.setdefault("TF_CLI_CONFIG_FILE", rc)

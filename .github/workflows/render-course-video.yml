@@ -10,9 +10,14 @@
 #   - SRT must pass the >=99.5% word-coverage gate or the run FAILS.
 #   - The demo layer (same-video demo scenes) is REQUIRED for FINAL; a run
 #     without demo material can only reach RENDERED (QC reports the gap).
-#   - No two-part split: final/episode.mp4 is the single deliverable
-#     (render_parts.py is an optional manual export only).
+#   - Two-part delivery is ALWAYS produced by render_parts.py inside the
+#     render stage: *-part1-main.mp4 + *-part2-thankyou.mp4 (+ per-part SRTs);
+#     episode.mp4 remains the archive full cut. The real-world demo recording
+#     is inserted manually between the two parts before publishing.
 #   - qc-frames evidence is exported for human review before FINAL approval.
+#   - The `section` input scopes lab resolution (2026-09-26 global renumbering:
+#     lab numbers run continuously 01-126 across sections; `section` defaults
+#     to section-01-foundations so old dispatches keep working).
 
 name: Render Course Video (new pipeline)
 
@@ -20,8 +25,13 @@ on:
   workflow_dispatch:
     inputs:
       lab:
-        description: "Lab number, for example 02"
+        description: "Lab number (global), for example 02 or 26"
         required: true
+        type: string
+      section:
+        description: "Section (scopes lab resolution; default keeps old behavior)"
+        required: false
+        default: "section-01-foundations"
         type: string
       provider:
         description: "Narration provider (default: config = edge-tts)"
@@ -37,7 +47,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: terraform-video-new-${{ github.event.inputs.lab }}
+  group: terraform-video-new-${{ github.event.inputs.section }}-${{ github.event.inputs.lab }}
   cancel-in-progress: false
 
 jobs:
@@ -115,6 +125,7 @@ jobs:
           python video-course/tools/generate_course.py \
             --source-root "$COURSE_SOURCE_ROOT" \
             --lab "${{ github.event.inputs.lab }}" \
+            --section "${{ github.event.inputs.section }}" \
             --mode ci \
             --provider "${{ github.event.inputs.provider }}" \
             --force
@@ -123,7 +134,7 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: terraform-lab-${{ github.event.inputs.lab }}-video-${{ github.run_number }}
+          name: terraform-${{ github.event.inputs.section }}-${{ github.event.inputs.lab }}-video-${{ github.run_number }}
           path: |
             video-course/output/**/final/episode.mp4
             video-course/output/**/final/episode.srt
@@ -142,7 +153,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: terraform-lab-${{ github.event.inputs.lab }}-failure-${{ github.run_number }}
+          name: terraform-${{ github.event.inputs.section }}-${{ github.event.inputs.lab }}-failure-${{ github.run_number }}
           path: |
             video-course/output/**/validation/
             video-course/output/**/writing/

@@ -3,10 +3,17 @@
 structurally sound BEFORE any TTS money/time is spent. Schema errors fail the
 pipeline before TTS.
 
-Per-visual-type rules (TITLE/CONCEPT/CODE/TERMINAL/DIAGRAM/RECAP/NEXT/PORTAL):
+Per-visual-type rules (TITLE/CONCEPT/CODE/TERMINAL/DIAGRAM/RECAP/NEXT/PORTAL
+plus the asset-less transform types ITERATION_EXPANSION/STATE_ADDRESS):
   - every scene: id, type, narration (or steps with narrations), audio
   - CODE: source_file/start_line/end_line (1 <= start <= end), asset, optional
     steps with active_lines within [start_line, end_line] and active_tokens
+    that must each appear on one of the step's active_lines (token existence
+    gate — a token that is not in the source must fail BEFORE TTS); tokens
+    that are strict substrings of a sibling token in the same step produce a
+    warning (highlight-ordering ambiguity)
+  - ITERATION_EXPANSION / STATE_ADDRESS: stages with unique ids (items keyed),
+    steps referencing existing stage/item keys, no `asset` (asset-less type)
   - DIAGRAM: asset + spec file on disk + steps referencing existing nodes/edges
   - TERMINAL: asset + spec fixture on disk; illustrative fixtures must be
     marked (terminal honesty, instruction §20)
@@ -32,8 +39,13 @@ FIXED_NEXT = ("Now that we understand how this Terraform configuration works, "
               "in the next part of this video, we'll move to a real-world demo "
               "and deploy it in Microsoft Azure.")
 TYPES = {"TITLE", "CONCEPT", "CODE", "TERMINAL", "DIAGRAM", "RECAP", "NEXT",
-         "PORTAL"}
-LEAK_RE = re.compile(r"E:\\|C:\\|/home/runner/|\$GITHUB_WORKSPACE")
+         "PORTAL", "ITERATION_EXPANSION", "STATE_ADDRESS"}
+# fragments assembled at runtime: the scanner must never trip on
+# its own source when it scans the synced production source
+LEAK_RE = re.compile("|".join((
+    "E:" + chr(92) * 2, "C:" + chr(92) * 2,
+    "/home/" + "runner/",
+    chr(92) + chr(36) + "GITHUB_" + "WORKSPACE")))
 
 
 def main():
@@ -67,6 +79,7 @@ def validate_scene_scenes(ep, sources=None):
 
 def _validate(scenes, ep, sources=None):
     fails = []
+    warns = []
 
     def check(cond, msg):
         if not cond:
@@ -102,6 +115,29 @@ def _validate(scenes, ep, sources=None):
                           f"[{st_},{en}]")
                 check(isinstance(st.get("active_tokens", []), list),
                       f"{sid}.step{i}: active_tokens must be a list")
+                # token existence gate: every token must occur on one of the
+                # step's active lines (checked against the real source file)
+                toks = [t for t in (st.get("active_tokens") or [])
+                        if isinstance(t, str) and t]
+                lns = [ln for ln in st.get("active_lines", [])
+                       if isinstance(ln, int)]
+                if toks and sources and s.get("source_file") and lns:
+                    src_path = os.path.join(sources, s["source_file"])
+                    if os.path.isfile(src_path):
+                        src_lines = open(src_path, encoding="utf-8",
+                                         errors="replace").read().splitlines()
+                        blob = "\n".join(src_lines[ln - 1] for ln in lns
+                                         if 1 <= ln <= len(src_lines))
+                        for t in toks:
+                            check(t in blob,
+                                  f"{sid}.step{i}: active token '{t}' not found "
+                                  f"on active line(s) {lns} of {s['source_file']}")
+                        for t in toks:
+                            for u in toks:
+                                if t != u and t in u:
+                                    warns.append(
+                                        f"{sid}.step{i}: token '{t}' is a substring "
+                                        f"of '{u}' — longer token wins the highlight")
         elif typ == "DIAGRAM":
             check(bool(s.get("asset")), f"{sid}: DIAGRAM missing asset")
             spec = os.path.join(ep, *(os.path.splitext(
@@ -140,6 +176,49 @@ def _validate(scenes, ep, sources=None):
                     check(specdoc.get("mode", "illustrative") == "illustrative",
                           f"{sid}: terminal fixture must declare "
                           f"'mode': 'illustrative' (never fabricate real output)")
+                # TERMINAL_INTEGRITY_QC (§33.14): never fabricate unpredictable
+                # runtime values — deterministic mock output must omit invented
+                # creation durations ("Creation complete after 14s" etc.)
+                invented = re.findall(
+                    r"(?:after|in) \d+(?:\.\d+)?\s*(?:s\b|sec|seconds)", body)
+                if invented:
+                    fails.append(
+                        f"{sid}: TERMINAL_INTEGRITY_QC — invented duration(s) "
+                        f"{invented[:3]} in fixture; deterministic mocks must "
+                        f"omit unpredictable timings (plan §33.14)")
+        elif typ in ("ITERATION_EXPANSION", "STATE_ADDRESS"):
+            # asset-less transform types: the component renders the stages,
+            # narration drives per-step focus (never a pre-rendered image)
+            check(not s.get("asset"), f"{sid}: {typ} is asset-less — remove 'asset'")
+            check(bool(steps), f"{sid}: {typ} requires steps (progression)")
+            stages = s.get("stages") or []
+            check(bool(stages), f"{sid}: {typ} missing stages")
+            stage_ids = [st_.get("id") for st_ in stages]
+            check(all(stage_ids) and len(set(stage_ids)) == len(stage_ids),
+                  f"{sid}: {typ} stages need unique non-empty ids")
+            item_ids = {it.get("key") for st_ in stages
+                        for it in (st_.get("items") or []) if it.get("key")}
+            # STATE_TERMINOLOGY_QC (§33.9/33.10): a splat `[*]` is an
+            # EXPRESSION over the instances — it must never be listed inside
+            # an address lane (kind 'addresses') or labeled as a state address
+            for st_ in stages:
+                if st_.get("kind") == "addresses":
+                    for it in (st_.get("items") or []):
+                        if "[*]" in str(it.get("text", "")):
+                            fails.append(
+                                f"{sid}: STATE_TERMINOLOGY_QC — splat "
+                                f"'{it.get('text')}' listed under kind "
+                                f"'addresses' (stage '{st_.get('id')}'); a splat "
+                                f"is an expression, not a resource instance "
+                                f"address (plan §33.9/33.10)")
+            for i, st in enumerate(steps, 1):
+                focus = st.get("focus") or {}
+                for sg in focus.get("stages", []):
+                    check(sg in stage_ids,
+                          f"{sid}.step{i}: focus stage '{sg}' not in stages")
+                for it in focus.get("items", []):
+                    check(it in item_ids,
+                          f"{sid}.step{i}: focus item '{it}' not in stage items")
         elif typ == "RECAP":
             check(bool(s.get("points")), f"{sid}: RECAP missing points")
         elif typ == "NEXT":
@@ -152,6 +231,13 @@ def _validate(scenes, ep, sources=None):
         blob = json.dumps(s, ensure_ascii=False)
         if LEAK_RE.search(blob):
             fails.append(f"{sid}: internal path leaked into scene definition")
+        # GITHUB_URL_QC (§33.16): any github.com link on screen must be the
+        # public course repo — never a foreign or internal URL
+        for m in re.findall(r"https?://github\.com/[^\"'\s\\]+", blob):
+            if not m.startswith(
+                    "https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies"):
+                fails.append(
+                    f"{sid}: GITHUB_URL_QC — non-public-repo GitHub URL '{m}'")
 
     check(seen_next, "no NEXT scene — the real-world demo transition is missing")
     check(any(str(s.get("type")).upper() == "RECAP" for s in scenes),
@@ -167,6 +253,7 @@ def _validate(scenes, ep, sources=None):
               else "pass",
               "demo_gate": "pending" if any(f.startswith("DEMO-GATE") for f in fails)
               else ("pass" if seen_next else "n/a"),
+              "warns": warns,
               "fails": fails}
     return result
 

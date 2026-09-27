@@ -8,6 +8,8 @@ import {ConceptScene} from './components/ConceptScene';
 import {PortalScene} from './components/PortalScene';
 import {RecapScene} from './components/RecapScene';
 import {NextEpisodeScene} from './components/NextEpisodeScene';
+import {IterationExpansionScene} from './components/IterationExpansionScene';
+import {StateAddressScene} from './components/StateAddressScene';
 
 export type TimedScene = {
   id: string;
@@ -40,6 +42,8 @@ const sceneComponent: Record<string, React.FC<any>> = {
   PORTAL: PortalScene,
   RECAP: RecapScene,
   NEXT: NextEpisodeScene,
+  ITERATION_EXPANSION: IterationExpansionScene,
+  STATE_ADDRESS: StateAddressScene,
 };
 
 export const Episode: React.FC<EpisodeProps> = (props) => {

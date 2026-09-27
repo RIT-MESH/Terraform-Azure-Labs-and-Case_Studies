@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-"""Discover course labs under E:\\labs\\section-*.
+"""Discover course labs under <source-root>/section-*.
 
 Emits a JSON episode list: section, lab id, path, absolute path.
-Usage: discover_labs.py [--root E:\\labs] [--out episodes.json]
+All numbered lab folders count (2026-09-26: no-.tf demo labs included,
+numbering runs continuously 01-126 across sections; folders sort numerically
+so 100- follows 99-).
+Usage: discover_labs.py [--root <source-root>] [--out episodes.json]
 """
 import argparse
 import json
@@ -16,12 +19,12 @@ def discover(root):
         sec_dir = os.path.join(root, section)
         if not (section.startswith("section-") and os.path.isdir(sec_dir)):
             continue
-        for lab in sorted(os.listdir(sec_dir)):
+        labs = [l for l in os.listdir(sec_dir) if re.match(r"\d", l)]
+        labs.sort(key=lambda l: int(re.match(r"(\d+)", l).group(1)))  # numeric, not lexicographic (100- must follow 99-)
+        for lab in labs:
             lab_dir = os.path.join(sec_dir, lab)
             if not os.path.isdir(lab_dir):
                 continue
-            if not any(f.endswith(".tf") for f in os.listdir(lab_dir)):
-                continue  # a lab must contain terraform code
             num = re.match(r"(\d+)", lab)
             episodes.append({
                 "section": section,
@@ -35,7 +38,7 @@ def discover(root):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--root", default=r"E:\labs")
+    ap.add_argument("--root", default=os.environ.get("COURSE_SOURCE_ROOT") or os.getcwd())
     ap.add_argument("--out", help="write JSON here (default: stdout)")
     args = ap.parse_args()
     episodes = discover(args.root)

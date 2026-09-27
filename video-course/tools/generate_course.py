@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Course orchestrator CLI (batch + per-episode driver).
 
-    generate_course.py --source-root E:/labs --mode scripts [--lab 01]
+    generate_course.py --source-root <source-root> --mode scripts [--lab 01]
     generate_course.py --lab 05 --mode voice|subtitles|render|validate
     generate_course.py --lab 01 --mode all
     generate_course.py --lab 01 --mode render --renderer local   # fallback only
@@ -30,8 +30,10 @@ Modes
 Status machine (one-way): DRAFT -> VALIDATED -> APPROVED -> VOICE_COMPLETE ->
 MEDIA_READY -> RENDERED -> FINAL. FINAL requires all four gates + same-video
 demo scenes; legacy episodes are tagged legacy_pipeline/needs_revalidation.
-The retired two-part/manual-demo-insertion flow is no longer part of any mode;
-render_parts.py remains available as an optional publishing export.
+Every render produces the two-part publishing deliverables via render_parts.py
+inside stage_render (part1-main + part2-thankyou, each with its own SRT);
+episode.mp4 stays as the archive full cut. The real-world demo recording is
+inserted manually between the parts before publishing.
 
 Lab resolution: shared tools/course_index.py (prefix -> manifest -> ordered
 discovery; never guesses). Every stage is restartable; FINAL episodes are
@@ -51,7 +53,7 @@ from status_machine import (get_status, load_progress, save_progress,  # noqa: E
 
 # Portable roots: this file lives in <video-course>/tools, so derive the
 # video-course root from __file__ (works on Windows AND the CI runner, where
-# the source root is $GITHUB_WORKSPACE/labs — a different tree from tools).
+# the source root is the CI workspace/labs — a different tree from tools).
 TOOLS = os.path.dirname(os.path.abspath(__file__))
 VC = os.path.dirname(TOOLS)
 PROGRESS = os.path.join(VC, "course-progress.json")
@@ -217,25 +219,24 @@ def get_status_global(ep):
 def main():
     global PR
     ap = argparse.ArgumentParser()
-    ap.add_argument("--source-root", default=os.environ.get("COURSE_SOURCE_ROOT", r"E:\labs"))
+    ap.add_argument("--source-root", default=os.environ.get("COURSE_SOURCE_ROOT") or os.getcwd())
     ap.add_argument("--mode", required=True,
                     choices=["scripts", "validate", "voice", "subtitles",
                              "render", "all", "ci"])
-    ap.add_argument("--lab", help="e.g. 01, 17, or all (default for batch modes)")
+    ap.add_argument("--lab", help="e.g. 01, 17, 26, or all (default for batch modes)")
+    ap.add_argument("--section", help="scope --lab resolution to one section, "
+                                      "e.g. section-02-meta-arguments")
     ap.add_argument("--force", action="store_true", help="allow touching FINAL episodes")
     ap.add_argument("--provider", choices=["config", "edge", "minimax"], default="config",
                     help="voice provider override (edge is the free default)")
     ap.add_argument("--renderer", choices=["local", "github"], default="local",
                     help="render target for --mode render: local = this machine "
                          "(fallback/debug), github = delegate to cloud_render.py")
-    ap.add_argument("--export-parts", action="store_true",
-                    help="OPTIONAL: also produce the two-part publishing export "
-                         "(render_parts.py) — no longer part of the default pipeline")
     args = ap.parse_args()
 
     course_cfg = json.load(open(COURSE_CFG, encoding="utf-8"))
     labs = load_course_manifest(args.source_root, rebuild=(args.mode == "ci"))
-    targets = resolve_lab(args.lab, labs)
+    targets = resolve_lab(args.lab, labs, section=args.section)
     PR = load_progress(PROGRESS)
     report = {"labs": len(targets), "done": 0, "skipped_final": 0,
               "renderer": args.renderer, "failed": []}
@@ -245,7 +246,7 @@ def main():
         import cloud_render
         for ep in targets:
             print(f"[cloud] dispatching {ep['path']} to GitHub Actions...")
-            run_id = cloud_render.trigger(ep, args.source_root)
+            run_id = cloud_render.trigger(ep, args.source_root, section=args.section)
             print(f"[cloud] run id: {run_id}")
         report["done"] = len(targets)
         print(json.dumps(report, indent=2))
@@ -296,9 +297,6 @@ def main():
                            max_of(get_status(PR, ep), "MEDIA_READY"))
             if args.mode in ("render", "all", "ci"):
                 stage_render(ep, out_dir, force=args.force)
-            if args.export_parts:
-                # back-compat: parts are now produced by stage_render by default
-                pass
             report["done"] += 1
         except SystemExit as e:
             report["failed"].append({"lab": ep["path"], "error": str(e)})

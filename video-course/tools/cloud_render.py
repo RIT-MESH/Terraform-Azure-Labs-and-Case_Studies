@@ -16,6 +16,7 @@ Usage:
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -30,21 +31,33 @@ DEFAULT_CLONE = os.path.join(os.path.expanduser("~"), "Documents", "GitHub",
                              "Terraform-Azure-Labs-and-Case_Studies")
 
 
+def lab_number(ep):
+    """Full numeric prefix of the lab folder. After the 2026-09-26 global
+    renumbering this equals the canonical manifest number, which CI resolves
+    against its own identically-ordered manifest (full digits — [:2] would
+    truncate 100+)."""
+    return re.match(r"(\d+)", ep["lab"]).group(1)
+
+
 def gh(*gh_args, check=True):
     return subprocess.run(["gh", *gh_args], check=check)
 
 
-def trigger(ep, source_root):
+def trigger(ep, source_root, section=None):
     """Sync CI inputs + dispatch the workflow. Returns the run id."""
     clone = DEFAULT_CLONE
     sync_episode(ep, source_root, clone)
-    p = subprocess.run(["gh", "workflow", "run", WORKFLOW, "--repo",
-                        _origin_repo(), "-f", f"lab={ep['lab'][:2]}"],
-                       capture_output=True, text=True)
+    lab_ref = lab_number(ep)
+    args = ["gh", "workflow", "run", WORKFLOW, "--repo", _origin_repo(),
+            "-f", f"lab={lab_ref}"]
+    if section:
+        args += ["-f", f"section={section}"]
+    p = subprocess.run(args, capture_output=True, text=True)
     if p.returncode != 0:
+        extra = f" -f section={section}" if section else ""
         sys.exit(f"gh workflow run failed: {p.stderr.strip()}\n"
                  "Run it manually:\n"
-                 f"  gh workflow run {WORKFLOW} -f lab={ep['lab'][:2]}\n"
+                 f"  gh workflow run {WORKFLOW} -f lab={lab_ref}{extra}\n"
                  f"  gh run watch   # then download the artifact")
     # newest queued run for this workflow
     r = subprocess.run(["gh", "run", "list", "--workflow", WORKFLOW,
@@ -80,7 +93,9 @@ def wait_and_download(run_id, ep):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--lab", required=True)
-    ap.add_argument("--source-root", default=os.environ.get("COURSE_SOURCE_ROOT", r"E:\labs"))
+    ap.add_argument("--section", help="section name, e.g. section-02-meta-arguments "
+                                      "(disambiguates numeric refs; passed to CI)")
+    ap.add_argument("--source-root", default=os.environ.get("COURSE_SOURCE_ROOT") or os.getcwd())
     ap.add_argument("--wait", action="store_true", help="watch the run, then download")
     args = ap.parse_args()
 
@@ -93,8 +108,8 @@ def main():
               f"  3. gh run watch / gh run download  # artifact -> final/")
         return
     labs = load_course_manifest(args.source_root)
-    ep = resolve_lab(args.lab, labs)[0]
-    run_id = trigger(ep, args.source_root)
+    ep = resolve_lab(args.lab, labs, section=args.section)[0]
+    run_id = trigger(ep, args.source_root, section=args.section)
     if args.wait and run_id:
         wait_and_download(run_id, ep)
 

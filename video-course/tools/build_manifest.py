@@ -9,7 +9,7 @@ paths are the persistent identity (portable across authoring PC and CI),
 absolute internal paths stay runtime metadata.
 
 Also records the viewer-facing public GitHub location derived from the path
-relative to the source root (E:\\labs stays internal — viewers see the repo).
+relative to the source root (the source root stays internal — viewers see the repo).
 
 Usage: build_manifest.py <lab-dir> [--out source-manifest.json]
 """
@@ -22,7 +22,7 @@ import re
 RE_MODULE = re.compile(r'(?ms)^\s*module\s+"([^"]+)"\s*\{(.*?)\}')
 RE_SOURCE = re.compile(r'source\s*=\s*"([^"]+)"')
 
-SOURCE_ROOT = os.environ.get("COURSE_SOURCE_ROOT", r"E:\labs")
+SOURCE_ROOT = os.environ.get("COURSE_SOURCE_ROOT") or os.getcwd()
 HERE = os.path.dirname(os.path.abspath(__file__))
 VIDEO_COURSE_ROOT = os.path.dirname(HERE)  # tools/ -> video-course/
 COURSE_CFG = os.path.join(VIDEO_COURSE_ROOT, "config", "course.json")

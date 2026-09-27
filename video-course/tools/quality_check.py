@@ -188,12 +188,17 @@ def main():
               "is inserted manually between the two publishing parts",
               blocking=False)
 
-    # all four validation gates passed
+    # all four validation gates passed. gate4_media_quality is EXCLUDED: it is
+    # derived FROM this very report (validate_episode.py reads quality-check.json),
+    # so counting it here creates a circular dependency — one stale failed QC
+    # run would deadlock every later re-render even with all media checks green.
+    # This file is the authority for gate4; the checks above ARE gate4.
     val_path = os.path.join(ep, "validation", "validation.json")
     if os.path.isfile(val_path):
         gates = json.load(open(val_path, encoding="utf-8")).get("gates", {})
         bad_gates = [k for k, g in gates.items()
-                     if g.get("status") in ("fail",)]
+                     if k != "gate4_media_quality"
+                     and g.get("status") in ("fail",)]
         check("all validation gates passed", not bad_gates, ", ".join(bad_gates))
     else:
         check("all validation gates passed", False, "no validation.json (run validate)")

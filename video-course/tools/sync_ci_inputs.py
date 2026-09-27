@@ -12,14 +12,14 @@ Copies ONLY what the GitHub Actions runner needs:
 Never copies: secrets, node_modules, .remotion browser cache, audio/, timing/,
 assets renders, captions/, preview/, final/, *.mp4, state files, raw unsanitized
 terminal logs. Verifies with SHA-256 after copy and scans every staged text
-file for internal path leakage (Windows drive paths, /home/runner/). Fails on
+file for internal path leakage (Windows drive paths, CI runner home paths). Fails on
 mismatch or leakage. This helper NEVER renders and NEVER touches git.
 
 Lab resolution uses the shared canonical resolver (tools/course_index.py) —
 never a private prefix heuristic.
 
 Usage:
-  sync_ci_inputs.py --source-root E:/labs --github-clone <path> --lab 01
+  sync_ci_inputs.py --source-root <source-root> --github-clone <path> --lab 01
 """
 import argparse
 import hashlib
@@ -31,7 +31,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from course_index import load_course_manifest, resolve_lab  # noqa: E402
+from course_index import load_course_manifest, public_rel_path, resolve_lab  # noqa: E402
 
 VC = os.path.dirname(HERE)
 
@@ -52,7 +52,12 @@ DEMO_FILES = ["demo-manifest.json"]
 DEMO_DIRS = ["terminal", "verification", "screenshots"]
 DEMO_EXTS = (".txt", ".json", ".png", ".svg")
 
-LEAK_RE = re.compile(r"E:\\|C:\\|/home/runner/|\$GITHUB_WORKSPACE")
+# fragments assembled at runtime: the scanner must never trip on
+# its own source when it scans the synced production source
+LEAK_RE = re.compile("|".join((
+    "E:" + chr(92) * 2, "C:" + chr(92) * 2,
+    "/home/" + "runner/",
+    chr(92) + chr(36) + "GITHUB_" + "WORKSPACE")))
 # §40A public-attribution policy: the repo's public surface must never carry
 # assistant co-author trailers or assistant branding — commits, code comments,
 # workflow text, video metadata all use the repo owner's identity only. The
@@ -164,17 +169,20 @@ def sync_episode(ep, source_root, clone, changed=None):
 
     lab = ep["abs_path"]
     section = ep["section"]
-    print(f"[sync] ACTIVE_LAB = {ep['path']}")
+    # The public repo keeps the OLD lab names (2026-09-26 renumbering was
+    # local-only): every copy target under <clone> must use the public name.
+    pub_lab = os.path.basename(public_rel_path(ep).rstrip("/"))
+    print(f"[sync] ACTIVE_LAB = {ep['path']} (public name: {pub_lab})")
 
-    # 1. lab source files -> <clone>/labs/<section>/<lab>/
-    dst_lab = os.path.join(clone, "labs", section, ep["lab"])
+    # 1. lab source files -> <clone>/labs/<section>/<public-name>/
+    dst_lab = os.path.join(clone, "labs", section, pub_lab)
     n = 0
     for fn in sorted(os.listdir(lab)):
         src = os.path.join(lab, fn)
         if os.path.isfile(src) and (fn.endswith(LAB_FILE_EXTS) or fn in LAB_FILE_NAMES):
             if copy_file(src, os.path.join(dst_lab, fn), changed):
                 n += 1
-    print(f"[sync] lab files -> labs/{section}/{ep['lab']}: {n} changed")
+    print(f"[sync] lab files -> labs/{section}/{pub_lab}: {n} changed")
 
     # 2. referenced modules -> <clone>/modules/<module>/
     for mod in find_referenced_modules(lab, source_root):
@@ -201,11 +209,18 @@ def sync_episode(ep, source_root, clone, changed=None):
     for d in REMOTION_DIRS:
         sync_tree(os.path.join(VC, "remotion", d),
                   os.path.join(clone, "video-course", "remotion", d), changed=changed)
+    # bundled course fonts (FONT_QC, plan §33.1): Inter + JetBrains Mono are
+    # registered by remotion/src/fonts.ts and must exist in public/fonts on CI
+    fonts_src = os.path.join(VC, "remotion", "public", "fonts")
+    if os.path.isdir(fonts_src):
+        sync_tree(fonts_src,
+                  os.path.join(clone, "video-course", "remotion", "public", "fonts"),
+                  changed=changed)
     print("[sync] production source synced (config, tools, remotion src/lock)")
 
-    # 4. approved writing spec
+    # 4. approved writing spec (CI episode dirs key on the PUBLIC lab name)
     ep_dir = os.path.join(VC, "output", section, ep["lab"])
-    clone_out = os.path.join(clone, "video-course", "output", section, ep["lab"])
+    clone_out = os.path.join(clone, "video-course", "output", section, pub_lab)
     writing_src = os.path.join(ep_dir, "writing")
     if not os.path.isfile(os.path.join(writing_src, "scenes.json")):
         raise SystemExit(f"no approved writing spec: {writing_src}\\scenes.json")
@@ -258,14 +273,15 @@ def sync_episode(ep, source_root, clone, changed=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--source-root", default=os.environ.get("COURSE_SOURCE_ROOT", r"E:\labs"))
+    ap.add_argument("--source-root", default=os.environ.get("COURSE_SOURCE_ROOT") or os.getcwd())
     ap.add_argument("--github-clone", required=True)
-    ap.add_argument("--lab", required=True, help="lab number, e.g. 01")
+    ap.add_argument("--lab", required=True, help="lab number, e.g. 01 or 26")
+    ap.add_argument("--section", help="scope --lab resolution to one section")
     ap.add_argument("--rebuild-manifest", action="store_true")
     args = ap.parse_args()
 
     labs = load_course_manifest(args.source_root, rebuild=args.rebuild_manifest)
-    ep = resolve_lab(args.lab, labs)[0]
+    ep = resolve_lab(args.lab, labs, section=args.section)[0]
     sync_episode(ep, args.source_root, args.github_clone)
 
 

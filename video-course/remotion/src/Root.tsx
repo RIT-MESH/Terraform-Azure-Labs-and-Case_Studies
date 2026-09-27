@@ -1,6 +1,11 @@
 import React from 'react';
 import {Composition} from 'remotion';
 import {Episode, EpisodeProps} from './Episode';
+import {ensureFonts} from './fonts';
+
+// FONT_QC: register + verify the course fonts before any frame renders
+// (§33.1 — a silent serif fallback must fail the render, not ship).
+ensureFonts();
 
 /*
  * One parameterized composition. generate_course.py renders it with

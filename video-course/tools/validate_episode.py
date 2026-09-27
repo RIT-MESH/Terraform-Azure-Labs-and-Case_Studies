@@ -36,7 +36,12 @@ MIN_EPISODE_SEC = 180   # course minimum: ~3 minutes (4-15 min is the normal tar
 MAX_EPISODE_SEC = 900   # course maximum: 15 minutes
 MAX_SCENES = 80
 FIRST_CODE_TARGET_SEC = 60  # first meaningful Terraform code within 35-60s
-LEAK_RE = re.compile(r"E:\\|C:\\|/home/runner/|\$GITHUB_WORKSPACE")
+# fragments assembled at runtime: the scanner must never trip on
+# its own source when it scans the synced production source
+LEAK_RE = re.compile("|".join((
+    "E:" + chr(92) * 2, "C:" + chr(92) * 2,
+    "/home/" + "runner/",
+    chr(92) + chr(36) + "GITHUB_" + "WORKSPACE")))
 
 
 def norm_ws(s):

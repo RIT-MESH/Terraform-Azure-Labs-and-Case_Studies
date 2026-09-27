@@ -178,13 +178,21 @@ def render_layout(spec, theme, scale=1.0, label_dy=None):
         ty = anchor_ty(i, e, sy)                # destination left-anchor y
         seg, line_boxes = [], []
         if c1 == c2:
-            # same column: vertical bottom->top arrow between the anchors
+            # same column: vertical arrow between the anchors. Downward flow
+            # leaves the source's bottom border and enters the destination's
+            # top; upward flow (serpentine columns) mirrors it — source top
+            # border, destination bottom border — so the arrowhead always
+            # ENTERS the box interior (§20B direction QC).
             lx = x1 + w1 // 2
-            y_start, y_end = y1 + BOX_H, y2 + TIP_CLEAR
+            if r2 >= r1:
+                y_start, y_end = y1 + BOX_H, y2 + TIP_CLEAR
+            else:
+                y_start, y_end = y1, y2 + BOX_H - TIP_CLEAR
             seg.append(f'<line x1="{lx}" y1="{y_start}" '
                        f'x2="{lx}" y2="{y_end}" '
                        f'stroke="#50E6FF" stroke-width="3" marker-end="url(#arr)"/>')
-            line_boxes.append((lx - 2, y_start, 4, y_end - y_start, f"line:{eid}"))
+            line_boxes.append((lx - 2, min(y_start, y_end), 4,
+                               abs(y_end - y_start), f"line:{eid}"))
             geo = dict(eid=eid, e=e, kind="v", lx=lx, v0=y_start, v1=y_end)
         elif abs(ty - sy) < 0.5:
             # same row / single left-anchor user: straight horizontal arrow,
@@ -317,10 +325,38 @@ def render_layout(spec, theme, scale=1.0, label_dy=None):
 
 def naive_layout(spec):
     """Assign (col, row) positions from explicit layers or simple BFS order."""
+    spec = serpentine_rebalance(spec)
     if spec.get("layers"):
         return {nid: (c, r) for c, col in enumerate(spec["layers"])
                 for r, nid in enumerate(col)}
     return {n["id"]: (0, i) for i, n in enumerate(spec["nodes"])}
+
+
+# 16:9 frame budget (test-render finding 2026-09-26, S014): a single column of
+# more than MAX_ROWS_PER_COL nodes makes the canvas tall+narrow, and DiagramScene's
+# contain-fit then shrinks every label below readability (a 6-node chain rendered
+# at 0.58x). Long linear chains auto-flow into serpentine columns — col 1
+# top->bottom, col 2 bottom->top, ... — so consecutive nodes stay adjacent:
+# chain edges become same-column verticals (adjacent rows, nothing crossed) or
+# same-row horizontals between neighboring columns. Multi-layer specs already
+# spread horizontally and are left untouched.
+MAX_ROWS_PER_COL = 3
+
+
+def serpentine_rebalance(spec):
+    layers = spec.get("layers")
+    if not layers or len(layers) != 1 or len(layers[0]) <= MAX_ROWS_PER_COL:
+        return spec
+    chain = list(layers[0])
+    cols, i, forward = [], 0, True
+    while i < len(chain):
+        chunk = chain[i:i + MAX_ROWS_PER_COL]
+        cols.append(chunk if forward else list(reversed(chunk)))
+        forward = not forward
+        i += MAX_ROWS_PER_COL
+    spec = dict(spec)
+    spec["layers"] = cols
+    return spec
 
 
 def collisions_of(boxes, w, h):

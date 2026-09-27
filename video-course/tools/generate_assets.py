@@ -86,7 +86,11 @@ def main():
             run([sys.executable, os.path.join(HERE, "render_terminal_svg.py"),
                  spec, "-o", out])
         else:
-            continue  # no asset file for this visual_type
+            # no asset file for this visual_type. Asset-less transform types
+            # (ITERATION_EXPANSION, STATE_ADDRESS, and the later transform
+            # family) render themselves in Remotion from scenes.json data —
+            # never pre-rendered images, so nothing to generate here.
+            continue
         print(f"[assets] {asset}")
         n += 1
     print(f"[assets] generated {n} asset(s) for {os.path.basename(ep_dir)}")

@@ -22,6 +22,17 @@ const STOP = new Set(['the', 'a', 'an', 'and', 'or', 'of', 'to', 'in', 'is', 'ar
 const keywords = (text: string): Set<string> =>
   new Set(text.toLowerCase().split(/[^a-z0-9_]+/).filter((w) => w.length > 2 && !STOP.has(w)));
 
+// LAYOUT_QC (§33.3, test-render feedback 2026-09-26): a fixed 40px left
+// 3-point scenes mostly empty. Size the point text from the content: the
+// longest point must fit the 1680px text width (Inter ≈ 0.52em average
+// advance), capped by how many points there are — fewer points, larger type.
+export const pointFont = (points: string[]): number => {
+  const longest = Math.max(20, ...points.map((p) => p.length));
+  const fit = Math.floor(1680 / (0.52 * longest));
+  const byCount = points.length <= 3 ? 60 : points.length <= 4 ? 52 : 46;
+  return Math.max(36, Math.min(byCount, fit));
+};
+
 export const ConceptScene: React.FC<{
   heading?: string;
   points?: string[];
@@ -70,6 +81,8 @@ export const ConceptScene: React.FC<{
 
   const starts = synced && matchedStart ? matchedStart : null;
 
+  const pf = props.points ? pointFont(props.points) : 40;
+
   const opacityFor = (i: number) => {
     const s = starts ? starts[i] : 12 + i * 12;
     return interpolate(frame, [s, s + 10], [0, 1], {extrapolateRight: 'clamp'});
@@ -89,23 +102,36 @@ export const ConceptScene: React.FC<{
           {props.github_path}
         </div>
       ) : null}
+      {/* LAYOUT_QC (§33.3): non-centered scenes place their content a fixed,
+          modest distance below the heading (user feedback 2026-09-26: a
+          centered block left a too-large heading→content gap) — top-anchored,
+          not floating in the middle of the frame. */}
+      <div style={{flex: 1, display: 'flex', flexDirection: 'column',
+                   justifyContent: 'flex-start',
+                   paddingTop: props.centered ? 0 : 48,
+                   alignItems: props.centered ? 'center' : 'flex-start',
+                   width: '100%'}}>
       {(props.points ?? []).map((p, i) => props.numbered ? (
         // numbered layout (user-set 2026-09-25): visible 1/2/3 chips so each
         // spoken point maps to exactly one on-screen line
-        <div key={i} style={{display: 'flex', alignItems: 'center', marginTop: 28,
+        <div key={i} style={{display: 'flex', alignItems: 'center',
+                             marginTop: i === 0 ? 0 : Math.round(pf * 0.55),
                              opacity: opacityFor(i)}}>
-          <div style={{width: 48, height: 48, borderRadius: 24, flexShrink: 0,
+          <div style={{width: pf + 10, height: pf + 10, borderRadius: (pf + 10) / 2, flexShrink: 0,
                        border: '2px solid #50E6FF', color: '#50E6FF',
                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                       fontSize: 26, fontWeight: 700, fontFamily: 'JetBrains Mono',
-                       marginRight: 24}}>{i + 1}</div>
-          <div style={{color: '#C9D3E8', fontSize: 40}}>{p}</div>
+                       fontSize: Math.round(pf * 0.55), fontWeight: 700, fontFamily: 'JetBrains Mono',
+                       marginRight: Math.round(pf * 0.5)}}>{i + 1}</div>
+          <div style={{color: '#C9D3E8', fontSize: pf}}>{p}</div>
         </div>
       ) : (
-        <div key={i} style={{color: '#C9D3E8', fontSize: 40, marginTop: 28, opacity: opacityFor(i)}}>
+        <div key={i} style={{color: '#C9D3E8', fontSize: pf,
+                             marginTop: i === 0 ? 0 : Math.round(pf * 0.55),
+                             opacity: opacityFor(i)}}>
           {p}
         </div>
       ))}
+      </div>
     </AbsoluteFill>
   );
 };
