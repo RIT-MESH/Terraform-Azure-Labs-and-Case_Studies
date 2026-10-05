@@ -17,7 +17,7 @@ Prerequisites (once, on your machine):
 Typical flow for every lab (run from inside the lab folder):
 
 ```bash
-cd 01-web-app          # pick the lab
+cd 51-web-app          # pick the lab
 terraform init         # first time only: download providers
 terraform plan         # preview what will be created/changed
 terraform apply        # create it (type "yes" to confirm)
@@ -32,28 +32,28 @@ and lab 11 authors a `schema.sql` that lab 13 runs manually.
 
 ## Labs
 
-1. [Azure Web App](01-web-app/)
-2. [Deploying another web app](02-another-web-app/) *(assignment)*
-3. [The `lifecycle` meta-argument](03-lifecycle/)
-4. [Resource tags](04-resource-tags/)
-5. [Deployment slots — create](05-deployment-slots-create/)
-6. [Deployment slots — swap](06-deployment-slots-swap/)
-7. [App Service logs](07-app-service-logs/)
-8. [Azure SQL Database](08-sql-database/)
-9. [SQL Database — firewall rules](09-sql-firewall-rules/)
-10. [Change the SQL DTU model](10-change-sql-dtu/) *(assignment)*
-11. [Deploying another SQL Database — prepare](11-another-sql-prepare/)
-12. [Deploying another SQL Database — deploy](12-another-sql-deploy/)
-13. [Adding data to an Azure SQL database](13-sql-add-data/)
-14. [Connecting a web app to SQL](14-web-app-to-sql/)
-15. [Mini project — MySQL server](15-mysql-server/)
-16. [Mini project — configure MySQL](16-mysql-configure/)
-18. [Mini project — deploy the web app](18-web-app-deploy/)
-19. [Mini project — VNet integration](19-web-app-vnet-integration/)
+1. [Azure Web App](51-web-app/)
+2. [Deploying another web app](52-another-web-app/) *(assignment)*
+3. [The `lifecycle` meta-argument](53-lifecycle/)
+4. [Resource tags](54-resource-tags/)
+5. [Deployment slots — create](55-deployment-slots-create/)
+6. [Deployment slots — swap](56-deployment-slots-swap/)
+7. [App Service logs](57-app-service-logs/)
+8. [Azure SQL Database](58-sql-database/)
+9. [SQL Database — firewall rules](59-sql-firewall-rules/)
+10. [Change the SQL DTU model](60-change-sql-dtu/) *(assignment)*
+11. [Deploying another SQL Database — prepare](61-another-sql-prepare/)
+12. [Deploying another SQL Database — deploy](62-another-sql-deploy/)
+13. [Adding data to an Azure SQL database](63-sql-add-data/)
+14. [Connecting a web app to SQL](64-web-app-to-sql/)
+15. [Mini project — MySQL server](65-mysql-server/)
+16. [Mini project — configure MySQL](66-mysql-configure/)
+18. [Mini project — deploy the web app](67-web-app-deploy/)
+19. [Mini project — VNet integration](68-web-app-vnet-integration/)
 
 ## Advanced labs
 
-20. [App Service auto-scale](20-app-service-autoscale/)
-21. [App Service source control (Git deploy)](21-app-service-source-control/)
-22. [Azure SQL with Entra ID admin](22-sql-entra-admin/)
-23. [MySQL — configuration & high availability](23-mysql-parameters/)
+20. [App Service auto-scale](69-app-service-autoscale/)
+21. [App Service source control (Git deploy)](70-app-service-source-control/)
+22. [Azure SQL with Entra ID admin](71-sql-entra-admin/)
+23. [MySQL — configuration & high availability](72-mysql-parameters/)

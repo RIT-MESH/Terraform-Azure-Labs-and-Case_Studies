@@ -39,7 +39,7 @@ Prerequisites:
 Typical command flow (run inside the lab folder):
 
 ```bash
-cd 01-monitor-infra            # one lab folder at a time
+cd 98-monitor-infra            # one lab folder at a time
 cp terraform.tfvars.example terraform.tfvars   # only where the lab needs it
 terraform init                 # download the providers
 terraform plan                 # preview what will be created
@@ -54,22 +54,22 @@ and lab 02 on lab 01's VM id.
 
 ## Labs
 
-1. [Azure Monitor — infrastructure](01-monitor-infra/)
-2. [Metric alert via Terraform](02-metric-alert/)
-3. [Log Analytics workspace](03-log-analytics/)
-4. [Role assignments via Terraform](04-role-assignments/)
-5. [Locking resources with Terraform](05-resource-locks/)
-6. [Landing Zone — resource groups](06-landing-zone-rg/)
-7. [Landing Zone — virtual network](07-landing-zone-vnet/)
-8. [Landing Zone — logging](08-landing-zone-logging/)
-9. [Landing Zone — storage](09-landing-zone-storage/)
-10. [Landing Zone — database](10-landing-zone-database/)
-11. [Landing Zone — Key Vault](11-landing-zone-keyvault/)
-12. [Landing Zone — Azure Policy](12-landing-zone-policy/)
+1. [Azure Monitor — infrastructure](98-monitor-infra/)
+2. [Metric alert via Terraform](99-metric-alert/)
+3. [Log Analytics workspace](100-log-analytics/)
+4. [Role assignments via Terraform](101-role-assignments/)
+5. [Locking resources with Terraform](102-resource-locks/)
+6. [Landing Zone — resource groups](103-landing-zone-rg/)
+7. [Landing Zone — virtual network](104-landing-zone-vnet/)
+8. [Landing Zone — logging](105-landing-zone-logging/)
+9. [Landing Zone — storage](106-landing-zone-storage/)
+10. [Landing Zone — database](107-landing-zone-database/)
+11. [Landing Zone — Key Vault](108-landing-zone-keyvault/)
+12. [Landing Zone — Azure Policy](109-landing-zone-policy/)
 
 ## Advanced labs
 
-13. [Custom policy definition + assignment](13-custom-policy-definition/)
-14. [Diagnostic settings](14-diagnostic-settings/)
-15. [Activity log alert + webhook](15-activity-log-alert/)
-16. [Managed identity + least-privilege RBAC](16-managed-identity-rbac/)
+13. [Custom policy definition + assignment](110-custom-policy-definition/)
+14. [Diagnostic settings](111-diagnostic-settings/)
+15. [Activity log alert + webhook](112-activity-log-alert/)
+16. [Managed identity + least-privilege RBAC](113-managed-identity-rbac/)

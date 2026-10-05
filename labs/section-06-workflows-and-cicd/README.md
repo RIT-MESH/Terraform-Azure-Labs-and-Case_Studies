@@ -34,19 +34,19 @@ are pipeline definitions you install in a repo. Labs 06 and 10 have subfolders
 
 ## Labs
 
-1. [Inspecting the initial code base](01-inspect-codebase/)
-2. [Deploying to multiple environments](02-multiple-environments/)
-3. [Terraform workspaces — dev](03-workspaces-dev/)
-4. [Using Git locally](04-git-local/)
-5. [Making changes to code](05-making-changes/)
-6. [Azure Storage for the state file](06-remote-state-storage/)
-7. [Azure Container Instance](07-container-instance/)
-8. [Azure Kubernetes Service](08-aks/)
-9. [Azure DevOps release pipelines](09-devops-release-pipelines/)
+1. [Inspecting the initial code base](114-inspect-codebase/)
+2. [Deploying to multiple environments](115-multiple-environments/)
+3. [Terraform workspaces — dev](116-workspaces-dev/)
+4. [Using Git locally](117-git-local/)
+5. [Making changes to code](118-making-changes/)
+6. [Azure Storage for the state file](119-remote-state-storage/)
+7. [Azure Container Instance](120-container-instance/)
+8. [Azure Kubernetes Service](121-aks/)
+9. [Azure DevOps release pipelines](122-devops-release-pipelines/)
 
 ## Advanced labs
 
-10. [`terraform_remote_state` — consume another stack](10-remote-state-consume/)
-11. [GitHub Actions CI](11-github-actions/)
-12. [`terraform test` framework](12-terraform-test/)
-13. [`moved` and `removed` blocks](13-moved-removed/)
+10. [`terraform_remote_state` — consume another stack](123-remote-state-consume/)
+11. [GitHub Actions CI](124-github-actions/)
+12. [`terraform test` framework](125-terraform-test/)
+13. [`moved` and `removed` blocks](126-moved-removed/)

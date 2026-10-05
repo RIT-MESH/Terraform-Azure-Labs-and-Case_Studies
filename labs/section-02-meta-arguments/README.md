@@ -18,7 +18,7 @@ and secure access (Azure Bastion).
 **Typical command flow** (inside a lab folder):
 
 ```bash
-cd 01-count-meta-argument          # pick a lab folder
+cd 26-count-meta-argument          # pick a lab folder
 terraform init                     # download providers (once per lab)
 terraform plan                     # preview exactly what will be created
 terraform apply                    # create it (type "yes" to confirm)
@@ -32,31 +32,31 @@ variables and what to click in the Azure portal.
 
 ## Labs
 
-1. [The `count` meta-argument](01-count-meta-argument/)
-2. [Multiple storage containers](02-multiple-containers/)
-3. [The `for_each` meta-argument](03-for-each-meta-argument/)
-4. [`for_each` over blobs](04-for-each-blobs/)
-5. [Multiple subnets](05-multiple-subnets/)
-6. [Multiple network interfaces](06-multiple-nics/) *(assignment)*
-7. [Multiple public IPs](07-multiple-public-ips/)
-8. [`for_each` + variables](08-for-each-variables/)
-9. [Network Security Groups](09-network-security-groups/)
-10. [Multiple virtual machines](10-multiple-vms/)
-11. [Availability Sets](11-availability-sets/)
-12. [Availability Zones](12-availability-zones/)
-13. [Azure Key Vault](13-key-vault/)
-14. [Data sources](14-data-sources/)
-15. [Web server via Terraform](15-web-server/)
-16. [Dynamic blocks](16-dynamic-blocks/)
-17. [Linux machine — read a local file](17-linux-read-file/)
-18. [Linux machine — restructure](18-linux-restructure/)
-19. [Linux machine — deployment](19-linux-deployment/)
-20. [Provisioners](20-provisioners/)
-21. [Azure Bastion](21-azure-bastion/)
+1. [The `count` meta-argument](26-count-meta-argument/)
+2. [Multiple storage containers](27-multiple-containers/)
+3. [The `for_each` meta-argument](28-for-each-meta-argument/)
+4. [`for_each` over blobs](29-for-each-blobs/)
+5. [Multiple subnets](30-multiple-subnets/)
+6. [Multiple network interfaces](31-multiple-nics/) *(assignment)*
+7. [Multiple public IPs](32-multiple-public-ips/)
+8. [`for_each` + variables](33-for-each-variables/)
+9. [Network Security Groups](34-network-security-groups/)
+10. [Multiple virtual machines](35-multiple-vms/)
+11. [Availability Sets](36-availability-sets/)
+12. [Availability Zones](37-availability-zones/)
+13. [Azure Key Vault](38-key-vault/)
+14. [Data sources](39-data-sources/)
+15. [Web server via Terraform](40-web-server/)
+16. [Dynamic blocks](41-dynamic-blocks/)
+17. [Linux machine — read a local file](42-linux-read-file/)
+18. [Linux machine — restructure](43-linux-restructure/)
+19. [Linux machine — deployment](44-linux-deployment/)
+20. [Provisioners](45-provisioners/)
+21. [Azure Bastion](46-azure-bastion/)
 
 ## Advanced labs
 
-22. [Conditional resources (feature flags)](22-conditional-resources/)
-23. [`flatten()` — nested structures into a list](23-flatten-matrix/)
-24. [`for_each` over a data source](24-for-data-sources/)
-25. [Dynamic blocks at multiple levels](25-dynamic-multi/)
+22. [Conditional resources (feature flags)](47-conditional-resources/)
+23. [`flatten()` — nested structures into a list](48-flatten-matrix/)
+24. [`for_each` over a data source](49-for-data-sources/)
+25. [Dynamic blocks at multiple levels](50-dynamic-multi/)
