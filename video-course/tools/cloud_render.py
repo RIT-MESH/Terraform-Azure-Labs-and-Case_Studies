@@ -108,24 +108,38 @@ def wait_and_download(run_id, ep):
     subprocess.run(["gh", "run", "watch", str(run_id), "--exit-status", "-R", DEFAULT_REPO])
     import shutil as _sh
     import tempfile
-    final_dir = os.path.join(episode_dir(ep), "final")
+    ep_dir = episode_dir(ep)
+    final_dir = os.path.join(ep_dir, "final")
     os.makedirs(final_dir, exist_ok=True)
     tmp = tempfile.mkdtemp(prefix="ci-artifact-")
     subprocess.run(["gh", "run", "download", str(run_id), "-R", DEFAULT_REPO, "-D", tmp], check=True)
-    # the artifact nests the lab's final/ dir; find it wherever it lands
-    finals = [root for root, _dirs, _files in os.walk(tmp)
-              if os.path.basename(root) == "final"]
-    if not finals:
-        sys.exit(f"no final/ directory found in artifact for {ep['lab']}")
+    # the artifact nests the episode dir as <artifact>/<section>/<lab-name>/;
+    # find that dir and copy every tracked state subdir back (final plus, for
+    # first-time renders that never ran locally, validation/ timing/ qc-frames).
+    ep_roots = [root for root, _dirs, _files in os.walk(tmp)
+                if os.path.basename(root) == ep["lab"]]
+    if not ep_roots:
+        sys.exit(f"no {ep['lab']} directory found in artifact")
     copied = 0
-    for src_root in finals:
-        for name in os.listdir(src_root):
-            _sh.copy2(os.path.join(src_root, name), os.path.join(final_dir, name))
-            copied += 1
+    for src_ep in ep_roots:
+        for sub, dest in (("final", final_dir),
+                          ("validation", os.path.join(ep_dir, "validation")),
+                          ("timing", os.path.join(ep_dir, "timing")),
+                          (os.path.join("preview", "qc-frames"),
+                           os.path.join(ep_dir, "preview", "qc-frames"))):
+            src_sub = os.path.join(src_ep, sub)
+            os.makedirs(dest, exist_ok=True)
+            for root, _dirs, files in os.walk(src_sub):
+                rel = os.path.relpath(root, src_sub)
+                for name in files:
+                    dst_dir = dest if rel == "." else os.path.join(dest, rel)
+                    os.makedirs(dst_dir, exist_ok=True)
+                    _sh.copy2(os.path.join(root, name), os.path.join(dst_dir, name))
+                    copied += 1
     for line in normalize_part_names(final_dir, ep):
         print(f"[cloud] renamed: {line}")
     _sh.rmtree(tmp, ignore_errors=True)
-    print(f"[cloud] {copied} file(s) -> {final_dir}")
+    print(f"[cloud] {copied} file(s) -> {ep_dir}")
 
 
 def main():
