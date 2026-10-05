@@ -16,7 +16,7 @@ terraform {
 }
 # The `provider` block configures the Azure plugin. `features {}` is required
 # (even empty) in azurerm 3.x. State here is local (terraform.tfstate) — remote
-# backends come in lab 06.
+# backends come in lab 119.
 provider "azurerm" {
   features {}
 }

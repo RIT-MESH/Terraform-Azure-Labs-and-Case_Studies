@@ -1,4 +1,4 @@
-# 09 — SQL Database — firewall rules
+# Lab 59 — SQL Database — firewall rules
 
 By default, nothing can reach your SQL logical server. Add firewall rules:
 - one for your client IP (so you can connect from SSMS / Azure Data Studio)
@@ -23,7 +23,7 @@ Prerequisite: `az login`. Find your public IP first (`curl ifconfig.me` or searc
 "what is my IP").
 
 ```bash
-cd 09-sql-firewall-rules
+cd 59-sql-firewall-rules
 cp terraform.tfvars.example terraform.tfvars   # set password + your client IP
 terraform init
 terraform plan

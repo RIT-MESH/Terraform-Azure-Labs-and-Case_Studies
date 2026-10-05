@@ -1,4 +1,4 @@
-# Lab 16 — Dynamic blocks.
+# Lab 41 — Dynamic blocks.
 # Teaches: `dynamic "security_rule" { for_each = ... content { ... } }` to stamp
 # out repeated nested blocks from a variable, security_rule.value addressing, and
 # a for expression in an output.

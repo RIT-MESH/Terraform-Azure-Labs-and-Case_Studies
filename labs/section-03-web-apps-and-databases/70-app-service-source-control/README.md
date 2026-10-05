@@ -1,4 +1,4 @@
-# 21 — App Service source control (advanced deploy)
+# Lab 70 — App Service source control (advanced deploy)
 
 Wire a web app to a Git repository so Azure builds and deploys on every push.
 In azurerm 3.x this is the `azurerm_app_service_source_control` resource (it works
@@ -25,7 +25,7 @@ for Linux web apps too) — give it the app id, a repo URL and branch.
 Prerequisite: `az login`.
 
 ```bash
-cd 21-app-service-source-control
+cd 70-app-service-source-control
 terraform init
 terraform plan
 terraform apply

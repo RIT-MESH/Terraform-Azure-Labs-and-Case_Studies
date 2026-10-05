@@ -1,4 +1,4 @@
-# 12 — Deploying another SQL Database — deploy
+# Lab 62 — Deploying another SQL Database — deploy
 
 Provision **two** databases (`sqldb-app`, `sqldb-reports`) on one logical server.
 This lab also outputs the **connection string** you'd hand to an app — built by
@@ -20,7 +20,7 @@ so it's masked in output.
 Prerequisite: `az login`.
 
 ```bash
-cd 12-another-sql-deploy
+cd 62-another-sql-deploy
 cp terraform.tfvars.example terraform.tfvars   # set a real password
 terraform init
 terraform plan
@@ -51,5 +51,5 @@ Resource group **rg-sql-two** → SQL server `sqlserver-two-...`:
   without `-raw` (or `terraform output -json`); it's also masked in apply logs.
   The value still lands in state in plain text.
 - Port **1433** is the standard SQL Server wire port.
-- Like lab 08, no firewall rules yet — connections only work after lab-09-style
+- Like lab 58, no firewall rules yet — connections only work after lab-09-style
   rules are added.

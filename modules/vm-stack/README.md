@@ -1,9 +1,9 @@
-﻿# vm-stack module
+# vm-stack module
 
 A reusable, opinionated stack: resource group → virtual network → public IP → network
 interface → network security group → Linux virtual machine.
 
-This module is built up across labs 05–10 of section 4 and reused in later sections.
+This module is built up across labs 77–82 of section 4 and reused in later sections.
 
 ## Inputs
 

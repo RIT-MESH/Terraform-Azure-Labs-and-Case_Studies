@@ -1,4 +1,4 @@
-# Lab 11 — Landing Zone: Key Vault.
+# Lab 108 — Landing Zone: Key Vault.
 #  - A vault in the security RG; purge protection enabled (certs/secrets can't be
 #    hard-deleted for 7 days).
 #  - An access policy granting the current user Get/Set/Delete/Purge on secrets.
@@ -17,7 +17,7 @@ resource "random_string" "suffix" {
   special = false
 }
 
-# Security RG — the landing-zone home for secrets (see lab 06's layout).
+# Security RG — the landing-zone home for secrets (see lab 103's layout).
 resource "azurerm_resource_group" "sec" {
   name     = "rg-lz-kv"
   location = "eastus"

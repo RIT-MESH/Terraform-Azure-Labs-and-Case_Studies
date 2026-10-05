@@ -1,4 +1,4 @@
-# 08 — `for_each` with variables
+# Lab 33 — `for_each` with variables
 
 Combine `for_each` with a typed `map` variable. This is the production pattern: the same
 code deploys different shapes per environment just by changing tfvars.
@@ -19,7 +19,7 @@ prompts for it.
 ## Commands
 
 ```bash
-cd 08-for-each-variables
+cd 33-for-each-variables
 terraform init
 terraform plan
 terraform apply

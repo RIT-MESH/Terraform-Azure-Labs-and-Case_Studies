@@ -1,4 +1,4 @@
-# Lab 04 — Resource tags.
+# Lab 54 — Resource tags.
 # Tags drive cost reporting, billing, and automation. Standardize them in locals
 # and spread them with merge(). Changing var.environment retags everything.
 

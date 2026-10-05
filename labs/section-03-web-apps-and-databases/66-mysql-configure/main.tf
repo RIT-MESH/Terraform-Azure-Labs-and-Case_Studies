@@ -1,5 +1,5 @@
-# Lab 16 — configure the MySQL server (create a database + client firewall rule).
-# We look up the EXISTING server with a data block (created in lab 15), then add a
+# Lab 66 — configure the MySQL server (create a database + client firewall rule).
+# We look up the EXISTING server with a data block (created in lab 65), then add a
 # database and a firewall rule for your client IP so you can connect from a GUI.
 
 # No default + sensitive: Terraform won't plan until you pass the password,
@@ -8,7 +8,7 @@ variable "mysql_admin_password" {
   type      = string
   sensitive = true
 }
-# Point these at the server created in lab 15 (name is on that resource, or in
+# Point these at the server created in lab 65 (name is on that resource, or in
 # its state/outputs); client_ip is the public IP you connect from.
 variable "existing_server_name" { type = string }
 variable "existing_rg_name" { type = string }

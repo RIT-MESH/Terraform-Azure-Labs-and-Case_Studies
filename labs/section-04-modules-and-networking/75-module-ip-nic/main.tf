@@ -1,4 +1,4 @@
-# Lab 03 — a module creating a public IP + NIC. It consumes a subnet id produced
+# Lab 75 — a module creating a public IP + NIC. It consumes a subnet id produced
 # by ANOTHER module (modules/vnet) → modules chain together.
 # Builds: rg-vnet-modip, vnet-modip + subnet web, pip-nic-modip, nic-modip.
 # Concept: module output → module input (wiring modules together).

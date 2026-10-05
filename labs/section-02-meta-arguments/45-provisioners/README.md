@@ -1,4 +1,4 @@
-# 20 — Provisioners
+# Lab 45 — Provisioners
 
 Provisioners run scripts **at create/destroy time**. They are a **last resort**: they
 are not idempotent, not visible in `plan`, and fail the run if they error. Prefer
@@ -22,7 +22,7 @@ only to show the mechanics. Notice `connection {}` and the `self` reference.
 ## Commands
 
 ```bash
-cd 20-provisioners
+cd 45-provisioners
 terraform init
 terraform plan
 terraform apply -var=admin_public_key="ssh-rsa AAAA... your@email" -var=admin_private_key="$(cat ~/.ssh/id_rsa)"

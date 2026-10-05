@@ -1,6 +1,6 @@
-# 10 — Traffic Manager implementation
+# Lab 82 — Traffic Manager implementation
 
-The same idea as lab 09 but wired through endpoints with explicit priority weights —
+The same idea as lab 81 but wired through endpoints with explicit priority weights —
 useful for a primary/failover pattern. The first endpoint is `priority=1`, the second
 `priority=2`. Traffic Manager sends all traffic to priority 1 and fails over to 2
 automatically when the monitor marks it unhealthy.
@@ -40,11 +40,11 @@ No `terraform.tfvars` needed.
 
 ## Key concepts / gotchas
 
-- **Priority routing = active/passive**: unlike lab 09's Performance method, geography
+- **Priority routing = active/passive**: unlike lab 81's Performance method, geography
   doesn't matter — priority 1 gets 100% of traffic until it fails health checks.
 - **Failover is automatic but not instant**: detection takes a few probe intervals at
   the monitor's settings, and the 30s DNS TTL adds client-side delay.
 - Endpoints are typed resources in azurerm 3.x
   (`azurerm_traffic_manager_azure_endpoint` for Azure targets) rather than nested blocks.
-- Same profile shape as lab 09 — only `traffic_routing_method` and the `priority`
+- Same profile shape as lab 81 — only `traffic_routing_method` and the `priority`
   attributes change, which shows how little code a routing-policy change costs.

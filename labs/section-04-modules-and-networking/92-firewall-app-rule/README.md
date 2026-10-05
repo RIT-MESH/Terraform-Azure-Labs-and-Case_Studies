@@ -1,4 +1,4 @@
-# 20 — Azure Firewall — application rule
+# Lab 92 — Azure Firewall — application rule
 
 Application rules are Layer-7 (FQDN) allow rules. This one lets a subnet reach
 `*.ubuntu.com` and `github.com` for apt/package downloads while denying other internet.
@@ -35,7 +35,7 @@ No `terraform.tfvars` needed.
 - Resource group **rg-fw-app** → **fw-app1-app → Application rules**: collection
   `app-allow` → rule `allow-updates` — source `10.32.1.0/24`, protocols HTTP:80 and
   HTTPS:443, target FQDNs `*.ubuntu.com`, `github.com`, `*.githubusercontent.com`.
-- End-to-end behaviour (with lab 18-style routing to this firewall): from a VM in
+- End-to-end behaviour (with lab 90-style routing to this firewall): from a VM in
   10.32.1.0/24, `apt update` / `git clone` succeed, but `curl https://example.com`
   times out — egress is restricted to the allowed FQDNs.
 
@@ -49,5 +49,5 @@ No `terraform.tfvars` needed.
   `protocol` block per protocol/port pair; HTTP/HTTPS ports here are explicit.
 - Everything not allowed by a rule is **denied by default** — that implicit deny is the
   whole point of a firewall.
-- Egress must actually be *routed* to the firewall (lab 18's UDR) for these rules to
+- Egress must actually be *routed* to the firewall (lab 90's UDR) for these rules to
   see the traffic; the rule alone changes nothing.

@@ -1,6 +1,6 @@
-# 23 — Application Gateway — path-based routing (advanced)
+# Lab 95 — Application Gateway — path-based routing (advanced)
 
-Lab 15 used one backend pool. Here a single App Gateway routes by **URL path**: requests
+Lab 87 used one backend pool. Here a single App Gateway routes by **URL path**: requests
 to `/images/*` go to one backend pool, `/video/*` to another, and everything else to a
 default pool. This is the building block for hosting several services behind one domain.
 
@@ -47,7 +47,7 @@ terraform destroy
 ## Key concepts / gotchas
 
 - **One listener, many pools**: the path map does the splitting — the listener itself is
-  unchanged from lab 15; only the `request_routing_rule` gains `rule_type =
+  unchanged from lab 87; only the `request_routing_rule` gains `rule_type =
   "PathBasedRouting"` and `url_path_map_name`.
 - **The default pool is mandatory** in the url_path_map: any path not matched by a
   `path_rule` falls back to `default_backend_address_pool_name`.

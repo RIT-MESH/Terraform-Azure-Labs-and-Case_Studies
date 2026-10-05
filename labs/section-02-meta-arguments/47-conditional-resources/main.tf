@@ -1,4 +1,4 @@
-# Lab 22 — Conditional resources (feature flags).
+# Lab 47 — Conditional resources (feature flags).
 # `count = var.enabled ? 1 : 0` toggles a resource on/off. Flip the variable and
 # `terraform plan` shows the NSG being added/removed — the VNet is untouched.
 terraform {

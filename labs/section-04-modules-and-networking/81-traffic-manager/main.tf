@@ -1,4 +1,4 @@
-# Lab 09 — Traffic Manager (DNS-based global load balancer).
+# Lab 81 — Traffic Manager (DNS-based global load balancer).
 # Traffic Manager doesn't proxy traffic — it picks the best endpoint via DNS.
 #  - Two web apps in DIFFERENT regions (eastus, westeurope) on Basic plans.
 #  - A Traffic Manager profile with traffic_routing_method = "Performance"

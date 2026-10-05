@@ -1,4 +1,4 @@
-# Lab 12 — Landing Zone: assign a BUILT-IN Azure Policy.
+# Lab 109 — Landing Zone: assign a BUILT-IN Azure Policy.
 #  - data.azurerm_policy_definition looks up a built-in by display name.
 #  - azurerm_resource_group_policy_assignment assigns it at the RG scope, passing
 #    parameters (e.g. allowed storage SKUs) as JSON. Non-compliant deploys are denied.

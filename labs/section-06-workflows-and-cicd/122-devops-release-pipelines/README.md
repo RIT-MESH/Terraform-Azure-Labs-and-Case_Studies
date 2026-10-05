@@ -1,9 +1,9 @@
-# 09 — Azure DevOps release pipelines
+# Lab 122 — Azure DevOps release pipelines
 
 This lab is a **pipeline definition**, not Terraform resources. Below is an example Azure
 DevOps YAML pipeline that validates, plans, and applies the section-01 storage lab.
 It is the CI/CD endgame of this section: instead of a human running `plan`/`apply`
-from a laptop (labs 04–05), the pipeline runs them on every push to `main`, with the
+from a laptop (labs 117–118), the pipeline runs them on every push to `main`, with the
 plan artifact reviewed between the two.
 
 Save it as `azure-pipelines.yml` at the repo root, create a service connection named
@@ -48,7 +48,7 @@ publishes a plan artifact; the `apply` stage waits on approval, then applies.
   where money and downtime happen, so it is the stage you gate with approvals
   and branch policies.
 - **State backend matters in CI too.** The pipeline's agent is disposable — the
-  lab it points at should use a remote backend (lab 06), otherwise each run's
+  lab it points at should use a remote backend (lab 119), otherwise each run's
   agent starts with an empty local state. (This example targets the section-01
   storage lab, which still uses local state — swap `workingDirectory` to a
   remote-backend stack for a real setup.)

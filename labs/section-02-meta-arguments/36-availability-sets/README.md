@@ -1,4 +1,4 @@
-# 11 — Availability Sets
+# Lab 36 — Availability Sets
 
 An Availability Set spreads VMs across fault domains (hardware) and update domains
 (patch waves) within a single datacenter — with VMs spread across 2+ fault domains
@@ -19,7 +19,7 @@ involved). Two VMs reference the same availability set id.
 ## Commands
 
 ```bash
-cd 11-availability-sets
+cd 36-availability-sets
 terraform init
 terraform plan
 terraform apply -var=admin_ssh_key="ssh-rsa AAAA... your@email"
@@ -44,4 +44,4 @@ terraform destroy
 - Count-pairing again: `network_interface_ids` uses `[count.index]` so VM[i] gets
   NIC[i].
 - Availability sets protect within one datacenter; across datacenters you need
-  Availability Zones (lab 12).
+  Availability Zones (lab 37).

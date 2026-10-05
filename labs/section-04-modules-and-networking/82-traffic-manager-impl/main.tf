@@ -1,5 +1,5 @@
-# Lab 10 — Traffic Manager with PRIORITY routing (active/passive failover).
-# Same shape as lab 09 but traffic_routing_method = "Priority".
+# Lab 82 — Traffic Manager with PRIORITY routing (active/passive failover).
+# Same shape as lab 81 but traffic_routing_method = "Priority".
 #  - Two web apps in different regions.
 #  - One endpoint each, with priority 1 and 2. ALL traffic goes to priority 1;
 #    if it's unhealthy, TM fails over to priority 2 automatically.

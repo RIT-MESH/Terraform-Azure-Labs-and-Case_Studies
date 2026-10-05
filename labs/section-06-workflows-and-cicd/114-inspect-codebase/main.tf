@@ -1,4 +1,4 @@
-# Lab 01 — inspect a code base before refactoring.
+# Lab 114 — inspect a code base before refactoring.
 # A tiny storage account you'll study. Try: terraform plan (see the diff preview),
 # terraform graph | dot -Tsvg > graph.svg (visualize the dependency graph).
 # `terraform graph` outputs DOT; pipe it to Graphviz to render.

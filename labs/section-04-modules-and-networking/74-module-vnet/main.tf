@@ -1,4 +1,4 @@
-# Lab 02 — a module that creates RG + VNet + subnets. The caller passes the
+# Lab 74 — a module that creates RG + VNet + subnets. The caller passes the
 # address space and parallel subnet name/prefix lists.
 # Builds: rg-vnet-modvnet, vnet-modvnet, subnets web + app.
 # Concept: passing lists into a module (the module contract's inputs).

@@ -1,4 +1,4 @@
-# 03 — The `for_each` meta-argument
+# Lab 28 — The `for_each` meta-argument
 
 `for_each` creates one resource per **element of a set or map**. Each copy is addressed
 by its key (`resource.name["key"]`). Prefer `for_each` over `count` when copies differ
@@ -18,7 +18,7 @@ This lab creates three containers named after a set of stages: `dev`, `stg`, `pr
 ## Commands
 
 ```bash
-cd 03-for-each-meta-argument
+cd 28-for-each-meta-argument
 terraform init
 terraform plan
 terraform apply
@@ -44,5 +44,5 @@ terraform destroy
 - Removing `"stg"` from the set destroys only that container — unlike `count`, where
   removing a middle item shifts every later index and forces recreation.
 - `for_each` also accepts a **map**, which is how you give each instance different
-  settings (see lab 08).
+  settings (see lab 33).
 - The output uses `keys(...)` because a for_each resource is a map, not a list.

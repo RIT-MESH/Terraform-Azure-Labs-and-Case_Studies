@@ -1,4 +1,4 @@
-# Lab 09 — Azure DevOps YAML pipeline for Terraform.
+# Lab 122 — Azure DevOps YAML pipeline for Terraform.
 # Two stages: Plan (init/validate/plan, save the plan as an artifact) and
 # Apply (download the artifact and apply it, after stage-level approval).
 # Comments below are documentation only — the pipeline logic is unchanged.

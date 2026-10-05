@@ -1,7 +1,7 @@
-# 01 — Inspecting the initial code base
+# Lab 114 — Inspecting the initial code base
 
 Before refactoring, study what you have. This lab is a copy of section-01's storage
-account (lab 02) to serve as the "initial code base". The point: never change code
+account (lab 115) to serve as the "initial code base". The point: never change code
 you don't understand. Read `main.tf` line by line first — it builds one resource
 group, one storage account, and a small random string used to make the storage
 account's name unique.
@@ -18,7 +18,7 @@ account's name unique.
 
 ```bash
 # Prerequisite: az login   (Terraform uses your Azure CLI session by default)
-cd 01-inspect-codebase
+cd 114-inspect-codebase
 terraform init     # downloads the azurerm + random providers
 terraform plan     # preview the changes Terraform *would* make
 terraform apply    # create them

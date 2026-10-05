@@ -1,4 +1,4 @@
-# Lab 23 — flatten(): nested structures → one flat list.
+# Lab 48 — flatten(): nested structures → one flat list.
 # A matrix of region × tier is a list-of-lists. flatten() removes the nesting so
 # for_each can iterate it. One subnet per (region, tier) pair is created.
 terraform {

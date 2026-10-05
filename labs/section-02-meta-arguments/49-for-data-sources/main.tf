@@ -1,4 +1,4 @@
-# Lab 24 — for_each over a data block (discovery pattern).
+# Lab 49 — for_each over a data block (discovery pattern).
 # Point `rg_names` at resource groups that ALREADY exist in your subscription.
 # Terraform then opens one data source per name — read-only, no changes.
 # CAUTION: data sources read live Azure state; run in a sandbox subscription.

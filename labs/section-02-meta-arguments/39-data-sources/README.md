@@ -1,4 +1,4 @@
-# 14 — Data sources
+# Lab 39 — Data sources
 
 `data` blocks **read** existing resources instead of creating them. This lab looks up an
 existing resource group and uses its attributes to create a storage account — without
@@ -10,7 +10,7 @@ data "azurerm_resource_group" "existing" {
 }
 ```
 
-Run it after creating a resource group named `rg-already-here` (lab 02 creates one you
+Run it after creating a resource group named `rg-already-here` (lab 27 creates one you
 could point at), or change the name to suit your subscription.
 
 ## What it creates
@@ -24,7 +24,7 @@ could point at), or change the name to suit your subscription.
 ## Commands
 
 ```bash
-cd 14-data-sources
+cd 39-data-sources
 az group create -n rg-already-here -l eastus   # prerequisite: the RG must exist
 terraform init
 terraform plan

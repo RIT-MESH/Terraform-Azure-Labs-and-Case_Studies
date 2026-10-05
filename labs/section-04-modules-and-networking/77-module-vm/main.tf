@@ -1,4 +1,4 @@
-# Lab 05 — the full vm-stack module: RG → VNet → subnet → NSG → public IP → NIC → VM.
+# Lab 77 — the full vm-stack module: RG → VNet → subnet → NSG → public IP → NIC → VM.
 # One `module` block stands up the whole stack.
 # Builds: rg-modvm, vnet-modvm, subnet-modvm, nsg-modvm, pip-modvm, nic-modvm, vm-modvm.
 # Concept: a big "stack" module — one input (SSH key) drives a whole environment.

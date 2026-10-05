@@ -1,4 +1,4 @@
-# 06 — Landing Zone — resource groups
+# Lab 103 — Landing Zone — resource groups
 
 The landing zone starts with three resource groups: network, data, and security. Keeping
 them separate matches the Azure landing-zone pattern and lets you assign different teams.
@@ -7,7 +7,7 @@ them separate matches the Azure landing-zone pattern and lets you assign differe
 
 | Terraform resource | Azure name | Notes |
 |---|---|---|
-| `azurerm_resource_group.network` | `rg-app1-net` | VNet, subnets, NSGs go here (lab 07) |
+| `azurerm_resource_group.network` | `rg-app1-net` | VNet, subnets, NSGs go here (lab 104) |
 | `azurerm_resource_group.data` | `rg-app1-data` | Storage (09), database (10) go here |
 | `azurerm_resource_group.security` | `rg-app1-sec` | Key Vault (11) goes here |
 | output `rg_names` | — | Map of the three names |
@@ -20,7 +20,7 @@ Prerequisite: `az login`. Defaults need no tfvars; override with
 `terraform apply -var landing_zone_name=app2` or a tfvars file.
 
 ```bash
-cd 06-landing-zone-rg
+cd 103-landing-zone-rg
 terraform init
 terraform plan
 terraform apply

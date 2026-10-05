@@ -1,4 +1,4 @@
-# Lab 09 — SQL firewall rules.
+# Lab 59 — SQL firewall rules.
 # By default NOTHING can reach a SQL logical server. We add two rules:
 #   - one for your client IP (so you can connect from your machine)
 #   - one for "0.0.0.0" (the special range meaning "other Azure services")
@@ -27,7 +27,7 @@ resource "azurerm_resource_group" "this" {
   location = "eastus"
 }
 
-# Same logical server as lab 08 (fresh copy here so this lab is self-contained).
+# Same logical server as lab 58 (fresh copy here so this lab is self-contained).
 resource "azurerm_mssql_server" "this" {
   name                         = "sqlserver-fw-${random_string.suffix.result}"
   resource_group_name          = azurerm_resource_group.this.name

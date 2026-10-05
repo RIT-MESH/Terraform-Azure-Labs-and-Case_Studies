@@ -1,4 +1,4 @@
-# 03 — Log Analytics workspace via Terraform
+# Lab 100 — Log Analytics workspace via Terraform
 
 A Log Analytics workspace collects logs and metrics. Tie a VM (or a storage account)
 to it with a diagnostic setting to start streaming data.
@@ -16,7 +16,7 @@ to it with a diagnostic setting to start streaming data.
 Prerequisite: `az login`. This lab needs no variables or tfvars file.
 
 ```bash
-cd 03-log-analytics
+cd 100-log-analytics
 terraform init
 terraform plan
 terraform apply
@@ -33,17 +33,17 @@ Search for **Log Analytics workspaces** (or open **rg-loganalytics**). You'll fi
 - **Overview** shows the *Workspace ID* (GUID — the `customer_id` output) and the
   *Primary/Secondary shared keys*.
 - Open **Logs**, run a trivial query like `Heartbeat | take 10` — the table will be
-  empty until a diagnostic setting (lab 14) starts feeding data in.
+  empty until a diagnostic setting (lab 111) starts feeding data in.
 - Under **Usage and estimated costs** you can see how the PerGB2018 billing works.
 
 ## Key concepts / gotchas
 
 - A **workspace** is the landing spot for logs/metrics; resources only send data
-  once something points them here (a *diagnostic setting*, lab 14).
+  once something points them here (a *diagnostic setting*, lab 111).
 - **PerGB2018** means you pay for data ingested; **retention_in_days = 30** means
   older data is deleted (longer retention costs extra).
 - The workspace name must be globally unique, hence the `random_string` suffix. The
   value is stored in Terraform state, so it stays stable across plans/applies —
   only a destroy/regenerate produces a new name.
 - The two outputs are easy to confuse: `workspace_id` here is the **resource ID**
-  (`.../workspaces/log-xxxx`), `customer_id` is the **GUID**. Lab 14 uses the first.
+  (`.../workspaces/log-xxxx`), `customer_id` is the **GUID**. Lab 111 uses the first.

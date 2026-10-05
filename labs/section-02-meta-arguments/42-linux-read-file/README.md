@@ -1,4 +1,4 @@
-# 17 — Linux machine — read a local file
+# Lab 42 — Linux machine — read a local file
 
 `file()` and `filebase64()` read a file from the lab folder at plan/apply time. Here we
 read a public SSH key from `id_rsa.pub` and feed it to the VM. (Create the file or
@@ -19,7 +19,7 @@ Also introduces `templatefile()` as the next step for injecting a templated scri
 ## Commands
 
 ```bash
-cd 17-linux-read-file
+cd 42-linux-read-file
 # optional: drop your own public key next to main.tf
 ssh-keygen -t rsa -b 4096 -f id_rsa -N "" -C ""   # creates id_rsa + id_rsa.pub
 terraform init

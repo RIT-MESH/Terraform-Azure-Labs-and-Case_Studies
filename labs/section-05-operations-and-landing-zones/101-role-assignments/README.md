@@ -1,4 +1,4 @@
-# 04 — Role assignments via Terraform
+# Lab 101 — Role assignments via Terraform
 
 `azurerm_role_assignment` grants an Azure RBAC role to a principal on a scope. This lab
 creates a resource group (`rg-rbac`) and grants the **currently signed-in identity**
@@ -21,7 +21,7 @@ object ID, and address built-in roles by name via `role_definition_name`.
 Prerequisite: `az login` — the role is granted to *that* identity. No tfvars needed.
 
 ```bash
-cd 04-role-assignments
+cd 101-role-assignments
 terraform init
 terraform plan
 terraform apply

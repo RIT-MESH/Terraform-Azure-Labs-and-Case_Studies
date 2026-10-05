@@ -1,4 +1,4 @@
-# Lab 13 — Azure Key Vault.
+# Lab 38 — Azure Key Vault.
 # Teaches: a data source (azurerm_client_config) that reads facts about the
 # signed-in principal, a resource with a nested access_policy block, and marking
 # outputs sensitive so values are not printed in clear.

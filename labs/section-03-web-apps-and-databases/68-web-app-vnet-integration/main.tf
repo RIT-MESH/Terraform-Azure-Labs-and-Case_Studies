@@ -1,4 +1,4 @@
-# Lab 19 — App Service VNet integration.
+# Lab 68 — App Service VNet integration.
 # When a database is private (no public access), the web app must integrate with
 # a VNet to reach it. We create a subnet DELEGATED to App Service and wire the
 # web app to it. vnet_route_all_enabled sends ALL traffic through the VNet.

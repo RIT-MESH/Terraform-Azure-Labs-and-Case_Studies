@@ -1,4 +1,4 @@
-# 08 — Azure SQL Database
+# Lab 58 — Azure SQL Database
 
 Create a logical SQL Server and a single database on the cheapest DTU tier (Basic,
 5 DTU / 2 GB). The admin password comes from a **sensitive variable** (there's a
@@ -19,7 +19,7 @@ create the server, then the database on it.
 Prerequisite: `az login`.
 
 ```bash
-cd 08-sql-database
+cd 58-sql-database
 cp terraform.tfvars.example terraform.tfvars   # then set a real password
 terraform init
 terraform plan
@@ -36,9 +36,9 @@ Resource group **rg-sql**:
   **SQL authentication** admin (`sqladmin`).
 - Click the database **sqldb-app** → overview shows `Basic` / 5 DTU / 2 GB.
 - **Networking** (on the server) — note there is **no firewall rule yet**: nothing
-  can connect from outside Azure. Lab 09 adds rules.
+  can connect from outside Azure. Lab 59 adds rules.
 - Connect with SSMS / Azure Data Studio using the output FQDN + `sqladmin` (after
-  adding a client firewall rule as in lab 09).
+  adding a client firewall rule as in lab 59).
 
 ## Key concepts / gotchas
 

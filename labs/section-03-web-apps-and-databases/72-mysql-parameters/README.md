@@ -1,6 +1,6 @@
-# 23 — MySQL Flexible Server — configuration & HA (advanced)
+# Lab 72 — MySQL Flexible Server — configuration & HA (advanced)
 
-Beyond the basics (lab 15), MySQL Flexible Server lets you tune server parameters and
+Beyond the basics (lab 65), MySQL Flexible Server lets you tune server parameters and
 run zone-redundant high availability. This lab:
 
 - sets `high_availability` to `ZoneRedundant` (2 instances across zones),
@@ -24,7 +24,7 @@ Copy `terraform.tfvars.example` → `terraform.tfvars` (one sensitive password).
 Prerequisite: `az login`.
 
 ```bash
-cd 23-mysql-parameters
+cd 72-mysql-parameters
 cp terraform.tfvars.example terraform.tfvars
 terraform init
 terraform plan

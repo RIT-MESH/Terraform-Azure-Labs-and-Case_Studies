@@ -1,7 +1,7 @@
-# 15 — Application Gateway — implementation
+# Lab 87 — Application Gateway — implementation
 
 A self-contained Application Gateway v2 with a public frontend, a backend pool of two
-IPs, an HTTP listener on port 80, and a basic request routing rule. Combine with lab 14
+IPs, an HTTP listener on port 80, and a basic request routing rule. Combine with lab 86
 backends by pointing the pool at their private IPs.
 
 An App Gateway config is a chain of named blocks that reference each other by name:
@@ -21,7 +21,7 @@ An App Gateway config is a chain of named blocks that reference each other by na
 ## Commands
 
 Prerequisite: `az login`. This lab takes the backend VM private IPs as input — copy the
-example and paste the values from `terraform output backend_ips` in lab 14:
+example and paste the values from `terraform output backend_ips` in lab 86:
 
 ```bash
 cd labs/section-04-modules-and-networking/87-app-gateway-impl
@@ -45,12 +45,12 @@ terraform destroy
 ## Key concepts / gotchas
 
 - **L7 vs L4**: an App Gateway understands HTTP — it can route by path/host/cookie and
-  terminate TLS (lab 24), while the lab 07 Load Balancer just forwards packets by port.
+  terminate TLS (lab 96), while the lab 79 Load Balancer just forwards packets by port.
 - **The gateway needs its own subnet** (`gateway_ip_configuration → subnet_id`);
   v2 also wants at least a /26 and no other resources in it.
 - Every sub-block (`frontend_port`, `backend_address_pool`, …) is referenced **by name**
   (`frontend_port_name = "http"`, `backend_address_pool_name = "be-pool"`) — typos only
   surface at apply time, so the names must match exactly.
 - `priority` on the routing rule is mandatory for v2 (evaluation order, 1 = highest).
-- `backend_ips` come from lab 14's outputs — this is module-style wiring done across two
-  separate configs (run lab 14 first, destroy lab 14 and the pool breaks).
+- `backend_ips` come from lab 86's outputs — this is module-style wiring done across two
+  separate configs (run lab 86 first, destroy lab 86 and the pool breaks).

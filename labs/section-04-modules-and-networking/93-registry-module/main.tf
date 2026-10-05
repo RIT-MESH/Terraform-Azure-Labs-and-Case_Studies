@@ -1,4 +1,4 @@
-# Lab 21 — consume a module from the public Terraform Registry.
+# Lab 93 — consume a module from the public Terraform Registry.
 #  - source = "Azure/network/azurerm" (namespace/name/provider) with a pinned version.
 #  - `terraform init` downloads it; the .terraform.lock.hcl pins it.
 # This is how you reuse community-maintained modules instead of writing everything.

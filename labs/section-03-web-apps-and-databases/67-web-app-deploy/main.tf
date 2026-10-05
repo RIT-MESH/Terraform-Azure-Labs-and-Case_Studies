@@ -1,4 +1,4 @@
-# Lab 18 — deploy a web app that points at a MySQL database.
+# Lab 67 — deploy a web app that points at a MySQL database.
 # The MySQL connection string is built from the server (declared here) and stored
 # in the web app's app_settings.
 
@@ -23,7 +23,7 @@ resource "azurerm_resource_group" "this" {
   location = "eastus"
 }
 
-# The managed MySQL server (same pattern as lab 15). Server names are globally
+# The managed MySQL server (same pattern as lab 65). Server names are globally
 # unique (DNS), hence the random suffix.
 resource "azurerm_mysql_flexible_server" "this" {
   name                   = "mysql-web-${random_string.suffix.result}"

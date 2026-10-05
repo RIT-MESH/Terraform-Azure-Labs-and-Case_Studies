@@ -1,4 +1,4 @@
-# 09 — Landing Zone — storage deployment
+# Lab 106 — Landing Zone — storage deployment
 
 App data storage in the data RG: a general-purpose v2 account with a couple of private
 containers and TLS 1.2 enforced.
@@ -19,7 +19,7 @@ containers and TLS 1.2 enforced.
 Prerequisite: `az login`. No tfvars needed.
 
 ```bash
-cd 09-landing-zone-storage
+cd 106-landing-zone-storage
 terraform init
 terraform plan
 terraform apply

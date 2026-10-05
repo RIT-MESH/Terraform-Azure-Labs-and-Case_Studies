@@ -1,8 +1,8 @@
-# 02 — Deploying another web app (assignment)
+# Lab 52 — Deploying another web app (assignment)
 
-Self-check: deploy a **second** web app reusing the service plan from lab 01 (data
+Self-check: deploy a **second** web app reusing the service plan from lab 51 (data
 source), parameterised by a variable. One plan, many apps. Run this lab only after
-lab 01's plan exists (`asp-webapp` in `rg-webapp`).
+lab 51's plan exists (`asp-webapp` in `rg-webapp`).
 
 ## What it creates
 
@@ -16,10 +16,10 @@ Nothing else is created — no new resource group or plan.
 
 ## Commands
 
-Prerequisite: `az login`, and lab 01 applied (the plan must exist).
+Prerequisite: `az login`, and lab 51 applied (the plan must exist).
 
 ```bash
-cd 02-another-web-app
+cd 52-another-web-app
 terraform init
 terraform plan
 terraform apply
@@ -44,9 +44,9 @@ but the app):
 - **One plan, many apps** — apps on the same plan share its compute (and its bill);
   a very busy app can starve others on the same plan.
 - **Variables with defaults** — `existing_plan_name` / `existing_rg_name` default to
-  lab 01's names; override with `-var "existing_plan_name=..."` if you renamed them.
+  lab 51's names; override with `-var "existing_plan_name=..."` if you renamed them.
 - **Variables live in `main.tf` here** — `variables.tf` is a placeholder because the
   same variable was once declared in both files, which Terraform rejects (duplicate
   declaration).
-- Destroying this lab leaves lab 01's plan and app intact — Terraform only manages
+- Destroying this lab leaves lab 51's plan and app intact — Terraform only manages
   what this config declares.

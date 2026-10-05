@@ -1,4 +1,4 @@
-# Lab 07 — multiple public IPs with count + format().
+# Lab 32 — multiple public IPs with count + format().
 # Teaches: count with a local, count.index inside format() for zero-padded names,
 # and the [*] splat on a count resource.
 

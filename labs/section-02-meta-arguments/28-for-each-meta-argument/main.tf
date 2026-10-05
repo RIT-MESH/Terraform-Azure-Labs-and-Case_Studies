@@ -1,4 +1,4 @@
-# Lab 03 — The `for_each` meta-argument.
+# Lab 28 — The `for_each` meta-argument.
 # for_each creates one resource per element of a SET or MAP. Each copy is
 # addressed by its KEY: resource.name["key"]. Prefer for_each over count when
 # copies differ in config and are best addressed by a meaningful key.

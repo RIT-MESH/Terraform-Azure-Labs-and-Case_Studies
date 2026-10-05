@@ -1,4 +1,4 @@
-# 02 — Modules — building the virtual network
+# Lab 74 — Modules — building the virtual network
 
 Extend the idea: a module that creates a resource group + VNet + subnets. The caller
 passes the address space and a pair of parallel lists (subnet names and CIDRs), and the
@@ -44,4 +44,4 @@ No `terraform.tfvars` needed.
 - The module creates its own resource group, so callers don't need to pass one in —
   convenient here, but check the contract before assuming a module manages its RG.
 - Changing the number/order of subnets rewrites the `for_each` keys, which can force
-  subnet replacement — a good reason modules like lab 21's offer a `use_for_each` toggle.
+  subnet replacement — a good reason modules like lab 93's offer a `use_for_each` toggle.

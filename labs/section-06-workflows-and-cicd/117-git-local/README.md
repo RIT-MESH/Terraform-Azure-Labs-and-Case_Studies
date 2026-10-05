@@ -1,4 +1,4 @@
-# 04 — Using Git on our local machine
+# Lab 117 — Using Git on our local machine
 
 Version your Terraform. This lab has no Terraform of its own — it's the Git workflow
 that sits underneath every CI/CD pipeline in this section: Terraform code lives in a
@@ -45,13 +45,13 @@ git log --oneline   # history of infrastructure changes
 - `.gitignore` containing `terraform.tfstate*`, `.terraform/`, and secret
   `*.tfvars` files — `git status` should never offer to commit them.
 - Each `git log --oneline` line is one auditable infrastructure change, which is
-  what a CI pipeline (labs 09, 11) will later build/apply automatically.
+  what a CI pipeline (labs 122, 124) will later build/apply automatically.
 
 ## Key concepts / gotchas
 
 - **Never commit `terraform.tfstate`** — it can contain secrets (passwords,
   connection strings) and every teammate having a different copy of state is
-  how conflicts start. Remote state (lab 06) is the real fix.
+  how conflicts start. Remote state (lab 119) is the real fix.
 - **Never commit secret tfvars** — use `terraform.tfvars.example` templates or
   environment variables instead.
 - **Review every PR for `plan` output.** In IaC, the code diff and the

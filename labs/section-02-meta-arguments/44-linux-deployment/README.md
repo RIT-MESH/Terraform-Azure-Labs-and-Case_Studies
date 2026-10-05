@@ -1,6 +1,6 @@
-# 19 — Linux machine — deployment
+# Lab 44 — Linux machine — deployment
 
-Lab 18 restructured the files; this lab **deploys** that structure end to end and adds a
+Lab 43 restructured the files; this lab **deploys** that structure end to end and adds a
 public IP plus an NSG so the VM is reachable. Run it and confirm you can SSH in:
 
 ```bash
@@ -22,7 +22,7 @@ ssh azureadmin@<public_ip>
 ## Commands
 
 ```bash
-cd 19-linux-deployment
+cd 44-linux-deployment
 terraform init
 terraform plan
 terraform apply
@@ -51,6 +51,6 @@ terraform destroy
   `azurerm_subnet_network_security_group_association`), so the SSH rule is not
   enforced; inbound access is governed by Azure's default rules instead.
 - `source_address_prefix = "*"` means the whole internet — in production pin it to
-  your IP or use Azure Bastion (lab 21).
+  your IP or use Azure Bastion (lab 46).
 - The SSH key comes from `local.ssh_pubkey` (file read with fallback), exactly like
-  lab 17/18.
+  lab 42/18.

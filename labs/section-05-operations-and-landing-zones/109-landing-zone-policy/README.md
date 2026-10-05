@@ -1,4 +1,4 @@
-# 12 — Landing Zone — Azure Policy
+# Lab 109 — Landing Zone — Azure Policy
 
 Assign a built-in policy at the landing-zone scope: "Allowed storage account SKUs".
 A policy definition lives in `policyDefinition`, an assignment in `policyAssignment`.
@@ -18,7 +18,7 @@ This lab assigns a built-in definition (no need to author one).
 Prerequisite: `az login`. No tfvars needed.
 
 ```bash
-cd 12-landing-zone-policy
+cd 109-landing-zone-policy
 terraform init
 terraform plan
 terraform apply

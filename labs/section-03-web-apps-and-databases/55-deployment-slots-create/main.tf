@@ -1,4 +1,4 @@
-# Lab 05 — Deployment slots (create).
+# Lab 55 — Deployment slots (create).
 # Slots let you stage a build and warm it before swapping into production. This
 # lab creates a web app PLUS a "staging" slot. Slots need a Basic+ plan.
 

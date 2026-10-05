@@ -1,4 +1,4 @@
-# Lab 03 — The lifecycle meta-argument.
+# Lab 53 — The lifecycle meta-argument.
 # lifecycle {} changes how Terraform treats a resource over time:
 #   - create_before_destroy: build the new version BEFORE removing the old.
 #   - prevent_destroy: refuse to destroy (safety for prod databases).

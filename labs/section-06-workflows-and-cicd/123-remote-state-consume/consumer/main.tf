@@ -1,4 +1,4 @@
-# Lab 10 consumer — reads base/ state with data.terraform_remote_state (backend = local),
+# Lab 123 consumer — reads base/ state with data.terraform_remote_state (backend = local),
 # then creates a container in the storage account base created. No resource ids copied.
 
 # Standard terraform/provider setup; same provider versions as base/ so both
@@ -27,7 +27,7 @@ data "terraform_remote_state" "base" {
   config = {
     # `path.module` is the folder this file lives in; the relative path points
     # at the sibling stack's state file. In production this would instead be
-    # backend = "azurerm" with the same storage/container/key as lab 06.
+    # backend = "azurerm" with the same storage/container/key as lab 119.
     path = "${path.module}/../base/terraform.tfstate"
   }
 }

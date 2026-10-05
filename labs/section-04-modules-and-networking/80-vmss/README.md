@@ -1,8 +1,8 @@
-# 08 — Virtual Machine Scale Set
+# Lab 80 — Virtual Machine Scale Set
 
 A VMSS deploys identical VMs that auto-scale. This lab uses a Linux VMSS behind a
 public Standard Load Balancer with autoscale rules: scale out above 75% CPU, in below
-25%. Cloud-init installs nginx so the scale set serves HTTP. Unlike lab 07, no
+25%. Cloud-init installs nginx so the scale set serves HTTP. Unlike lab 79, no
 individual VMs exist to join a pool — the scale set's NIC configuration references the
 backend pool directly.
 

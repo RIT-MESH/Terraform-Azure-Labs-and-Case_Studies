@@ -1,4 +1,4 @@
-# Lab 06 (assignment) — one NIC per tier, using for_each.
+# Lab 31 (assignment) — one NIC per tier, using for_each.
 # Shows deriving a map from a set with a `for` expression to compute CIDRs.
 
 # locals: the tiers list that the computed for_each map is built from.

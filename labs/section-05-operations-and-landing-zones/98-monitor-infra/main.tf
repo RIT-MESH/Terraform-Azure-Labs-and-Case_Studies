@@ -1,8 +1,8 @@
-# Lab 01 — infrastructure to be MONITORED.
+# Lab 98 — infrastructure to be MONITORED.
 # Builds: rg-monitor → vnet-monitor / snet-web → nic-monitor → vm-monitor (Ubuntu 22.04, B1s).
 # Teaches: the Terraform "baseline" pattern (rg → vnet → subnet → NIC → VM) that every
 # later lab in this section reuses, and that a monitoring story needs a real workload
-# first (CPU metric → alert in lab 02).
+# first (CPU metric → alert in lab 99).
 
 # The VM admin's SSH public key. Passed in from terraform.tfvars (see terraform.tfvars.example)
 # or with -var. `sensitive = true` hides it from `terraform output` and plan/apply logs.
@@ -71,6 +71,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 }
 
-# Output: the VM's full Azure resource ID, so lab 02 can reference it
+# Output: the VM's full Azure resource ID, so lab 99 can reference it
 # (metric alerts attach to a specific resource ID).
 output "vm_id" { value = azurerm_linux_virtual_machine.vm.id }

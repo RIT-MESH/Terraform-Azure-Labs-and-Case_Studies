@@ -1,4 +1,4 @@
-# 05 — Deployment slots — create
+# Lab 55 — Deployment slots — create
 
 Slots let you stage a new build and warm it up before swapping it into production.
 This lab creates a web app **plus** a `staging` slot. Slots require a Basic or
@@ -19,7 +19,7 @@ higher plan — that's why the plan here is `B1`, not Free.
 Prerequisite: `az login`.
 
 ```bash
-cd 05-deployment-slots-create
+cd 55-deployment-slots-create
 terraform init
 terraform plan
 terraform apply
@@ -46,6 +46,6 @@ Resource group **rg-slots**:
 - **Slots need Basic+** — on the Free tier the resource would be rejected.
 - **The slot resource takes `app_service_id`** (no separate location/resource group)
   — it inherits those from the parent app.
-- **Swap is a runtime action**, not Terraform — see lab 06 for the `az` CLI command.
+- **Swap is a runtime action**, not Terraform — see lab 56 for the `az` CLI command.
 - In `site_config`, both app and slot declare the same `node_version`; a slot can
   run a different runtime (that's the point — test the new stack in staging).

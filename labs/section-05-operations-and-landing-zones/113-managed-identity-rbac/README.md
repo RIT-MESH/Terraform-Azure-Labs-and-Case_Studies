@@ -1,4 +1,4 @@
-# 16 — Managed identity + least-privilege RBAC (advanced)
+# Lab 113 — Managed identity + least-privilege RBAC (advanced)
 
 A VM with a **system-assigned managed identity** can authenticate to Azure without any
 stored secret. This lab gives a Linux VM an identity, then grants it **only** the
@@ -27,7 +27,7 @@ Prerequisite: `az login`.
 
 ```bash
 cp terraform.tfvars.example terraform.tfvars   # paste your SSH public key
-cd 16-managed-identity-rbac
+cd 113-managed-identity-rbac
 terraform init
 terraform plan
 terraform apply

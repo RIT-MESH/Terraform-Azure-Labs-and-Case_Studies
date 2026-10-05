@@ -1,7 +1,7 @@
-# Lab 14 — diagnostic settings on a storage account.
+# Lab 111 — diagnostic settings on a storage account.
 # azurerm_monitor_diagnostic_setting sends a resource's logs/metrics to a destination:
 # here a Log Analytics workspace. We also enable storage blob service logging.
-# This is the wiring that makes the central logging in lab 08 actually receive data.
+# This is the wiring that makes the central logging in lab 105 actually receive data.
 terraform {
   required_version = ">= 1.5.0"
   required_providers {
@@ -82,7 +82,7 @@ resource "azurerm_storage_account" "app" {
   }
 }
 
-# Diagnostic setting: THE wiring that makes lab 08's "central logging" real. It says
+# Diagnostic setting: THE wiring that makes lab 105's "central logging" real. It says
 # "send this storage account's logs and metrics to the workspace". Destinations are
 # optional fields: log_analytics_workspace_id, storage_account_id, eventhub_authorization_rule_id.
 resource "azurerm_monitor_diagnostic_setting" "to_la" {

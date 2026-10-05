@@ -1,5 +1,5 @@
-# Lab 02 — count from a variable (assignment).
-# Same as lab 01 but the count is driven by a variable, so callers change the
+# Lab 27 — count from a variable (assignment).
+# Same as lab 26 but the count is driven by a variable, so callers change the
 # number of containers via tfvars/CLI without editing code.
 
 # Input variable: lets the caller choose how many containers to create via

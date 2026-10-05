@@ -1,4 +1,4 @@
-# 04 — Resource tags
+# Lab 54 — Resource tags
 
 Tags drive cost reporting, billing, and automation. Standardise them in `locals` and
 spread them everywhere with `merge()` — one variable change retags everything.
@@ -19,7 +19,7 @@ names follow it.
 Prerequisite: `az login`.
 
 ```bash
-cd 04-resource-tags
+cd 54-resource-tags
 terraform init
 terraform plan
 terraform apply

@@ -1,4 +1,4 @@
-# 18 — Mini project — deploy the Azure web app
+# Lab 67 — Mini project — deploy the Azure web app
 
 Deploy a web app that points at the MySQL database. The MySQL connection string is
 built from the MySQL server (re-declared here for completeness) and stored in the
@@ -21,14 +21,14 @@ The app setting is:
 DATABASE_URL = mysql://mysqladmin:<sensitive password>@<fqdn>:3306/dbapp
 ```
 
-Note: unlike labs 15/16 there is **no firewall rule** here — see the gotchas.
+Note: unlike labs 65/16 there is **no firewall rule** here — see the gotchas.
 
 ## Commands
 
 Prerequisite: `az login`.
 
 ```bash
-cd 18-web-app-deploy
+cd 67-web-app-deploy
 cp terraform.tfvars.example terraform.tfvars   # set a real password
 terraform init
 terraform plan
@@ -50,15 +50,15 @@ Resource group **rg-webapp-mysql**:
 ## Key concepts / gotchas
 
 - **Two connection-string styles** — SQL uses the ADO `Server=tcp:...` format
-  (lab 14), MySQL uses the URL form `mysql://user:pass@host:3306/db`. Same idea:
+  (lab 64), MySQL uses the URL form `mysql://user:pass@host:3306/db`. Same idea:
   a value the app reads from its environment.
 - **The password is interpolated into the URL** — and the setting carries the
   sensitive value into the app runtime; it also sits in Terraform state.
 - **No firewall rule is created in this lab** — this config declares no
-  `azurerm_mysql_flexible_server_firewall_rule` (compare lab 15's `0.0.0.0` rule).
-  If the app can't reach the server, add a rule like lab 15's to allow Azure
+  `azurerm_mysql_flexible_server_firewall_rule` (compare lab 65's `0.0.0.0` rule).
+  If the app can't reach the server, add a rule like lab 65's to allow Azure
   services.
 - **Self-contained by design** — the server is re-declared here rather than read
-  with a data source, so this lab stands alone (contrast with lab 16).
+  with a data source, so this lab stands alone (contrast with lab 66).
 - Everything is dependency-ordered by Terraform: server → database → app with the
   interpolated app setting.

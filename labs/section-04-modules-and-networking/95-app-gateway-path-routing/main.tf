@@ -1,4 +1,4 @@
-# Lab 23 — App Gateway path-based routing.
+# Lab 95 — App Gateway path-based routing.
 # One listener, three backend pools: /images/* → pool1, /video/* → pool2, default →
 # pool3. The url_path_map + path_rule blocks implement the routing. This is the
 # building block for hosting several services behind ONE domain/hostname.
@@ -167,7 +167,7 @@ resource "azurerm_application_gateway" "this" {
     request_timeout       = 60
   }
 
-  # Listener: waits for HTTP on the frontend IP + port (same as lab 15).
+  # Listener: waits for HTTP on the frontend IP + port (same as lab 87).
   http_listener {
     name                           = "listener"
     frontend_ip_configuration_name = "fe"

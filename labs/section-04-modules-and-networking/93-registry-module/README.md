@@ -1,4 +1,4 @@
-# 21 — Using a module from the Terraform Registry
+# Lab 93 — Using a module from the Terraform Registry
 
 Public modules live at registry.terraform.io. This lab uses the popular
 **`Azure/network/azurerm`** module to create a VNet + subnets without writing the
@@ -52,7 +52,7 @@ No `terraform.tfvars` needed. Note there is **no local module folder** here —
 
 - **source formats differ by origin**: `Azure/network/azurerm` is a registry shorthand
   (`<namespace>/<name>/<provider>`, no path, no URL). Compare with the local paths
-  (`../../modules/vnet`) used in labs 01-06.
+  (`../../modules/vnet`) used in labs 73-78.
 - **Pin `version`** — without it `init` grabs the newest release and a major upgrade can
   break your plan. `.terraform.lock.hcl` then records the exact chosen version so every
   run is reproducible.

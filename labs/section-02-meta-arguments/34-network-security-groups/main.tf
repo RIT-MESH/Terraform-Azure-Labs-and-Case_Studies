@@ -1,4 +1,4 @@
-# Lab 09 — per-tier NSG + association.
+# Lab 34 — per-tier NSG + association.
 # Teaches: for_each over a map of objects (tier → prefix/port), addressing two
 # different for_each resources with the SAME key (azurerm_subnet.this[each.key]),
 # and tostring() to embed a number in a string attribute.

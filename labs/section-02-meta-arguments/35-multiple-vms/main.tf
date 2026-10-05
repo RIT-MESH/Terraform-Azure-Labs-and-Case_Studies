@@ -1,4 +1,4 @@
-# Lab 10 — multiple VMs with count, each with a matching NIC by index.
+# Lab 35 — multiple VMs with count, each with a matching NIC by index.
 # Teaches: two resources sharing one count so instances pair up by index, a
 # required (no default) sensitive variable for the SSH key, and the nested blocks
 # of a Linux VM (admin_ssh_key, os_disk, source_image_reference).

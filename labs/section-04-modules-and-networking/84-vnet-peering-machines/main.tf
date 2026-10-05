@@ -1,4 +1,4 @@
-# Lab 12 — one VM per VNet (so we can test connectivity after peering in lab 13).
+# Lab 84 — one VM per VNet (so we can test connectivity after peering in lab 85).
 #  - hub: rg/VNet/subnet/NIC/VM in eastus (10.22.0.0/16).
 #  - spoke: rg/VNet/subnet/NIC/VM in westus2 (10.23.0.0/16).
 # After peering, the hub VM can ping the spoke VM's private IP.
@@ -89,7 +89,7 @@ resource "azurerm_network_interface" "spoke" {
     private_ip_address_allocation = "Dynamic"
   }
 }
-# The spoke-side test VM (no public IP — peering in lab 13 is what connects them).
+# The spoke-side test VM (no public IP — peering in lab 85 is what connects them).
 resource "azurerm_linux_virtual_machine" "spoke" {
   name                  = "vm-spoke"
   location              = azurerm_resource_group.spoke.location
@@ -113,6 +113,6 @@ resource "azurerm_linux_virtual_machine" "spoke" {
   }
 }
 
-# The two private IPs you ping between once lab 13 has peered the VNets.
+# The two private IPs you ping between once lab 85 has peered the VNets.
 output "hub_private_ip" { value = azurerm_network_interface.hub.private_ip_address }
 output "spoke_private_ip" { value = azurerm_network_interface.spoke.private_ip_address }

@@ -1,4 +1,4 @@
-# Lab 22 — SQL server with Microsoft Entra ID (Azure AD) admin.
+# Lab 71 — SQL server with Microsoft Entra ID (Azure AD) admin.
 # Entra ID admin lets you sign in with an identity (no shared password). We also
 # enable a SystemAssigned managed identity so the server can later authenticate
 # to other Azure resources without secrets.

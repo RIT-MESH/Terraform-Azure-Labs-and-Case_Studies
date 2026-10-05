@@ -1,4 +1,4 @@
-# Lab 25 — dynamic blocks at TWO levels in one resource.
+# Lab 50 — dynamic blocks at TWO levels in one resource.
 # An NSG with dynamic security_rule (from a list) AND a NIC with dynamic
 # ip_configuration (from a list) — all from variables, no code changes to extend.
 terraform {

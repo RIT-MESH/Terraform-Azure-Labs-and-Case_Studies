@@ -1,4 +1,4 @@
-# 07 — Landing Zone — virtual network
+# Lab 104 — Landing Zone — virtual network
 
 Hub + two spoke VNets and a hub-to-spoke peering. The data and security RGs each host a
 spoke so services are isolated by RG and by network.
@@ -20,7 +20,7 @@ spoke so services are isolated by RG and by network.
 Prerequisite: `az login`. No tfvars needed.
 
 ```bash
-cd 07-landing-zone-vnet
+cd 104-landing-zone-vnet
 terraform init
 terraform plan
 terraform apply

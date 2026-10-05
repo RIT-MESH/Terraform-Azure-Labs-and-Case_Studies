@@ -1,4 +1,4 @@
-# 22 — Conditional resources (advanced feature flags)
+# Lab 47 — Conditional resources (advanced feature flags)
 
 `count = var.enabled ? 1 : 0` toggles a resource on/off without an `if` block. This lab
 creates a VNet always, but creates the NSG only when `deploy_nsg = true`. Flip the
@@ -19,7 +19,7 @@ Addressing: VNet `172.19.0.0/20`, subnet `172.19.0.0/26`.
 ## Commands
 
 ```bash
-cd 22-conditional-resources
+cd 47-conditional-resources
 terraform init
 terraform plan
 terraform apply                            # NSG created (flag defaults true)

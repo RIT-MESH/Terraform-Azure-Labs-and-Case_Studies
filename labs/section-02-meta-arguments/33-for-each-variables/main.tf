@@ -1,4 +1,4 @@
-# Lab 08 — for_each with a typed map variable + a FILTERED for_each.
+# Lab 33 — for_each with a typed map variable + a FILTERED for_each.
 # Shows: typed map(object) variable, and using a `for` filter to create NSGs only
 # for the tiers where nsg=true.
 

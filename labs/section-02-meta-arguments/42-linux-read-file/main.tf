@@ -1,4 +1,4 @@
-# Lab 17 — reading a local file with file() / fileexists().
+# Lab 42 — reading a local file with file() / fileexists().
 # Teaches: fileexists() ? file() : fallback (the ternary operator), reading
 # configuration from the filesystem at plan time, and the standard single-VM
 # VNet/subnet/NIC stack.

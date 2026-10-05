@@ -1,9 +1,9 @@
-# 15 — Mini project — MySQL server
+# Lab 65 — Mini project — MySQL server
 
 Azure Database for MySQL (Flexible Server) is a managed MySQL 8 instance. This lab
 creates a Burstable `B1ms` server with public access, a firewall rule for Azure
 services, and an admin login from sensitive variables. It's the start of a
-three-part mini project (labs 15 → 16 → 18).
+three-part mini project (labs 65 → 16 → 18).
 
 ## What it creates
 
@@ -21,7 +21,7 @@ Copy `terraform.tfvars.example` → `terraform.tfvars` (one sensitive password).
 Prerequisite: `az login`.
 
 ```bash
-cd 15-mysql-server
+cd 65-mysql-server
 cp terraform.tfvars.example terraform.tfvars
 terraform init
 terraform plan
@@ -38,7 +38,7 @@ Resource group **rg-mysql**:
   `B_Standard_B1ms`, version 8.0.21, 20 GB storage, and the admin login
   (`mysqladmin`).
 - **Networking** — public access is on, with the `AllowAzure` (`0.0.0.0`) rule;
-  your own client IP is *not* allowed yet (lab 16 adds it).
+  your own client IP is *not* allowed yet (lab 66 adds it).
 - Ports: MySQL listens on **3306**.
 
 ## Key concepts / gotchas

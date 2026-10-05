@@ -1,4 +1,4 @@
-# Lab 08 — Azure Kubernetes Service (AKS).
+# Lab 121 — Azure Kubernetes Service (AKS).
 # A managed Kubernetes cluster with a system node pool (1 node). Key bits:
 #  - identity { type = "SystemAssigned" }: AKS manages its own resources via MI.
 #  - default_node_pool: the initial node group (VM size, count, disk).

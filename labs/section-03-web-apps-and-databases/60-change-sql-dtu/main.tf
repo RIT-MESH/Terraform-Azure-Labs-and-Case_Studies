@@ -1,4 +1,4 @@
-# Lab 10 (assignment) — scale a SQL database by changing its SKU via a variable.
+# Lab 60 (assignment) — scale a SQL database by changing its SKU via a variable.
 # Change tfvars from Basic → S0 → S1 and watch `terraform plan` show an in-place
 # SKU update (no destroy/create).
 
@@ -29,7 +29,7 @@ resource "azurerm_resource_group" "this" {
   location = "eastus"
 }
 
-# Same logical server pattern as lab 08 (fresh copy so this lab is self-contained).
+# Same logical server pattern as lab 58 (fresh copy so this lab is self-contained).
 resource "azurerm_mssql_server" "this" {
   name                         = "sqlserver-dtu-${random_string.suffix.result}"
   resource_group_name          = azurerm_resource_group.this.name

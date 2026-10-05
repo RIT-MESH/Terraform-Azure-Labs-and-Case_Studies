@@ -1,4 +1,4 @@
-# 24 — `for_each` over a data source (advanced)
+# Lab 49 — `for_each` over a data source (advanced)
 
 `for_each` can iterate over the results of a `data` block. Pass the names of resource
 groups that already exist in your subscription to `rg_names`; Terraform opens one
@@ -23,7 +23,7 @@ governance pattern: discovery → bulk action.
 ## Commands
 
 ```bash
-cd 24-for-data-sources
+cd 49-for-data-sources
 terraform init
 terraform plan \
   -var='rg_names=["rg-already-here","rg-multi-subnets"]'
@@ -32,7 +32,7 @@ terraform apply \
 terraform output discovered_rg_ids
 ```
 
-The names must already exist (lab 05's `rg-multi-subnets` works if you kept it). An
+The names must already exist (lab 30's `rg-multi-subnets` works if you kept it). An
 empty `rg_names` (the default) is a no-op.
 
 ## What to see in the Azure portal

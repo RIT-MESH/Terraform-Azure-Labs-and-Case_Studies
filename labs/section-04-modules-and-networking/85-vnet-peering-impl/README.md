@@ -1,4 +1,4 @@
-# 13 — VNet peering — implementation
+# Lab 85 — VNet peering — implementation
 
 Add bidirectional peering with `azurerm_virtual_network_peering`. Both directions are
 needed (hub→spoke and spoke→hub). Enable `allow_virtual_network_access` so traffic flows;
@@ -28,7 +28,7 @@ terraform output  # hub_id, spoke_id
 terraform destroy
 ```
 
-No `terraform.tfvars` needed. Pair with lab 12's VMs for a live ping test across the
+No `terraform.tfvars` needed. Pair with lab 84's VMs for a live ping test across the
 peerings (or add a VM to one of these VNets yourself).
 
 ## What to see in the Azure portal

@@ -1,4 +1,4 @@
-# Lab 07 — Azure public Standard Load Balancer.
+# Lab 79 — Azure public Standard Load Balancer.
 # Pieces (all part of a load balancer):
 #  - frontend IP: the public address clients hit (here a public IP).
 #  - backend pool: the set of VM NICs that receive traffic.

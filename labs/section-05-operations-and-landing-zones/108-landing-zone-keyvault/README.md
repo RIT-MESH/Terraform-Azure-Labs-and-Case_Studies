@@ -1,4 +1,4 @@
-# 11 — Landing Zone — Key Vault
+# Lab 108 — Landing Zone — Key Vault
 
 A vault in the security RG to hold the SQL admin password (and any other secret). The
 current user gets secret permissions; purge protection is enabled.
@@ -19,7 +19,7 @@ current user gets secret permissions; purge protection is enabled.
 Prerequisite: `az login` (the access policy is granted to that identity). No tfvars.
 
 ```bash
-cd 11-landing-zone-keyvault
+cd 108-landing-zone-keyvault
 terraform init
 terraform plan
 terraform apply

@@ -1,4 +1,4 @@
-# 09 — Network Security Groups
+# Lab 34 — Network Security Groups
 
 Create an NSG per tier and associate each with its subnet. The `for_each` key ties the
 NSG, the subnet and the association together — one entry in the `tiers` map means one
@@ -17,7 +17,7 @@ complete tier.
 ## Commands
 
 ```bash
-cd 09-network-security-groups
+cd 34-network-security-groups
 terraform init
 terraform plan
 terraform apply

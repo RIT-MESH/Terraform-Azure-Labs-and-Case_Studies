@@ -1,4 +1,4 @@
-# 06 — Azure Storage for the state file
+# Lab 119 — Azure Storage for the state file
 
 By now every lab has produced a local `terraform.tfstate` — a single file on your
 machine that Terraform reads and rewrites. That breaks the moment a team or a
@@ -24,7 +24,7 @@ block (inline in `main.tf`; `backend.tf` is a placeholder note). It creates just
 
 ```bash
 # Prerequisite: az login
-cd 06-remote-state-storage/bootstrap
+cd 119-remote-state-storage/bootstrap
 terraform init
 terraform apply                          # creates rg, storage account, container
 terraform output                         # copy resource_group_name / storage_account_name / container_name

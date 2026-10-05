@@ -1,4 +1,4 @@
-# 16 — Dynamic blocks
+# Lab 41 — Dynamic blocks
 
 A `dynamic` block generates a repeated nested block from a list/map. Perfect for NSG
 rules whose count and content you don't know at authoring time.
@@ -16,7 +16,7 @@ Here we build **one** NSG but feed it a variable list of rules. Add a rule to tf
 ## Commands
 
 ```bash
-cd 16-dynamic-blocks
+cd 41-dynamic-blocks
 terraform init
 terraform plan
 terraform apply

@@ -1,4 +1,4 @@
-# Lab 04 — for_each over a MAP of blobs.
+# Lab 29 — for_each over a MAP of blobs.
 # A map's values can be rich objects, not just strings. Here each blob has its
 # own content. for_each iterates the map; each.key is the filename, each.value
 # is the {content} object.

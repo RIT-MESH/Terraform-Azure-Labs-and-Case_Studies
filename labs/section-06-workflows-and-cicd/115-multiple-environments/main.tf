@@ -1,4 +1,4 @@
-# Lab 02 — multiple environments via tfvars only (same code).
+# Lab 115 — multiple environments via tfvars only (same code).
 # dev.tfvars and prod.tfvars set environment/location/replication differently.
 #  - terraform apply -var-file=dev.tfvars
 #  - terraform apply -var-file=prod.tfvars

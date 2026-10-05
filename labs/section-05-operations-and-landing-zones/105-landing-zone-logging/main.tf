@@ -1,7 +1,7 @@
-# Lab 08 — Landing Zone: central logging.
+# Lab 105 — Landing Zone: central logging.
 #  - A Log Analytics workspace (for querying) in the security RG.
 #  - A storage account (for long-term log archive; diagnostic settings can target it).
-# Resources send logs to both via diagnostic settings (lab 14 shows the wiring).
+# Resources send logs to both via diagnostic settings (lab 111 shows the wiring).
 # A stateful random string. Unlike md5(timestamp()) this value is SAVED in
 # Terraform state, so it only changes when the resource is destroyed —
 # every plan/apply is stable and nothing gets unexpectedly replaced.
@@ -11,7 +11,7 @@ resource "random_string" "suffix" {
   special = false
 }
 
-# Security RG — the natural home for logging in a landing zone (see lab 06's layout).
+# Security RG — the natural home for logging in a landing zone (see lab 103's layout).
 resource "azurerm_resource_group" "sec" {
   name     = "rg-lz-sec"
   location = "eastus"

@@ -1,15 +1,15 @@
-# Lab 10 — Landing Zone: database.
+# Lab 107 — Landing Zone: database.
 #  - A SQL logical server + database in the data RG.
 #  - A firewall rule (0.0.0.0) so Azure-internal apps can connect.
 #  - azurerm_monitor_diagnostic_setting streams SQL logs/metrics to the Log Analytics
-#    workspace from lab 08 (pass its id via var.log_workspace_id).
+#    workspace from lab 105 (pass its id via var.log_workspace_id).
 # SQL admin password, supplied via terraform.tfvars / -var. `sensitive` keeps it out
 # of plan/apply logs and `terraform output`.
 variable "sql_admin_password" {
   type      = string
   sensitive = true
 }
-# Resource ID of the central Log Analytics workspace (output from lab 08).
+# Resource ID of the central Log Analytics workspace (output from lab 105).
 variable "log_workspace_id" { type = string }
 
 # A stateful random string. Unlike md5(timestamp()) this value is SAVED in
@@ -57,7 +57,7 @@ resource "azurerm_mssql_database" "this" {
 }
 
 # Diagnostic setting: streams this database's logs + metrics into the central
-# Log Analytics workspace (lab 08). Without it, the SQL telemetry goes nowhere.
+# Log Analytics workspace (lab 105). Without it, the SQL telemetry goes nowhere.
 resource "azurerm_monitor_diagnostic_setting" "sql" {
   name                       = "diag-sql"
   target_resource_id         = azurerm_mssql_database.this.id # the resource being watched

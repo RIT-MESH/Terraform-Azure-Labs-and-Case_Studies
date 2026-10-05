@@ -1,8 +1,7 @@
-# 18 — Azure Firewall — routing traffic
+# Lab 90 — Azure Firewall — routing traffic
 
 A route table sends the workload subnet's outbound traffic (`0.0.0.0/0`) to the firewall
-(`next_hop_type = VirtualAppliance`, next-hop IP = the firewall's private IP from lab
-17). Associate the table with the workload subnet and every egress flow from that subnet
+(`next_hop_type = VirtualAppliance`, next-hop IP = the firewall's private IP from lab 89). Associate the table with the workload subnet and every egress flow from that subnet
 crosses the firewall first.
 
 ## What it creates
@@ -14,7 +13,7 @@ crosses the firewall first.
 
 ## Commands
 
-Prerequisite: `az login`. Needs the firewall's private IP (from lab 17's
+Prerequisite: `az login`. Needs the firewall's private IP (from lab 89's
 `terraform output firewall_private_ip`):
 
 ```bash
@@ -33,7 +32,7 @@ terraform destroy
   address prefix `0.0.0.0/0`, next hop type **Virtual appliance**, next hop IP
   `10.29.0.x`.
 - **Association is a separate step**: on the *workload* subnet's page
-  (e.g. lab 16's `snet-workload`) → **Route table** → select **rt-fw**. Alternatively add
+  (e.g. lab 88's `snet-workload`) → **Route table** → select **rt-fw**. Alternatively add
   an `azurerm_subnet_route_table_association` resource. Verify on
   **snet-workload → Subnet → Effective routes**: `0.0.0.0/0 → Virtual appliance`.
 
@@ -48,4 +47,4 @@ terraform destroy
   activates routing (portal click or `azurerm_subnet_route_table_association`).
 - Once associated, Azure Firewall applies SNAT to that egress traffic (it appears to
   originate from the firewall's public IP), then its NAT/network/application rules decide
-  what to allow (labs 19-20).
+  what to allow (labs 91-92).

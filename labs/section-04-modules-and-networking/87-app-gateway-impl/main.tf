@@ -1,4 +1,4 @@
-# Lab 15 — Application Gateway v2 (Layer 7) self-contained.
+# Lab 87 — Application Gateway v2 (Layer 7) self-contained.
 # App Gateway is an L7 load balancer (path/cookie/WAF). Pieces:
 #  - VNet + appgw subnet (App Gateway lives in its own subnet).
 #  - public IP for the frontend.
@@ -7,10 +7,10 @@
 #  - backend_address_pool (IPs of the backend VMs, passed via var).
 #  - backend_http_settings (port 80, http).
 #  - http_listener (port 80) + request_routing_rule (listener → pool).
-# Input for the module-style contract: lab 14's backend_ips output goes here.
+# Input for the module-style contract: lab 86's backend_ips output goes here.
 variable "backend_ips" {
   type        = list(string)
-  description = "Private IPs of the backend VMs from lab 25."
+  description = "Private IPs of the backend VMs from lab 97."
 }
 
 # Resource group everything in this lab goes into.
@@ -76,7 +76,7 @@ resource "azurerm_application_gateway" "this" {
     public_ip_address_id = azurerm_public_ip.appgw.id
   }
 
-  # Backend pool = the VMs' private IPs (passed in from lab 14 via var).
+  # Backend pool = the VMs' private IPs (passed in from lab 86 via var).
   backend_address_pool {
     name         = "be-pool"
     ip_addresses = var.backend_ips
@@ -111,5 +111,5 @@ resource "azurerm_application_gateway" "this" {
   }
 }
 
-# Browse this — requests are proxied to the nginx backends from lab 14.
+# Browse this — requests are proxied to the nginx backends from lab 86.
 output "appgw_public_ip" { value = azurerm_public_ip.appgw.ip_address }

@@ -1,4 +1,4 @@
-# Lab 06 Part A — bootstrap the remote-state backend (run once).
+# Lab 119 Part A — bootstrap the remote-state backend (run once).
 # Creates the RG, storage account, and tfstate container that the app config (Part B)
 # will point at. Outputs the names you pass to terraform init -backend-config=...
 

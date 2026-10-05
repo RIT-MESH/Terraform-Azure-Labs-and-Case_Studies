@@ -1,4 +1,4 @@
-# Lab 01 — Azure Web App (App Service).
+# Lab 51 — Azure Web App (App Service).
 # App Service is the managed PaaS for web apps: no VM, no OS patching, easy scale.
 # We create a Service Plan (the compute) + a Linux Web App (the app).
 

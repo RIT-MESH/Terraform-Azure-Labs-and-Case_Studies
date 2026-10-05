@@ -1,4 +1,4 @@
-# Lab 25 — Azure Firewall with a Firewall Policy (the modern pattern).
+# Lab 97 — Azure Firewall with a Firewall Policy (the modern pattern).
 # Instead of rules attached to the firewall, rules live in a POLICY:
 #  - azurerm_firewall_policy (sku Standard).
 #  - azurerm_firewall_policy_rule_collection_group holding:

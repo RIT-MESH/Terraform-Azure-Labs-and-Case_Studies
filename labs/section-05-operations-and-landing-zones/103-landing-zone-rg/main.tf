@@ -1,4 +1,4 @@
-# Lab 06 — Landing Zone: resource groups.
+# Lab 103 — Landing Zone: resource groups.
 # The Azure landing-zone pattern separates concerns by RG: network, data, security.
 # We create three RGs sharing common tags, driven by a landing_zone_name variable.
 # Which landing zone this is — one name labels every RG (app1, app2, shared, ...).

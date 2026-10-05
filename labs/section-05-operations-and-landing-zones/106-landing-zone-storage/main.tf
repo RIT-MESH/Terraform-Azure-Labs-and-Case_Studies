@@ -1,4 +1,4 @@
-# Lab 09 — Landing Zone: app storage.
+# Lab 106 — Landing Zone: app storage.
 # A general-purpose v2 storage account with two private containers and TLS 1.2
 # enforced. Lives in the data RG; public blob access is OFF.
 # A stateful random string. Unlike md5(timestamp()) this value is SAVED in
@@ -10,7 +10,7 @@ resource "random_string" "suffix" {
   special = false
 }
 
-# Data RG — the landing-zone home for app data (see lab 06's layout).
+# Data RG — the landing-zone home for app data (see lab 103's layout).
 resource "azurerm_resource_group" "data" {
   name     = "rg-lz-data"
   location = "eastus"

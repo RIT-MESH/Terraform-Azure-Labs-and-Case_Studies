@@ -1,4 +1,4 @@
-# 07 — Azure Load Balancer
+# Lab 79 — Azure Load Balancer
 
 A public Standard Load Balancer distributes port 80 traffic across two backend VMs.
 The four LB pieces are separate Terraform resources that reference each other:

@@ -1,4 +1,4 @@
-﻿# Section 5 — Operations and landing zones
+# Section 5 — Operations and landing zones
 
 Observability and governance: Azure Monitor metric alerts, Log Analytics workspaces,
 RBAC role assignments, and resource locks — then a multi-resource **Application Landing
@@ -11,16 +11,16 @@ application into. Instead of every project inventing its own networking, logging
 permissions, the platform provides a consistent set of building blocks up front:
 
 - **Resource groups** split by concern (network / data / security) so permissions,
-  locks and cost reporting can be scoped per concern (lab 06).
+  locks and cost reporting can be scoped per concern (lab 103).
 - **Networking** in the classic *hub-and-spoke* shape: shared services in a hub VNet,
-  workloads in isolated spoke VNets connected by peering (lab 07).
+  workloads in isolated spoke VNets connected by peering (lab 104).
 - **Central logging**: one Log Analytics workspace every resource streams diagnostics
-  into, plus an archive store (labs 03, 08, 14).
+  into, plus an archive store (labs 100, 105, 111).
 - **Storage / database / Key Vault** as standardized, hardened services for the
-  app tier (labs 09–11).
+  app tier (labs 106–108).
 - **Governance**: Azure Policy assignments that refuse non-compliant resources
-  (labs 12–13), RBAC role assignments instead of shared keys (labs 04, 16), and
-  management locks against accidental deletion (lab 05).
+  (labs 109–110), RBAC role assignments instead of shared keys (labs 101, 113), and
+  management locks against accidental deletion (lab 102).
 
 In short: a landing zone is the "empty but ready" scaffolding — Terraform is how you
 build and re-create that scaffolding reliably.
@@ -48,28 +48,26 @@ terraform output               # read exported values (IDs, names) other labs ne
 terraform destroy              # clean up when done
 ```
 
-Labs 06–12 form a loose landing-zone series but each lab is self-contained (it
-recreates the resources it needs); only lab 10 depends on lab 08's workspace ID,
-and lab 02 on lab 01's VM id.
+Labs 103–109 form a loose landing-zone series but each lab is self-contained (it
+recreates the resources it needs); only lab 107 depends on lab 105's workspace ID,
+and lab 99 on lab 98's VM id.
 
 ## Labs
 
-1. [Azure Monitor — infrastructure](98-monitor-infra/)
-2. [Metric alert via Terraform](99-metric-alert/)
-3. [Log Analytics workspace](100-log-analytics/)
-4. [Role assignments via Terraform](101-role-assignments/)
-5. [Locking resources with Terraform](102-resource-locks/)
-6. [Landing Zone — resource groups](103-landing-zone-rg/)
-7. [Landing Zone — virtual network](104-landing-zone-vnet/)
-8. [Landing Zone — logging](105-landing-zone-logging/)
-9. [Landing Zone — storage](106-landing-zone-storage/)
-10. [Landing Zone — database](107-landing-zone-database/)
-11. [Landing Zone — Key Vault](108-landing-zone-keyvault/)
-12. [Landing Zone — Azure Policy](109-landing-zone-policy/)
+98. [Azure Monitor — infrastructure](98-monitor-infra/)
+99. [Metric alert via Terraform](99-metric-alert/)
+100. [Log Analytics workspace](100-log-analytics/)
+101. [Role assignments via Terraform](101-role-assignments/)
+102. [Locking resources with Terraform](102-resource-locks/)
+103. [Landing Zone — resource groups](103-landing-zone-rg/)
+104. [Landing Zone — virtual network](104-landing-zone-vnet/)
+105. [Landing Zone — logging](105-landing-zone-logging/)
+106. [Landing Zone — storage](106-landing-zone-storage/)
+107. [Landing Zone — database](107-landing-zone-database/)
+108. [Landing Zone — Key Vault](108-landing-zone-keyvault/)
+109. [Landing Zone — Azure Policy](109-landing-zone-policy/)
 
-## Advanced labs
-
-13. [Custom policy definition + assignment](110-custom-policy-definition/)
-14. [Diagnostic settings](111-diagnostic-settings/)
-15. [Activity log alert + webhook](112-activity-log-alert/)
-16. [Managed identity + least-privilege RBAC](113-managed-identity-rbac/)
+## Advanced labs 1080. [Custom policy definition + assignment](110-custom-policy-definition/)
+111. [Diagnostic settings](111-diagnostic-settings/)
+112. [Activity log alert + webhook](112-activity-log-alert/)
+113. [Managed identity + least-privilege RBAC](113-managed-identity-rbac/)

@@ -1,4 +1,4 @@
-# Lab 13 — bidirectional VNet peering.
+# Lab 85 — bidirectional VNet peering.
 # Peering is NOT one resource — you need BOTH directions:
 #  - hub → spoke (allow_forwarded_traffic lets the hub route for the spoke).
 #  - spoke → hub.

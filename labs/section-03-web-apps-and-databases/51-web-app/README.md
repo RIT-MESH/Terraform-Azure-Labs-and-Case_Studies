@@ -1,4 +1,4 @@
-# 01 — Azure Web App
+# Lab 51 — Azure Web App
 
 A Linux App Service running a Node container on the Basic tier. App Service is the
 managed PaaS for web apps — no VM, no OS patching, easy scaling. You'll see the two
@@ -19,7 +19,7 @@ resources every later lab reuses: a **service plan** (the compute) and a **web a
 Prerequisite: `az login` (one-time per session).
 
 ```bash
-cd 01-web-app
+cd 51-web-app
 terraform init
 terraform plan
 terraform apply
@@ -47,4 +47,4 @@ Resource group **rg-webapp**:
 - **Site names are global** — web app DNS is `<app>.azurewebsites.net` across all
   of Azure, hence the suffix.
 - **B1 is not free** — destroy when done. The plan tier controls scaling and
-  features (slots need Basic or higher, as lab 05 shows).
+  features (slots need Basic or higher, as lab 55 shows).

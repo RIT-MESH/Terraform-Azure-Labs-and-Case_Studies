@@ -1,4 +1,4 @@
-# Lab 16 — a VM with a system-assigned managed identity + least-privilege RBAC.
+# Lab 113 — a VM with a system-assigned managed identity + least-privilege RBAC.
 #  - identity { type = "SystemAssigned" } gives the VM an Azure identity (no secret).
 #  - azurerm_role_assignment grants that identity ONLY "Storage Blob Data Reader" on
 #    ONE storage account. From inside the VM you can read blobs using Azure RBAC —

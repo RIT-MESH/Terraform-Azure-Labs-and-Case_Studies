@@ -1,6 +1,6 @@
-# 25 — Azure Firewall — policy-based (advanced)
+# Lab 97 — Azure Firewall — policy-based (advanced)
 
-Labs 17-20 attached rule collections **directly** to the firewall (classic). The modern
+Labs 89-92 attached rule collections **directly** to the firewall (classic). The modern
 approach is a **Firewall Policy** (`azurerm_firewall_policy`) holding rule collection
 groups, which the firewall references with `firewall_policy_id`. Policies are versioned,
 can be shared across firewalls, and are the only way to use premium features / Intrusion
@@ -52,7 +52,7 @@ terraform destroy
 
 ## Key concepts / gotchas
 
-- **Classic vs policy**: labs 17-20 used `azurerm_firewall_*_rule_collection` resources
+- **Classic vs policy**: labs 89-92 used `azurerm_firewall_*_rule_collection` resources
   attached to the firewall; here the same three rule types live inside ONE
   `azurerm_firewall_policy_rule_collection_group` — priorities are per collection within
   the group (200/300/400), plus the group's own priority (100).
@@ -64,4 +64,4 @@ terraform destroy
 - Premium-only features (TLS inspection, IDPS) require a policy — a firewall's tier is
   Standard here; the policy sku must match.
 - Everything else is the same firewall fundamentals: `AzureFirewallSubnet` by name, one
-  public IP per `ip_configuration`, UDR for egress (lab 18 pattern), DNAT for ingress.
+  public IP per `ip_configuration`, UDR for egress (lab 90 pattern), DNAT for ingress.

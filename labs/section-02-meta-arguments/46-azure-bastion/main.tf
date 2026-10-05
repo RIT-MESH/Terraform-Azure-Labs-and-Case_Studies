@@ -1,4 +1,4 @@
-# Lab 21 — Azure Bastion.
+# Lab 46 — Azure Bastion.
 # Bastion gives RDP/SSH over TLS (port 443) WITHOUT a public IP on the VM.
 # It needs a dedicated subnet literally named "AzureBastionSubnet", /26 or larger.
 

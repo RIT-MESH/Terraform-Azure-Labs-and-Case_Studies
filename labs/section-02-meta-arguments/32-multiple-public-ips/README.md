@@ -1,4 +1,4 @@
-# 07 — Multiple public IPs
+# Lab 32 — Multiple public IPs
 
 Three static public IPs created with `count`, named with a `format()` expression.
 
@@ -12,7 +12,7 @@ Three static public IPs created with `count`, named with a `format()` expression
 ## Commands
 
 ```bash
-cd 07-multiple-public-ips
+cd 32-multiple-public-ips
 terraform init
 terraform plan
 terraform apply

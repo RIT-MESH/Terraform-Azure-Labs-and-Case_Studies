@@ -1,4 +1,4 @@
-# 10 — `terraform_remote_state` — consume another stack's outputs (advanced)
+# Lab 123 — `terraform_remote_state` — consume another stack's outputs (advanced)
 
 Two configs that don't know each other's code, only each other's **state**. `base/`
 creates a storage account and outputs its name. `consumer/` reads `base`'s state with
@@ -20,7 +20,7 @@ contract, remote state is the delivery mechanism.
 
 ```bash
 # Prerequisite: az login
-cd 10-remote-state-consume/base
+cd 123-remote-state-consume/base
 terraform init && terraform apply      # produces base/terraform.tfstate
 
 cd ../consumer
@@ -52,7 +52,7 @@ cd ../base && terraform destroy
   exist), and destroyed *after* consumer, or consumer's target disappears
   underneath it. Real repos encode this in pipeline order.
 - **This lab uses the `local` backend for the data source** (a file path) for
-  simplicity. For teams, base should use a remote backend (lab 06) — then the
+  simplicity. For teams, base should use a remote backend (lab 119) — then the
   consumer points at the same storage/container/key instead of a file path.
 - **No resource ids copied by hand.** The moment you paste an id or name between
   stacks, you've created hidden coupling; outputs + remote state keep the

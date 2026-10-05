@@ -1,17 +1,17 @@
-# 06 — Modules — copying files to the server
+# Lab 78 — Modules — copying files to the server
 
 Use `custom_data` (cloud-init) to write files at boot — the recommended, idempotent
 alternative to scp + provisioner. This lab deploys the `vm-stack` module and feeds it a
 cloud-init snippet via the `custom_data` input. At first boot the VM writes `/etc/motd`
 and logs its boot time to `/var/log/boot-tf.log`.
 
-Module: `labs/modules/vm-stack` (same as lab 05, plus the `custom_data` input).
+Module: `labs/modules/vm-stack` (same as lab 77, plus the `custom_data` input).
 
 ## What it creates
 
 | Terraform resource | Azure name | Notes |
 |---|---|---|
-| Same stack as lab 05 | `rg-modcopy` … `vm-modcopy` | All names from prefix `modcopy` |
+| Same stack as lab 77 | `rg-modcopy` … `vm-modcopy` | All names from prefix `modcopy` |
 | `custom_data` on the VM | (VM property "Custom data") | `base64encode(local.cloud_init)` |
 
 ## Commands

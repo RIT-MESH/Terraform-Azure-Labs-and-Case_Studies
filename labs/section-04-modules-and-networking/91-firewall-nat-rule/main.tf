@@ -1,4 +1,4 @@
-# Lab 19 — Azure Firewall DNAT (Destination NAT).
+# Lab 91 — Azure Firewall DNAT (Destination NAT).
 #  - Build a firewall in AzureFirewallSubnet with a public IP.
 #  - nat_rule_collection with action = Dnat: inbound port 22 on the firewall's public
 #    IP → translated to the workload VM's port 22 (translated_address).

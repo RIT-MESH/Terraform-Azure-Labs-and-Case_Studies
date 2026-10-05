@@ -1,4 +1,4 @@
-# Lab 20 — App Service auto-scale.
+# Lab 69 — App Service auto-scale.
 # A B1 plan is fixed. We use a Premium V3 plan (P1v3) which supports autoscale, with
 # rules: scale out > 70% CPU, scale in < 30%, between 1 and 3 instances. The same
 # azurerm_monitor_autoscale_setting resource works on VMSS too.

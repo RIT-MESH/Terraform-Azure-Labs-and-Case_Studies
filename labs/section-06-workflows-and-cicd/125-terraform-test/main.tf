@@ -1,4 +1,4 @@
-# Lab 12 — the built-in `terraform test` framework (.tftest.hcl).
+# Lab 125 — the built-in `terraform test` framework (.tftest.hcl).
 # main.tf: a storage account whose tier is a variable.
 # tests/main.tftest.hcl: `run` blocks with `command = plan` and `assert` checks:
 #   - exactly one storage account in the plan,

@@ -1,4 +1,4 @@
-# Lab 14 — Data sources.
+# Lab 39 — Data sources.
 # Teaches: a `data` block that READS an existing resource group (creating nothing),
 # a variable that points it at the right name, and reusing the data source's
 # attributes (name, location, tags) in a real resource.

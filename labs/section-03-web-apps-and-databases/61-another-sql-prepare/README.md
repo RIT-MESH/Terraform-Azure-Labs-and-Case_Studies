@@ -1,6 +1,6 @@
-# 11 — Deploying another SQL Database — prepare data
+# Lab 61 — Deploying another SQL Database — prepare data
 
-Before the next database, prepare the schema as a `.sql` file. Lab 13 uploads it.
+Before the next database, prepare the schema as a `.sql` file. Lab 63 uploads it.
 Here we just author the T-SQL for a `Products` table — no Terraform runs.
 
 ## What it creates
@@ -13,8 +13,8 @@ Nothing — this lab is a file you write by hand:
 
 ## Commands
 
-Nothing to run yet. Review the T-SQL; lab 13 runs it against the database from
-lab 08/12 with `sqlcmd`:
+Nothing to run yet. Review the T-SQL; lab 63 runs it against the database from
+lab 58/12 with `sqlcmd`:
 
 ```bash
 # no terraform commands in this lab
@@ -22,8 +22,8 @@ lab 08/12 with `sqlcmd`:
 
 ## What to see in the Azure portal
 
-Nothing yet — after lab 13 you'll find the `Products` table in the database from
-lab 08 (`sqldb-app`) under **Data Editor / Query editor (preview)** or in SSMS.
+Nothing yet — after lab 63 you'll find the `Products` table in the database from
+lab 58 (`sqldb-app`) under **Data Editor / Query editor (preview)** or in SSMS.
 
 ## Key concepts / gotchas
 

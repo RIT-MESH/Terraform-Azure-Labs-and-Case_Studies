@@ -10,11 +10,11 @@ Work through the labs in order — each builds on the habits of the previous one
 
 Prerequisites:
 
-- **Terraform >= 1.5** (lab 13's `removed` blocks need 1.7+) — check with
+- **Terraform >= 1.5** (lab 126's `removed` blocks need 1.7+) — check with
   `terraform version`.
 - **Azure CLI** installed and **`az login`** run — the azurerm provider uses
   your CLI session by default.
-- **Git** (labs 04, 11) and, for lab 08, **kubectl** for the AKS follow-up.
+- **Git** (labs 117, 124) and, for lab 121, **kubectl** for the AKS follow-up.
 
 The typical command flow for almost every lab:
 
@@ -27,26 +27,22 @@ terraform output     # read declared outputs
 terraform destroy    # clean up when you're done
 ```
 
-Labs 02–03 add `-var-file=...` and workspace commands; lab 12 runs `terraform test`
-instead of `apply`; labs 09 and 11 don't create Azure resources themselves — they
-are pipeline definitions you install in a repo. Labs 06 and 10 have subfolders
+Labs 115–116 add `-var-file=...` and workspace commands; lab 125 runs `terraform test`
+instead of `apply`; labs 122 and 124 don't create Azure resources themselves — they
+are pipeline definitions you install in a repo. Labs 119 and 123 have subfolders
 (`bootstrap/` + `app/`, `base/` + `consumer/`) that run in the documented order.
 
-## Labs
+## Labs 1244. [Inspecting the initial code base](114-inspect-codebase/)
+115. [Deploying to multiple environments](115-multiple-environments/)
+116. [Terraform workspaces — dev](116-workspaces-dev/)
+117. [Using Git locally](117-git-local/)
+118. [Making changes to code](118-making-changes/)
+119. [Azure Storage for the state file](119-remote-state-storage/)
+120. [Azure Container Instance](120-container-instance/)
+121. [Azure Kubernetes Service](121-aks/)
+122. [Azure DevOps release pipelines](122-devops-release-pipelines/)
 
-1. [Inspecting the initial code base](114-inspect-codebase/)
-2. [Deploying to multiple environments](115-multiple-environments/)
-3. [Terraform workspaces — dev](116-workspaces-dev/)
-4. [Using Git locally](117-git-local/)
-5. [Making changes to code](118-making-changes/)
-6. [Azure Storage for the state file](119-remote-state-storage/)
-7. [Azure Container Instance](120-container-instance/)
-8. [Azure Kubernetes Service](121-aks/)
-9. [Azure DevOps release pipelines](122-devops-release-pipelines/)
-
-## Advanced labs
-
-10. [`terraform_remote_state` — consume another stack](123-remote-state-consume/)
-11. [GitHub Actions CI](124-github-actions/)
-12. [`terraform test` framework](125-terraform-test/)
-13. [`moved` and `removed` blocks](126-moved-removed/)
+## Advanced labs 1253. [`terraform_remote_state` — consume another stack](123-remote-state-consume/)
+124. [GitHub Actions CI](124-github-actions/)
+125. [`terraform test` framework](125-terraform-test/)
+126. [`moved` and `removed` blocks](126-moved-removed/)

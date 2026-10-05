@@ -1,4 +1,4 @@
-# Lab 20 — Provisioners (LAST RESORT).
+# Lab 45 — Provisioners (LAST RESORT).
 # Provisioners run scripts at create/destroy time. They're not idempotent, not in
 # `plan`, and fail the run if they error. Prefer custom_data/cloud-init. This lab
 # shows a remote-exec over SSH just to demonstrate the mechanics.

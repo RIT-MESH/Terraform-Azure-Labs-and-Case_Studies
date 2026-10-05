@@ -1,7 +1,7 @@
-# Lab 11 — VNet peering setup (two VNets, one per region, no peering yet).
+# Lab 83 — VNet peering setup (two VNets, one per region, no peering yet).
 #  - rg-hub (eastus) with vnet-hub (10.20.0.0/16) + snet-hub.
 #  - rg-spoke (westus2) with vnet-spoke (10.21.0.0/16) + snet-spoke.
-# Lab 13 will peer them (peering must reference both VNets).
+# Lab 85 will peer them (peering must reference both VNets).
 resource "azurerm_resource_group" "hub" {
   name     = "rg-hub"
   location = "eastus"
@@ -41,6 +41,6 @@ resource "azurerm_subnet" "spoke" {
   address_prefixes     = ["10.21.1.0/24"]
 }
 
-# VNet ids — lab 13's peering resources (or a shared remote state read) use these.
+# VNet ids — lab 85's peering resources (or a shared remote state read) use these.
 output "hub_id" { value = azurerm_virtual_network.hub.id }
 output "spoke_id" { value = azurerm_virtual_network.spoke.id }

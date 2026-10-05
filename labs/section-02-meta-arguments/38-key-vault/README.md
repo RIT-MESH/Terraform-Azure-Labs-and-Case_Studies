@@ -1,4 +1,4 @@
-# 13 — Azure Key Vault via Terraform
+# Lab 38 — Azure Key Vault via Terraform
 
 Key Vault stores secrets, keys and certificates. This lab creates a vault, a secret, and
 grants the current user get/list permissions using a `data` block for the current
@@ -18,7 +18,7 @@ principal.
 ## Commands
 
 ```bash
-cd 13-key-vault
+cd 38-key-vault
 az login            # the data source + access policy use THIS identity
 terraform init
 terraform plan

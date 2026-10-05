@@ -1,4 +1,4 @@
-# 05 — Making changes to our code
+# Lab 118 — Making changes to our code
 
 Iterate safely: change code → `terraform plan` → review the diff → `apply`. This lab
 takes the storage account and adds a container + blob. The blob's content is set by
@@ -19,7 +19,7 @@ takes the storage account and adds a container + blob. The blob's content is set
 
 ```bash
 # Prerequisite: az login
-cd 05-making-changes
+cd 118-making-changes
 terraform init
 terraform plan          # first run: + container and + blob (account unchanged)
 terraform apply

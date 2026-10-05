@@ -1,4 +1,4 @@
-# 10 — Change the SQL DTU model (assignment)
+# Lab 60 — Change the SQL DTU model (assignment)
 
 Self-check: parameterise the database SKU with a variable and scale by changing
 tfvars (`Basic` → `S0` → `S1`). Watch `terraform plan` show the SKU change as an
@@ -18,7 +18,7 @@ tfvars (`Basic` → `S0` → `S1`). Watch `terraform plan` show the SKU change a
 Prerequisite: `az login`.
 
 ```bash
-cd 10-change-sql-dtu
+cd 60-change-sql-dtu
 cp terraform.tfvars.example terraform.tfvars   # password + sku_name
 terraform init
 terraform apply                 # creates Basic

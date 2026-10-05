@@ -1,6 +1,6 @@
-# 05 — Modules — virtual machines
+# Lab 77 — Modules — virtual machines
 
-Consume the full `vm-stack` module that combines everything from labs 01-04 into one
+Consume the full `vm-stack` module that combines everything from labs 73-76 into one
 reusable unit. One `module` block stands up the entire stack: RG + VNet + subnet + NSG
 + public IP + NIC + VM. The caller only passes a name prefix, region, network CIDRs, a
 tags map and one secret (the SSH key).

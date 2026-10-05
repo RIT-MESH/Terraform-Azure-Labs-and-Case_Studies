@@ -1,4 +1,4 @@
-# 01 — The `count` meta-argument
+# Lab 26 — The `count` meta-argument
 
 `count` creates N copies of a resource. Each copy is addressed as `resource.name[0]`,
 `resource.name[1]`, etc. Use `count` when the copies are **identical and indexed**.
@@ -25,7 +25,7 @@ resource "azurerm_storage_container" "data" {
 ## Commands
 
 ```bash
-cd 01-count-meta-argument
+cd 26-count-meta-argument
 terraform init
 terraform plan
 terraform apply
@@ -48,7 +48,7 @@ terraform destroy
 - A `count` resource becomes a **list** in state: reference instances with
   `azurerm_storage_container.data[0]` or gather all with `[*]` (splat).
 - `count` is best when copies are identical; if each copy needs different settings,
-  prefer `for_each` (lab 03).
+  prefer `for_each` (lab 28).
 - Removing an item from the middle of a counted list makes Terraform recreate every
   instance after it, because indexes shift — another reason `for_each` is often safer.
 - `random_string` is saved in state, so the storage account name stays stable across

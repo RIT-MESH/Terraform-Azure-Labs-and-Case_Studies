@@ -1,4 +1,4 @@
-# 12 — Availability Zones
+# Lab 37 — Availability Zones
 
 Availability Zones are physically separate datacenters with independent power. A VM
 pinned to a zone contributes to the 99.99% VM SLA only when you also use premium SSD
@@ -19,7 +19,7 @@ page). This lab creates three VMs, one per zone, by zipping a list of zones with
 ## Commands
 
 ```bash
-cd 12-availability-zones
+cd 37-availability-zones
 terraform init
 terraform plan
 terraform apply -var=admin_ssh_key="ssh-rsa AAAA... your@email"

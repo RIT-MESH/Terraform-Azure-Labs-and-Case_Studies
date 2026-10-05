@@ -1,6 +1,6 @@
-# 06 — Multiple network interfaces (assignment)
+# Lab 31 — Multiple network interfaces (assignment)
 
-Self-check: create one NIC per tier in the VNet from lab 05. Each NIC lives in the
+Self-check: create one NIC per tier in the VNet from lab 30. Each NIC lives in the
 matching subnet, keyed by the same map.
 
 ## What it creates
@@ -15,7 +15,7 @@ matching subnet, keyed by the same map.
 ## Commands
 
 ```bash
-cd 06-multiple-nics
+cd 31-multiple-nics
 terraform init
 terraform plan
 terraform apply

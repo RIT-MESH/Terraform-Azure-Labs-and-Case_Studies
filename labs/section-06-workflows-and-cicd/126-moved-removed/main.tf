@@ -1,4 +1,4 @@
-# Lab 13 — `moved` and `removed` blocks (safe refactoring).
+# Lab 126 — `moved` and `removed` blocks (safe refactoring).
 #  - moved {}: change a resource's ADDRESS without recreating it (Terraform rewrites
 #    the state address in place).
 #  - removed {}: drop a resource from Terraform's management WITHOUT deleting it in

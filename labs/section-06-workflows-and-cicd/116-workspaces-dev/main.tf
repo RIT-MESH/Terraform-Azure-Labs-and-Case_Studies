@@ -1,4 +1,4 @@
-# Lab 03 — Terraform workspaces (one config, several state files).
+# Lab 116 — Terraform workspaces (one config, several state files).
 # terraform.workspace is the current workspace name (dev/prod/etc.).
 #  - terraform workspace new dev / select dev
 #  - names and SKU tiers derive from terraform.workspace.

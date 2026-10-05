@@ -1,4 +1,4 @@
-# 02 — Multiple containers (assignment)
+# Lab 27 — Multiple containers (assignment)
 
 Self-check: drive `count` from a variable so the number of containers is configurable
 without editing code. Try `terraform apply -var=container_count=5`.
@@ -15,7 +15,7 @@ without editing code. Try `terraform apply -var=container_count=5`.
 ## Commands
 
 ```bash
-cd 02-multiple-containers
+cd 27-multiple-containers
 terraform init
 terraform plan -var=container_count=5
 terraform apply -var=container_count=5

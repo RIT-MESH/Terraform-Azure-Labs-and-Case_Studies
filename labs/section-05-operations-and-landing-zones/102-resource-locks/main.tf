@@ -1,4 +1,4 @@
-# Lab 05 — management locks.
+# Lab 102 — management locks.
 # A lock prevents delete (CanNotDelete) or all changes (ReadOnly) at the resource
 # scope. We put a CanNotDelete lock on a storage account → `terraform destroy`
 # (or a portal click) will fail until the lock is removed.

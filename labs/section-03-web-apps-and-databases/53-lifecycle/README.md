@@ -1,4 +1,4 @@
-# 03 — The `lifecycle` meta-argument
+# Lab 53 — The `lifecycle` meta-argument
 
 `lifecycle {}` changes how Terraform treats a resource over time:
 
@@ -22,7 +22,7 @@ web app you'll use later) and exercises `create_before_destroy` and `ignore_chan
 Prerequisite: `az login`.
 
 ```bash
-cd 03-lifecycle
+cd 53-lifecycle
 terraform init
 terraform plan
 terraform apply

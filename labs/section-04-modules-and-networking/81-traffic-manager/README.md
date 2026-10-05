@@ -1,4 +1,4 @@
-# 09 — Traffic Manager — web apps
+# Lab 81 — Traffic Manager — web apps
 
 Traffic Manager is a DNS-based global load balancer: it never proxies traffic, it just
 answers DNS with the "best" endpoint. This lab creates two Azure web apps in different
@@ -45,7 +45,7 @@ No `terraform.tfvars` needed.
 - **DNS-based routing**: Traffic Manager returns a CNAME to the chosen app's hostname;
   the user's browser then connects directly to that app. Nothing passes through TM.
 - **Performance routing** = lowest network latency wins per user — different users get
-  different answers. Compare with lab 10's Priority routing (same profile, different
+  different answers. Compare with lab 82's Priority routing (same profile, different
   `traffic_routing_method`).
 - **Health monitoring**: `monitor_config` probes every endpoint on HTTP port 80, path `/`;
   unhealthy endpoints drop out of the DNS answers automatically.

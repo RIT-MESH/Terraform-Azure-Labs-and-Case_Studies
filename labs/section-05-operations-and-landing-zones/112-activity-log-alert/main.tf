@@ -1,4 +1,4 @@
-# Lab 15 — an ACTIVITY LOG alert + webhook action group.
+# Lab 112 — an ACTIVITY LOG alert + webhook action group.
 # Unlike a METRIC alert (numbers over time), activity-log alerts fire on control-plane
 # EVENTS. Here: when a resource group is deleted in the subscription. The action group
 # has a webhook receiver (point var.webhook_url at Slack/Teams or a requestbin).
@@ -33,7 +33,7 @@ resource "azurerm_resource_group" "this" {
   location = "eastus"
 }
 
-# Action group: the notification channel. Instead of lab 02's email, this one has a
+# Action group: the notification channel. Instead of lab 99's email, this one has a
 # WEBHOOK receiver — when it fires, Azure POSTs a JSON alert payload to that URL.
 resource "azurerm_monitor_action_group" "this" {
   name                = "ag-rg-delete"

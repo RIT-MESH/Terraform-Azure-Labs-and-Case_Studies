@@ -1,5 +1,5 @@
-# Lab 22 — an INTERNAL Load Balancer (private frontend IP).
-# Same shape as lab 07, but the LB frontend is a PRIVATE IP in a subnet, so the
+# Lab 94 — an INTERNAL Load Balancer (private frontend IP).
+# Same shape as lab 79, but the LB frontend is a PRIVATE IP in a subnet, so the
 # load-balanced service is only reachable from inside the VNet (classic internal-API
 # pattern behind a public gateway/firewall).
 #  - VNet 172.23.0.0/20 with a backend subnet (172.23.0.0/26) and a frontend subnet

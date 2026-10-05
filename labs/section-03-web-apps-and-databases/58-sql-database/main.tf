@@ -1,4 +1,4 @@
-# Lab 08 — Azure SQL Database.
+# Lab 58 — Azure SQL Database.
 # Create a logical SQL server + a single database. The admin password comes from
 # a SENSITIVE variable. Storage is the cheapest DTU tier (Basic = 5 DTU, 2 GB).
 

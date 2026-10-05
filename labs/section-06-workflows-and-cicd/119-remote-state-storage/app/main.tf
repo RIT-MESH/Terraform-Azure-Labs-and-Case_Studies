@@ -1,4 +1,4 @@
-# Lab 06 Part B — a config that USES the remote backend.
+# Lab 119 Part B — a config that USES the remote backend.
 # The backend block (azurerm) is declared inline; fill its values via
 #   terraform init -backend-config=resource_group_name=... -backend-config=storage_account_name=... ...
 # Now state lives in Azure Storage (shared + locked), not on a laptop.

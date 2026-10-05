@@ -1,4 +1,4 @@
-# 21 — Azure Bastion
+# Lab 46 — Azure Bastion
 
 Bastion gives you RDP/SSH over TLS (port 443) **without** exposing a public IP on the VM.
 It needs a dedicated subnet named `AzureBastionSubnet` with a /26 or larger prefix.
@@ -25,7 +25,7 @@ portal: *Connect → Bastion → username/password*.
 ## Commands
 
 ```bash
-cd 21-azure-bastion
+cd 46-azure-bastion
 terraform init
 terraform plan
 terraform apply -var=admin_password="<a strong password>"

@@ -1,7 +1,7 @@
-# Lab 07 — Azure Container Instance (ACI).
+# Lab 120 — Azure Container Instance (ACI).
 # The fastest way to run a container in Azure — no orchestrator. One
 # azurerm_container_group runs a public nginx image on port 80 with a public IP.
-# Good for simple tasks/jobs; for production services use AKS (lab 08).
+# Good for simple tasks/jobs; for production services use AKS (lab 121).
 # Container for the resources below.
 resource "azurerm_resource_group" "this" {
   name     = "rg-aci"

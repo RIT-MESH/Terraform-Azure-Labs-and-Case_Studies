@@ -1,4 +1,4 @@
-# 07 — Azure Container Instance via Terraform
+# Lab 120 — Azure Container Instance via Terraform
 
 ACI is the fastest way to run a container in Azure — no orchestration, no cluster,
 just a container group billed per second. This lab runs a public nginx container,
@@ -18,7 +18,7 @@ container, its image, its resources (CPU/memory) and its ports; Azure does the r
 
 ```bash
 # Prerequisite: az login
-cd 07-container-instance
+cd 120-container-instance
 terraform init
 terraform plan
 terraform apply
@@ -41,7 +41,7 @@ terraform destroy               # ACI is billed per second — destroy when done
   sharing it (`container` blocks repeat for multi-container groups).
 - **No orchestrator, no minimum bill.** ACI is for simple tasks, jobs and demos —
   a pipeline step, a cron-like script. For always-on production services you want
-  AKS (lab 08) or Container Apps.
+  AKS (lab 121) or Container Apps.
 - **The IP is not static** across a recreate. A `-/+` replacement gets a new
   `public_ip` — anything pointing at the old address (DNS, a test) breaks.
 - **`restart_policy = "Always"`** keeps the container running like a service;

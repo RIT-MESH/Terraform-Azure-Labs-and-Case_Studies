@@ -1,4 +1,4 @@
-# 14 — Diagnostic settings (advanced)
+# Lab 111 — Diagnostic settings (advanced)
 
 `azurerm_monitor_diagnostic_setting` streams a resource's logs and metrics to a Log
 Analytics workspace, a storage account, or Event Hub. This lab sends a storage account's
@@ -26,7 +26,7 @@ Addressing: none (storage + workspace).
 Prerequisite: `az login`. No tfvars needed.
 
 ```bash
-cd 14-diagnostic-settings
+cd 111-diagnostic-settings
 terraform init
 terraform plan
 terraform apply
@@ -57,7 +57,7 @@ terraform destroy
   a destination; adding `storage_account_id = azurerm_storage_account.logs.id` would
   complete the compliance pattern.
 - **Log categories are resource-specific**: storage uses StorageRead/StorageWrite/
-  StorageDelete; SQL uses SQLSecurityAuditEvents (lab 10). The portal's "Add
+  StorageDelete; SQL uses SQLSecurityAuditEvents (lab 107). The portal's "Add
   diagnostic setting" page lists what each resource offers.
 - **Costs flow both ways**: ingestion is charged per GB (PerGB2018); verbose logs on a
   busy storage account add up quickly.

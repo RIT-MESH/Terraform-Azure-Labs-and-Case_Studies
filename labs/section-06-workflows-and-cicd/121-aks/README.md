@@ -1,8 +1,8 @@
-# 08 — Azure Kubernetes Service via Terraform
+# Lab 121 — Azure Kubernetes Service via Terraform
 
 Provision a small AKS cluster with a system node pool of 1 node. Azure runs the
 Kubernetes control plane for you; this code declares the node pool, its VM size,
-the cluster identity and networking. AKS is what you graduate to from ACI (lab 07)
+the cluster identity and networking. AKS is what you graduate to from ACI (lab 120)
 when a container needs scheduling, scaling and self-healing rather than a single box.
 
 > AKS clusters take ~5-10 minutes to create. Use a Standard_B2s node for the pool.
@@ -29,7 +29,7 @@ cp terraform.tfvars.example terraform.tfvars   # then edit in your key
 
 ```bash
 # Prerequisite: az login
-cd 08-aks
+cd 121-aks
 terraform init
 terraform plan
 terraform apply          # takes ~5-10 minutes
@@ -60,4 +60,4 @@ terraform destroy
   this a *system* pool; user workloads need an additional node pool or that flag
   removed — a gotcha when `kubectl run` stays Pending.
 - **Slow + costly to churn.** AKS changes are slow (minutes) and some fields force
-  replacement; keep plan-and-review (labs 05) strict here, and destroy when done.
+  replacement; keep plan-and-review (labs 118) strict here, and destroy when done.

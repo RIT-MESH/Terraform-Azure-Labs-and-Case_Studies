@@ -1,9 +1,9 @@
-# Lab 17 — deploy an Azure Firewall.
+# Lab 89 — deploy an Azure Firewall.
 #  - rg-fw-deploy, vnet-hub-fw-deploy (10.29.0.0/16), AzureFirewallSubnet (10.29.0.0/26).
 #  - a public IP for the firewall's frontend.
 #  - azurerm_firewall with sku AZFW_VNet/Standard. The firewall's private IP comes
-#    from the AzureFirewallSubnet; lab 18 routes workload traffic to it.
-# Output: the firewall's private IP (used by the route table in lab 18).
+#    from the AzureFirewallSubnet; lab 90 routes workload traffic to it.
+# Output: the firewall's private IP (used by the route table in lab 90).
 
 # Resource group everything in this lab goes into.
 resource "azurerm_resource_group" "this" {
@@ -39,7 +39,7 @@ resource "azurerm_public_ip" "fw" {
 
 # The Azure Firewall: a managed stateful firewall. AZFW_VNet = deployed in this
 # VNet; Standard tier = NAT + network + application (FQDN) rules. No rules yet —
-# labs 18-20 add routing and rules.
+# labs 90-92 add routing and rules.
 resource "azurerm_firewall" "this" {
   name                = "fw-app1-hub"
   location            = azurerm_resource_group.this.location
@@ -56,6 +56,6 @@ resource "azurerm_firewall" "this" {
   }
 }
 
-# This private IP is the next hop the route table in lab 18 points at.
+# This private IP is the next hop the route table in lab 90 points at.
 output "firewall_private_ip" { value = azurerm_firewall.this.ip_configuration[0].private_ip_address }
 output "firewall_id" { value = azurerm_firewall.this.id }

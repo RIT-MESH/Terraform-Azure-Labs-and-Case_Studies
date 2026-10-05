@@ -1,4 +1,4 @@
-# 05 — Multiple subnets with `for_each`
+# Lab 30 — Multiple subnets with `for_each`
 
 Build several subnets from a map. This is the pattern you'll reuse for every
 multi-tier network in later sections.
@@ -14,7 +14,7 @@ multi-tier network in later sections.
 ## Commands
 
 ```bash
-cd 05-multiple-subnets
+cd 30-multiple-subnets
 terraform init
 terraform plan
 terraform apply

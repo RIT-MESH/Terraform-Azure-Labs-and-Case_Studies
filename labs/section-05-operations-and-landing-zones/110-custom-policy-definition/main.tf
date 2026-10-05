@@ -1,4 +1,4 @@
-# Lab 13 — author a CUSTOM Azure Policy definition + assign it.
+# Lab 110 — author a CUSTOM Azure Policy definition + assign it.
 #  - azurerm_policy_definition: policyRule JSON — deny resource groups missing a
 #    "costcenter" tag. Stored at the subscription scope.
 #  - azurerm_resource_group_policy_assignment assigns the custom definition to an RG.
@@ -26,7 +26,7 @@ resource "azurerm_resource_group" "this" {
 }
 
 # A custom policy definition (stored at the subscription scope).
-# Unlike lab 12's built-in, here WE write the rule. Policy rules are JSON:
+# Unlike lab 109's built-in, here WE write the rule. Policy rules are JSON:
 #   if  = when does this rule match? (here: a resource group missing tags.costcenter)
 #   then = what happens? (deny = the creation/update is refused)
 resource "azurerm_policy_definition" "require_costcenter" {
@@ -52,7 +52,7 @@ resource "azurerm_policy_definition" "require_costcenter" {
   parameters = jsonencode({})
 }
 
-# Assign the custom definition to our resource group — same shape as lab 12,
+# Assign the custom definition to our resource group — same shape as lab 109,
 # but policy_definition_id now points at OUR definition, not a built-in.
 resource "azurerm_resource_group_policy_assignment" "this" {
   name                 = "require-costcenter-rg"

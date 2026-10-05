@@ -1,4 +1,4 @@
-# Lab 21 — App Service source control (deploy from Git).
+# Lab 70 — App Service source control (deploy from Git).
 # Wire the web app to a Git repo so Azure builds & deploys on every push.
 # For a PUBLIC repo a placeholder token is accepted; a private repo needs a PAT.
 # This pins the tooling: Terraform CLI version + the provider that talks to Azure.

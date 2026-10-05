@@ -1,4 +1,4 @@
-# Lab 11 — Availability Sets.
+# Lab 36 — Availability Sets.
 # Teaches: count on NICs and VMs, and pointing both counted VMs at ONE shared
 # resource (the availability set id) so Azure spreads them across fault/update
 # domains.

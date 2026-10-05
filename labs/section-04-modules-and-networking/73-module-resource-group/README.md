@@ -1,4 +1,4 @@
-# 01 — Modules — building an Azure resource group
+# Lab 73 — Modules — building an Azure resource group
 
 Start small: a module that creates **only** a resource group. This lab shows the module
 contract (variables + resource + output) and how a caller consumes it. A module is just a
@@ -42,4 +42,4 @@ No `terraform.tfvars` needed — this lab has no input variables.
   `.terraform/modules/` at `init`; changes to the module are picked up on the next plan.
 - Outputs surface the module's results: `module.rg.id` and `module.rg.name` in the caller.
 - Local-path sources are the Terraform-native way to DRY up configs; registry sources
-  (lab 21) add version pinning on top.
+  (lab 93) add version pinning on top.

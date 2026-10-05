@@ -1,7 +1,7 @@
-# 13 — Adding data to an Azure SQL database
+# Lab 63 — Adding data to an Azure SQL database
 
 Terraform doesn't run T-SQL by design. The recommended path is the **`sqlcmd`** CLI
-or a migration tool. After lab 08/12, run:
+or a migration tool. After lab 58/12, run:
 
 ```bash
 sqlcmd -S <server>.database.windows.net -U sqladmin -P "$PASSWORD" \
@@ -9,7 +9,7 @@ sqlcmd -S <server>.database.windows.net -U sqladmin -P "$PASSWORD" \
 ```
 
 For CI/CD, a release pipeline step would run this `sqlcmd`. This lab keeps the schema
-file you'll execute. (See lab 11 for the `.sql`.)
+file you'll execute. (See lab 61 for the `.sql`.)
 
 ## What it creates
 
@@ -17,8 +17,8 @@ Nothing — this lab documents the **manual data load**:
 
 | Input | Source |
 |---|---|
-| `<server>` | `terraform output server_fqdn` from lab 08/12 (without the `:1433` if present) |
-| `schema.sql` | authored in lab 11 — creates `dbo.Products`, inserts 3 rows |
+| `<server>` | `terraform output server_fqdn` from lab 58/12 (without the `:1433` if present) |
+| `schema.sql` | authored in lab 61 — creates `dbo.Products`, inserts 3 rows |
 
 ## Commands
 
@@ -48,6 +48,6 @@ by the `SYSUTCDATETIME()` default.
 - **Firewall first** — the machine running `sqlcmd` must be allowed by a lab-09-style
   client rule, or the connection is rejected.
 - **`-d sqldb-app`** targets the specific database on the server; the server hosts
-  several (lab 12).
+  several (lab 62).
 - In a real project the same `sqlcmd` call lives in a CI/CD release pipeline so the
   schema lands on staging and prod the same way.

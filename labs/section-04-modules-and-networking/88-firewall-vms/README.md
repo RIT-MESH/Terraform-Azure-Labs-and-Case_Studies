@@ -1,8 +1,8 @@
-# 16 — Azure Firewall — virtual machine setup
+# Lab 88 — Azure Firewall — virtual machine setup
 
 Hub-spoke preparation for the firewall labs: a hub VNet containing the subnet reserved
-for Azure Firewall, plus a workload VM the firewall will protect and NAT to. Lab 17
-deploys the firewall; labs 18-20 add routing, NAT and application rules.
+for Azure Firewall, plus a workload VM the firewall will protect and NAT to. Lab 89
+deploys the firewall; labs 90-92 add routing, NAT and application rules.
 
 ## What it creates
 
@@ -40,9 +40,8 @@ terraform destroy
 
 - **The subnet name must be literally `AzureFirewallSubnet`** — Azure Firewall refuses
   to deploy anywhere else, and the subnet must be /26 or larger and shared with nothing.
-- `snet-workload` is the "protected" segment: lab 18's route table sends its outbound
+- `snet-workload` is the "protected" segment: lab 90's route table sends its outbound
   traffic to the firewall's private IP.
-- The VM is the DNAT target in lab 19 (SSH forwarded through the firewall to its
-  private IP) and the egress client in lab 20.
-- Outputs (`firewall_subnet_id`, `workload_subnet_id`, `vnet_id`) are the ids labs
-  17-20 need — again the two-config module-contract pattern.
+- The VM is the DNAT target in lab 91 (SSH forwarded through the firewall to its
+  private IP) and the egress client in lab 92.
+- Outputs (`firewall_subnet_id`, `workload_subnet_id`, `vnet_id`) are the ids labs 89-92 need — again the two-config module-contract pattern.

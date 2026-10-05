@@ -1,4 +1,4 @@
-# 23 — `flatten()` — nested structures into a resource list (advanced)
+# Lab 48 — `flatten()` — nested structures into a resource list (advanced)
 
 `flatten()` turns a nested list-of-lists into one flat list, which you then iterate with
 `for_each`. Here a matrix of **region × tier** is expanded into a flat list of subnets —
@@ -19,7 +19,7 @@ subnets are `/26`.
 ## Commands
 
 ```bash
-cd 23-flatten-matrix
+cd 48-flatten-matrix
 terraform init
 terraform plan
 terraform apply

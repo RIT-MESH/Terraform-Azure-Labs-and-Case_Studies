@@ -1,4 +1,4 @@
-# 02 — Deploying to multiple environments
+# Lab 115 — Deploying to multiple environments
 
 Drive environment differences purely through tfvars. One configuration, two variable
 files (`dev.tfvars`, `prod.tfvars`). Nothing about "dev" or "prod" is hard-coded in
@@ -25,7 +25,7 @@ Variable files:
 
 ```bash
 # Prerequisite: az login
-cd 02-multiple-environments
+cd 115-multiple-environments
 terraform init
 terraform plan  -var-file=dev.tfvars     # preview the dev stack
 terraform apply -var-file=dev.tfvars     # create dev
@@ -53,7 +53,7 @@ terraform destroy -var-file=prod.tfvars  # or it plans against different names!
 - **tfvars = the classic way to split environments.** One codebase, `-var-file=`
   selects the environment. Costs nothing in code complexity — but note the state
   file is still *local and single*: both environments land in the same
-  `terraform.tfstate` here. Workspaces (lab 03) and separate backends (lab 06)
+  `terraform.tfstate` here. Workspaces (lab 116) and separate backends (lab 119)
   fix that.
 - **Required variables have no defaults**, so forgetting `-var-file` makes
   Terraform prompt/fail instead of silently building the wrong environment.

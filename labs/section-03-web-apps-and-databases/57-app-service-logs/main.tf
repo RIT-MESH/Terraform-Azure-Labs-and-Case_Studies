@@ -1,4 +1,4 @@
-# Lab 07 — App Service logs.
+# Lab 57 — App Service logs.
 # Turn on App Service logging to a storage account + the filesystem. The `logs`
 # block streams http logs to blob storage and app logs to the file system.
 

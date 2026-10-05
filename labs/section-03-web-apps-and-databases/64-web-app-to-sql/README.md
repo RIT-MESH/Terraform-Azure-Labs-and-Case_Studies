@@ -1,4 +1,4 @@
-# 14 — Connecting a web app to SQL
+# Lab 64 — Connecting a web app to SQL
 
 Wire a web app to a SQL database by injecting the connection string into the app's
 app settings. The connection string comes from the SQL server + database created in
@@ -28,7 +28,7 @@ DATABASE_URL = Server=tcp:<fqdn>,1433;Database=sqldb-webapp;User Id=sqladmin;Pas
 Prerequisite: `az login`.
 
 ```bash
-cd 14-web-app-to-sql
+cd 64-web-app-to-sql
 cp terraform.tfvars.example terraform.tfvars   # set a real password
 terraform init
 terraform plan

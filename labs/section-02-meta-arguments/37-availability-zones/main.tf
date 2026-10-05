@@ -1,4 +1,4 @@
-# Lab 12 — Availability Zones.
+# Lab 37 — Availability Zones.
 # Teaches: count sized by length(local.zones) and count.index used as a lookup
 # into the zones list (local.zones[count.index]) to give each VM its own zone.
 # Zones are physically separate datacenters with independent power. Pinning a VM

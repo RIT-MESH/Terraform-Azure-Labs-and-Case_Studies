@@ -1,9 +1,9 @@
-# 17 — Azure Firewall — deployment
+# Lab 89 — Azure Firewall — deployment
 
 Create the firewall in `AzureFirewallSubnet` with a public IP for its frontend. The
 firewall is a managed stateful network appliance: this lab deploys it (sku
-`AZFW_VNet` / Standard) and outputs its **private IP**, which lab 18 uses as the next
-hop of the default route and lab 19 DNATs SSH through its public IP.
+`AZFW_VNet` / Standard) and outputs its **private IP**, which lab 90 uses as the next
+hop of the default route and lab 91 DNATs SSH through its public IP.
 
 ## What it creates
 
@@ -34,7 +34,7 @@ No `terraform.tfvars` needed.
 - Resource group **rg-fw-deploy** → **fw-app1-hub → Overview**: both the **public IP**
   (pip-fw) and the **private IP** (10.29.0.x) of the firewall.
 - **fw-app1-hub → Firewall policies / Rules**: none yet — this firewall is deployed
-  bare; labs 18-20 attach routing and rules.
+  bare; labs 90-92 attach routing and rules.
 - Provisioning shows "Succeeded" only after several minutes — a normal apply is slow here.
 
 ## Key concepts / gotchas
@@ -47,5 +47,5 @@ No `terraform.tfvars` needed.
   `ip_configuration[0].private_ip_address`.
 - The firewall has no rules yet: it is reachable (has a public IP) but passes nothing
   meaningful until NAT/network/application rules exist.
-- The private IP is the anchor for routing: in lab 18 it becomes the next hop of a UDR
+- The private IP is the anchor for routing: in lab 90 it becomes the next hop of a UDR
   pointed at `0.0.0.0/0`.

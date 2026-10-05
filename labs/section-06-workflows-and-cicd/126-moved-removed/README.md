@@ -1,4 +1,4 @@
-# 13 — `moved` and `removed` blocks (advanced refactoring)
+# Lab 126 — `moved` and `removed` blocks (advanced refactoring)
 
 Two refactoring primitives:
 
@@ -27,7 +27,7 @@ two-step refactor workflow.
 
 ```bash
 # Prerequisite: az login   (and Terraform >= 1.7 for the `removed` block)
-cd 13-moved-removed
+cd 126-moved-removed
 terraform init
 terraform plan      # moved block is a no-op if .legacy was never in state
 terraform apply

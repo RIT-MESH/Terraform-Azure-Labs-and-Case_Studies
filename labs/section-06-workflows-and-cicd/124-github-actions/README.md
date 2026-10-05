@@ -1,4 +1,4 @@
-# 11 — GitHub Actions CI (advanced)
+# Lab 124 — GitHub Actions CI (advanced)
 
 A workflow that runs on every PR and on push to `main`:
 
@@ -45,7 +45,7 @@ copy and adjust `working-directory` per stack.
   secrets referenced with `${{ secrets.* }}`; the YAML itself is committable and
   shows no credentials. Logs mask secret values automatically.
 - **Runners are disposable.** Every job starts with an empty machine — which is
-  exactly why the target stack should use remote state with locking (lab 06);
+  exactly why the target stack should use remote state with locking (lab 119);
   this example targets the section-01 storage lab (local state), so swap
   `working-directory` to a remote-backend stack before trusting it with real applies.
 - **`fmt -check` from the repo root** runs against all `.tf` files (note its
@@ -53,5 +53,5 @@ copy and adjust `working-directory` per stack.
   a common pattern: lint repo-wide, deploy per stack.
 - **`-auto-approve` belongs only in CI**, where the "review" already happened as
   the PR's plan step; never in your local workflow.
-- **This is the GitHub mirror of lab 09.** Same stages, same idea — pick your
+- **This is the GitHub mirror of lab 122.** Same stages, same idea — pick your
   platform, the shape (fmt → init → validate → plan → apply) stays the same.

@@ -1,4 +1,4 @@
-# Lab 15 — Azure Database for MySQL (Flexible Server).
+# Lab 65 — Azure Database for MySQL (Flexible Server).
 # A managed MySQL 8 instance. Burstable B1ms is the smallest. Public access + a
 # firewall rule for Azure services lets apps reach it.
 

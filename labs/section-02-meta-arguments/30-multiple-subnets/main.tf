@@ -1,4 +1,4 @@
-# Lab 05 — Multiple subnets with for_each over a map.
+# Lab 30 — Multiple subnets with for_each over a map.
 # Teaches: for_each with a map of key → value, the for expression that builds an
 # output map, and VNet → subnet dependencies.
 # The most-reused networking pattern: one VNet, several subnets from a map.

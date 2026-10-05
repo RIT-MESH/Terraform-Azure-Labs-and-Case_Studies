@@ -1,6 +1,6 @@
-# 11 — VNet peering — setup
+# Lab 83 — VNet peering — setup
 
-Create two VNets in different regions, each with a subnet. Lab 13 peers them; this lab
+Create two VNets in different regions, each with a subnet. Lab 85 peers them; this lab
 is deliberately the "before" picture — two completely disconnected networks in separate
 resource groups and separate regions.
 
@@ -34,13 +34,13 @@ No `terraform.tfvars` needed.
 
 - Resource groups **rg-hub** (East US) and **rg-spoke** (West US 2).
 - **vnet-hub → Subnets**: `snet-hub` 10.20.1.0/24. Same for the spoke.
-- **vnet-hub → Peerings**: empty — nothing is peered yet (that's lab 13).
+- **vnet-hub → Peerings**: empty — nothing is peered yet (that's lab 85).
 
 ## Key concepts / gotchas
 
 - **Address spaces must not overlap** for peering to be possible: 10.20/16 vs 10.21/16.
 - Peering is configured on the VNet resource, so this lab only builds the two VNets and
-  their ids as outputs — the "contract" lab 13's peering resources need.
+  their ids as outputs — the "contract" lab 85's peering resources need.
 - Cross-region peering works (region of the VNets is irrelevant to the peering itself),
   and traffic across peering uses Microsoft's backbone, not the public internet.
 - Two separate resource groups here on purpose: peering works across resource groups

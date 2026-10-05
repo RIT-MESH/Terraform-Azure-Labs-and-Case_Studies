@@ -1,4 +1,4 @@
-# Lab 06 — the vm-stack module with custom_data (cloud-init) to write files at boot.
+# Lab 78 — the vm-stack module with custom_data (cloud-init) to write files at boot.
 # Builds: rg-modcopy, vnet-modcopy, ..., vm-modcopy (with /etc/motd written on boot).
 # Concept: passing computed values (base64encode(...)) into a module.
 

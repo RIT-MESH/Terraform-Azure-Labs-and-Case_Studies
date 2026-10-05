@@ -1,4 +1,4 @@
-# Lab 14 — connect a web app to a SQL database.
+# Lab 64 — connect a web app to a SQL database.
 # We inject the SQL connection string into the app's app_settings. Marking it
 # sensitive in the setting keeps it out of plain logs. The SQL firewall rule
 # 0.0.0.0 lets the Azure-hosted app reach the SQL server.

@@ -1,4 +1,4 @@
-# 07 — App Service logs
+# Lab 57 — App Service logs
 
 Turn on App Service logging to a storage account and the filesystem. HTTP access
 logs stream to blob storage; application (stdout/stderr) logs go to the App Service
@@ -23,7 +23,7 @@ account's `primary_blob_connection_string`, 7-day retention) and
 Prerequisite: `az login`.
 
 ```bash
-cd 07-app-service-logs
+cd 57-app-service-logs
 terraform init
 terraform plan
 terraform apply

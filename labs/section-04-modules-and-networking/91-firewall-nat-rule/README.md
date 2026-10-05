@@ -1,4 +1,4 @@
-# 19 — Azure Firewall — NAT rule
+# Lab 91 — Azure Firewall — NAT rule
 
 A DNAT rule forwards inbound port 22 on the firewall's public IP to the workload VM's
 port 22, so you can SSH to the workload *through* the firewall without a public IP on
@@ -18,7 +18,7 @@ the VM. This lab is self-contained: it builds its own firewall + `AzureFirewallS
 ## Commands
 
 Prerequisite: `az login`. Needs the workload VM's private IP as input (the address the
-rule translates to — e.g. lab 16's `vm-fw-workload`, or any target VM):
+rule translates to — e.g. lab 88's `vm-fw-workload`, or any target VM):
 
 ```bash
 cd labs/section-04-modules-and-networking/91-firewall-nat-rule

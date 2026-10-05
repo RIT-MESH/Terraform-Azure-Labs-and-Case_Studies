@@ -1,4 +1,4 @@
-# 15 — Web server via Terraform
+# Lab 40 — Web server via Terraform
 
 Deploy a Linux VM and install nginx using the `custom_data` (cloud-init) mechanism — the
 Terraform-native, idempotent alternative to a one-off provisioner. The VM gets a static
@@ -23,7 +23,7 @@ public IP and an NSG rule for HTTP.
 ## Commands
 
 ```bash
-cd 15-web-server
+cd 40-web-server
 terraform init
 terraform plan
 terraform apply -var=admin_ssh_key="ssh-rsa AAAA... your@email"

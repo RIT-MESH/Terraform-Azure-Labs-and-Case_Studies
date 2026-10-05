@@ -1,8 +1,8 @@
-# Lab 16 — hub + workload VM for the Azure Firewall labs (17-20).
+# Lab 88 — hub + workload VM for the Azure Firewall labs (17-20).
 #  - rg-fw with vnet-hub-fw (10.28.0.0/16).
 #  - AzureFirewallSubnet (10.28.0.0/26) — where the firewall will live.
 #  - a workload subnet + a Linux VM (the thing the firewall will protect/NAT to).
-# Outputs the workload/firewall subnet ids and vnet id for labs 17-20.
+# Outputs the workload/firewall subnet ids and vnet id for labs 89-92.
 
 # Root variable for the workload VM's admin SSH key (kept out of CLI output).
 variable "admin_ssh_key" {
@@ -54,7 +54,7 @@ resource "azurerm_network_interface" "vm" {
   }
 }
 
-# The workload VM (labs 17-20 route its traffic / forward SSH to it).
+# The workload VM (labs 89-92 route its traffic / forward SSH to it).
 resource "azurerm_linux_virtual_machine" "vm" {
   name                  = "vm-fw-workload"
   location              = azurerm_resource_group.this.location
@@ -78,7 +78,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 }
 
-# Subnet/vnet ids labs 17-20 build on (UDR association, firewall deployment, ...).
+# Subnet/vnet ids labs 89-92 build on (UDR association, firewall deployment, ...).
 output "workload_subnet_id" { value = azurerm_subnet.workload.id }
 output "firewall_subnet_id" { value = azurerm_subnet.firewall.id }
 output "vnet_id" { value = azurerm_virtual_network.hub.id }

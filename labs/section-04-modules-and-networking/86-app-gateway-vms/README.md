@@ -1,9 +1,9 @@
-# 14 — Application Gateway — virtual machines
+# Lab 86 — Application Gateway — virtual machines
 
 Application Gateway is a Layer-7 load balancer with WAF, cookie affinity, and path-based
-routing. Lab 14 deploys two backend VMs (the pool); lab 15 builds the gateway in front.
+routing. Lab 86 deploys two backend VMs (the pool); lab 87 builds the gateway in front.
 The VMs run nginx via cloud-init and serve a page stamped with their hostname, and the
-lab outputs their private IPs — exactly what lab 15's backend pool needs.
+lab outputs their private IPs — exactly what lab 87's backend pool needs.
 
 ## What it creates
 
@@ -34,16 +34,16 @@ terraform destroy
 
 - Resource group **rg-appgw** → **vnet-appgw → Subnets**: `snet-appgw` (empty) and
   `snet-backends`.
-- **snet-appgw → Connected devices** shows nothing until lab 15 deploys the gateway there.
+- **snet-appgw → Connected devices** shows nothing until lab 87 deploys the gateway there.
 - **vm-appgw-be-0/1 → Networking**: private IPs such as 10.26.2.x — these are the values
-  lab 15 consumes via `terraform output backend_ips`.
+  lab 87 consumes via `terraform output backend_ips`.
 
 ## Key concepts / gotchas
 
 - **App Gateway needs a dedicated, empty subnet** — the lab pre-creates `snet-appgw` so
-  lab 15 can deploy the gateway into it (nothing else may share that subnet).
+  lab 87 can deploy the gateway into it (nothing else may share that subnet).
 - The backends have **no public IP and no load balancer yet**; they are reachable only
-  from inside the VNet until lab 15 puts the gateway in front.
+  from inside the VNet until lab 87 puts the gateway in front.
 - Outputs (`backend_ips`, `appgw_subnet_id`) are the handoff point between the two
   labs — a mini module contract made of two configs.
 - `count = 2` builds identical NICs and VMs; `[*].id` / `[*].private_ip_address` collect

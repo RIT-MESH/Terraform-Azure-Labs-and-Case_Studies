@@ -1,6 +1,6 @@
-# Lab 18 — route workload traffic THROUGH the Azure Firewall.
+# Lab 90 — route workload traffic THROUGH the Azure Firewall.
 #  - azurerm_route_table with a route: 0.0.0.0/0 → next_hop_type = VirtualAppliance,
-#    next_hop_in_ip_address = the firewall's private IP (from lab 17).
+#    next_hop_in_ip_address = the firewall's private IP (from lab 89).
 # This lab creates the route table only; associate it with the workload subnet
 # (manually in the portal, or via azurerm_subnet_route_table_association) so
 # the subnet's outbound traffic goes via the firewall.

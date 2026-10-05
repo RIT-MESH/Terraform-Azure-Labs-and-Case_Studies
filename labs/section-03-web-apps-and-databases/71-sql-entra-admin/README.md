@@ -1,4 +1,4 @@
-# 22 — Azure SQL with Microsoft Entra ID admin (advanced)
+# Lab 71 — Azure SQL with Microsoft Entra ID admin (advanced)
 
 SQL logins are passwords. Entra ID (Azure AD) admin lets you sign in with an
 identity — no shared password, better audit, and you can scope who's a DB admin by
@@ -24,7 +24,7 @@ Prerequisite: `az login` — the data source reads the identity you're signed in
 so the Entra admin is set to *your* account.
 
 ```bash
-cd 22-sql-entra-admin
+cd 71-sql-entra-admin
 terraform init
 terraform plan
 terraform apply

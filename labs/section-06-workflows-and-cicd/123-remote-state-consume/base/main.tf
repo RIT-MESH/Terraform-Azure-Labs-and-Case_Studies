@@ -1,4 +1,4 @@
-# Lab 10 base — creates a storage account and outputs its name (to be read by consumer/).
+# Lab 123 base — creates a storage account and outputs its name (to be read by consumer/).
 
 # Standard terraform/provider setup. No `backend` block on purpose: the
 # consumer lab reads this config's LOCAL terraform.tfstate file directly.

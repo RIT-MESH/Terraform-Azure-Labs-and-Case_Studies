@@ -1,4 +1,4 @@
-# Lab 12 — two databases on one logical server, with a connection-string output.
+# Lab 62 — two databases on one logical server, with a connection-string output.
 # Teaches: one server can host many databases, and you can build a full ADO
 # connection string with string interpolation (${...}) and mark it sensitive.
 

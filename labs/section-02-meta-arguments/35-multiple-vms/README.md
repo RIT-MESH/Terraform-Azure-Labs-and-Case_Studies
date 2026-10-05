@@ -1,4 +1,4 @@
-# 10 — Multiple virtual machines
+# Lab 35 — Multiple virtual machines
 
 Deploy two Linux VMs with `count`, each with its own NIC. Shows how `count.index`
 threads through dependent resources (NICs match VMs by index).
@@ -16,7 +16,7 @@ threads through dependent resources (NICs match VMs by index).
 ## Commands
 
 ```bash
-cd 10-multiple-vms
+cd 35-multiple-vms
 terraform init
 terraform plan
 terraform apply -var=admin_ssh_key="ssh-rsa AAAA... your@email"
@@ -42,7 +42,7 @@ terraform destroy
 - Both NICs and VMs share the same `count = var.vm_count`, so instance `i` of the VM
   uses instance `i` of the NIC: `azurerm_network_interface.web[count.index].id`.
 - This index-pairing is the classic `count` idiom — and its weakness: changing
-  `vm_count` renumbers the list, which can recreate VMs. `for_each` (lab 23) avoids that.
+  `vm_count` renumbers the list, which can recreate VMs. `for_each` (lab 48) avoids that.
 - `sensitive = true` only hides the value in CLI output; the SSH key is still stored
   in **state in plain text**.
 - Nested blocks of a VM: `admin_ssh_key` (public-key login), `os_disk`

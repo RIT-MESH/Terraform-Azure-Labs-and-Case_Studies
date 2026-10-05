@@ -1,4 +1,4 @@
-# 19 — Mini project — App Service virtual network integration
+# Lab 68 — Mini project — App Service virtual network integration
 
 When your database is private (no public access), the web app needs a VNet
 integration to reach it. This lab creates a VNet, a subnet **delegated** to
@@ -21,7 +21,7 @@ integration to reach it. This lab creates a VNet, a subnet **delegated** to
 Prerequisite: `az login`.
 
 ```bash
-cd 19-web-app-vnet-integration
+cd 68-web-app-vnet-integration
 terraform init
 terraform plan
 terraform apply

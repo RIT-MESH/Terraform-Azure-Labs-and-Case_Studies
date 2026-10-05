@@ -1,6 +1,6 @@
-# 18 — Linux machine — restructure
+# Lab 43 — Linux machine — restructure
 
-The same VM as lab 17, but split into `terraform.tf`, `locals.tf`, `variables.tf`,
+The same VM as lab 42, but split into `terraform.tf`, `locals.tf`, `variables.tf`,
 `network.tf`, `vm.tf`, `outputs.tf`. This is the structure every serious project uses.
 
 ## What it creates
@@ -16,7 +16,7 @@ The same VM as lab 17, but split into `terraform.tf`, `locals.tf`, `variables.tf
 ## Commands
 
 ```bash
-cd 18-linux-restructure
+cd 43-linux-restructure
 terraform init
 terraform plan
 terraform apply -var=vm_name="vm-renamed"

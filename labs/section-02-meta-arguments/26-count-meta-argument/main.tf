@@ -1,4 +1,4 @@
-# Lab 01 — The `count` meta-argument.
+# Lab 26 — The `count` meta-argument.
 # `count` creates N copies of a resource. Each copy is addressed as resource.name[0],
 # resource.name[1], ... Use count when the copies are identical and index-addressed.
 

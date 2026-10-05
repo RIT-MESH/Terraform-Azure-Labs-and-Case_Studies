@@ -1,4 +1,4 @@
-# Lab 01 — calling a local module.
+# Lab 73 — calling a local module.
 # A module is a folder of .tf files you reuse. `source` points at it (here a
 # relative path). Run `terraform init` to copy/link the module. Inputs go in the
 # block body; outputs come back as module.name.output_name.

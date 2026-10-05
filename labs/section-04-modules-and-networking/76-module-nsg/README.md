@@ -1,4 +1,4 @@
-# 04 — Modules — network security groups
+# Lab 76 — Modules — network security groups
 
 A module that creates an NSG with a list of allowed inbound ports, then associates it
 with a given subnet. Demonstrates passing a `list(number)` and looping with `dynamic`:
@@ -41,7 +41,7 @@ No `terraform.tfvars` needed.
   expands a list input into N rule blocks — the module's whole value-add over raw HCL.
 - Rule **priority** must be unique per NSG; the module generates 100 + index for you.
 - NSG rules are stateful and port-based; application (FQDN) filtering is the firewall's
-  job (labs 20/25).
+  job (labs 92/25).
 - Association is a separate resource from the NSG itself — an NSG that isn't associated
   (subnet or NIC level) protects nothing.
 - `destination_address_prefix = "*"` means "any address in this NSG" — fine for a lab,

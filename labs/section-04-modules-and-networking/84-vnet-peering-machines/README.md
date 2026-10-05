@@ -1,6 +1,6 @@
-# 12 — VNet peering — machine setup
+# Lab 84 — VNet peering — machine setup
 
-Add one VM per VNet from lab 11 so we can test connectivity after peering. Two fully
+Add one VM per VNet from lab 83 so we can test connectivity after peering. Two fully
 separate stacks — hub (eastus, 10.22.0.0/16) and spoke (westus2, 10.23.0.0/16) — each
 with its own RG, VNet, subnet, NIC and Linux VM. The VMs have no public IPs: before
 peering there is no way in from outside, which is exactly the point.
@@ -36,12 +36,12 @@ terraform destroy
 
 - Resource groups **rg-peer-hub** and **rg-peer-spoke**, each with a VNet/subnet/NIC/VM.
 - **vm-hub → Networking**: a private IP like 10.22.1.x, and **no public IP**.
-- Note the two VMs are in different regions — the ping test in lab 13 works cross-region.
+- Note the two VMs are in different regions — the ping test in lab 85 works cross-region.
 
 ## Key concepts / gotchas
 
 - **No public IPs and no peering yet**: `ping` between the VMs fails right now — the
-  outputs (`hub_private_ip`, `spoke_private_ip`) are what lab 13 makes reachable.
+  outputs (`hub_private_ip`, `spoke_private_ip`) are what lab 85 makes reachable.
 - Both stacks are the same six resources with different names/regions — a reminder that
   identical HCL + different variables = a second environment.
 - Since the VMs have no public IP, you reach them after peering from another peered VM,

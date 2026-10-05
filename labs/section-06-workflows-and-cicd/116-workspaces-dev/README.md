@@ -1,4 +1,4 @@
-# 03 — Terraform workspaces — dev environment
+# Lab 116 — Terraform workspaces — dev environment
 
 Workspaces let one configuration manage several state files (e.g. dev, stg, prod).
 The `terraform.workspace` built-in value picks names/tiers per workspace: the code
@@ -21,7 +21,7 @@ same code, isolated states.
 
 ```bash
 # Prerequisite: az login
-cd 03-workspaces-dev
+cd 116-workspaces-dev
 terraform init
 terraform workspace new dev      # create the "dev" workspace (own state file)
 terraform workspace new prod     # create the "prod" workspace
@@ -52,9 +52,9 @@ terraform destroy                # destroys only the *selected* workspace's reso
   SKU; the `prod` ternary is the "per-workspace settings" idiom.
 - **Best for same-shape environments.** All workspaces run the *same* code with
   the same providers. If prod needs genuinely different resources, use separate
-  directories/backends (lab 06) instead.
+  directories/backends (lab 119) instead.
 - **No backend block here**, so workspace state lives locally; a remote backend
-  (lab 06) keys state per workspace the same way — often the real production use
+  (lab 119) keys state per workspace the same way — often the real production use
   of workspaces.
 - **The default workspace** (`default`) exists even if you never created one —
   don't let it become a dumping ground for half-tested applies.

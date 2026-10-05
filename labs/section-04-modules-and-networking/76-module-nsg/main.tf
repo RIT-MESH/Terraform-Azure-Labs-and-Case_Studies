@@ -1,4 +1,4 @@
-# Lab 04 — a module that builds an NSG from a list of allowed ports (dynamic
+# Lab 76 — a module that builds an NSG from a list of allowed ports (dynamic
 # blocks inside the module) and associates it with a given subnet.
 # Builds: rg-vnet-modnsg, vnet-modnsg + subnet web, nsg-modnsg (+3 Allow rules).
 # Concept: handing data into a module and letting IT build the per-item blocks.

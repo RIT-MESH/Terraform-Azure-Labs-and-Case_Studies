@@ -1,4 +1,4 @@
-# 04 — `for_each` over blobs
+# Lab 29 — `for_each` over blobs
 
 Use `for_each` with a **map** whose values describe each blob. Here we upload three
 config files in one block, each with its own content.
@@ -16,7 +16,7 @@ config files in one block, each with its own content.
 ## Commands
 
 ```bash
-cd 04-for-each-blobs
+cd 29-for-each-blobs
 terraform init
 terraform plan
 terraform apply

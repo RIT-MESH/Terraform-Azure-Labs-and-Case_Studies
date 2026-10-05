@@ -1,4 +1,4 @@
-# 24 — Application Gateway — SSL termination via Key Vault (advanced)
+# Lab 96 — Application Gateway — SSL termination via Key Vault (advanced)
 
 Terminate HTTPS on the gateway with a **self-signed certificate stored in Key Vault**.
 App Gateway fetches the cert from the vault using a **user-assigned managed identity** —

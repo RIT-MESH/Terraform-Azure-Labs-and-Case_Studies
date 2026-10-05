@@ -1,4 +1,4 @@
-# Lab 07 — Landing Zone: hub + two spoke VNets and hub→spoke peering.
+# Lab 104 — Landing Zone: hub + two spoke VNets and hub→spoke peering.
 #  - vnet-lz-hub, vnet-lz-data, vnet-lz-sec.
 #  - peering from hub to each spoke (allow_forwarded_traffic so the hub can route).
 # (Full bidirectional peering would add spoke→hub rules too; this lab keeps it simple.)
@@ -17,7 +17,7 @@ resource "azurerm_virtual_network" "hub" {
   address_space       = ["10.40.0.0/16"]
 }
 
-# Data spoke VNet: where the data-tier resources (labs 09/10) get attached.
+# Data spoke VNet: where the data-tier resources (labs 106/10) get attached.
 resource "azurerm_virtual_network" "spoke_data" {
   name                = "vnet-lz-data"
   location            = azurerm_resource_group.net.location
@@ -25,7 +25,7 @@ resource "azurerm_virtual_network" "spoke_data" {
   address_space       = ["10.41.0.0/16"]
 }
 
-# Security spoke VNet: for security tooling (lab 11's Key Vault world).
+# Security spoke VNet: for security tooling (lab 108's Key Vault world).
 resource "azurerm_virtual_network" "spoke_sec" {
   name                = "vnet-lz-sec"
   location            = azurerm_resource_group.net.location

@@ -1,4 +1,4 @@
-# Lab 23 — MySQL Flexible Server: configuration + zone-redundant HA.
+# Lab 72 — MySQL Flexible Server: configuration + zone-redundant HA.
 # Beyond basics: set high_availability = ZoneRedundant (2 instances across zones),
 # tune a server parameter (max_connections), and set a maintenance window.
 # This pins the tooling: Terraform CLI version + the provider that talks to Azure.

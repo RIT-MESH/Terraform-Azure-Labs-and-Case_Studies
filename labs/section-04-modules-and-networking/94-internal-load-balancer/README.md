@@ -1,9 +1,9 @@
-# 22 — Internal Load Balancer (advanced)
+# Lab 94 — Internal Load Balancer (advanced)
 
-Lab 07 made a *public* LB. Here the frontend IP is **private** (inside a VNet), so the
+Lab 79 made a *public* LB. Here the frontend IP is **private** (inside a VNet), so the
 load-balanced service is only reachable from inside the network — the classic pattern for
 fronting an internal API behind a public gateway/firewall. Two backend VMs run nginx.
-Everything else (pool, probe, rule) is identical to lab 07; only the frontend changes.
+Everything else (pool, probe, rule) is identical to lab 79; only the frontend changes.
 
 Addressing: VNet `172.23.0.0/20`; backend subnet `172.23.0.0/26`; frontend subnet
 `172.23.0.64/26` (the LB's private frontend IP `172.23.0.68` lives here).
@@ -18,7 +18,7 @@ Addressing: VNet `172.23.0.0/20`; backend subnet `172.23.0.0/26`; frontend subne
 | `azurerm_network_security_group` | `nsg-internal-lb` | Allow inbound 80 |
 | `azurerm_network_interface` × 2 / `azurerm_linux_virtual_machine` × 2 | `nic-internal-be-N` / `vm-internal-be-N` | nginx via cloud-init |
 | `azurerm_lb` | `lb-internal` | **Private** frontend 172.23.0.68 |
-| `azurerm_lb_backend_address_pool` / probe / rule | `be-internal` / `http` / `http` | Same shape as lab 07 |
+| `azurerm_lb_backend_address_pool` / probe / rule | `be-internal` / `http` / `http` | Same shape as lab 79 |
 
 ## Commands
 
@@ -51,6 +51,6 @@ terraform destroy
   picking it yourself makes the service's address stable for callers/DNS.
 - Azure recommends the LB frontend lives in its **own subnet**, separate from the
   backends — hence the second subnet here.
-- Everything else is the four-resource LB pattern from lab 07: `azurerm_lb` + pool +
+- Everything else is the four-resource LB pattern from lab 79: `azurerm_lb` + pool +
   probe + rule. Internal LBs are also the standard frontend for SQL Always On
   listeners and private AKS ingress.

@@ -1,6 +1,6 @@
-# 13 — Custom Azure Policy definition + assignment (advanced)
+# Lab 110 — Custom Azure Policy definition + assignment (advanced)
 
-Lab 12 assigned a **built-in** policy. This lab authors a **custom** policy definition
+Lab 109 assigned a **built-in** policy. This lab authors a **custom** policy definition
 (`azurerm_policy_definition`) — "deny resource groups without a `costcenter` tag" — and
 assigns it at a resource group scope. Custom policies express rules the built-ins don't
 cover.
@@ -21,7 +21,7 @@ The policy rule uses `policyRule` JSON: a `deny` effect when `tags.costcenter` i
 Prerequisite: `az login`. No tfvars needed.
 
 ```bash
-cd 13-custom-policy-definition
+cd 110-custom-policy-definition
 terraform init
 terraform plan
 terraform apply
@@ -48,7 +48,7 @@ terraform destroy
   the ARM request payload), `then.effect` decides the outcome — `deny` refuses,
   `audit` merely flags. `allOf` = logical AND.
 - **JSON-in-HCL**: policy bodies are JSON strings, so `jsonencode()` builds them;
-  this is the same trick lab 12 used for `parameters`.
+  this is the same trick lab 109 used for `parameters`.
 - **Ordering matters**: the demo RG is created *with* the tag, so it passes its own
   policy. Applying the assignment to an untagged group would deny updates to that group
   in later applies (policy evaluation can bite Terraform itself).

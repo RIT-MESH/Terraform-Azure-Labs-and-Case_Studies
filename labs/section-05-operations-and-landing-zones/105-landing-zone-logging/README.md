@@ -1,4 +1,4 @@
-# 08 — Landing Zone — logging
+# Lab 105 — Landing Zone — logging
 
 Centralise logs in one Log Analytics workspace in the security RG, plus a storage account
 for long-term archive. Diagnostic settings (added per resource) point at this workspace.
@@ -18,7 +18,7 @@ for long-term archive. Diagnostic settings (added per resource) point at this wo
 Prerequisite: `az login`. No tfvars needed.
 
 ```bash
-cd 08-landing-zone-logging
+cd 105-landing-zone-logging
 terraform init
 terraform plan
 terraform apply
@@ -31,7 +31,7 @@ terraform destroy
 
 Open resource group **rg-lz-sec**. You'll see `log-lz-<suffix>` and `stlzlogs<suffix>`:
 
-- **Log Analytics workspace → Logs**: KQL query window (empty until lab 14 feeds data).
+- **Log Analytics workspace → Logs**: KQL query window (empty until lab 111 feeds data).
 - **Storage account → Networking**: shows "Minimum TLS version: TLS 1.2".
 - Nothing flows here yet — both are just destinations until a diagnostic setting
   points a resource at them.
@@ -46,5 +46,5 @@ Open resource group **rg-lz-sec**. You'll see `log-lz-<suffix>` and `stlzlogs<su
   the workspace to the primary region.
 - **`min_tls_version = "TLS1_2"`** is a typical landing-zone hardening default applied
   uniformly to every storage account.
-- This workspace is *the* landing zone workspace — lab 14 (diagnostic settings) and
-  lab 15 (activity-log alerts) build on this pattern of "all logs flow to one place".
+- This workspace is *the* landing zone workspace — lab 111 (diagnostic settings) and
+  lab 112 (activity-log alerts) build on this pattern of "all logs flow to one place".

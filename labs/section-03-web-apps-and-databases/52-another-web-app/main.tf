@@ -1,9 +1,9 @@
-# Lab 02 (assignment) — deploy a SECOND web app reusing an existing service plan.
+# Lab 52 (assignment) — deploy a SECOND web app reusing an existing service plan.
 # We look up the plan with a `data` block (it must already exist), then create a
 # new app on it. One plan can host many apps.
 
 # Input variables with defaults — override with -var, terraform.tfvars or env
-# vars. These point at the plan + resource group created in lab 01.
+# vars. These point at the plan + resource group created in lab 51.
 variable "existing_plan_name" {
   type    = string
   default = "asp-webapp"
@@ -12,7 +12,7 @@ variable "existing_rg_name" {
   type    = string
   default = "rg-webapp"
 }
-# READ the existing plan (created in lab 01). We don't manage it here.
+# READ the existing plan (created in lab 51). We don't manage it here.
 data "azurerm_service_plan" "this" {
   name                = var.existing_plan_name
   resource_group_name = var.existing_rg_name

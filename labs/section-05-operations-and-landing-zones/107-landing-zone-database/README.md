@@ -1,8 +1,8 @@
-# 10 — Landing Zone — database deployment
+# Lab 107 — Landing Zone — database deployment
 
 An Azure SQL logical server + database in the data RG, with a firewall rule allowing
 other Azure services (so the app can connect) and a diagnostic setting streaming to the
-Log Analytics workspace from lab 08.
+Log Analytics workspace from lab 105.
 
 ## What it creates
 
@@ -13,16 +13,16 @@ Log Analytics workspace from lab 08.
 | `azurerm_mssql_server.this` | `sql-lz-<suffix>` | SQL 12.0, admin `sqladmin`, TLS 1.2 |
 | `azurerm_mssql_firewall_rule.azure` | `AllowAzure` | 0.0.0.0 = "allow Azure services" |
 | `azurerm_mssql_database.this` | `sqldb-lz` | SKU S0 |
-| `azurerm_monitor_diagnostic_setting.sql` | `diag-sql` | Audit log + metrics → lab 08 workspace |
+| `azurerm_monitor_diagnostic_setting.sql` | `diag-sql` | Audit log + metrics → lab 105 workspace |
 | output `server_fqdn` | — | `<server>.database.windows.net` |
 
 ## Commands
 
-Prerequisite: `az login`, and **lab 08 applied first** (you need its workspace ID).
+Prerequisite: `az login`, and **lab 105 applied first** (you need its workspace ID).
 
 ```bash
-cp terraform.tfvars.example terraform.tfvars   # set a password + the workspace ID from lab 08
-cd 10-landing-zone-database
+cp terraform.tfvars.example terraform.tfvars   # set a password + the workspace ID from lab 105
+cd 107-landing-zone-database
 terraform init
 terraform plan
 terraform apply
@@ -52,6 +52,6 @@ Get the workspace ID with `terraform output workspace_id` run in `08-landing-zon
   the value still lands in state (encrypted at rest) — real deployments would use
   Key Vault references instead.
 - **Diagnostic setting wiring**: `target_resource_id` = what emits the data (the
-  database), `log_analytics_workspace_id` = where it goes (lab 08's workspace). This
+  database), `log_analytics_workspace_id` = where it goes (lab 105's workspace). This
   is the lab-14 pattern applied to SQL.
 - SQL audit events take a few minutes to appear in the workspace after apply.

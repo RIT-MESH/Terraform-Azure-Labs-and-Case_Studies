@@ -1,4 +1,4 @@
-# Lab 15 — a web server built via cloud-init (custom_data).
+# Lab 40 — a web server built via cloud-init (custom_data).
 # Teaches: a heredoc (<<-EOT) holding cloud-init YAML, base64encode() for
 # custom_data, a public IP attached to a NIC's ip_configuration, and an NSG rule
 # opening HTTP.
