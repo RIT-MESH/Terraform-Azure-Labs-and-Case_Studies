@@ -39,7 +39,7 @@
       "id": "S004",
       "type": "CONCEPT",
       "heading": "Where to find this lab",
-      "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-02-meta-arguments\n          └── 01-count-meta-argument\n              ├── README.md\n              ├── main.tf\n              └── terraform.tf\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies\n/tree/master/labs/section-02-meta-arguments/01-count-meta-argument",
+      "github_path": "RIT-MESH / Terraform-Azure-Labs-and-Case_Studies\n  └── labs\n      └── section-02-meta-arguments\n          └── 01-count-meta-argument\n              ├── README.md\n              ├── main.tf\n              └── terraform.tf\n\nhttps://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies\n/tree/master/labs/section-02-meta-arguments/26-count-meta-argument",
       "audio": "audio/S004.mp3",
       "narration": "You can find this lab in the course GitHub repository under Section 2, Meta-arguments — the lab named 01-count-meta-argument. The direct link is in the video description. Open the two files we'll read in this lesson: main dot T F holds the whole configuration, and terraform dot T F pins the providers."
     },
@@ -592,7 +592,7 @@
       "type": "CONCEPT",
       "heading": "Thanks for watching",
       "centered": true,
-      "github_path": "github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies\ntree/master/labs/section-02-meta-arguments/01-count-meta-argument",
+      "github_path": "github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies\ntree/master/labs/section-02-meta-arguments/26-count-meta-argument",
       "audio": "audio/S020.mp3",
       "narration": "Thanks for watching. If this helped, the full lab — along with every lab in this course — is in the GitHub repository linked in the description. See you in the next one."
     }
