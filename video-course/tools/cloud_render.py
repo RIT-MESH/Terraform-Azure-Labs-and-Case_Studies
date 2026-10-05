@@ -28,6 +28,7 @@ from course_index import (episode_dir, load_course_manifest, public_rel_path,
 from sync_ci_inputs import sync_episode  # noqa: E402
 
 WORKFLOW = "render-course-video.yml"
+DEFAULT_REPO = "RIT-MESH/Terraform-Azure-Labs-and-Case_Studies"
 DEFAULT_CLONE = os.path.join(os.path.expanduser("~"), "Documents", "GitHub",
                              "Terraform-Azure-Labs-and-Case_Studies")
 
@@ -102,13 +103,15 @@ def normalize_part_names(final_dir, ep):
 
 
 def wait_and_download(run_id, ep):
-    subprocess.run(["gh", "run", "watch", str(run_id), "--exit-status"])
+    # -R is required: the caller's cwd may not be a git repository, and gh
+    # refuses to resolve a base repo outside a checkout.
+    subprocess.run(["gh", "run", "watch", str(run_id), "--exit-status", "-R", DEFAULT_REPO])
     import shutil as _sh
     import tempfile
     final_dir = os.path.join(episode_dir(ep), "final")
     os.makedirs(final_dir, exist_ok=True)
     tmp = tempfile.mkdtemp(prefix="ci-artifact-")
-    subprocess.run(["gh", "run", "download", str(run_id), "-D", tmp], check=True)
+    subprocess.run(["gh", "run", "download", str(run_id), "-R", DEFAULT_REPO, "-D", tmp], check=True)
     # the artifact nests the lab's final/ dir; find it wherever it lands
     finals = [root for root, _dirs, _files in os.walk(tmp)
               if os.path.basename(root) == "final"]
