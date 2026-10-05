@@ -1,4 +1,4 @@
-﻿# Case Study 10 — Carnival Corporation
+# Case Study 10 — Carnival Corporation
 
 **Organization:** Carnival Corporation · **Industry:** Cruise / hospitality · **Scale:** Seasonal, demand spikes
 
@@ -18,9 +18,9 @@ down automatically to control cost.
 - Consistent, repeatable networking stack.
 
 ## Labs to run
-- `labs/section-04-modules-and-networking/08-vmss`.
-- `labs/section-04-modules-and-networking/07-load-balancer`.
-- `labs/section-04-modules-and-networking/15-app-gateway-impl`.
+- `labs/section-04-modules-and-networking/80-vmss`.
+- `labs/section-04-modules-and-networking/79-load-balancer`.
+- `labs/section-04-modules-and-networking/87-app-gateway-impl`.
 
 ## Source / verify
 Verify at Microsoft Customer Stories (https://www.microsoft.com/en-us/customerstories — search "Carnival Corporation Azure").

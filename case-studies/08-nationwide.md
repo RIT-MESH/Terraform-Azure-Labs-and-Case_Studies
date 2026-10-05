@@ -1,4 +1,4 @@
-﻿# Case Study 08 — Nationwide Building Society
+# Case Study 08 — Nationwide Building Society
 
 **Organization:** Nationwide Building Society · **Industry:** Financial services · **Scale:** UK building society, regulated
 
@@ -18,8 +18,8 @@ change is reviewable and least-privilege access is enforced.
 - Secrets managed centrally.
 
 ## Labs to run
-- `labs/section-02-meta-arguments/13-key-vault`.
-- `labs/section-05-operations-and-landing-zones/04-role-assignments`, `05-resource-locks`,
+- `labs/section-02-meta-arguments/38-key-vault`.
+- `labs/section-05-operations-and-landing-zones/101-role-assignments`, `05-resource-locks`,
   `11-landing-zone-keyvault`.
 
 ## Source / verify

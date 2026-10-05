@@ -1,4 +1,4 @@
-﻿# Case Study 15 — PepsiCo
+# Case Study 15 — PepsiCo
 
 **Organization:** PepsiCo · **Industry:** Consumer goods · **Scale:** Big-data analytics + global apps
 
@@ -18,9 +18,9 @@ container orchestration alongside classic VM workloads.
 - Reproducible data environments.
 
 ## Labs to run
-- `labs/section-04-modules-and-networking/08-vmss`.
-- `labs/section-06-workflows-and-cicd/08-aks`.
-- `labs/section-05-operations-and-landing-zones/14-diagnostic-settings`.
+- `labs/section-04-modules-and-networking/80-vmss`.
+- `labs/section-06-workflows-and-cicd/121-aks`.
+- `labs/section-05-operations-and-landing-zones/111-diagnostic-settings`.
 
 ## Source / verify
 Publicly reported Azure adoption. Verify at Microsoft Customer Stories

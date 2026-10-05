@@ -1,4 +1,4 @@
-﻿# Case Study 06 — Co-op
+# Case Study 06 — Co-op
 
 **Organization:** Co-op (UK) · **Industry:** Retail / consumer co-operative · **Scale:** Multi-subscription estate
 
@@ -20,7 +20,7 @@ consistent, secure foundation — without a central bottleneck team doing manual
 
 ## Labs to run
 - `labs/section-05-operations-and-landing-zones/06..12` (landing zone).
-- `labs/section-05-operations-and-landing-zones/04-role-assignments`.
+- `labs/section-05-operations-and-landing-zones/101-role-assignments`.
 
 ## Source / verify
 Verify at Microsoft Customer Stories (https://www.microsoft.com/en-us/customerstories — search "Co-op Azure") and HashiCorp customers (https://www.hashicorp.com/customers).

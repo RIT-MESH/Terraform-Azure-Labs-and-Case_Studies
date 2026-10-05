@@ -1,4 +1,4 @@
-﻿# Case Study 12 — Manulife
+# Case Study 12 — Manulife
 
 **Organization:** Manulife · **Industry:** Financial services / insurance · **Scale:** Multi-region, regulated
 
@@ -18,9 +18,9 @@ regions, with full audit of who changed what.
 - Compliance posture defined in version control.
 
 ## Labs to run
-- `labs/section-05-operations-and-landing-zones/12-landing-zone-policy` and `13-custom-policy-definition`.
-- `labs/section-05-operations-and-landing-zones/14-diagnostic-settings`.
-- `labs/section-05-operations-and-landing-zones/04-role-assignments`.
+- `labs/section-05-operations-and-landing-zones/109-landing-zone-policy` and `13-custom-policy-definition`.
+- `labs/section-05-operations-and-landing-zones/111-diagnostic-settings`.
+- `labs/section-05-operations-and-landing-zones/101-role-assignments`.
 
 ## Source / verify
 Publicly reported Azure adoption. Verify at Microsoft Customer Stories

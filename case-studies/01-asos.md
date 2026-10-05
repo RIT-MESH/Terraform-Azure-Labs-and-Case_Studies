@@ -1,4 +1,4 @@
-﻿# Case Study 01 — ASOS
+# Case Study 01 — ASOS
 
 **Organization:** ASOS · **Industry:** Online fashion retail · **Scale:** Global, peak traffic in the millions of shoppers
 
@@ -23,9 +23,9 @@ provision hundreds of environments.
 - Ability to scale for peak shopping events.
 
 ## Labs to run
-- `labs/section-04-modules-and-networking/05-module-vm` and `06` — reusable modules.
-- `labs/section-05-operations-and-landing-zones/06-landing-zone-rg` → `12` — the landing zone.
-- `labs/section-06-workflows-and-cicd/11-github-actions` — pipeline-driven applies.
+- `labs/section-04-modules-and-networking/77-module-vm` and `06` — reusable modules.
+- `labs/section-05-operations-and-landing-zones/103-landing-zone-rg` → `12` — the landing zone.
+- `labs/section-06-workflows-and-cicd/124-github-actions` — pipeline-driven applies.
 
 ## Source / verify
 Verified primary source (Microsoft Customer Story): https://www.microsoft.com/en-us/customers/story/718983-asos-retail-and-consumer-goods-azure

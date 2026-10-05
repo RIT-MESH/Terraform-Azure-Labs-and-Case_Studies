@@ -1,4 +1,4 @@
-﻿# Case Study 09 — L'Oréal
+# Case Study 09 — L'Oréal
 
 **Organization:** L'Oréal · **Industry:** Consumer goods / beauty · **Scale:** Global consumer brands and e-commerce
 
@@ -18,9 +18,9 @@ keeping a single deployment pipeline.
 - Clear per-brand cost visibility via tags.
 
 ## Labs to run
-- `labs/section-04-modules-and-networking/09-traffic-manager` and `10`.
-- `labs/section-03-web-apps-and-databases/05-deployment-slots-create` and `06`.
-- `labs/section-03-web-apps-and-databases/04-resource-tags`.
+- `labs/section-04-modules-and-networking/81-traffic-manager` and `10`.
+- `labs/section-03-web-apps-and-databases/55-deployment-slots-create` and `06`.
+- `labs/section-03-web-apps-and-databases/54-resource-tags`.
 
 ## Source / verify
 Verify at Microsoft Customer Stories (https://www.microsoft.com/en-us/customerstories — search "L'Oreal Azure").

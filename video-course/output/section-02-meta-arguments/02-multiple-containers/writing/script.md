@@ -51,7 +51,7 @@ RIT-MESH / Terraform-Azure-Labs-and-Case_Studies
               └── variables.tf
 
 https://github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
-/tree/master/labs/section-02-meta-arguments/02-multiple-containers
+/tree/master/labs/section-02-meta-arguments/27-multiple-containers
 ```
 
 You can find this lab in the course GitHub repository under Section 2, Meta-arguments — the lab named 02-multiple-containers. The direct link is in the video description. Open the two files we'll read in this lesson: main dot T F holds the whole configuration, and terraform dot T F pins the providers.
@@ -245,7 +245,7 @@ Now that we understand how this Terraform configuration works, in the next part 
 
 ```
 github.com/RIT-MESH/Terraform-Azure-Labs-and-Case_Studies
-tree/master/labs/section-02-meta-arguments/02-multiple-containers
+tree/master/labs/section-02-meta-arguments/27-multiple-containers
 ```
 
 Thanks for watching. If this helped, the full lab — along with every lab in this course — is in the GitHub repository linked in the description. See you in the next one.

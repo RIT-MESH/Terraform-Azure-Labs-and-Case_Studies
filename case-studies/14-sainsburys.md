@@ -1,4 +1,4 @@
-﻿# Case Study 14 — Sainsbury's
+# Case Study 14 — Sainsbury's
 
 **Organization:** Sainsbury's · **Industry:** Retail · **Scale:** Supermarkets + online, ephemeral test envs
 
@@ -18,9 +18,9 @@ left resources running, inflating cost.
 - Safe concurrent team work via state locking.
 
 ## Labs to run
-- `labs/section-06-workflows-and-cicd/06-remote-state-storage`.
-- `labs/section-06-workflows-and-cicd/11-github-actions`.
-- `labs/section-04-modules-and-networking/08-vmss`.
+- `labs/section-06-workflows-and-cicd/119-remote-state-storage`.
+- `labs/section-06-workflows-and-cicd/124-github-actions`.
+- `labs/section-04-modules-and-networking/80-vmss`.
 
 ## Source / verify
 Publicly reported Azure adoption. Verify at Microsoft Customer Stories

@@ -1,4 +1,4 @@
-﻿# Case Study 11 — Mars
+# Case Study 11 — Mars
 
 **Organization:** Mars · **Industry:** Consumer goods / petcare · **Scale:** Global brands, many business segments
 
@@ -18,9 +18,9 @@ sharing a common, governed platform.
 - Consistent platform services across segments.
 
 ## Labs to run
-- `labs/section-06-workflows-and-cicd/03-workspaces-dev`.
-- `labs/section-06-workflows-and-cicd/02-multiple-environments`.
-- `labs/section-03-web-apps-and-databases/04-resource-tags`.
+- `labs/section-06-workflows-and-cicd/116-workspaces-dev`.
+- `labs/section-06-workflows-and-cicd/115-multiple-environments`.
+- `labs/section-03-web-apps-and-databases/54-resource-tags`.
 
 ## Source / verify
 Publicly reported Azure adoption. Verify at Microsoft Customer Stories

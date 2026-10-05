@@ -1,4 +1,4 @@
-﻿# Case Study 13 — Fujitsu
+# Case Study 13 — Fujitsu
 
 **Organization:** Fujitsu · **Industry:** IT services · **Scale:** Internal platform + customer deliveries
 
@@ -19,8 +19,8 @@ both need a reusable, opinionated set of building blocks.
 - Lower onboarding effort for new teams.
 
 ## Labs to run
-- `labs/section-04-modules-and-networking/01-module-resource-group` through `06-module-copy-files`.
-- `labs/section-06-workflows-and-cicd/06-remote-state-storage`.
+- `labs/section-04-modules-and-networking/73-module-resource-group` through `06-module-copy-files`.
+- `labs/section-06-workflows-and-cicd/119-remote-state-storage`.
 
 ## Source / verify
 Publicly reported Azure + Terraform usage. Verify at HashiCorp customers

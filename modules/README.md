@@ -1,4 +1,4 @@
-﻿# Reusable modules
+# Reusable modules
 
 A **module** is a folder of Terraform files you can call from elsewhere. Modules are how
 you avoid copy-pasting the same resource blocks across every project — write the pattern
@@ -11,7 +11,7 @@ contract of inputs (`variables.tf`), resources (`main.tf`), and outputs (`output
 > Modules here are **local** (referenced by a relative path like `source = "../../modules/vnet"`).
 > You run `terraform init` once per caller so Terraform copies the module into `.terraform/`.
 > The same `module {}` block works with registry or Git sources too — see
-> `labs/section-04-modules-and-networking/21-registry-module`.
+> `labs/section-04-modules-and-networking/93-registry-module`.
 
 ## What a module looks like
 
@@ -84,7 +84,7 @@ terraform apply
 - **Out:** `vm_id`, `vm_name`, `public_ip`, `nic_id`, `vnet_id`
 
 > `admin_ssh_key` is `sensitive` — it never appears in plan/apply output. `custom_data`
-> accepts base64-encoded cloud-init (see `labs/.../06-module-copy-files`).
+> accepts base64-encoded cloud-init (see `labs/.../78-module-copy-files`).
 
 ## Module conventions used here
 
@@ -101,7 +101,7 @@ terraform apply
 
 ## Where to go next
 
-- Build the smallest module: `labs/section-04-modules-and-networking/01-module-resource-group`
+- Build the smallest module: `labs/section-04-modules-and-networking/73-module-resource-group`
 - See modules chain together: `03-module-ip-nic` (consumes `vnet`'s output)
 - Consume a module from the public Terraform Registry: `21-registry-module`
 - The concept guide: [`docs/concepts/modules.md`](../docs/concepts/modules.md)

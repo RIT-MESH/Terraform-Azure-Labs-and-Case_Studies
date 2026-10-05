@@ -1,4 +1,4 @@
-﻿# Case Study 04 — Tetra Pak
+# Case Study 04 — Tetra Pak
 
 **Organization:** Tetra Pak · **Industry:** Packaging / manufacturing · **Scale:** Global manufacturing with on-prem systems
 
@@ -19,7 +19,7 @@ strict network controls and consistent governance.
 
 ## Labs to run
 - `labs/section-04-modules-and-networking/11..13` (VNet peering).
-- `labs/section-05-operations-and-landing-zones/12-landing-zone-policy` and `14-diagnostic-settings`.
+- `labs/section-05-operations-and-landing-zones/109-landing-zone-policy` and `14-diagnostic-settings`.
 
 ## Source / verify
 Verified source: https://www.casestudies.com/company/microsoft-azure/case-study/tetra-pak-enhances-its-industry-advantage-and-sustainability-goals-with-azure-iot

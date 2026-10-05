@@ -1,4 +1,4 @@
-﻿# Case Study 03 — Carlsberg
+# Case Study 03 — Carlsberg
 
 **Organization:** Carlsberg · **Industry:** Beverages · **Scale:** Multi-market enterprise
 
@@ -18,8 +18,8 @@ self-serve applications **without** violating compliance.
 - Reduced configuration drift.
 
 ## Labs to run
-- `labs/section-05-operations-and-landing-zones/06-landing-zone-rg` through `12-landing-zone-policy`.
-- `labs/section-05-operations-and-landing-zones/05-resource-locks`.
+- `labs/section-05-operations-and-landing-zones/103-landing-zone-rg` through `12-landing-zone-policy`.
+- `labs/section-05-operations-and-landing-zones/102-resource-locks`.
 
 ## Source / verify
 Verify at Microsoft Customer Stories (https://www.microsoft.com/en-us/customerstories — search "Carlsberg Azure") and HashiCorp customers (https://www.hashicorp.com/customers).

@@ -1,4 +1,4 @@
-﻿# Case Study 02 — Mercedes-Benz
+# Case Study 02 — Mercedes-Benz
 
 **Organization:** Mercedes-Benz · **Industry:** Automotive / connected mobility · **Scale:** Connected-vehicle platform across regions
 
@@ -18,9 +18,9 @@ strict networking controls between vehicle-ingest, processing, and back-office t
 - Repeatable multi-region rollout.
 
 ## Labs to run
-- `labs/section-04-modules-and-networking/09-traffic-manager` and `10` — multi-region routing.
-- `labs/section-04-modules-and-networking/25-firewall-policy` — central firewall.
-- `labs/section-06-workflows-and-cicd/08-aks` — Kubernetes clusters.
+- `labs/section-04-modules-and-networking/81-traffic-manager` and `10` — multi-region routing.
+- `labs/section-04-modules-and-networking/97-firewall-policy` — central firewall.
+- `labs/section-06-workflows-and-cicd/121-aks` — Kubernetes clusters.
 
 ## Source / verify
 Verify at Microsoft Customer Stories (https://www.microsoft.com/en-us/customerstories — search "Mercedes-Benz Azure") and HashiCorp customers (https://www.hashicorp.com/customers).
