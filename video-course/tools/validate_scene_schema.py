@@ -39,7 +39,8 @@ FIXED_NEXT = ("Now that we understand how this Terraform configuration works, "
               "in the next part of this video, we'll move to a real-world demo "
               "and deploy it in Microsoft Azure.")
 TYPES = {"TITLE", "CONCEPT", "CODE", "TERMINAL", "DIAGRAM", "RECAP", "NEXT",
-         "PORTAL", "ITERATION_EXPANSION", "STATE_ADDRESS"}
+         "PORTAL", "ITERATION_EXPANSION", "STATE_ADDRESS", "FOR_EACH_MAP",
+         "DYNAMIC_BLOCK"}
 # fragments assembled at runtime: the scanner must never trip on
 # its own source when it scans the synced production source
 LEAK_RE = re.compile("|".join((
@@ -186,7 +187,8 @@ def _validate(scenes, ep, sources=None):
                         f"{sid}: TERMINAL_INTEGRITY_QC — invented duration(s) "
                         f"{invented[:3]} in fixture; deterministic mocks must "
                         f"omit unpredictable timings (plan §33.14)")
-        elif typ in ("ITERATION_EXPANSION", "STATE_ADDRESS"):
+        elif typ in ("ITERATION_EXPANSION", "STATE_ADDRESS", "FOR_EACH_MAP",
+                 "DYNAMIC_BLOCK"):
             # asset-less transform types: the component renders the stages,
             # narration drives per-step focus (never a pre-rendered image)
             check(not s.get("asset"), f"{sid}: {typ} is asset-less — remove 'asset'")

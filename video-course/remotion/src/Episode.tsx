@@ -10,6 +10,8 @@ import {RecapScene} from './components/RecapScene';
 import {NextEpisodeScene} from './components/NextEpisodeScene';
 import {IterationExpansionScene} from './components/IterationExpansionScene';
 import {StateAddressScene} from './components/StateAddressScene';
+import {ForEachMapScene} from './components/ForEachMapScene';
+import {DynamicBlockScene} from './components/DynamicBlockScene';
 
 export type TimedScene = {
   id: string;
@@ -44,6 +46,8 @@ const sceneComponent: Record<string, React.FC<any>> = {
   NEXT: NextEpisodeScene,
   ITERATION_EXPANSION: IterationExpansionScene,
   STATE_ADDRESS: StateAddressScene,
+  FOR_EACH_MAP: ForEachMapScene,
+  DYNAMIC_BLOCK: DynamicBlockScene,
 };
 
 export const Episode: React.FC<EpisodeProps> = (props) => {

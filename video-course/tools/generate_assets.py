@@ -87,9 +87,10 @@ def main():
                  spec, "-o", out])
         else:
             # no asset file for this visual_type. Asset-less transform types
-            # (ITERATION_EXPANSION, STATE_ADDRESS, and the later transform
-            # family) render themselves in Remotion from scenes.json data —
-            # never pre-rendered images, so nothing to generate here.
+            # (ITERATION_EXPANSION, STATE_ADDRESS, FOR_EACH_MAP, and the
+            # later transform family) render themselves in Remotion from
+            # scenes.json data — never pre-rendered images, so nothing to
+            # generate here.
             continue
         print(f"[assets] {asset}")
         n += 1

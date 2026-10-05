@@ -23,7 +23,8 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from course_index import episode_dir, load_course_manifest, resolve_lab  # noqa: E402
+from course_index import (episode_dir, load_course_manifest, public_rel_path,
+                          resolve_lab)  # noqa: E402
 from sync_ci_inputs import sync_episode  # noqa: E402
 
 WORKFLOW = "render-course-video.yml"
@@ -82,12 +83,46 @@ def _origin_repo():
     return url.replace("https://github.com/", "")
 
 
+def normalize_part_names(final_dir, ep):
+    """Deliverable naming convention (user, 2026-09-27): final/ part files
+    carry the LOCAL lab folder name (e.g. 27-multiple-containers-part1-main.mp4).
+    CI artifacts arrive named after the public repo path — rename on download."""
+    pub = os.path.basename(public_rel_path(ep).replace("\\", "/"))
+    loc = ep["lab"]
+    if not pub or pub == loc:
+        return []
+    renamed = []
+    for name in sorted(os.listdir(final_dir)):
+        if name.startswith(pub + "-"):
+            src = os.path.join(final_dir, name)
+            dst = os.path.join(final_dir, loc + name[len(pub):])
+            os.replace(src, dst)
+            renamed.append(f"{name} -> {os.path.basename(dst)}")
+    return renamed
+
+
 def wait_and_download(run_id, ep):
     subprocess.run(["gh", "run", "watch", str(run_id), "--exit-status"])
-    dest = os.path.join(episode_dir(ep), "final")
-    os.makedirs(dest, exist_ok=True)
-    subprocess.run(["gh", "run", "download", str(run_id),
-                    "-D", os.path.dirname(dest)])
+    import shutil as _sh
+    import tempfile
+    final_dir = os.path.join(episode_dir(ep), "final")
+    os.makedirs(final_dir, exist_ok=True)
+    tmp = tempfile.mkdtemp(prefix="ci-artifact-")
+    subprocess.run(["gh", "run", "download", str(run_id), "-D", tmp], check=True)
+    # the artifact nests the lab's final/ dir; find it wherever it lands
+    finals = [root for root, _dirs, _files in os.walk(tmp)
+              if os.path.basename(root) == "final"]
+    if not finals:
+        sys.exit(f"no final/ directory found in artifact for {ep['lab']}")
+    copied = 0
+    for src_root in finals:
+        for name in os.listdir(src_root):
+            _sh.copy2(os.path.join(src_root, name), os.path.join(final_dir, name))
+            copied += 1
+    for line in normalize_part_names(final_dir, ep):
+        print(f"[cloud] renamed: {line}")
+    _sh.rmtree(tmp, ignore_errors=True)
+    print(f"[cloud] {copied} file(s) -> {final_dir}")
 
 
 def main():
