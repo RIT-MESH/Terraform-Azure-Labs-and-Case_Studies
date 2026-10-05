@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # 🌐 Terraform on Azure — Essentials
 
@@ -43,7 +43,7 @@ from your first resource group all the way to landing zones and CI/CD.
 | | Section | Labs | You'll learn |
 |---|---|:---:|---|
 | 1️⃣ | [**Foundations**](labs/section-01-foundations/) | 25 | Storage, blobs, references, VNet, subnets, NIC, public IP, NSG, VM, variables, outputs, secrets, data disks + advanced (import, moved, templatefile, cidrsubnet) |
-| 2️⃣ | [**Meta-arguments & repetition**](labs/section-02-meta-arguments/) | 21 | `count`, `for_each`, availability sets/zones, Key Vault, data sources, dynamic blocks, provisioners, Bastion |
+| 2️⃣ | [**Meta-arguments & repetition**](labs/section-02-meta-arguments/) | 25 | `count`, `for_each`, availability sets/zones, Key Vault, data sources, dynamic blocks, provisioners, Bastion |
 | 3️⃣ | [**Web apps & databases**](labs/section-03-web-apps-and-databases/) | 22 | App Service & slots, lifecycle, tags, Azure SQL, MySQL, connecting apps to databases, VNet integration + advanced (autoscale, source control, Entra ID, MySQL HA) |
 | 4️⃣ | [**Modules & networking**](labs/section-04-modules-and-networking/) | 25 | Local modules, Load Balancer, VMSS w/ autoscale, Traffic Manager, VNet peering, App Gateway, Azure Firewall + advanced (internal LB, path routing, SSL, firewall policy) |
 | 5️⃣ | [**Operations & landing zones**](labs/section-05-operations-and-landing-zones/) | 16 | Azure Monitor, metric alerts, Log Analytics, RBAC, resource locks, a full Application Landing Zone + advanced (custom policy, diagnostics, activity alerts, managed identity) |
