@@ -5,6 +5,14 @@
 # Key Vault stores secrets/keys/certs centrally so they never sit in code or state
 # on a laptop. We create a vault, grant the current user access, and store a secret.
 
+# The secret VALUE comes from an input, never from the source: sensitive = true
+# hides it in plan/apply output, and with no default Terraform prompts for it
+# (or pass -var / tfvars). Matches the section-01 convention for key material.
+variable "db_password" {
+  type      = string
+  sensitive = true
+}
+
 # Read the current signed-in principal (object_id) to grant it permissions.
 data "azurerm_client_config" "current" {}
 
@@ -48,10 +56,11 @@ resource "azurerm_key_vault" "this" {
   }
 }
 
-# A secret stored in the vault. The VALUE is sensitive; it stays in the vault.
+# A secret stored in the vault. The VALUE comes from var.db_password — never a
+# literal in the source. It still lands in state (see README gotchas).
 resource "azurerm_key_vault_secret" "db_password" {
   name         = "db-password"
-  value        = "SuperSecret-${random_string.suffix.result}"
+  value        = var.db_password
   key_vault_id = azurerm_key_vault.this.id
 }
 

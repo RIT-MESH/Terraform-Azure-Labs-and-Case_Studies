@@ -1,8 +1,10 @@
 # 12 — Availability Zones
 
-Availability Zones are physically separate datacenters with independent power. Pinning a
-VM to a zone (`zone = 1`) gives a 99.99% SLA. This lab creates three VMs, one per zone,
-by zipping a list of zones with `count`.
+Availability Zones are physically separate datacenters with independent power. A VM
+pinned to a zone contributes to the 99.99% VM SLA only when you also use premium SSD
+or ultra disks and span two or more zones (the exact terms live in Microsoft's SLA
+page). This lab creates three VMs, one per zone, by zipping a list of zones with
+`count`.
 
 ## What it creates
 
@@ -37,7 +39,8 @@ terraform destroy
   the fan-out and `local.zones[count.index]` maps instance i to zone i.
 - `zone = tostring(...)` — the `zone` attribute is a string in the azurerm provider,
   so the number must be converted explicitly.
-- Zones vs sets: zones span **datacenters** (99.99% SLA, better isolation) and cost
-  nothing extra; availability sets are the older within-datacenter option (99.95%).
+- Zones vs sets: zones span **datacenters** and (with premium/ultra disks across
+  2+ zones) support a 99.99% VM SLA, at no extra cost; availability sets are the
+  older within-datacenter option (up to 99.95%).
 - Zone must be chosen at VM creation; it cannot be changed later without recreating.
 - Both VMs and NICs here are zonal resources — a zonal failure only removes one VM.

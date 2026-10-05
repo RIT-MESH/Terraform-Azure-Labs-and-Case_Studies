@@ -9,8 +9,9 @@ governance pattern: discovery → bulk action.
 > discovery here is driven by the names you pass in rather than a subscription-wide
 > listing — the `for_each`-over-data pattern is unchanged.
 
-> This lab modifies existing resource groups in your subscription. Run it in a sandbox
-> subscription, or restrict it by using the `filter` argument of the data source.
+> This lab only **reads and reports** on existing resource groups — `data` blocks
+> create and change nothing. Passing names that don't exist fails at plan time,
+> which makes a wrong list safe to discover.
 
 ## What it creates
 

@@ -25,7 +25,7 @@ only to show the mechanics. Notice `connection {}` and the `self` reference.
 cd 20-provisioners
 terraform init
 terraform plan
-terraform apply -var=admin_ssh_key="ssh-rsa AAAA... your@email"
+terraform apply -var=admin_public_key="ssh-rsa AAAA... your@email" -var=admin_private_key="$(cat ~/.ssh/id_rsa)"
 terraform output public_ip
 terraform destroy
 ```
@@ -47,8 +47,11 @@ Watch the apply output: after the VM is created, Terraform SSHes in and streams 
 - `self.public_ip_address` refers to the resource the provisioner lives on — you can't
   use the regular `azurerm_public_ip.web.ip_address` inside it (it's not known during
   provisioning), but `self` is.
-- The `private_key = var.admin_ssh_key` in `connection` is the key Terraform logs in
-  with — it must match the `admin_ssh_key` you gave the VM.
+- The `private_key = var.admin_private_key` in `connection` is the key Terraform
+  logs in with — it must be the private half of the keypair whose **public** half
+  (`admin_public_key`) the VM trusts. A public key is not a private key, so this lab
+  keeps them as two separate sensitive variables (never paste a `.pub` into
+  `admin_private_key` — the SSH handshake would fail).
 - Provisioners are invisible to `terraform plan` and a failing script marks the
   resource "tainted" (destroyed and recreated on the next apply).
 - Suspected gap (left as-is on purpose): the NSG has no subnet association, so inbound

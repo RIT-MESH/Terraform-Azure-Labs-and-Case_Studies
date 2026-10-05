@@ -12,7 +12,7 @@ principal.
 | --------------------------------------- | -------------------------------- | ------------------------------------------- |
 | `azurerm_resource_group.this`           | Resource group `rg-kv-meta`      | 1                                           |
 | `azurerm_key_vault.this`                | Key Vault `kv-<random>`          | 1, Standard SKU, soft delete 7 days         |
-| `azurerm_key_vault_secret.db_password`  | Secret `db-password`             | 1, value never printed in the CLI           |
+| `azurerm_key_vault_secret.db_password`  | Secret `db-password`             | 1, value comes from `var.db_password`       |
 | `data.azurerm_client_config.current`    | (no resource)                    | reads tenant_id / object_id of `az login` user |
 
 ## Commands
@@ -22,7 +22,7 @@ cd 13-key-vault
 az login            # the data source + access policy use THIS identity
 terraform init
 terraform plan
-terraform apply
+terraform apply -var=db_password="<a strong password>"
 terraform output vault_name
 terraform destroy
 ```
@@ -46,7 +46,8 @@ terraform destroy
   conflict unless you purge or wait.
 - `purge_protection_enabled = false` is lab-only; production vaults should enable it
   (nothing can hard-delete the vault, not even its owner).
-- The secret value is written into Terraform **state in plain text** — for real
-  secrets use `-var` from a secure prompt, or reference an existing vault secret with
-  a data source.
+- The secret value comes from `var.db_password` (`sensitive`, no default — Terraform
+  prompts or takes `-var`), so no secret literal ever sits in the source. It is still
+  written into Terraform **state in plain text** — for real secrets use `-var` from a
+  secure prompt, or reference an existing vault secret with a data source.
 - `sensitive = true` on the output only redacts the CLI output, not the state file.

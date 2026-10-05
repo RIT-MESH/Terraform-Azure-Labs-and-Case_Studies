@@ -1,8 +1,9 @@
 # 11 — Availability Sets
 
 An Availability Set spreads VMs across fault domains (hardware) and update domains
-(patch waves) within a single datacenter, giving you a 99.95% SLA without zones. Two
-VMs reference the same availability set id.
+(patch waves) within a single datacenter — with VMs spread across 2+ fault domains
+and 2+ update domains, Microsoft's SLA for that VM pair goes up to 99.95% (no zones
+involved). Two VMs reference the same availability set id.
 
 ## What it creates
 

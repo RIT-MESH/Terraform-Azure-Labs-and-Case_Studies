@@ -3,10 +3,15 @@
 # `plan`, and fail the run if they error. Prefer custom_data/cloud-init. This lab
 # shows a remote-exec over SSH just to demonstrate the mechanics.
 
-# Sensitive input: your SSH key material. Note it is used BOTH as the VM's
-# public_key (admin_ssh_key block) and as the connection block's private_key —
-# see the README gotchas about what that means for the provisioner.
-variable "admin_ssh_key" {
+# Sensitive inputs: TWO different halves of the same keypair. admin_public_key is
+# what the VM trusts (the admin_ssh_key block); admin_private_key is what Terraform
+# signs with when the provisioner SSHes in (the connection block). A public key can
+# never stand in for a private key — they are separate variables on purpose.
+variable "admin_public_key" {
+  type      = string
+  sensitive = true
+}
+variable "admin_private_key" {
   type      = string
   sensitive = true
 }
@@ -84,7 +89,7 @@ resource "azurerm_linux_virtual_machine" "web" {
   network_interface_ids = [azurerm_network_interface.web.id]
   admin_ssh_key {
     username   = "azureadmin"
-    public_key = var.admin_ssh_key
+    public_key = var.admin_public_key
   }
   os_disk {
     caching              = "ReadWrite"
@@ -113,7 +118,7 @@ resource "azurerm_linux_virtual_machine" "web" {
       type        = "ssh"
       host        = self.public_ip_address
       user        = "azureadmin"
-      private_key = var.admin_ssh_key
+      private_key = var.admin_private_key
     }
   }
 }

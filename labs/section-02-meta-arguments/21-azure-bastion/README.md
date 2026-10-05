@@ -6,7 +6,8 @@ It needs a dedicated subnet named `AzureBastionSubnet` with a /26 or larger pref
 This lab deploys a VM with **no public IP** plus a Bastion host, then you connect from the
 portal: *Connect → Bastion → username/password*.
 
-> Bastion Standard needs ~10 minutes to deploy. Be patient.
+> Bastion here uses the **Basic** SKU (the provider default — the config sets no
+  `sku`), which still needs ~10 minutes to deploy. Be patient.
 
 ## What it creates
 

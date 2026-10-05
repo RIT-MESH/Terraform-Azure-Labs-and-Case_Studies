@@ -2,7 +2,9 @@
 # Teaches: count sized by length(local.zones) and count.index used as a lookup
 # into the zones list (local.zones[count.index]) to give each VM its own zone.
 # Zones are physically separate datacenters with independent power. Pinning a VM
-# to a zone gives a 99.99% SLA. Here 3 VMs, one per zone (1, 2, 3).
+# to a zone counts toward the 99.99% VM SLA when premium/ultra disks are used and
+# the VMs span 2+ zones (with Standard SSD storage this lab alone is not SLA-qualifying).
+# Here 3 VMs, one per zone (1, 2, 3).
 
 # Sensitive input: your SSH public key (no default → Terraform prompts, or pass
 # with -var / tfvars). sensitive = true hides it in plan/apply output.

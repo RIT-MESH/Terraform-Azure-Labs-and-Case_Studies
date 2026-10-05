@@ -32,7 +32,10 @@ terraform destroy
 - Resource group `rg-multi-vms`: two NICs and two VMs named `...-0` and `...-1`.
 - Click `vm-web-0` → **Networking**: the NIC `nic-vm-0` is attached and sits in
   `snet-web` with a dynamic private IP in `10.190.1.0/24`.
-- With your key you can `ssh azureadmin@<public or Bastion IP>` — no password.
+- These VMs have **private IPs only** — the config creates no public IP and no
+  Bastion, so you cannot `ssh` to them straight from the internet. To connect, add
+  a public IP/Bastion yourself or jump from another VM in `snet-web`; the key
+  (`azureadmin`, no password) is what the VMs accept.
 
 ## Key concepts / gotchas
 

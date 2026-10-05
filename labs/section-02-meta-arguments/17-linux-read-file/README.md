@@ -21,7 +21,7 @@ Also introduces `templatefile()` as the next step for injecting a templated scri
 ```bash
 cd 17-linux-read-file
 # optional: drop your own public key next to main.tf
-ssh-keygen -t rsa -b 4096 -f id_rsa.pub -N "" -C ""   # or copy an existing key
+ssh-keygen -t rsa -b 4096 -f id_rsa -N "" -C ""   # creates id_rsa + id_rsa.pub
 terraform init
 terraform plan
 terraform apply
